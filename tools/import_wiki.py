@@ -130,6 +130,7 @@ class PageCtx:
         self.links = {"xref": 0, "wiki": 0, "unresolved": [], "external": 0, "anchor": 0}
         self.images = []
         self.warnings = []
+        self.infobox_icon = None
 
     def protect(self, adoc, kind="ADOC"):
         self.ntok += 1
@@ -410,12 +411,20 @@ def header(name, path, ctx, aliases, revision):
     if aliases:
         lines.append(":page-aliases: " + ", ".join(aliases))
     g = ctx.guicommand or {}
+    if g:
+        lines.append(f":page-command: {name}")
+    if ctx.infobox_icon:
+        lines.append(f":page-icon: {ctx.infobox_icon}")
     if g.get("menulocation"):
         lines.append(f":page-menu: {plain(g['menulocation'], ctx)}")
+    if g.get("workbenches"):
+        lines.append(f":page-workbench: {plain(g['workbenches'], ctx)}")
     if g.get("shortcut"):
         lines.append(f":page-shortcut: {plain(g['shortcut'], ctx)}")
     if g.get("version"):
         lines.append(f":page-since: {plain(g['version'], ctx)}")
+    if g.get("seealso"):
+        lines.append(f":page-see-also: {plain(g['seealso'], ctx)}")
     lines.append(":page-imported: true")
     lines.append("")
     return "\n".join(lines)
@@ -611,6 +620,9 @@ def main():
             rev = ""
         ctx = PageCtx(name)
         pre = pre_pass(wikitext, ctx, page_map, images)
+        if ctx.infobox_icon:
+            images.add(ctx.infobox_icon)
+            ctx.images.append(ctx.infobox_icon)
         path = page_map[name]
         dest = os.path.join(pages_dir, path)
         os.makedirs(os.path.dirname(dest), exist_ok=True)
