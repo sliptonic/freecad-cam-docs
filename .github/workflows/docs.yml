@@ -10,9 +10,11 @@ permissions:
   contents: write
   pull-requests: write
 
+# Deploys from different branches write to the same gh-pages branch, so they must not run
+# concurrently; pull-request previews are independent per PR.
 concurrency:
-  group: docs-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'deploy' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
