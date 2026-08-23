@@ -8,5 +8,6 @@ nav:
   - modules/ROOT/nav.adoc
 asciidoc:
   attributes:
+    page-has-l10n: 'y'
     freecad-version: wiki snapshot 2026-08-22
     page-status: ''
