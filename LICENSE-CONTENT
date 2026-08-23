@@ -1,0 +1,16 @@
+Documentation content in this repository (everything under modules/, on every branch) is licensed
+under the Creative Commons Attribution 3.0 Unported License (CC BY 3.0):
+
+    https://creativecommons.org/licenses/by/3.0/
+
+Pages on the `wiki` branch are derived from the FreeCAD wiki (https://wiki.freecad.org/), whose
+content is available under the Creative Commons Attribution license unless otherwise noted.
+Copyright remains with the FreeCAD wiki contributors. Each imported page records its source page
+and revision in its `:page-origin:` attribute.
+
+Pages on the `DEV` branch are new text by the contributors to this repository, released under the
+same CC BY 3.0 license so that they can flow back to the FreeCAD wiki or any FreeCAD documentation
+project without relicensing.
+
+Tooling in this repository (tools/, .github/, supplemental-ui/, package.json) is licensed under the
+GNU Lesser General Public License v2.1 or later; see LICENSE.

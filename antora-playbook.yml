@@ -1,0 +1,43 @@
+# Site assembly. Each listed branch of this repository becomes one documentation version,
+# identified by the `version` key in that branch's antora.yml.
+site:
+  title: FreeCAD CAM documentation (experiment)
+  url: https://sliptonic.github.io/freecad-cam-docs
+  start_page: cam::index.adoc
+  keys:
+    repository: https://github.com/sliptonic/freecad-cam-docs
+
+content:
+  sources:
+    - url: .
+      branches:
+        - wiki
+        - DEV
+      edit_url: 'https://github.com/sliptonic/freecad-cam-docs/edit/{refname}/{path}'
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./supplemental-ui
+
+antora:
+  extensions:
+    - require: '@antora/lunr-extension'
+
+asciidoc:
+  attributes:
+    experimental: ''
+    page-pagination: ''
+    hide-uri-scheme: ''
+    sectanchors: ''
+    idprefix: ''
+    idseparator: '-'
+
+runtime:
+  log:
+    failure_level: warn   # an unresolved xref fails the build
+  fetch: false
+
+output:
+  dir: ./build/site

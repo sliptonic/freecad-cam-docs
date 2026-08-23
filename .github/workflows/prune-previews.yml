@@ -1,0 +1,28 @@
+name: prune preview
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Remove pr-${{ github.event.number }}
+        run: |
+          d="pr-${{ github.event.number }}"
+          if [ -d "$d" ]; then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git rm -rq "$d"
+            git commit -m "prune: $d"
+            git push
+          else
+            echo "nothing to prune"
+          fi

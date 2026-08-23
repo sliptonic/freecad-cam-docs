@@ -1,0 +1,5 @@
+= CAM Workbench
+:description: Documentation for the FreeCAD CAM workbench.
+
+This is the placeholder start page of the DEV branch. The wiki import lands on the `wiki` branch;
+the rewrite replaces this page.

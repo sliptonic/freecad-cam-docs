@@ -1,0 +1,97 @@
+name: docs
+
+on:
+  push:
+    branches: [DEV, wiki]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: docs-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Antora reads documentation versions from local branch refs. Make every content branch
+      # available as a local branch (actions/checkout only creates one).
+      - name: Materialize content branches
+        run: |
+          for b in wiki DEV; do
+            git show-ref --verify --quiet "refs/heads/$b" || git branch "$b" "origin/$b" || true
+          done
+          git branch -a
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Pull-request builds use the checked-out PR content (HEAD) in place of the branch it
+      # targets, so reviewers see the change rendered alongside the other version.
+      - name: Select playbook
+        id: playbook
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python3 tools/pr_playbook.py --base "${{ github.base_ref }}" \
+              --url "https://sliptonic.github.io/freecad-cam-docs/pr-${{ github.event.number }}" \
+              > antora-playbook-pr.yml
+            echo "file=antora-playbook-pr.yml" >> "$GITHUB_OUTPUT"
+          else
+            echo "file=antora-playbook.yml" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build site
+        run: npx antora --fetch --stacktrace "${{ steps.playbook.outputs.file }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: build/site
+
+      - name: Deploy (push to DEV or wiki)
+        if: github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/site
+          keep_files: true          # keep pr-<n>/ previews
+          commit_message: 'deploy: ${{ github.sha }}'
+
+      - name: Deploy preview (pull request)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/site
+          destination_dir: pr-${{ github.event.number }}
+          keep_files: true
+          commit_message: 'preview: pr-${{ github.event.number }} ${{ github.sha }}'
+
+      - name: Comment preview URL
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = `https://sliptonic.github.io/freecad-cam-docs/pr-${context.issue.number}/`;
+            const marker = '<!-- docs-preview -->';
+            const body = `${marker}\nDocumentation preview: ${url}\n\nBuilt from ${context.sha}.`;
+            const {data: comments} = await github.rest.issues.listComments({
+              owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number});
+            const mine = comments.find(c => c.body && c.body.startsWith(marker));
+            if (mine) {
+              await github.rest.issues.updateComment({owner: context.repo.owner, repo: context.repo.repo, comment_id: mine.id, body});
+            } else {
+              await github.rest.issues.createComment({owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number, body});
+            }

@@ -1,0 +1,13 @@
+# Component descriptor for the DEV branch (the rewrite against FreeCAD main).
+name: cam
+title: FreeCAD CAM
+version: DEV
+display_version: DEV (pre-release)
+prerelease: true
+start_page: index.adoc
+nav:
+  - modules/ROOT/nav.adoc
+asciidoc:
+  attributes:
+    freecad-version: 26.3dev
+    page-status: ''
