@@ -141,6 +141,7 @@ def unfinished(pos, named, ctx):
 
 def very_important(pos, named, ctx):
     txt = _text(pos[0]) if pos else ""
+    txt = re.sub(r"\s*<br\s*/?>\s*", " ", txt).strip()
     return f"\nWARNING: {txt}\n" if txt else ""
 
 
