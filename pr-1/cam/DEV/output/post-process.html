@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Post :: FreeCAD CAM documentation (experiment) — pull request preview</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/pr-1/cam/wiki-2026-08/output/post-process.html">
+    <link rel="prev" href="../job/job.html">
+    <link rel="next" href="../job/sanity-check.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/pr-1">FreeCAD CAM documentation (experiment) — pull request preview</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="post-process.html" selected>DEV (pre-release)</option>
+            <option value="../../wiki-2026-08/output/post-process.html">Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="DEV">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">Waterline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">DEV (pre-release)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../wiki-2026-08/index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../wiki-2026-08/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Project Commands</li>
+    <li><a href="post-process.html">Post Process</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">DEV (pre-release)</button>
+  <div class="version-menu">
+    <a class="version is-current" href="post-process.html">DEV (pre-release)</a>
+    <a class="version" href="../../wiki-2026-08/output/post-process.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/HEAD/modules/ROOT/pages/output/post-process.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Post</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="dlist guicommand">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Post Process</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><kbd>kbd:[P</kbd> <kbd>P</kbd>]</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="24"></span> <a href="#">CAM Post</a> command exports the selected <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Job</a> to a G-code file.</p>
+</div>
+<div class="paragraph">
+<p><strong>Each CNC Controller speaks a specific G-code dialect, requiring a Dialect-correct Postprocessor to translate the final output from the agnostic internal FreeCAD G-code dialect.</strong></p>
+</div>
+<div class="sect2">
+<h3 id="typical-functions-of-the-postprocessor-include"><a class="anchor" href="#typical-functions-of-the-postprocessor-include"></a>Typical functions of the Postprocessor include</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Using a correct Job output G-code file extension.</p>
+</li>
+<li>
+<p>Selecting the G-code commands. CNC controllers typically support a subset of available G-code commands. The super-set of G-code commands contains powerful and specialized commands that otherwise must be processed using multiple simpler commands. Postprocessors are written to select the best G-code for an Operation, available on the target.</p>
+</li>
+<li>
+<p>Formatting the G-code syntax by reordering the Feed, X, Y, Z, A, and B inputs, and the precision.</p>
+</li>
+<li>
+<p>Inserting a Pre-amble to set units, units format, Work plane, coordinate system, etc&#8230;&#8203;</p>
+</li>
+<li>
+<p>Inserting a Post-amble to park the machine, stop it, process any arguments.</p>
+</li>
+<li>
+<p>Inserting Tool changes, or suppressing them between subsequent operations using the same tool.</p>
+</li>
+<li>
+<p>Formatting the Feed and Speed rate information to revolutions per minute, or per second.</p>
+</li>
+<li>
+<p>Formatting Function Call Naming and Calling.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="postprocessor-customization"><a class="anchor" href="#postprocessor-customization"></a>Postprocessor Customization</h3>
+<div class="paragraph">
+<p>If you want to write your own postprocessor, have a look at the <a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a> page.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> Several provided Postprocessors generate suitable code for many CNC controllers, or can be used as templates for modification</p>
+</div>
+<div class="paragraph">
+<p>Postprocessors contain configuration flags and are designed to be tuned by adding G-codes and M-codes to provided definitions for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Machine initialization</p>
+</li>
+<li>
+<p>Job finalization</p>
+</li>
+<li>
+<p>Tool-Changes</p>
+</li>
+<li>
+<p>Cooling on /off</p>
+</li>
+<li>
+<p>Etc&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Postprocessors use <a href="../reference/scripting.html#the-freecad-internal-g-code-format" class="xref page">FreeCAD&#8217;s internal G-code dialect</a> in conjunction with the Postprocessor configuration definitions, to generate Dialect-Correct G-code for target machines. This allows the CAM workbench to generate correct G-code to target various CNC machine controllers by invoking different Postprocessors.</p>
+</div>
+<div class="paragraph">
+<p>CNC Machine Controller types include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CNC mills</p>
+</li>
+<li>
+<p>CNC lathes</p>
+</li>
+<li>
+<p>3D Printers</p>
+</li>
+<li>
+<p>DragKnife Cutters</p>
+</li>
+<li>
+<p>Laser Cutters</p>
+</li>
+<li>
+<p>Engravers</p>
+</li>
+<li>
+<p>Plasma Torch Cutters</p>
+</li>
+<li>
+<p>Wire Benders</p>
+</li>
+<li>
+<p>EDM Cutters</p>
+</li>
+<li>
+<p>Etc&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If only one CNC machine is used, or if all CNC machines share a common Postprocesor, the CAM workbench would need to include only a single Postprocessor. If a single Postprocessor is inadequate to output G-code for all target CNC controllers, then multiple Postprocessors must be installed.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select a <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Job</a> in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>.</p>
+</li>
+<li>
+<p>There are several ways to invoke the command:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Press the <span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="16"></span> <a href="#">Post Process</a> button.</p>
+</li>
+<li>
+<p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Post Process</b></span> option from the menu.</p>
+</li>
+<li>
+<p>Use the keyboard shortcut: <kbd>P</kbd> then <kbd>P</kbd>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Confirm the <b class="menuref">Output File</b> name and directory</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Output file and Postprocessor properties can be set in the <a href="../job/job.html" class="xref page">Job</a>, at any time, prior to invoking the Postprocessor.</p>
+</div>
+<div class="paragraph">
+<p>The provided Postprocessors are written with comments indicating areas containing Flags, Configuration Variables, and Sections of G-Codes and M-Codes that are to be used by the Postprocessor to configure the output.</p>
+</div>
+<div class="paragraph">
+<p>Typical Configuration True/False Flags include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OUTPUT_COMMENTS</strong> (True = Allow, False = Suppress): Used to insert Text Comments in the output G-code file.</p>
+</li>
+<li>
+<p><strong>OUTPUT_HEADER</strong> (True = Allow, False = Suppress): Used to insert Text Headers in the output G-code file.</p>
+</li>
+<li>
+<p><strong>OUTPUT_LINE_NUMBERS</strong> (True = Allow, False = Suppress): Used to insert Line Numbers in the output G-code file.</p>
+</li>
+<li>
+<p><strong>SHOW_EDITOR</strong> (True = Allow, False = Suppress): Used to show the output G-code in a Pop-up window when invoking the Postprocessor.</p>
+</li>
+<li>
+<p><strong>MODAL</strong> (True = Allow, False = Suppress): Used to reduce the number of output G-code lines by stripping Mode information when the Mode is not changing.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Typical Configuration Variables include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>LINENR</strong> (Line Number): Used to Set the Line Number index.</p>
+</li>
+<li>
+<p><strong>UNITS</strong> (G20 or G21): Used to explicitly communicate to the target CNC controller what Units to use to interpret the final output file.</p>
+</li>
+<li>
+<p><strong>MACHINE_NAME</strong> (Name of Target CNC Mill): Used to Insert a machine name label in the final output file.</p>
+</li>
+<li>
+<p><strong>PRECISION</strong>: Used to Set the number of digits to include after the decimal place in final output file</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Typical Configuration Sections include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>PREAMBLE</strong>: Code configuration inserted at beginning of the Job.</p>
+</li>
+<li>
+<p><strong>POSTAMBLE</strong>: Code configuration appended to the Job, providing for parking the machine, etc&#8230;&#8203;</p>
+</li>
+<li>
+<p><strong>TOOL_CHANGE</strong>: Code inserted with each tool change in the Job.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Job Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Post Processor tab</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Post Processor</b></span> is used to set the default Postprocessor selected on Job creation. This allows CAM workbench to be configured to only display desired Postprocessors, and to set a default.</p>
+</div>
+<div class="paragraph">
+<p>Post-processing settings can be taken either from the Job&#8217;s selected postprocessor or from a selected machine configuration. If a machine configuration is used, it can define the postprocessor and related output options.</p>
+</div>
+<div class="paragraph">
+<p>Included Postprocessors are saved in <strong>FreeCAD/Mod/CAM/CAM/Post/scripts</strong> by default:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>centroid</p>
+</li>
+<li>
+<p>comparams</p>
+</li>
+<li>
+<p>dxf</p>
+</li>
+<li>
+<p>dynapath</p>
+</li>
+<li>
+<p>grbl, including support for bCNC header blocks using Job output argument --bcnc</p>
+</li>
+<li>
+<p>jtech (laser)</p>
+</li>
+<li>
+<p><a href="http://linuxcnc.org/docs/html/gcode/g-code.html#gcode:g17-g19.1">linuxcnc</a></p>
+</li>
+<li>
+<p>mach3_mach4</p>
+</li>
+<li>
+<p>nccad</p>
+</li>
+<li>
+<p>opensbp</p>
+</li>
+<li>
+<p>phillips</p>
+</li>
+<li>
+<p>refactored* (These postprocessors are works-in-progress and will be changing a lot)</p>
+</li>
+<li>
+<p>rml</p>
+</li>
+<li>
+<p>smoothie</p>
+</li>
+<li>
+<p>uccnc</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="limitations"><a class="anchor" href="#limitations"></a>Limitations</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Do <strong>not</strong> use the <span class="menuseq"><b class="menu">File</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Export</b></span> menu option for export to G-code, it will produce damaged G-code!</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../job/job.html">New Job</a></span>
+  <span class="next"><a href="../job/sanity-check.html">Sanity Check</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

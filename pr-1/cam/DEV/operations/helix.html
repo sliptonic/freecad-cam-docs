@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Helix :: FreeCAD CAM documentation (experiment) — pull request preview</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/pr-1/cam/wiki-2026-08/operations/helix.html">
+    <link rel="prev" href="mill-face.html">
+    <link rel="next" href="adaptive.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/pr-1">FreeCAD CAM documentation (experiment) — pull request preview</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="helix.html" selected>DEV (pre-release)</option>
+            <option value="../../wiki-2026-08/operations/helix.html">Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="DEV">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="waterline.html">Waterline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">DEV (pre-release)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../wiki-2026-08/index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../wiki-2026-08/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Basic Operations</li>
+    <li><a href="helix.html">Helix</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">DEV (pre-release)</button>
+  <div class="version-menu">
+    <a class="version is-current" href="helix.html">DEV (pre-release)</a>
+    <a class="version" href="../../wiki-2026-08/operations/helix.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/HEAD/modules/ROOT/pages/operations/helix.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Helix</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist guicommand">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Helix</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> <a href="#">CAM Helix</a> command appends a helical clearing operation to the Job. Clockwise Helix outputs (G2) G-Code commands. Counterclockwise outputs (G3) G-Code commands. Step Over percentage specifies the concentric step-over as a percentage of the Tool diameter. One or more helical paths will be created at progressively different diameters, to clear the hole.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Select the <span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="16"></span> <a href="../index.html" class="xref page">CAM Workbench</a>.</p>
+</li>
+<li>
+<p>Select the <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> icon or <kbd>CAM</kbd> → <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> Helix from the top menu. This opens the <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> Helix configuration panel.</p>
+</li>
+<li>
+<p>You will be prompted with a <strong>Choose a Tool Controller</strong> pop-up window to select a Tool Controller. In older versions, in the <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> Operation tab, choose a Tool controller and confirm by pressing <b class="button">Apply</b>.</p>
+</li>
+<li>
+<p>Open the Base Geometry tab. All available holes compatible with the Helix tool in the Job Model will be selectable for processing. In the <a href="https://wiki.freecad.org/3D_View">3D View</a> select the holes by their edge or wall face and add them with the <b class="button">Add</b> button. Check that they appear in the list. Confirm that the list matches the holes that are intended for processing.</p>
+</li>
+<li>
+<p>To remove holes select them in the list and press the <b class="button">Remove</b> button.</p>
+</li>
+<li>
+<p>Ensure Start Depth, Final Depth and the helix pitch and ramp limits are correct, and adjust if not.</p>
+</li>
+<li>
+<p>Ensure Safe and Clearance Heights are correct.</p>
+</li>
+<li>
+<p>In the Operation tab, specify the helix Starting surface (outside/inside), cutting Direction (climb/conventional), and Step Over percentage.</p>
+</li>
+<li>
+<p>Click <b class="button">Apply</b> to create or update the path, <b class="button">OK</b> to apply and close the panel, or <b class="button">Cancel</b> to abort and close the panel.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Extra Offset</strong> adds a margin of material to be left unmachined. This is typically to allow a light finishing pass as a separate operation.</p>
+</div>
+<div class="paragraph">
+<p><span class="since">introduced in 26.3</span>: <strong>Max Pitch</strong> replaces <em>Pitch</em> of Helix and limits the maximum helix pitch when non-zero.</p>
+</div>
+<div class="paragraph">
+<p>Helix <strong>Max Ramp Angle</strong> limits the ramp-entry angle when non-zero. The pitch is calculated for each helix radius.</p>
+</div>
+<div class="paragraph">
+<p><strong>Start Radius</strong> is not available in the <em>Helix</em> task panel but can be edited directly in the <a href="https://wiki.freecad.org/Property_View">Property View</a>.</p>
+</div>
+<div class="paragraph">
+<p>This is the radius of material remaining at the center. By default it is zero, giving a path where the tool just touches the axis of the hole. This produces a central path cutting a hole twice the size of the tool diameter.</p>
+</div>
+<div class="paragraph">
+<p>If this parameter is set to a negative value, it can allow a smaller helix radius. For example, a negative radius equal to the tool radius will produce a zero radius helix: a.k.a. plunge cut with the endmill, should the tool be suitable. This will work as a first cut in a multi-pass operation but attempting to make a helix path with a tool the same size as the hole in the model is rejected.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="comments"><a class="anchor" href="#comments"></a>Comments</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The helix pitch limit is not respected exactly. It is always rounded to give a complete number of turns from Start Depth to Final Depth.</p>
+</li>
+<li>
+<p>Similarly Step Over is not respected exactly. It is always rounded to give a number of equal steps.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The feedrate parameter is constant across all cuts and is based on the position of the tool&#8217;s axis, thus actual feedrate of the cutting edge of the tool can vary considerably between the inner most cut and the outside surface. If the job dimensions produce a path diameter smaller than the tool diameter, this can lead to much faster cutting speeds than the feedrate given for the tool in the tool controller. This may need to considered when selecting "feed and speeds" in the <a href="../tools/tool-controller.html" class="xref page">tool controller</a> for the job.</p>
+</div>
+<div class="paragraph">
+<p>Also the current implementation only uses the horizontal tool speed for helix paths, even in the case where a tight spiral maybe nearly a vertical cut.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="properties"><a class="anchor" href="#properties"></a>Properties</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="data"><a class="anchor" href="#data"></a>Data</h3>
+<div class="paragraph">
+<p>Empty</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="view"><a class="anchor" href="#view"></a>View</h3>
+<div class="paragraph">
+<p>Empty</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See also: <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">FreeCAD Scripting Basics</a>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="mill-face.html">Face</a></span>
+  <span class="next"><a href="adaptive.html">Adaptive</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
