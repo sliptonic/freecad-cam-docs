@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM ToolShape :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/tools/tool-shape.html">
+    <link rel="prev" href="index.html">
+    <link rel="next" href="toolbit.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../DEV/index.html">DEV (pre-release) (page not in this version)</option>
+            <option value="tool-shape.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="library-manager.html">ToolBit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="add-toolbit.html">Add toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">Waterline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html">Tools</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="tool-shape.html">ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toolbit.html">ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toolbit-library.html">ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tool-controller.html">ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version">
+          <a href="../../DEV/index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>ToolBit architecture</li>
+    <li><a href="tool-shape.html">ToolShape</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Wiki (Aug 2026)</button>
+  <div class="version-menu">
+    <a class="version is-missing" href="../../DEV/index.html">DEV (pre-release)</a>
+    <a class="version is-current" href="tool-shape.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/modules/ROOT/pages/tools/tool-shape.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM ToolShape</h1>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ToolShapes are a core part of the <a href="index.html" class="xref page">CAM Tools</a> system. ToolShapes are the templates from which ToolBits are created. They represent the specific physical shape of a tool. A ToolShape does not completely describe the bit - for that some additional parameters are needed which will be added when an actual bit is parameterized from the template.</p>
+</div>
+<div class="paragraph">
+<p>Initially ToolShapes are just FreeCAD documents with a single Body created from the <span class="image"><img src="../_images/Workbench_PartDesign.svg" alt="Workbench PartDesign" width="24"></span> <a href="https://wiki.freecad.org/PartDesign_Workbench">Part Design </a> workbench.</p>
+</div>
+<div class="paragraph">
+<p>Creating new ToolShapes is an advanced topic. The most commonly needed ToolShapes already exist and are provided with the FreeCAD installation at:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On Linux it is usually <code>/usr/lib64/FreeCAD/Mod/CAM/Tools/Shape</code></p>
+</li>
+<li>
+<p>On Windows it is usually <code>C:\Program Files\FreeCAD\Mod\CAM\Tools\Shape</code></p>
+</li>
+<li>
+<p>On macOS it is usually <code>/Applications/FreeCAD.app/Contents/Resources/Mod/CAM/Tools/Shape</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>They are:</p>
+</div>
+<div class="paragraph">
+<p>::
+  <code>ballend.fcstd</code>
+ <br>
+  <code>bullnose.fcstd</code>
+ <br>
+  <code>chamfer.fcstd</code>
+ <br>
+  <code>drill.fcstd</code>
+ <br>
+  <code>endmill.fcstd</code>
+ <br>
+  <code>probe.fcstd</code>
+ <br>
+  <code>slittingsaw.fcstd</code>
+ <br>
+  <code>thread-mill.fcstd</code>
+ <br>
+  <code>v-bit.fcstd</code></p>
+</div>
+<div class="paragraph">
+<p>These can be found in the <code>Mod/CAM/Tools/Shape/</code> subdirectory where FreeCAD was installed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new FreeCAD document.</p>
+</li>
+<li>
+<p>Open the <span class="image"><img src="../_images/Workbench_PartDesign.svg" alt="Workbench PartDesign" width="16"></span> <a href="https://wiki.freecad.org/PartDesign_Workbench">PartDesign Workbench</a>.</p>
+</li>
+<li>
+<p>Create a <a href="https://wiki.freecad.org/PartDesign_Body">Body</a> and give the Body a label you want to show up in the bit selection.</p>
+</li>
+<li>
+<p>Create a <span class="image"><img src="../_images/PartDesign_NewSketch.svg" alt="PartDesign NewSketch" width="16"></span> <a href="https://wiki.freecad.org/PartDesign_NewSketch">Sketch</a> on the XZ-plane and draw half the profile of the bit.</p>
+</li>
+<li>
+<p>Constrain the bottom most center of the bit on the origin <code>(0,0)</code>. This will be the center of the axis on which the G-code will rotate the bit.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Note: Do not add dimensional constraints at this time.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Close the Sketch.</p>
+</li>
+<li>
+<p><span class="image"><img src="../_images/PartDesign_Revolution.svg" alt="PartDesign Revolution" width="16"></span> <a href="https://wiki.freecad.org/PartDesign_Revolution">Revolve</a> the Sketch around the vertical Sketch axis.</p>
+</li>
+<li>
+<p>Open the <span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="16"></span> <a href="../index.html" class="xref page">CAM Workbench</a>.</p>
+</li>
+<li>
+<p>Select the Sketch in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>. This ensures that the PropertyBag created in the next step will be nested in the Body.</p>
+</li>
+<li>
+<p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Utils</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">PropertyBag</b></span> option from the menu.</p>
+</li>
+<li>
+<p>A PropertyBag named <code>Attributes</code> is created. This PropertyBag will be used to control the dimensions in the Sketch.</p>
+</li>
+<li>
+<p>Double-click the PropertyBag in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>.</p>
+</li>
+<li>
+<p>The <b class="menuref">Property Bag</b> task panel opens.</p>
+</li>
+<li>
+<p>Click the <b class="button">Add&#8230;&#8203;</b> button.</p>
+</li>
+<li>
+<p>The <b class="menuref">Create Property</b> dialog opens.</p>
+</li>
+<li>
+<p>Create a property named <code>Diameter</code>. This property is mandatory for ToolBits. Property names are case-sensitive and may not contain spaces.</p>
+</li>
+<li>
+<p>Select <code>Shape</code> from the <b class="menuref">Group</b> dropdown list.</p>
+</li>
+<li>
+<p>Select the appropriate <b class="menuref">Type</b>.</p>
+</li>
+<li>
+<p>Optionally specify a <b class="menuref">ToolTip</b>.</p>
+</li>
+<li>
+<p>Click the <b class="button">OK</b> button.</p>
+</li>
+<li>
+<p>In the <b class="menuref">Property Bag</b> task panel enter a value for the <strong>Diameter</strong> property.</p>
+</li>
+<li>
+<p>Similarly add all other required properties.</p>
+</li>
+<li>
+<p>Click the <b class="button">OK</b> button in the <b class="menuref">Property Bag</b> task panel when done.</p>
+</li>
+<li>
+<p>Double-click the Sketch in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>.</p>
+</li>
+<li>
+<p>Add dimensional constraints and apply the properties from the created PropertyBag. For example to apply the <strong>Diameter</strong> property:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Double-click a dimension.</p>
+</li>
+<li>
+<p>Click the <span class="image"><img src="../_images/Bound-expression.svg" alt="Bound expression" width="16"></span> icon.</p>
+</li>
+<li>
+<p>Enter <code><a href="#Attributes">[Attributes]</a>.Diameter</code> in the <b class="menuref">Formula editor</b>.</p>
+</li>
+<li>
+<p>Click the <b class="button">OK</b> button twice.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Repeat this until the Sketch is fully constrained.</p>
+</li>
+<li>
+<p>Save the <code>FCStd</code> file where FreeCAD expects to find ToolBit files. See <a href="#description">Description</a> above.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Note 1. If you are denied access to the folder on Windows, start FreeCAD in ADMINISTRATOR mode.</p>
+</li>
+<li>
+<p>Note 2. The Body of the ToolBit must be the first object in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>. These instructions ensure that this is the case.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tool-thumbnail-images"><a class="anchor" href="#tool-thumbnail-images"></a>Tool Thumbnail Images</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>ToolBits will have a small icon image of the tool in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a> if the file is saved with thumbnails active.</p>
+</div>
+<div class="paragraph">
+<p>Important notes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Before saving the document make sure you have Save Thumbnail selected, and Add program logo deselected in FreeCAD&#8217;s preferences.</p>
+</li>
+<li>
+<p>Also make sure to switch to Front View and Fit content to screen</p>
+</li>
+<li>
+<p>Whatever you see when saving the document will end up being the visual representation of the template</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Tools</a></span>
+  <span class="next"><a href="toolbit.html">ToolBit</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

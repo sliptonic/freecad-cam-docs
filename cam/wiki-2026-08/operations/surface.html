@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Surface :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/surface.html">
+    <link rel="prev" href="pocket-3d.html">
+    <link rel="next" href="waterline.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../DEV/index.html">DEV (pre-release) (page not in this version)</option>
+            <option value="surface.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="waterline.html">Waterline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version">
+          <a href="../../DEV/index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>3D Operations</li>
+    <li><a href="surface.html">3D Surface</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Wiki (Aug 2026)</button>
+  <div class="version-menu">
+    <a class="version is-missing" href="../../DEV/index.html">DEV (pre-release)</a>
+    <a class="version is-current" href="surface.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/modules/ROOT/pages/operations/surface.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Surface</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This is an unfinished experimental feature. See <a href="../reference/experimental.html" class="xref page">Enable Experimental Features</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist guicommand">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">3D Surface</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>0.19</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <span class="image"><img src="../_images/CAM_Surface.svg" alt="CAM Surface" width="24"></span> <a href="#">CAM Surface</a> command creates a new 3D Surface operation which is capable of generating G-code paths for the entire top surface of a 3D model (or is able to work with selected faces) and allows for faces to be avoided. This operation offers multiple cut patterns: Line, Zigzag, Circular, Circular Zigzag, Offset, and Spiral (similar to an adaptive pattern). As of version 0.19, this operation offers many customizations to allow for greater productivity.</p>
+</div>
+<div class="paragraph">
+<p>The 3D Surface command is also capable of generating basic rotational 3D surfacing paths. The rotational capabilities are limited to the entire model, and do not allow for specific faces or regions to be isolated. The rotational paths are also limited to line cut patterns.</p>
+</div>
+<div class="paragraph">
+<p>The command interfaces to OCL.pyd, a 3rd party Open Source module titled <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a>, that generates tool paths from a 3D model. OpenCamLib is not integrated directly into FreeCAD.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note:</strong> In order to use the 3D Surface operation you must:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Properly install <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a>.</p>
+</li>
+<li>
+<p>Enable <a href="../reference/experimental.html" class="xref page">Experimental Features</a> for the CAM Workbench.</p>
+</li>
+<li>
+<p>Check <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Advanced</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Enable OCL dependent features</b></span>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Usage instructions for multiple variations of the <a href="#">3D Surface</a> operation are presented here.</p>
+</div>
+<div class="sect2">
+<h3 id="basic-operation"><a class="anchor" href="#basic-operation"></a>Basic Operation</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Press the <span class="image"><img src="../_images/CAM_Surface.svg" alt="CAM Surface" width="24"></span> <a href="#">3D Surface</a> icon, or select <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">3D Surface</b></span> from the dropdown menu.</p>
+</li>
+<li>
+<p>Select the tool controller for the Operation from the Tool controller dialogue pop up window, if presented.</p>
+</li>
+<li>
+<p>In the Base Geometry tab, select any specific faces you wish to focus on and/or avoid for the operation.</p>
+</li>
+<li>
+<p>Adjust the operation depths as needed in the Depths tab: Start Depth, Finish Depth, Step Down.</p>
+</li>
+<li>
+<p>Make adjustments in Heights tab if needed.</p>
+</li>
+<li>
+<p>Configure settings in the Operations tab as needed:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Choose your Coolant Mode.</p>
+</li>
+<li>
+<p>Choose the BoundBox: Stock or BaseBoundBox</p>
+</li>
+<li>
+<p>Set the Scan Type for the operation: Planar or Rotational</p>
+</li>
+<li>
+<p>Select the Layer Mode for the operation: Single-pass or Multi-pass</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Single-pass is for a finishing pass</p>
+</li>
+<li>
+<p>Multi-pass could be used for clearing in combination with the use of Depth Offset to leave a thin surface layer for a finish pass</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Add additional BoundBox Extra Offset to X and Y as desired (<em>Rotational scans only</em>)</p>
+</li>
+<li>
+<p>Set the Drop Cutter Direction: X or Y. This is the linear direction the cutter(spindle) will travel. (<em>Rotational scans only</em>)</p>
+</li>
+<li>
+<p>Add a Depth Offset value if you wish to leave a specified thickness of material on the surface, for say a final finish pass</p>
+</li>
+<li>
+<p>Set the Sample Interval used for the OCL scan.</p>
+</li>
+<li>
+<p>Set the Step Over value as a percentage of the diameter of the Tool.</p>
+</li>
+<li>
+<p>Check the Use Start Point box if you wish to provide a start point for the operation in the properties view of the data tab for the operation.</p>
+</li>
+<li>
+<p>Boundary Enforcement is enabled by default. This forces the cutter to remain inside the boundaries of the feature geometry for the operation, like a pocketing operation. Disable to allow the cutter to extend to the outside of the feature geometry. The Boundary Adjustment property supersedes this property.</p>
+</li>
+<li>
+<p>Optimize Linear Paths is enabled by default. Disabling will yield a longer gcode result and likely increase cut time.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you wish to preview the result before accepting the settings, click <b class="button">Apply</b></p>
+</li>
+<li>
+<p>Click <b class="button">OK</b> button to confirm and generate paths.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To achieve different, or more complex, effects, adjust additional operation properties within the Data tab of the <a href="https://wiki.freecad.org/Property_View">Properties View</a> for the operation.</p>
+</div>
+<div class="sect3">
+<h4 id="rotational-scans-4th-axis"><a class="anchor" href="#rotational-scans-4th-axis"></a>Rotational Scans (4th-axis)</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Initiate a <a href="#basic-operation">Basic Operation</a> as described above and set the <strong>Scan Type</strong> to <strong>Rotational</strong>.</p>
+</li>
+<li>
+<p><strong>Note:</strong> Face selection is unavailable for Rotational scans, so changes to Base Geometry are ignored.</p>
+</li>
+<li>
+<p>Locate the Data tab and Properties View for the new <a href="#">3D Surface</a> operation. A <strong>Rotation</strong> section should be available with additional properties to adjust, listed below.<br>
+It is recommended that you set the desired rotation properties all at once before recomputing. This is done by clicking the ENTER key immediately after changing a property setting. This process will allow you to change and save multiple properties before recomputing the operation.</p>
+</li>
+<li>
+<p>Adjust the following settings as needed:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Set <strong>Cutter Tilt</strong> to the offset index(angle) [0-90]. (Used for ball mill cutters)</p>
+</li>
+<li>
+<p>Change <strong>Drop Cutter Dir</strong> to the axis of travel for the cutter (spindle).</p>
+</li>
+<li>
+<p>Change <strong>Drop Cutter Extra Offset</strong> to extend the BoundBox in the X and Y directions.</p>
+</li>
+<li>
+<p>Set <strong>Rotation Axis</strong> to the desired axis.</p>
+</li>
+<li>
+<p>Adjust <strong>Start Index</strong> to start index(angle) [0-360].</p>
+</li>
+<li>
+<p>Adjust <strong>Stop Index</strong> to stop index(angle) [0-360].</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click the <span class="image"><img src="../_images/View-refresh.svg" alt="View refresh" width="16"></span> <a href="https://wiki.freecad.org/Std_Refresh">Refresh</a> icon in the tool bar.</p>
+</li>
+<li>
+<p>Wait for the results&#8230;&#8203;</p>
+</li>
+</ol>
+</div>
+<div class="sect4">
+<h5 id="notes-about-rotational-scans"><a class="anchor" href="#notes-about-rotational-scans"></a>Notes About Rotational Scans</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Rotational</strong> scans require much more time and processing than <strong>Planar</strong> scans. Factors affecting processing time include: Sample Interval, Step Over, tool diameter, and model size. Again, rotational scans can take a long time. Some might take 3, 5 or 10 minutes or longer.</p>
+</li>
+<li>
+<p>For time purposes, it is better that you not recompute a rotational scan after every property change; rather, consider one of the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>use the ' <em>change all settings with ENTER key</em> ' technique mentioned in Step 2 above, then <span class="image"><img src="../_images/View-refresh.svg" alt="View refresh" width="16"></span> <a href="https://wiki.freecad.org/Std_Refresh">Refresh</a> the operation.</p>
+</li>
+<li>
+<p>deactivate the operation with the <span class="image"><img src="../_images/CAM_OpActiveToggle.svg" alt="CAM OpActiveToggle" width="16"></span> <a href="../inspect/op-active-toggle.html" class="xref page">Active</a> toggle tool, make your changes to the operation&#8217;s properties, then click the <span class="image"><img src="../_images/CAM_OpActiveToggle.svg" alt="CAM OpActiveToggle" width="16"></span> <a href="../inspect/op-active-toggle.html" class="xref page">Active</a> icon again to re-activate the operation - which triggers a recompute internally.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The <span class="image"><img src="../_images/CAM_Surface.svg" alt="CAM Surface" width="16"></span> <a href="#">3D Surface</a> command is still considered an <em>experimental feature</em> as of 2019-06-25. As such, it may contain a few bugs yet to be clearly identified. Please report bugs and issues in the <a href="https://forum.freecad.org/viewforum.php?f=15">FreeCAD CAM Forum</a>.</p>
+</li>
+<li>
+<p>The built in <span class="image"><img src="../_images/CAM_Simulator.svg" alt="CAM Simulator" width="16"></span> <a href="../inspect/simulator-legacy.html" class="xref page">CAM Simulator</a> does NOT support 4th-axis simulation. You will need to use a third party simulator to inspect or verify paths visually. See the <a href="#resources">Resources</a> section below for suggestions.</p>
+</li>
+<li>
+<p>You will likely see red rotational lines around your model in the viewport. This is normal in FreeCAD for the time being.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="notes-about-scans-of-complex-models"><a class="anchor" href="#notes-about-scans-of-complex-models"></a>Notes About Scans of complex models</h5>
+<div class="paragraph">
+<p>Excessively long processing times (longer than 10 minutes) can occur when processing large complex models. In addition to the factors already mentioned the following steps could help identify potential causes and solutions.</p>
+</div>
+<div class="paragraph">
+<p><strong><em>Low Memory</em></strong><br>
+Check how much memory is available while the scan is running using a tool such as the Windows <strong>Task Manager, Memory tab</strong>. If more than 90% of memory is consistently being used then a small <strong>Linear Deflection</strong> parameter could be generating a mesh that is too large for the available memory.<br>
+To confirm this:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new <span class="image"><img src="../_images/CAM_Surface.svg" alt="CAM Surface" width="24"></span> <a href="#">3D Surface</a> command.</p>
+</li>
+<li>
+<p>Switch to the Model tab and increase the <strong>Linear Deflection</strong> value. For example change from 2.5um to 20um.</p>
+</li>
+<li>
+<p>Switch back to the Tasks tab to complete setting up the operation.</p>
+</li>
+<li>
+<p>Click <b class="button">OK</b> button to confirm and generate paths.<br></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To make this value the default for all new <span class="image"><img src="../_images/CAM_Surface.svg" alt="CAM Surface" width="24"></span> <a href="#">3D Surface</a> commands, change the <strong>GeometryTolerance</strong> parameter.<br>
+<span class="menuseq"><b class="menu">Tools</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Edit Parameters</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Mod</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">GeometryTolerance</b></span>.<br>
+Note as of version 0.19 the <strong>Linear Deflection</strong> default = GeometryTolerance / 4</p>
+</div>
+<div class="paragraph">
+<p><strong><em>Invalid Geometry</em></strong><br>
+If a model contains invalid geometry the scanning time can increase significantly. A model can be checked using the <a href="https://wiki.freecad.org/Part_CheckGeometry">Part CheckGeometry</a> function in <span class="image"><img src="../_images/Workbench_Part.svg" alt="Workbench Part" width="24"></span> <a href="https://wiki.freecad.org/Part_Workbench">Part Workbench</a>.<br>
+To run the tool:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Switch to the image:Workbench_Part.svg<strong class="width=24">Part Workbench</strong> and select the model to check</p>
+</li>
+<li>
+<p>Click on the <span class="image"><img src="../_images/Part_CheckGeometry.svg" alt="Part CheckGeometry" width="16"></span> <a href="https://wiki.freecad.org/Part_CheckGeometry">Part CheckGeometry</a> button available in the Part workbench toolbar OR use the <span class="menuseq"><b class="menu">Part</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Check geometry</b></span> entry from the top menu.</p>
+</li>
+<li>
+<p>Click the <strong>Run Check</strong> button and review the results.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If the results includes items like <em>BOPAlgo SelfIntersect</em> then the geometry is invalid and should be corrected by adjusting the model.<br>
+(Hint: Boolean operations and Loft commands can sometimes introduce <em>Self Intersections</em>)<br></p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="available-tool-cutter-shapes"><a class="anchor" href="#available-tool-cutter-shapes"></a>Available Tool (Cutter) Shapes</h4>
+<div class="paragraph">
+<p>This 3D Surface op currently uses <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a> to extract paths from the part base. As such, a tool setting translation is required between the FreeCAD tool controller and OCL in order to complete the scan with your chosen tool(cutter) shape.</p>
+</div>
+<div class="paragraph">
+<p>These tool shapes are respected and available for this 3D Surface operation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>End mill</p>
+</li>
+<li>
+<p>Ball end mill</p>
+</li>
+<li>
+<p>Bull nose end mill</p>
+</li>
+<li>
+<p>Chamfer bit</p>
+</li>
+<li>
+<p>Engraver</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Should you choose to run the path simulator in the CAM Workbench, it only uses the standard end mill to simulate paths. Therefore, you will not see tool-shape-specific material removal. Material removal is shown using the end mill shape.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As of May 2019, only the End Mill has any type of testing to determine accuracy of the FreeCAD-to-OCL tool settings translation. Please post any feedback for non-end-mill usage to the <a href="https://forum.freecad.org/viewforum.php?f=15">CAM</a> section in the FreeCAD forums.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="properties-version-0-19"><a class="anchor" href="#properties-version-0-19"></a>Properties: Version 0.19</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong><em>Note</em></strong>: Not all of these Properties are available in the Task Window Editor. Some are only accessible in the Data tab of the <a href="https://wiki.freecad.org/Property_View">Properties View</a> panel for this Operation.</p>
+</div>
+<div class="paragraph">
+<div class="title">Base</div>
+<p>Note: It is suggested that you do not edit the Placement property of path operations. Rather, move or rotate the CAM Job model as needed.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Placement</strong>: Overall placement [position and rotation] of the object - with respect to the origin (or origin of parent object container)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Angle</strong>: Angle in degrees applied to rotation of the object around Axis property value</p>
+</li>
+<li>
+<p><strong>Axis</strong>: Axis (one or multiple) around which to rotate the object, set in sub-properties: X, Y, Z</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-axis value</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-axis value</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z-axis value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Position</strong>: Position of the object, set in sub-properties: X, Y, Z - with respect to the origin (or origin of parent object container)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-distance value</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-distance value</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z-distance value</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Label</strong>: User-provided name of the object (UTF-8)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Clearing Options</div>
+<ul>
+<li>
+<p><strong>Bound Box</strong>: Should the operation be limited by the stock object or by the bounding box of the base object</p>
+</li>
+<li>
+<p><strong>Cut Mode</strong>: The direction that the toolpath should go around the part: Climb (ClockWise/CW) or Conventional (CounterClockWise/CCW)</p>
+</li>
+<li>
+<p><strong>Cut Pattern</strong>: Clearing pattern to use</p>
+</li>
+<li>
+<p><strong>Cut Pattern Reversed</strong>: Reverse the cut order of the stepover paths. For circular cut patterns, begin at the outside and work toward the center</p>
+</li>
+<li>
+<p><strong>Depth Offset</strong>: Z-axis offset from the surface of the object</p>
+</li>
+<li>
+<p><strong>Layer Mode</strong>: The completion mode for the operation: single or multi-pass</p>
+</li>
+<li>
+<p><strong>Pattern Center At</strong>: Choose location of the center point for starting the cut pattern</p>
+</li>
+<li>
+<p><strong>Pattern Center Custom</strong>: Set the start point for the cut pattern</p>
+</li>
+<li>
+<p><strong>Profile Edges</strong>: Profile the edges of the selection. There are the following options (images can be seen in this forum post: <a href="https://forum.freecad.org/viewtopic.php?p=676452#p676452" class="bare">forum.freecad.org/viewtopic.php?p=676452#p676452</a>):</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>None</strong>: Don&#8217;t create a profile</p>
+</li>
+<li>
+<p><strong>Only</strong>: Create only a profile and no inner paths</p>
+</li>
+<li>
+<p><strong>First</strong>: Start with the profile and then do the rest</p>
+</li>
+<li>
+<p><strong>Last</strong>: Start with the rest and then do the profile</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Sample Interval</strong>: The Sample Interval. Small values cause long wait times</p>
+</li>
+<li>
+<p><strong>Step Over</strong>: Step over percentage of the drop cutter path</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Depth</div>
+<ul>
+<li>
+<p><strong>Clearance Height</strong>: The height needed to clear clamps and obstructions</p>
+</li>
+<li>
+<p><strong>Final Depth</strong>: Final Depth of Tool- lowest value in Z</p>
+</li>
+<li>
+<p><strong>Safe Height</strong>: The above which Rapid motions are allowed.</p>
+</li>
+<li>
+<p><strong>Start Depth</strong>: Starting Depth of Tool- first cut depth in Z</p>
+</li>
+<li>
+<p><strong>Step Down</strong>: Incremental Step Down of Tool</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Mesh Conversion</div>
+<ul>
+<li>
+<p><strong>Angular Deflection</strong>: Smaller values yield a finer, more accurate mesh. Smaller values increase processing time a lot</p>
+</li>
+<li>
+<p><strong>Linear Deflection</strong>: Smaller values yield a finer, more accurate mesh. Smaller values do not increase processing time much but can increase memory comsumption</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Optimization</div>
+<ul>
+<li>
+<p><strong>Circular Use G2 G3</strong>: Convert co-planar arcs to G2/G3 gcode commands for 'Circular' and 'CircularZigZag' cut patterns</p>
+</li>
+<li>
+<p><strong>Gap Sizes</strong>: Feedback: three smallest gaps identified in the path geometry</p>
+</li>
+<li>
+<p><strong>Gap Threshold</strong>: Collinear and co-radial artifact gaps that are smaller than this threshold are closed in the path</p>
+</li>
+<li>
+<p><strong>Optimize Linear Paths</strong>: Enable optimization of linear paths (co-linear points). Removes unnecessary co-linear points from G-Code output</p>
+</li>
+<li>
+<p><strong>Optimize Step Over Transitions</strong>: Enable separate optimization of transitions between, and breaks within, each step over path</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Active</strong>: Make False, to prevent operation from generating code</p>
+</li>
+<li>
+<p><strong>Base</strong>: The base geometry for this operation</p>
+</li>
+<li>
+<p><strong>Comment</strong>: An optional comment for this Operation</p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong>: Coolant mode for this operation</p>
+</li>
+<li>
+<p><strong>Cycle Time</strong>: Operations Cycle Time Estimation</p>
+</li>
+<li>
+<p><strong>Tool Controller</strong>: Defines the Tool controller used in the Operation</p>
+</li>
+<li>
+<p><strong>User Label</strong>: User assigned label</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Rotation</div>
+<ul>
+<li>
+<p><strong>Cutter Tilt</strong>: Set the cutter (spindle) tilt angle.</p>
+</li>
+<li>
+<p><strong>Drop Cutter Dir</strong>: The direction along which dropcutter lines are created</p>
+</li>
+<li>
+<p><strong>Drop Cutter Extra Offset</strong>: Additional offset to the selected bounding box - use sub-properties to set values</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-distance value</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-distance value</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z-distance value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Rotation Axis</strong>: Set the axis for model rotation.</p>
+</li>
+<li>
+<p><strong>Start Index</strong>: Start index(angle) for rotation</p>
+</li>
+<li>
+<p><strong>Stop Index</strong>: Stop index(angle) for rotation</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Selected Geometry Settings</div>
+<ul>
+<li>
+<p><strong>Avoid Last X Faces</strong>: Avoid cutting the last 'N' faces in the Base Geometry list of selected faces</p>
+</li>
+<li>
+<p><strong>Avoid Last X Internal Features</strong>: Do not cut internal features on avoided faces</p>
+</li>
+<li>
+<p><strong>Boundary Adjustment</strong>: Positive values push the cutter toward, or beyond, the boundary. Negative values retract the cutter away from the boundary</p>
+</li>
+<li>
+<p><strong>Boundary Enforcement</strong>: If true, the cutter will remain inside the boundaries of the model or selected face(s)</p>
+</li>
+<li>
+<p><strong>Handle Multiple Features</strong>: Choose how to process multiple Base Geometry features</p>
+</li>
+<li>
+<p><strong>Internal Features Adjustment</strong>: Positive values push the cutter toward, or into, the feature. Negative values retract the cutter away from the feature</p>
+</li>
+<li>
+<p><strong>Internal Features Cut</strong>: Cut internal feature areas within a larger selected face</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Start Point</div>
+<ul>
+<li>
+<p><strong>Start Point</strong>: The custom start point for the path of this operation, set in sub-properties: X, Y, Z</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-axis value</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-axis value</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z axis value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Use Start Point</strong>: Make True, if specifying a Start Point</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Surface</div>
+<ul>
+<li>
+<p><strong>Scan Type</strong>: Planar: Flat, 3D surface scan. Rotational: 4th-axis rotational scan.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Waste</div>
+<ul>
+<li>
+<p><strong>Ignore Waste</strong>: Ignore areas that proceed below specified depth.</p>
+</li>
+<li>
+<p><strong>Ignore Waste Depth</strong>: Depth used to identify waste areas to ignore.</p>
+</li>
+<li>
+<p><strong>Release From Waste</strong>: Cut through waste to depth at model edge, releasing the model.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tasks-window-editor-layout"><a class="anchor" href="#tasks-window-editor-layout"></a>Tasks Window Editor Layout</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Descriptions for the settings are provided in the Properties list above.</em></p>
+</div>
+<div class="paragraph">
+<p>This section is simply a layout map of the settings in the window editor for the Operation.</p>
+</div>
+<div class="sect2">
+<h3 id="base-location"><a class="anchor" href="#base-location"></a>Base Location</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Base Geometry import selection</strong>: Use this list to select Base Geometry to be imported from the selected, existing operation</p>
+</li>
+<li>
+<p><strong>Import</strong>: Imports the selected operation&#8217;s Base Geometry into the current operations Base Geometry list</p>
+</li>
+<li>
+<p><strong>Base Geometry list for current operation</strong>: List of Base Geometry for current operation, if any selected</p>
+</li>
+<li>
+<p><strong>Add</strong>: Adds selected element(s) which should be the base(s) for the path(s)</p>
+</li>
+<li>
+<p><strong>Remove</strong>: Remove the selected item(s) in the Base Location list</p>
+</li>
+<li>
+<p><strong>Clear</strong>: Clear all items in the Base Location list</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="depth"><a class="anchor" href="#depth"></a>Depth</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Start Depth</strong></p>
+</li>
+<li>
+<p><strong>Final Depth</strong></p>
+</li>
+<li>
+<p><strong>Step Down</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="height"><a class="anchor" href="#height"></a>Height</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Safe Height</strong></p>
+</li>
+<li>
+<p><strong>Clearance Height</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="operation"><a class="anchor" href="#operation"></a>Operation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tool Controller</strong></p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong></p>
+</li>
+<li>
+<p><strong>BoundBox</strong></p>
+</li>
+<li>
+<p><strong>Scan Type</strong></p>
+</li>
+<li>
+<p><strong>Layer Mode</strong></p>
+</li>
+<li>
+<p><strong>BoundBox extra offset X</strong></p>
+</li>
+<li>
+<p><strong>BoundBox extra offset Y</strong></p>
+</li>
+<li>
+<p><strong>Drop Cutter Direction</strong></p>
+</li>
+<li>
+<p><strong>Depth Offset</strong></p>
+</li>
+<li>
+<p><strong>Step Over</strong></p>
+</li>
+<li>
+<p><strong>Sample Interval</strong></p>
+</li>
+<li>
+<p><strong>Optimize Output Enabled</strong></p>
+</li>
+<li>
+<p><strong>Use Start Point</strong></p>
+</li>
+<li>
+<p><strong>Boundary Enforcement</strong></p>
+</li>
+<li>
+<p><strong>Optimize Linear Paths</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources"><a class="anchor" href="#resources"></a>Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>G-code(path) simulator: <a href="https://ncviewer.com/">NCViewer</a></p>
+</li>
+<li>
+<p>G-code(path) simulator: <a href="https://www.camotics.org/">CAMotics</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="pocket-3d.html">3D Pocket</a></span>
+  <span class="next"><a href="waterline.html">Waterline</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

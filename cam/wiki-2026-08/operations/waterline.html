@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Waterline :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/waterline.html">
+    <link rel="prev" href="surface.html">
+    <link rel="next" href="../dressups/axis-map.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../DEV/index.html">DEV (pre-release) (page not in this version)</option>
+            <option value="waterline.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="waterline.html">Waterline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version">
+          <a href="../../DEV/index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>3D Operations</li>
+    <li><a href="waterline.html">Waterline</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Wiki (Aug 2026)</button>
+  <div class="version-menu">
+    <a class="version is-missing" href="../../DEV/index.html">DEV (pre-release)</a>
+    <a class="version is-current" href="waterline.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/modules/ROOT/pages/operations/waterline.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Waterline</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This is an unfinished experimental feature. See <a href="../reference/experimental.html" class="xref page">Enable Experimental Features</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist guicommand">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Waterline</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>0.19</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <span class="image"><img src="../_images/CAM_Waterline.svg" alt="CAM Waterline" width="24"></span> <a href="#">CAM Waterline</a> command creates a new Waterline operation. As of 0.19_pre, the operation works on the entire model to generate G-code for the Job. Currently, within the operation&#8217;s settings there is no functionality to select specific areas, faces, or regions of the model.</p>
+</div>
+<div class="paragraph">
+<p>The Waterline operation has three algorithms: OCL Dropcutter, OCL Adaptive, and Experimental.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The OCL Dropcutter and OCL Adaptive algorithms interface to OCL.pyd, a 3rd party Open Source module titled <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a>, that generates tool paths from a 3D Model. OpenCamLib is not integrated directly into FreeCAD.</p>
+</li>
+<li>
+<p><span class="since">introduced in 26.3</span>: The OCL Adaptive algorithm is available. It can generate smoother paths more quickly for suitable models. It is not restricted by Waterline boundaries; use a <a href="../dressups/path-boundary.html" class="xref page">Boundary Dressup</a> if required.</p>
+</li>
+<li>
+<p>The Experimental algorithm makes use of the built-in Path.Area() class.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong><em>Note</em></strong>: In order to use the Waterline operation you must:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Properly install <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a>.</p>
+</li>
+<li>
+<p>Enable <a href="../reference/experimental.html" class="xref page">Experimental Features</a> for the CAM Workbench.</p>
+</li>
+<li>
+<p>Check <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Advanced</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Enable OCL dependent features</b></span>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Usage instructions for multiple variations of the <a href="#">Waterline</a> operation are presented here.</p>
+</div>
+<div class="sect2">
+<h3 id="basic-operation"><a class="anchor" href="#basic-operation"></a>Basic Operation</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Press the <span class="image"><img src="../_images/CAM_Waterline.svg" alt="CAM Waterline" width="24"></span> <a href="#">Waterline</a> icon, or select the <a href="#">Waterline</a> tool from the <strong>CAM</strong> menu.</p>
+</li>
+<li>
+<p>Select the tool controller for the Operation from the Tool controller dialogue pop up window.</p>
+</li>
+<li>
+<p>Adjust the operation depths as needed in the Depths tab: Start Depth, Final Depth, Step Down.</p>
+</li>
+<li>
+<p>Make adjustments in Heights tab if needed.</p>
+</li>
+<li>
+<p>Configure settings in the Operations tab based on the Algorithm selected:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>OCL Dropcutter</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Choose the BoundBox: Stock or BaseBoundBox.</p>
+</li>
+<li>
+<p>Set the Layer Mode: Single-pass or Multi-pass.</p>
+</li>
+<li>
+<p>Set the Sample Interval used for the OCL scan.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>OCL Adaptive</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Set the Layer Mode: Single-pass or Multi-pass.</p>
+</li>
+<li>
+<p>Set the Sample Interval and Min Sample Interval for the adaptive OCL scan.</p>
+</li>
+<li>
+<p>Optionally enable Optimize Linear Paths.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Experimental</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Choose the BoundBox: Stock or BaseBoundBox.</p>
+</li>
+<li>
+<p>Set the Layer Mode: Single-pass or Multi-pass.</p>
+</li>
+<li>
+<p>Set the Cut Pattern if clearing is desired at each layer.</p>
+</li>
+<li>
+<p>Set the Boundary Adjustment (material allowance).</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If you wish to preview the result before accepting the settings, click Apply</p>
+</li>
+<li>
+<p>Click <strong>OK</strong> button to confirm and generate paths.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To achieve different, or more complex, effects, adjust additional operation properties within the Data tab of the Properties View for the operation.</p>
+</div>
+<div class="sect3">
+<h4 id="notes-about-experimental-algorithm"><a class="anchor" href="#notes-about-experimental-algorithm"></a>Notes About Experimental Algorithm</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>It does not handle overhangs correctly.</p>
+</li>
+<li>
+<p>It only returns paths for an End Mill type cutter (tool bit).</p>
+</li>
+<li>
+<p>It might not correctly catch all interior features.</p>
+</li>
+<li>
+<p>It is just that, experimental, and not ready for mainstream integration. Please inspect paths with the built-in <span class="image"><img src="../_images/CAM_Simulator.svg" alt="CAM Simulator" width="16"></span> <a href="../inspect/simulator-legacy.html" class="xref page">CAM Simulator</a>, or other 3rd-party G-code inspection tools, before cutting with your machine.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="available-tool-cutter-shapes"><a class="anchor" href="#available-tool-cutter-shapes"></a>Available Tool (Cutter) Shapes</h4>
+<div class="paragraph">
+<p>When using the <strong><em>OCL Dropcutter</em></strong> algorithm, the Waterline operation uses <a href="../reference/opencamlib.html" class="xref page"> OpenCamLib OCL</a> to extract paths from the part base. As such, a tool translation is required between the FreeCAD tool controller and OCL in order to complete the scan with your chosen tool(cutter) shape. These tool shapes are(should be) respected and available for the OCL Dropcutter so long as the built-in tool shapes are used, whether Legacy or ToolBit tools:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>End mill</p>
+</li>
+<li>
+<p>Ball end mill</p>
+</li>
+<li>
+<p>Bull nose end mill</p>
+</li>
+<li>
+<p>Chamfer bit</p>
+</li>
+<li>
+<p>Engraver</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="additional-notes"><a class="anchor" href="#additional-notes"></a>Additional Notes</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Should you choose to run the path simulator, <span class="image"><img src="../_images/CAM_Simulator.svg" alt="CAM Simulator" width="16"></span> <a href="../inspect/simulator-legacy.html" class="xref page">CAM Simulator</a>, in the CAM Workbench, you might not see tool-shape-specific material removal. Be cautious. A small trial job using foam or other very non-dense material is recommended to verify paths are correct with your selected tool controller.</p>
+</li>
+<li>
+<p>As of May 2020, only the End Mill has any type of testing to determine accuracy of the FreeCAD-to-OCL tool settings translation. Please post any feedback for non-end-mill usage to the <a href="https://forum.freecad.org/viewforum.php?f=15">CAM</a> section in the FreeCAD forums.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="properties"><a class="anchor" href="#properties"></a>Properties</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong><em>Note</em></strong>: Not all of these Properties are available in the Task Window Editor. Some are only accessible in the Data tab of the Properties View panel for this Operation.</p>
+</div>
+<div class="paragraph">
+<div class="title">Base</div>
+<p>Note: It is suggested that you do not edit the Placement property of path operations. Rather, move or rotate the CAM Job model as needed.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Placement</strong>: Overall placement[position and rotation] of the object - with respect to the origin (or origin of parent object container)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Angle</strong>: Angle in degrees applied to rotation of the object around Axis property value</p>
+</li>
+<li>
+<p><strong>Axis</strong>: Axis (one or multiple) around which to rotate the object, set in sub-properties: X, Y, Z</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-axis value</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-axis value</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z-axis value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Position</strong>: Position of the object, set in sub-properties: X, Y, Z - with respect to the origin (or origin of parent object container)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-distance value</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-distance value</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z-distance value</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Label</strong>: User-provided name of the object (UTF-8)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Clearing Options</div>
+<ul>
+<li>
+<p><strong>Algorithm</strong>: The library to use to generate the path</p>
+</li>
+<li>
+<p><strong>BoundBox</strong>: Should the operation be limited by the stock object or by the bounding box of the base object</p>
+</li>
+<li>
+<p><strong>Clear Last Layer</strong>: Set to clear last layer in `Multi-pass` operation.</p>
+</li>
+<li>
+<p><strong>Cut Mode</strong>: The direction that the toolpath should go around the part: Climb (ClockWise) or Conventional (CounterClockWise)</p>
+</li>
+<li>
+<p><strong>Cut Pattern</strong>: Clearing pattern to use</p>
+</li>
+<li>
+<p><strong>Depth Offset</strong>:</p>
+</li>
+<li>
+<p><strong>Ignore Outer Above</strong>:</p>
+</li>
+<li>
+<p><strong>Layer Mode</strong>: The completion mode for the operation: single or multi-pass</p>
+</li>
+<li>
+<p><strong>Min Sample Interval</strong>: Minimum sampling resolution for the OCL Adaptive algorithm</p>
+</li>
+<li>
+<p><strong>Optimize Linear Paths</strong>: Remove unnecessary co-linear points from G-code output</p>
+</li>
+<li>
+<p><strong>Step Over</strong>:</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Depth</div>
+<ul>
+<li>
+<p><strong>Clearance Height</strong>: The height needed to clear clamps and obstructions</p>
+</li>
+<li>
+<p><strong>Final Depth</strong>: Final Depth of Tool- lowest value in Z</p>
+</li>
+<li>
+<p><strong>Safe Height</strong>: The above which Rapid motions are allowed.</p>
+</li>
+<li>
+<p><strong>Start Depth</strong>: Starting Depth of Tool- first cut depth in Z</p>
+</li>
+<li>
+<p><strong>Step Down</strong>: Incremental Step Down of Tool</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Active</strong>: Make False, to prevent operation from generating code</p>
+</li>
+<li>
+<p><strong>Base</strong>: The base geometry for this operation</p>
+</li>
+<li>
+<p><strong>Comment</strong>: An optional comment for this Operation</p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong>:</p>
+</li>
+<li>
+<p><strong>Cycle Time</strong>:</p>
+</li>
+<li>
+<p><strong>Tool Controller</strong>: Defines the Tool controller used in the Operation</p>
+</li>
+<li>
+<p><strong>User Label</strong>: User assigned label</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Start Point</div>
+<ul>
+<li>
+<p><strong>Start Point</strong>: The custom start point for the path of this operation.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-distance value</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-distance value</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z-distance value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Use Start Point</strong>: Make True, if specifying a Start Point</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tasks-window-editor-layout"><a class="anchor" href="#tasks-window-editor-layout"></a>Tasks Window Editor Layout</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Descriptions for the settings are provided in the Properties list above.</em></p>
+</div>
+<div class="paragraph">
+<p>This section is simply a layout map of the settings in the window editor for the Operation.</p>
+</div>
+<div class="sect2">
+<h3 id="base-location"><a class="anchor" href="#base-location"></a>Base Location</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add</strong>: Adds selected element(s) which should be the base(s) for the path(s).</p>
+</li>
+<li>
+<p><strong>Remove</strong>: Remove the selected item(s) in the Base Location list.</p>
+</li>
+<li>
+<p><strong>Edit</strong>: Clear all items in the Base Location list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="depths"><a class="anchor" href="#depths"></a>Depths</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Start Depth</strong></p>
+</li>
+<li>
+<p><strong>Final Depth</strong></p>
+</li>
+<li>
+<p><strong>Step Down</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="heights"><a class="anchor" href="#heights"></a>Heights</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Safe Height</strong></p>
+</li>
+<li>
+<p><strong>Clearance Height</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="operation"><a class="anchor" href="#operation"></a>Operation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tool Controller</strong></p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong></p>
+</li>
+<li>
+<p><strong>Algorithm</strong></p>
+</li>
+<li>
+<p><strong>BoundBox</strong></p>
+</li>
+<li>
+<p><strong>Layer Mode</strong></p>
+</li>
+<li>
+<p><strong>Cut Pattern</strong>~</p>
+</li>
+<li>
+<p><strong>Boundary Adjustment</strong>~</p>
+</li>
+<li>
+<p><strong>Sample Interval</strong>~</p>
+</li>
+<li>
+<p><strong>Min Sample Interval</strong>~</p>
+</li>
+<li>
+<p><strong>Optimize Linear Paths</strong>~</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>~Visibility changes with other settings.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resources"><a class="anchor" href="#resources"></a>Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://ncviewer.com/">NCViewer G-code simulator</a></p>
+</li>
+<li>
+<p><a href="https://www.camotics.org/">CAMotics G-code simulator</a></p>
+</li>
+<li>
+<p><a href="https://youtu.be/WYSjf5Omo9c">Video describing how to use this tool</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="surface.html">3D Surface</a></span>
+  <span class="next"><a href="../dressups/axis-map.html">Axis Map</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
