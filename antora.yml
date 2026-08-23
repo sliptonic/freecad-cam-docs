@@ -1,13 +1,14 @@
-# Component descriptor for the wiki branch: the FreeCAD wiki CAM pages, imported mechanically.
+# Component descriptor for the audit branch: the imported wiki pages with every finding of the
+# 2026-08-22 CAM documentation audit applied (adds, revisions, deletions, missing pages).
 name: cam
 title: FreeCAD CAM
-version: wiki-2026-08
-display_version: Wiki (Aug 2026)
+version: audit-2026-08
+display_version: Audit (26.3dev)
+prerelease: true
 start_page: index.adoc
 nav:
   - modules/ROOT/nav.adoc
 asciidoc:
   attributes:
-    page-has-l10n: 'y'
     freecad-version: wiki snapshot 2026-08-22
     page-status: ''
