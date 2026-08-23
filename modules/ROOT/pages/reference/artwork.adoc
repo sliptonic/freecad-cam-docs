@@ -1,0 +1,28 @@
+= Artwork CAM
+:page-origin: https://wiki.freecad.org/Artwork_CAM
+:page-origin-revision: 45eab38f4c 2025-01-23
+:page-imported: true
+
+These icons are in the indicated source path.
+
+For all icons in the source tree, see https://wiki.freecad.org/Artwork[Artwork].
+
+== src/Mod/CAM/
+
+=== src/Mod/CAM/Gui/Resources/icons/
+
+image:Arrow-ccw.svg[width=64] image:Arrow-cw.svg[width=64] image:Arrow-down.svg[width=64] image:Arrow-left.svg[width=64] image:Arrow-left-down.svg[width=64] image:Arrow-left-up.svg[width=64] image:Arrow-right.svg[width=64] image:Arrow-right-down.svg[width=64] image:Arrow-right-up.svg[width=64] image:Arrow-up.svg[width=64] image:CAM_3DPocket.svg[width=64] image:CAM_3DSurface.svg[width=64] image:CAM_Adaptive.svg[width=64] image:CAM_Area.svg[width=64] image:CAM_Area_View.svg[width=64] image:CAM_Area_Workplane.svg[width=64] image:CAM_Array.svg[width=64] image:CAM_BaseGeometry.svg[width=64] image:CAM_BFastForward.svg[width=64] image:CAM_BPause.svg[width=64] image:CAM_BPlay.svg[width=64] image:CAM_BStep.svg[width=64] image:CAM_BStop.svg[width=64] image:CAM_Camotics.svg[width=64] image:CAM_Comment.svg[width=64] image:CAM_Compound.svg[width=64] image:CAM_Copy.svg[width=64] image:CAM_Custom.svg[width=64] image:CAM_Datums.svg[width=64] image:CAM_Deburr.svg[width=64] image:CAM_Depths.svg[width=64] image:CAM_Dressup.svg[width=64] image:CAM_Drilling.svg[width=64] image:CAM_Engrave.svg[width=64] image:CAM_ExportTemplate.svg[width=64] image:CAM_Face.svg[width=64] image:CAM_FacePocket.svg[width=64] image:CAM_FaceProfile.svg[width=64] image:CAM_Heights.svg[width=64] image:CAM_Helix.svg[width=64] image:CAM_InactiveOp.svg[width=64] image:CAM_Inspect.svg[width=64] image:CAM_Job.svg[width=64] image:CAM_LengthOffset.svg[width=64] image:CAM_Machine.svg[width=64] image:CAM_Machine_test1.svg[width=64] image:CAM_MachineLathe.svg[width=64] image:CAM_MachineMill.svg[width=64] image:CAM_OpActive.svg[width=64] image:CAM_OpCopy.svg[width=64] image:CAM_OperationA.svg[width=64] image:CAM_OperationB.svg[width=64] image:CAM_Pocket.svg[width=64] image:CAM_Post.svg[width=64] image:CAM_Probe.svg[width=64] image:CAM_Profile.svg[width=64] image:CAM_Profile_Edges.svg[width=64] image:CAM_Profile_Face.svg[width=64] image:CAM_Sanity.svg[width=64] image:CAM_SelectLoop.svg[width=64] image:CAM_SetupSheet.svg[width=64] image:CAM_Shape.svg[width=64] image:CAM_SimpleCopy.svg[width=64] image:CAM_Simulator.svg[width=64] image:CAM_SimulatorGL.svg[width=64] image:CAM_Slot.svg[width=64] image:CAM_Speed.svg[width=64] image:CAM_Stop.svg[width=64] image:CAM_Tags.svg[width=64] image:CAM_ThreadMilling.svg[width=64] image:CAM_ToolBit.svg[width=64] image:CAM_ToolChange.svg[width=64] image:CAM_ToolController.svg[width=64] image:CAM_ToolDuplicate.svg[width=64] image:CAM_Toolpath.svg[width=64] image:CAM_ToolTable.svg[width=64] image:CAM_Vcarve.svg[width=64] image:CAM_Waterline.svg[width=64] image:CAMWorkbench.svg[width=64] image:Edge-join-miter.svg[width=64] image:Edge-join-miter-not.svg[width=64] image:Edge-join-round.svg[width=64] image:Edge-join-round-not.svg[width=64] image:Preferences-cam.svg[width=64]
+
+=== src/Mod/CAM/Images/Ops/
+
+image:Chamfer.svg[width=64]
+
+=== src/Mod/CAM/Images/Tools/
+
+image:Drill.svg[width=64] image:Endmill.svg[width=64] image:Reamer.svg[width=64] image:V-bit.svg[width=64]
+
+=== src/Mod/CAM/Path/Main/Gui/
+
+image:Sanity_Bulb.svg[width=64] image:Sanity_Caution.svg[width=64] image:Sanity_Note.svg[width=64] image:Sanity_Warning.svg[width=64]
+
+ ++<++noinclude++>++++<++/noinclude++>++

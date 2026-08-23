@@ -1,0 +1,80 @@
+= CAM Deburr
+:page-origin: https://wiki.freecad.org/CAM_Deburr
+:page-origin-revision: 880e6ff193 2025-11-05
+:page-menu: CAM → Deburr
+:page-since: 0.18
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Deburr]
+Workbenches:: xref:index.adoc[CAM]
+Introduced in version:: 0.18
+
+== Description
+
+The image:CAM_Deburr.svg[width=24] xref:operations/deburr.adoc[CAM Deburr] command is primarily for deburring an edge.
+
+== Usage
+
+. There are several ways to invoke the command:
+* Press the image:CAM_Deburr.svg[width=16] xref:operations/deburr.adoc[Deburr] button.
+* Select the menu:CAM[Deburr] option from the menu.
+. The menu:Deburr[] task panel opens. See <<options,Options>>.
+. Select menu:Base Geometry[].
+. Specify the required parameters.
+. Press the btn:[OK] button.
+
+== Options
+
+After selecting the geometry in the menu:Base Geometry[] section of the task panel you can press btn:[Apply] to see the tool path as defined by the default options.
+
+Next you can check your depths/step down and heights, just like with other path commands.
+
+The Final step is to activate the menu:Operation[] section where you can specify the following:
+
+* menu:Tool controller[]: Select the tool to use.
+* menu:Coolant Mode[]: Select `None`, `Flood` or `Mist`.
+* menu:Directions[]: Select `CW` (clockwise) or `CCW` (counter-clockwise).
+* menu:W[]: The dimension of your edge.
+* menu:h[]: The offset from the bottom of the tool. It's a safety feature because if the tip gets above the edge it won't cut anymore.
+
+::
+  
+
+image::Path_Deburr_Operations-tab.png[Deburring interface with the options,300]
+
+== Properties
+
+=== Data
+
+.Base
+* *Placement*:
+* *Label*: User name of the object (UTF-8)
+
+.Deburr
+* *Direction*: `CCW` or `CW`.
+* *Entry Point*: Entry point of the operation, if set to 2 it will go in 2 corners from the default.
+* *Extra depth*: Extra depth (menu:h[] in the task panel).
+* *Join*: How to join chamfer segments, `Round` or `Miter`.
+* *Side*: Side of the operation, `Outside` or `Inside`.
+* *Width*: The width of the chamfer (menu:W[] in the task panel).
+
+.Depth
+* *Clearance Height*: The height needed to clear clamps and obstructions (set by default to `OpStockZMax + SetupSheet.ClearanceHeightOffset`).
+* *Safe Height*: The height above which rapid motions are allowed. (set to `OpStockZMax + SetupSheet.SafeHeightOffset`).
+* *Start Depth*: Starting depth of of the tool, first cut depth in Z.
+* *Step Down*: Incremental step down of the tool.
+
+.Op Values
+* *Op Stock ZMax*: The maximum Z value of the stock.
+* *Op Stock ZMin*: The minimum Z value of the stock.
+* *Op Tool Diameter*: The diameter of the tool.
+
+.Path
+* *Active*: Make `false`, to prevent operation from generating code.
+* *Base*: The base geometry for this operation, edges or a face.
+* *Comment*: An optional comment for this operation.
+* *Coolant Mode*: Coolant mode for this operation.
+* *Cycle Time*: Estimated cycle time for this operation.
+* *Tool Controller*: The tool controller that will be used to calculate the path.
+* *User Label*: User assigned label.

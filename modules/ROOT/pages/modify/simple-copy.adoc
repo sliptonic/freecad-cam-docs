@@ -1,0 +1,27 @@
+= CAM SimpleCopy
+:page-origin: https://wiki.freecad.org/CAM_SimpleCopy
+:page-origin-revision: 65a3985938 2026-07-08
+:page-menu: CAM → Path Modification → Simple Copy
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Path Modification > Simple Copy]
+Workbenches:: xref:index.adoc[CAM]
+See also:: xref:modify/copy.adoc[CAM Copy]
+
+== Description
+
+The image:CAM_SimpleCopy.svg[width=24] xref:modify/simple-copy.adoc[CAM SimpleCopy] command creates a non-parametric copy of a given path.
+
+[.since]#introduced in 26.3#: The command can combine multiple selected operations into one simple copy.
+
+== Usage
+
+. Select one or more xref:index.adoc[CAM] objects.
+. Press the image:CAM_SimpleCopy.svg[width=16] xref:modify/simple-copy.adoc[Simple Copy] button
+
+== Options
+
+* The simple copy is not bound anymore to the path that was used to make the copy, and is not parametric. Therefore, when edited with the xref:inspect/inspect.adoc[CAM Inspect] tool, any change made to its G-code will be retained.
+* Multiple selected operations must use the same *Coolant Mode* and *Tool Controller*.
+* [.since]#introduced in 26.3#: SimpleCopy can also copy operations that contain commands without using the standard CAM operation base class.

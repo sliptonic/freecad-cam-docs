@@ -1,0 +1,47 @@
+= CAM ExportTemplate
+:page-origin: https://wiki.freecad.org/CAM_ExportTemplate
+:page-origin-revision: f68ad90be3 2026-07-08
+:page-menu: CAM → Export Template
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Export Template]
+Workbenches:: xref:index.adoc[CAM]
+See also:: xref:job/setup-sheet.adoc[CAM SetupSheet]
+
+== Description
+
+The image:CAM_ExportTemplate.svg[width=24] xref:job/export-template.adoc[CAM ExportTemplate] tool provides a convenient mechanism to save commonly used Job definitions from within an existing Job. This facilitates the setup of future Jobs, that are largely similar, by allowing Job template import during the Job creation process.
+
+The menu:Edit[Preferences > CAM > Job Preferences > Defaults > Template] sets the default template.
+
+== Usage
+
+. Select the menu:CAM[Export Template] option from the menu.
+. Select elements for inclusion from the menu:Export Template[] configuration dialog.
+. The template must be saved in the Macro directory or the CAM directory, as configured in the xref:reference/preferences.adoc[CAM Preferences].
+. The template name must follow the pattern of `job_<template name>.json`. When shown in the selection combobox, the `job_` prefix and the extension are left out.
+. Press the btn:[OK] button and save the template.
+
+== Options
+
+== Post Processing
+
+* Postprocessor selection
+* Postprocessor arguments
+* Output file name
+
+== Stock
+
+* Extent: Stock Size
+* Placement: Stock Location
+
+== Setup Sheet
+
+* Operation Heights
+* Operation Depths
+* Tool Rapid Speeds
+
+== Tool controllers
+
+* Selected Tool controllers.

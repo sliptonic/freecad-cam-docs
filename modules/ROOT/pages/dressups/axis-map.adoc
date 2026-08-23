@@ -1,0 +1,21 @@
+= CAM DressupAxisMap
+:page-origin: https://wiki.freecad.org/CAM_DressupAxisMap
+:page-origin-revision: aa72859c16 2025-01-23
+:page-menu: CAM → Path Dressup → Axis Map
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.guicommand]
+Menu location:: menu:CAM[Path Dressup > Axis Map]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+== Usage
+
+== Options
+
+== Properties
+
+== Scripting

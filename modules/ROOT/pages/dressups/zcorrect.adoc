@@ -1,0 +1,21 @@
+= CAM DressupZCorrect
+:page-origin: https://wiki.freecad.org/CAM_DressupZCorrect
+:page-origin-revision: d80dcd0d31 2025-11-05
+:page-menu: CAM → Path Dressup → Z Depth Correction
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.guicommand]
+Menu location:: menu:CAM[Path Dressup > Z Depth Correction]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+== Usage
+
+== Options
+
+== Properties
+
+== Scripting
