@@ -1,13 +1,24 @@
 = CAM DressupLeadInOut
 :page-origin: https://wiki.freecad.org/CAM_DressupLeadInOut
 :page-origin-revision: 0dd8b6045a 2026-06-08
+:page-command: CAM_DressupLeadInOut
+:page-icon: CAM_DressupLeadInOut.svg
 :page-menu: CAM → Path Dressup → Lead In/Out
+:page-workbench: CAM
+:page-see-also: CAM DressupDogbone, CAM DressupTag, CAM DressupRampEntry, CAM DressupDragKnife
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupLeadInOut.svg[CAM DressupLeadInOut,32] *CAM DressupLeadInOut*
+
 Menu location:: menu:CAM[Path Dressup > Lead In/Out]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
 See also:: xref:dressups/dogbone.adoc[CAM DressupDogbone], xref:dressups/tag.adoc[CAM DressupTag], xref:dressups/ramp-entry.adoc[CAM DressupRampEntry], xref:dressups/drag-knife.adoc[CAM DressupDragKnife]
+--
 
 == Description
 

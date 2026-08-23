@@ -1,13 +1,24 @@
 = CAM DressupDogbone
 :page-origin: https://wiki.freecad.org/CAM_DressupDogbone
 :page-origin-revision: 62aa965a97 2026-06-08
+:page-command: CAM_DressupDogbone
+:page-icon: CAM_DressupDogbone.svg
 :page-menu: CAM → Path Dressup → Dogbone
+:page-workbench: CAM
+:page-see-also: CAM DressupTag, CAM DressupRampEntry, CAM DressupDragKnife
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupDogbone.svg[CAM DressupDogbone,32] *CAM DressupDogbone*
+
 Menu location:: menu:CAM[Path Dressup > Dogbone]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
 See also:: xref:dressups/tag.adoc[CAM DressupTag], xref:dressups/ramp-entry.adoc[CAM DressupRampEntry], xref:dressups/drag-knife.adoc[CAM DressupDragKnife]
+--
 
 == Description
 

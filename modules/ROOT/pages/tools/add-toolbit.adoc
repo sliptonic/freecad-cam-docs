@@ -1,19 +1,28 @@
 = CAM ToolBitDock
 :page-origin: https://wiki.freecad.org/CAM_ToolBitDock
 :page-origin-revision: 5ac993245b 2026-07-08
+:page-command: CAM_ToolBitDock
+:page-icon: CAM_ToolBitDock.svg
 :page-menu: CAM → Add Toolbit…
+:page-workbench: CAM
 :page-shortcut: P T
 :page-since: 0.19
+:page-see-also: CAM ToolBitLibraryOpen, CAM Tools, CAM ToolBit
 :page-imported: true
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ToolBitDock.svg[CAM ToolBitDock,32] *CAM ToolBitDock*
+
 Menu location:: menu:CAM[Add Toolbit…]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[kbd:[P] kbd:[T]]
 Introduced in version:: 0.19
 See also:: xref:tools/library-manager.adoc[CAM ToolBitLibraryOpen], xref:tools/index.adoc[CAM Tools], xref:tools/toolbit.adoc[CAM ToolBit]
+--
 
 == Description
 

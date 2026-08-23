@@ -1,15 +1,25 @@
 = CAM MillFace
 :page-origin: https://wiki.freecad.org/CAM_MillFace
 :page-origin-revision: c32727fdb5 2026-07-08
+:page-command: CAM_MillFace
+:page-icon: CAM_MillFace.svg
 :page-menu: CAM → Face
+:page-workbench: CAM
 :page-imported: true
 
-WARNING: THIS COMMAND IS OBSOLETE<br>
-It is not available in [.since]#26.3 and later#.
+WARNING: THIS COMMAND IS OBSOLETE It is not available in [.since]#26.3 and later#.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_MillFace.svg[CAM MillFace,32] *CAM MillFace*
+
 Menu location:: menu:CAM[Face]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

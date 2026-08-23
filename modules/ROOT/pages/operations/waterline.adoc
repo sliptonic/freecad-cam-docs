@@ -1,7 +1,10 @@
 = CAM Waterline
 :page-origin: https://wiki.freecad.org/CAM_Waterline
 :page-origin-revision: 90df51ed00 2026-06-08
+:page-command: CAM_Waterline
+:page-icon: CAM_Waterline.svg
 :page-menu: CAM → Waterline
+:page-workbench: CAM
 :page-since: 0.19
 :page-imported: true
 
@@ -9,10 +12,17 @@ WARNING: This is an unfinished experimental feature. See xref:reference/experime
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Waterline.svg[CAM Waterline,32] *CAM Waterline*
+
 Menu location:: menu:CAM[Waterline]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
 Introduced in version:: 0.19
+See also:: _None_
+--
 
 == Description
 

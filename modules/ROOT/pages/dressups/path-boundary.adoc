@@ -1,13 +1,24 @@
 = CAM DressupPathBoundary
 :page-origin: https://wiki.freecad.org/CAM_DressupPathBoundary
 :page-origin-revision: 3cd8e7218c 2025-11-05
+:page-command: CAM_DressupPathBoundary
+:page-icon: CAM_DressupPathBoundary.svg
 :page-menu: CAM → Path Dressup → Boundary
+:page-workbench: CAM
+:page-see-also: CAM DressupTag, CAM DressupRampEntry
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupPathBoundary.svg[CAM DressupPathBoundary,32] *CAM DressupPathBoundary*
+
 Menu location:: menu:CAM[Path Dressup > Boundary]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
 See also:: xref:dressups/tag.adoc[CAM DressupTag], xref:dressups/ramp-entry.adoc[CAM DressupRampEntry]
+--
 
 == Description
 

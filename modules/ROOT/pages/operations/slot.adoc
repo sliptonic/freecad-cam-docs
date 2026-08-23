@@ -1,14 +1,24 @@
 = CAM Slot
 :page-origin: https://wiki.freecad.org/CAM_Slot
 :page-origin-revision: 3bee9c75cf 2026-05-21
+:page-command: CAM_Slot
+:page-icon: CAM_Slot.svg
 :page-menu: CAM → Slot
+:page-workbench: CAM
 :page-since: 0.19
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Slot.svg[CAM Slot,32] *CAM Slot*
+
 Menu location:: menu:CAM[Slot]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
 Introduced in version:: 0.19
+See also:: _None_
+--
 
 == Description
 

@@ -1,12 +1,23 @@
 = CAM Engrave
 :page-origin: https://wiki.freecad.org/CAM_Engrave
 :page-origin-revision: 4dd78cfa10 2026-07-08
+:page-command: CAM_Engrave
+:page-icon: CAM_Engrave.svg
 :page-menu: CAM → Engrave
+:page-workbench: CAM
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Engrave.svg[CAM Engrave,32] *CAM Engrave*
+
 Menu location:: menu:CAM[Engrave]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

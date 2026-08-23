@@ -1,16 +1,27 @@
 = CAM Area Workplane
 :page-origin: https://wiki.freecad.org/CAM_Area_Workplane
 :page-origin-revision: 309578ac37 2025-11-07
+:page-command: CAM_Area_Workplane
+:page-icon: CAM_Area_Workplane.svg
 :page-menu: CAM → Area workplane
+:page-workbench: CAM
 :page-imported: true
 
 WARNING: This is an unfinished experimental feature. See xref:reference/experimental.adoc[Enable Experimental Features].
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Area_Workplane.svg[CAM Area Workplane,32] *CAM Area Workplane*
+
 Menu location:: menu:CAM[Area workplane]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

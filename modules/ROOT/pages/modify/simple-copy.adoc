@@ -1,13 +1,24 @@
 = CAM SimpleCopy
 :page-origin: https://wiki.freecad.org/CAM_SimpleCopy
 :page-origin-revision: 65a3985938 2026-07-08
+:page-command: CAM_SimpleCopy
+:page-icon: CAM_SimpleCopy.svg
 :page-menu: CAM → Path Modification → Simple Copy
+:page-workbench: CAM
+:page-see-also: CAM Copy
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SimpleCopy.svg[CAM SimpleCopy,32] *CAM SimpleCopy*
+
 Menu location:: menu:CAM[Path Modification > Simple Copy]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
 See also:: xref:modify/copy.adoc[CAM Copy]
+--
 
 == Description
 

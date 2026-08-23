@@ -1,12 +1,23 @@
 = CAM Custom
 :page-origin: https://wiki.freecad.org/CAM_Custom
 :page-origin-revision: 2011f66dc9 2025-11-05
+:page-command: CAM_Custom
+:page-icon: CAM_Custom.svg
 :page-menu: CAM → Supplemental Commands → Custom
+:page-workbench: CAM
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Custom.svg[CAM Custom,32] *CAM Custom*
+
 Menu location:: menu:CAM[Supplemental Commands > Custom]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

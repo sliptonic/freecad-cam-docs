@@ -1,16 +1,26 @@
 = CAM OpActiveToggle
 :page-origin: https://wiki.freecad.org/CAM_OpActiveToggle
 :page-origin-revision: 11bc22084b 2026-05-17
+:page-command: CAM_OpActiveToggle
+:page-icon: CAM_OpActiveToggle.svg
 :page-menu: CAM → Toggle Operation
+:page-workbench: CAM
 :page-shortcut: P X
 :page-imported: true
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_OpActiveToggle.svg[CAM OpActiveToggle,32] *CAM OpActiveToggle*
+
 Menu location:: menu:CAM[Toggle Operation]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[kbd:[P] kbd:[X]]
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

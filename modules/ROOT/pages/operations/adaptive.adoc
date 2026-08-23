@@ -1,12 +1,23 @@
 = CAM Adaptive
 :page-origin: https://wiki.freecad.org/CAM_Adaptive
 :page-origin-revision: c2d2c2d286 2025-12-08
+:page-command: CAM_Adaptive
+:page-icon: CAM_Adaptive.svg
 :page-menu: CAM → Adaptive
+:page-workbench: CAM
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Adaptive.svg[CAM Adaptive,32] *CAM Adaptive*
+
 Menu location:: menu:CAM[Adaptive]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 
