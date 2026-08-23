@@ -18,7 +18,7 @@
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
         {{#if page.component}}
-        {{#if (ne page.componentVersion.version 'DEV')}}
+        {{#if page.attributes.has-l10n}}
         <div class="navbar-item fc-version fc-language">
           <label class="fc-version-label" for="fc-language-select">Language</label>
           <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">

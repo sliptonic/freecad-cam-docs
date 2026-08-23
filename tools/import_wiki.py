@@ -735,6 +735,7 @@ asciidoc:
   attributes:
     site-en-url: https://sliptonic.github.io/freecad-cam-docs
     page-component-version: wiki-2026-08
+    page-has-l10n: 'y'
 """)
         print(f"stubbed {len(missing)} untranslated pages")
     elif not args.no_pandoc and not only:
