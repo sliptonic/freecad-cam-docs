@@ -50,7 +50,7 @@ def main():
     urls = resolve(s, todo)
     missing = []
     for n in todo:
-        url = urls.get(n)
+        url = urls.get(n) or urls.get(n[:1].upper() + n[1:])
         if not url:
             missing.append(n)
             continue
