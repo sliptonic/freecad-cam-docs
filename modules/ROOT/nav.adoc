@@ -43,7 +43,7 @@
 ** xref:operations/probe.adoc[Probe]
 ** xref:operations/path-from-shape-tc.adoc[Path From Shape TC]
 * CAM Modification
-** xref:modify/copy.adoc[Copy oOperation]
+** xref:modify/copy.adoc[Copy Operation]
 ** xref:modify/array.adoc[Array]
 ** xref:modify/simple-copy.adoc[Simple Copy]
 * Specialty Operations
