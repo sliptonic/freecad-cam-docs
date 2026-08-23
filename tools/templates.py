@@ -43,7 +43,12 @@ def menu_command(pos, named, ctx):
 
 
 def key(pos, named, ctx):
-    return f"kbd:[{_text(pos[0])}]" if pos else ""
+    if not pos:
+        return ""
+    txt = _text(pos[0])
+    if TOKEN_RE.search(txt):
+        return txt          # {{KEY|[[Image:…]] [[Page|label]]}} — an icon-plus-link, not a key
+    return f"kbd:[{txt}]"
 
 
 def button(pos, named, ctx):
@@ -165,6 +170,12 @@ def gui_command(pos, named, ctx):
     return f"\n[.guicommand]\n{body}\n"
 
 
+def colored_text(pos, named, ctx):
+    # {{ColoredText|color|text}} or {{ColoredText|text}}: keep the text, drop the color.
+    txt = _text(pos[-1]) if pos else ""
+    return txt
+
+
 def tutorial_info(pos, named, ctx):
     g = {k.strip().lower(): _text(v) for k, v in named.items()}
     rows = [(k.title(), v) for k, v in g.items() if v]
@@ -195,6 +206,7 @@ HANDLERS = {
     "veryimportantmessage": very_important,
     "guicommand": gui_command,
     "tutorialinfo": tutorial_info,
+    "coloredtext": colored_text,
     "true": lambda p, n, c: true_false(p, n, c, "true"),
     "false": lambda p, n, c: true_false(p, n, c, "false"),
 }

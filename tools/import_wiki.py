@@ -97,6 +97,25 @@ PATH_OVERRIDES = {
     "Artwork_CAM": "reference/artwork.adoc",
 }
 EXTRA_PAGES = ["OpenCamLib", "Artwork_CAM"]
+# Link targets that exist on the wiki only as redirects to CAM pages, or not at all but have an
+# obvious current page. Resolved before the page map is consulted.
+LINK_ALIASES = {
+    "CAM_ToolLibraryEdit": "CAM_ToolBitLibraryOpen",
+    "CAM_OperationCopy": "CAM_Copy",
+    "CAM_Pocket_3D": "CAM_Pocket3D",
+}
+
+
+def load_path_redirects(src):
+    """Path_* pages are all redirects to CAM_* pages; use them to resolve old links."""
+    out = {}
+    for f in os.listdir(src):
+        if f.startswith("Path_") and f.endswith(".wikitext"):
+            with open(os.path.join(src, f), encoding="utf-8") as fh:
+                m = re.match(r"\s*#REDIRECT\s*\[\[([^\]|]+)", fh.read(300), re.I)
+            if m:
+                out[f[:-9]] = LANG_SUFFIX_RE.sub("", m.group(1).strip()).replace(" ", "_")
+    return out
 
 
 class PageCtx:
@@ -194,6 +213,7 @@ def convert_link(target, label, ctx, page_map, images):
     page, _, frag = target.partition("#")
     page = LANG_SUFFIX_RE.sub("", page.strip()).replace(" ", "_")
     text = label if label is not None else page.replace("_", " ")
+    page = LINK_ALIASES.get(page, page)
     if page in page_map:
         ctx.links["xref"] += 1
         anchor = f"#{anchor_id(frag)}" if frag else ""
@@ -208,6 +228,7 @@ def convert_link(target, label, ctx, page_map, images):
 def convert_image(target, label, ctx, images):
     name = target.split(":", 1)[1].strip()
     name = name.replace(" ", "_")
+    name = name[:1].upper() + name[1:]        # MediaWiki file titles are first-letter capitalized
     parts = [p.strip() for p in (label or "").split("|")] if label else []
     # In wikitext the label we receive is everything after the first '|', re-split here.
     width = None
@@ -326,12 +347,38 @@ def restore_tokens(text, ctx):
 
 
 def normalize_headings(adoc):
-    """pandoc emits the wiki's '== X ==' as '== X'; keep document title as '= Title'."""
-    # Remove an accidental level-0 heading pandoc may produce and demote nothing else.
+    """Promote headings one level and drop pandoc's explicit anchors.
+
+    The wiki's top-level sections are '== X ==' (MediaWiki level 2); pandoc writes them as
+    '=== X', one level below where they belong under the '= Title' line. Pandoc also precedes
+    each heading with an explicit '[[x_y]]' anchor using underscores; we remove it so
+    Asciidoctor generates ids with the site's idseparator ('-'), which is what the xref
+    anchors produced by convert_link() use.
+    """
     lines = []
+    prev_level = 1          # the document title
+    in_block = False        # skip fenced blocks (----, ....) where '=' lines are content
     for line in adoc.split("\n"):
-        if line.startswith("= ") and not line.startswith("== "):
-            line = "=" + line
+        if re.fullmatch(r"(----|\.\.\.\.|====|\+\+\+\+)", line.strip()):
+            in_block = not in_block
+            lines.append(line)
+            continue
+        if in_block:
+            lines.append(line)
+            continue
+        if re.fullmatch(r"\[\[[^\]]+\]\]", line.strip()):
+            continue
+        m = re.match(r"^(={1,6})\s+(.*)$", line)
+        if m:
+            level = len(m.group(1))
+            if level == 1:
+                level = 2                     # a stray '= X' in the body
+            else:
+                level = max(2, level - 1)     # promote: wiki '==' is the first body level
+            if level > prev_level + 1:        # no skipped levels (Asciidoctor warns)
+                level = prev_level + 1
+            prev_level = level
+            line = "=" * level + " " + m.group(2)
         lines.append(line)
     return "\n".join(lines)
 
@@ -339,8 +386,20 @@ def normalize_headings(adoc):
 def page_title(name, ctx):
     t = ctx.guicommand.get("name") if ctx.guicommand else None
     if t:
-        return t
+        return plain(t, ctx)
     return name.replace("_", " ")
+
+
+def plain(text, ctx):
+    """Restore tokens and reduce AsciiDoc macros to plain text for use in page attributes."""
+    text = restore_tokens(text, ctx)
+    text = re.sub(r"image:[^\[]+\[[^\]]*\]\s*", "", text)
+    text = re.sub(r"xref:[^\[]+\[([^\]]*)\]", r"\1", text)
+    text = re.sub(r"https?://\S+\[([^\]]*)\]", r"\1", text)
+    text = re.sub(r"kbd:\[([^\]]*)\]", r"\1", text)
+    text = re.sub(r"btn:\[([^\]]*)\]", r"\1", text)
+    text = re.sub(r"menu:([^\[]+)\[([^\]]*)\]", lambda m: m.group(1) + (" → " + m.group(2) if m.group(2) else ""), text)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def header(name, path, ctx, aliases, revision):
@@ -352,18 +411,42 @@ def header(name, path, ctx, aliases, revision):
         lines.append(":page-aliases: " + ", ".join(aliases))
     g = ctx.guicommand or {}
     if g.get("menulocation"):
-        lines.append(f":page-menu: {g['menulocation']}")
+        lines.append(f":page-menu: {plain(g['menulocation'], ctx)}")
     if g.get("shortcut"):
-        lines.append(f":page-shortcut: {g['shortcut']}")
+        lines.append(f":page-shortcut: {plain(g['shortcut'], ctx)}")
     if g.get("version"):
-        lines.append(f":page-since: {g['version']}")
+        lines.append(f":page-since: {plain(g['version'], ctx)}")
     lines.append(":page-imported: true")
     lines.append("")
     return "\n".join(lines)
 
 
+def fix_lists(adoc):
+    """Repair two pandoc list outputs Asciidoctor rejects.
+
+    - A wiki list item that follows a blank line loses its list context and pandoc emits the
+      raw marker as '++#*++ text'; turn the marker back into AsciiDoc list syntax.
+    - Pandoc writes alphabetic lists with literal 'A.', 'B.' markers; Asciidoctor wants the
+      same marker on every item, so use the generic '.' and a style attribute.
+    """
+    out = []
+    for line in adoc.split("\n"):
+        m = re.match(r"^\+\+([#*:;]+)\+\+\s*(.*)$", line)
+        if m:
+            marker = "".join("." if c == "#" else "*" for c in m.group(1))
+            line = f"{marker} {m.group(2)}"
+        m = re.match(r"^([A-Z])\.\s+(.*)$", line)
+        if m:
+            if m.group(1) == "A":
+                out.append("[upperalpha]")
+            line = f". {m.group(2)}"
+        out.append(line)
+    return "\n".join(out)
+
+
 def post_pass(adoc, name, path, ctx, aliases, revision):
     adoc = restore_tokens(adoc, ctx)
+    adoc = fix_lists(adoc)
     adoc = normalize_headings(adoc)
     adoc = re.sub(r"\n{3,}", "\n\n", adoc).strip() + "\n"
     return header(name, path, ctx, aliases, revision) + "\n" + adoc
@@ -489,6 +572,10 @@ def main():
     page_map = build_page_map(pages, navi_groups, existing.get("pages"))
     for r, target in redirects.items():
         if target in page_map:
+            page_map[r] = page_map[target]
+    for r, target in load_path_redirects(src).items():
+        target = LINK_ALIASES.get(target, target)
+        if target in page_map and r not in page_map:
             page_map[r] = page_map[target]
     if not existing:
         with open(args.page_map, "w", encoding="utf-8") as fh:
