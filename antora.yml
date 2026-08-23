@@ -1,13 +1,12 @@
-# Component descriptor for the DEV branch (the rewrite against FreeCAD main).
+# Component descriptor for the wiki branch: the FreeCAD wiki CAM pages, imported mechanically.
 name: cam
 title: FreeCAD CAM
-version: DEV
-display_version: DEV (pre-release)
-prerelease: true
+version: wiki-2026-08
+display_version: Wiki (Aug 2026)
 start_page: index.adoc
 nav:
   - modules/ROOT/nav.adoc
 asciidoc:
   attributes:
-    freecad-version: 26.3dev
+    freecad-version: wiki snapshot 2026-08-22
     page-status: ''
