@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Form :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/de/cam/wiki-2026-08/operations/path-from-shape-tc.html">
+    <link rel="prev" href="probe.html">
+    <link rel="next" href="../modify/copy.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/de">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/operations/path-from-shape-tc.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/operations/path-from-shape-tc.html" selected>Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/operations/path-from-shape-tc.html">Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/operations/path-from-shape-tc.html">Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM Auftrag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM Nachbereitung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM Plausibilitätsprüfung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM ExportVorlage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM Untersuchen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM SimulatorGL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM SchleifeAuswählen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM AktiveBearbeitungUmschalten</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">CAM WerkzeugbitBibliothekÖffnen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">CAM WerkzeugbitAblage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="profile.html">CAM Profil</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">CAM Taschenform</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">CAM FlächeFräsen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="helix.html">CAM Wendel</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">CAM Adaptiv</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">CAM Nut</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">CAM Bohren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">CAM Gravieren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">CAM Entgraten</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vcarve.html">CAM V-Schnitt</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">CAM Tasche3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="surface.html">CAM Oberfläche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="waterline.html">CAM Wasserlinie</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM AufbereitungAchsenZuordnung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM AufbereitungBegrenzungsPfad</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM AufbereitungHundeknochen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM AufbereitungSchleppmesser</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM AufbereitungAnAbfahren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM AufbereitungEingangsrampe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM AufbereitungHaltepunkt</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM AufbereitungZKorrektur</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">CAM Kommentar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">CAM Halt</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">CAM Benutzerdefiniert</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">CAM Sonde</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">CAM Form</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM Kopie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM Anordnung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM EinfacheKopie</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">CAM GewindeFräsen</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM Fläche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM Bereich Arbeitsebene</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Supplemental Commands</li>
+    <li><a href="path-from-shape-tc.html">CAM Form</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/de/modules/ROOT/pages/operations/path-from-shape-tc.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Form</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Dies ist eine unvollendete experimentelle Funktion. Siehe <a href="../reference/experimental.html" class="xref page">Enable Experimental Features</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock fcinfobox">
+<div class="content">
+<div class="paragraph fcTitle">
+<p><span class="image"><img src="../_images/CAM_Shape.svg" alt="CAM Form" width="32"></span> <strong>CAM Form</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Zusätzliche Befehle</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Pfad aus Form TC</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>-</p>
+</dd>
+<dt class="hdlist1">See also</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="beschreibung"><a class="anchor" href="#beschreibung"></a>Beschreibung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Der Befehl <span class="image"><img src="../_images/CAM_Shape.svg" alt="CAM Shape" width="24"></span> <a href="#">CAM Form</a> entspricht nicht dem aktuellen CAM-Arbeitsablauf. Aus diesem Grund wurde es in die experimentellen Funktionen verschoben.</p>
+</div>
+<div class="paragraph">
+<p>Dieses Werkzeug generiert Werkzeugpfade aus CAM-Objektkanten.</p>
+</div>
+<div class="paragraph">
+<p>Werkzeugpfade werden nicht für den Werkzeugradius kompensiert. Den generierten Werkzeugpfaden ist keine Werkzeugsteuerung zugeordnet.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/FromShape_image_0.png" alt="FromShape image 0"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="anwendung"><a class="anchor" href="#anwendung"></a>Anwendung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Alle Kanten, die mit der Auswahl des 3D-Modells verbunden sind, werden einbezogen.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Kanten auswählen, indem man das gesamte Objekt in der <a href="https://wiki.freecad.org/3D_View">3D-Ansicht</a> oder <a href="https://wiki.freecad.org/Tree_View">Baumansicht</a> auswählt, einzelne Kanten auswählt oder Flächen in der <a href="https://wiki.freecad.org/3D_View">3D-Ansicht</a> auswählt.</p>
+</li>
+<li>
+<p>Die Taste <span class="image"><img src="../_images/CAM_Shape.svg" alt="CAM Shape" width="16"></span> <a href="#">Pfad aus Form TC</a> drücken.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Der Ausgabewerkzeugpfad wird außerhalb des CAM-Auftrags hinzugefügt.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="optionen"><a class="anchor" href="#optionen"></a>Optionen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Alle Optionen sind nur in der Ansicht „FromShape.Property.Data“ verfügbar und umfassen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Rückzugachse</strong></p>
+</li>
+<li>
+<p><strong>Rückzugshöhe</strong></p>
+</li>
+<li>
+<p><strong>Fortsetzungshöhe</strong></p>
+</li>
+<li>
+<p><strong>Vorschubgeschwindigkeit</strong></p>
+</li>
+<li>
+<p><strong>Vertikale Vorschubgeschwindigkeit</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eigenschaften"><a class="anchor" href="#eigenschaften"></a>Eigenschaften</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="daten"><a class="anchor" href="#daten"></a>Daten</h3>
+<div class="paragraph">
+<p>Leer</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ansicht"><a class="anchor" href="#ansicht"></a>Ansicht</h3>
+<div class="paragraph">
+<p>Leer</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="skripten"><a class="anchor" href="#skripten"></a>Skripten</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Siehe auch: <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">Grundlagen der Skripterstellung in FreeCAD</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="docstring-informationen"><a class="anchor" href="#docstring-informationen"></a>DocString-Informationen</h3>
+<div class="paragraph">
+<p>Gibt ein Path-Objekt aus einer Liste von Formen zurück.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>shapes: Eingabeliste der Formen.</p>
+</li>
+<li>
+<p>start (Vector()): Startposition der Zuführung, dient auch als Hinweis für den Pfadeintritt.</p>
+</li>
+<li>
+<p>return_end (False): Wenn True, gibt es das Tupel (Pfad, Endposition) zurück.</p>
+</li>
+<li>
+<p>arc_plane(1): 0=None,1=Auto,2=XY,3=ZX,4=YZ,5=Variabel. Bogenzeichnungsebene, entsprechend G17, G18 und G19.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Wenn nicht 'Keine', werden die Ausgangs-Linienzüge so transformiert, dass sie mit der ausgewählten Ebene übereinstimmen, und der entsprechende G-Code wird eingefügt.</p>
+</li>
+<li>
+<p>'Auto' bedeutet, dass die Ebene durch die erste auftretende Bogenebene bestimmt wird. Wenn die gefundene Ebene mit keiner G-Code-Ebene übereinstimmt, wird die XY-Ebene verwendet.</p>
+</li>
+<li>
+<p>'Variabel' bedeutet, dass die Bogenebene während des Betriebs geändert werden kann, um sie an den auftretenden Bogen anzupassen.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>sort_mode(1): 0=Keine, 1=2D5, 2=3D, 3=Greedy. Linienzug-Sortiermodus zur Optimierung der Bewegungsstrecke.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>'2D5' zerlegt Formen in Linienzüge und gruppiert die Formen nach ihrer Ebene. Die 'Start'-Position wählt die erste Ebene aus, mit der begonnen werden soll. Der Algorithmus sortiert dann innerhalb der Ebene und fährt dann mit der nächstgelegenen Ebene fort.</p>
+</li>
+<li>
+<p>'3D' macht keine Annahmen zur Planarität. Die Sortierung erfolgt im 3D-Raum.</p>
+</li>
+<li>
+<p>'Greedy' ähnelt '2D5', versucht jedoch, die Bewegungsstrecke zu minimieren, indem es den nächstgelegenen Pfad unterhalb der aktuellen Frässchicht sucht. Der Pfad in der unteren Schicht wird nur ausgewählt, wenn die Bewegungsstrecke innerhalb des in 'threshold' angegebenen Werts liegt.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>min_dist(0.0): Mindestabstand für die generierten neuen Linienzüge. Linienzüge können unterbrochen werden, wenn der Algorithmus dies für angemessen hält. Man setzt den Wert auf Null, um das Unterbrechen von Linienzügen zu deaktivieren.</p>
+</li>
+<li>
+<p>abscissa(3.0): Steuert die Knoten-Abtastung auf Linienzügen für die Suche nach dem nächstgelegenen Punkt. Die Abtastung erfolgt mit OCC GCPnts_UniformAbscissa.</p>
+</li>
+<li>
+<p>nearest_k(3): Bei der Sortierung werden die nächstgelegenen k-Sampling-Knoten berücksichtigt.</p>
+</li>
+<li>
+<p>Ausrichtung(0): 0=Normal, 1=Umgekehrt. Schleifenausrichtung erzwingen:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>'Normal' bedeutet gegen den Uhrzeigersinn für äußere Linienzüge, wenn man gegen die positive Achsrichtung schaut, und im Uhrzeigersinn für innere Linienzüge.</p>
+</li>
+<li>
+<p>'Umgekehrt' bedeutet das Gegenteil.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>direction(0): 0=Keine,1=XPositiv,2=XNegativ,3=YPositiv,4=YNegativ,5=ZPositiv,6=ZNegativ. Offene Pfadrichtung erzwingen.</p>
+</li>
+<li>
+<p>threshold(0.0): Wenn die Endpunkte zweier Linienzüge innerhalb dieses Schwellenwerts liegen, gelten sie als verbunden. Man kann diesen Wert auf den Werkzeugdurchmesser einstellen, um das Werkzeug unten zu halten.</p>
+</li>
+<li>
+<p>retract_axis(2): 0=X,1=Y,2=Z. Werkzeugrückzugachse.</p>
+</li>
+<li>
+<p>retraction(0.0): Werkzeugrückzug absolute Koordinate entlang der Rückzugachse.</p>
+</li>
+<li>
+<p>resume_height(0.0): Bei der Rückkehr vom letzten Rückzug ergibt sich daraus die Pausenhöhe relativ zum Z-Wert der nächsten Bewegung.</p>
+</li>
+<li>
+<p>segmentation(0.0): Lange Kurven in Segmente dieser Länge aufteilen. Ein Anwendungsfall ist die automatische Nivellierung von Leiterplatten, damit mehr Korrekturpunkte eingefügt werden können.</p>
+</li>
+<li>
+<p>feedrate(0.0): Normale Vorschubgeschwindigkeit.</p>
+</li>
+<li>
+<p>feedrate_v(0.0): Nur vertikale (abwärts gerichtete) Vorschubgeschwindigkeit.</p>
+</li>
+<li>
+<p>verbose(true): Wenn wahr, enthält jeder Bewegungs-G-Code die vollständigen Koordinaten und die Vorschubgeschwindigkeit.</p>
+</li>
+<li>
+<p>abs_center(false): Verwenden des absoluten Bogenmittelpunktmodus (G90.1).</p>
+</li>
+<li>
+<p>preamble(true): Präambeln ausgeben.</p>
+</li>
+<li>
+<p>deflection(0.01): Durchbiegung für die Diskretisierung nicht kreisförmiger Kurven. Wird auch zur Diskretisierung kreisförmiger Linienzüge verwendet, wenn man die Form für Drahtbearbeitungen 'explodiert'.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Beispiel:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">shapes = [Box.Shape]
+Path.fromShapes(shapes, start=Vector(), return_end=False, arc_plane=1, sort_mode=1, min_dist=0.0, abscissa=3.0, nearest_k=3, orientation=0, direction=0, threshold=0.0, retract_axis=2, retraction=0.0, resume_height=0.0, segmentation=0.0, feedrate=0.0, feedrate_v=0.0, verbose=True, abs_center=False, preamble=True, deflection=0.01)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="probe.html">CAM Sonde</a></span>
+  <span class="next"><a href="../modify/copy.html">CAM Kopie</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

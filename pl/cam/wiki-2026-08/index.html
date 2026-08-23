@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Workbench :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/pl/cam/wiki-2026-08/index.html">
+    <link rel="next" href="job/job.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../_/css/site.css">
+<link rel="stylesheet" href="../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/pl">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs" autofocus>
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../cam/wiki-2026-08/index.html">English</option>
+            <option value="../../../de/cam/wiki-2026-08/index.html">Deutsch</option>
+            <option value="../../../fr/cam/wiki-2026-08/index.html">Français</option>
+            <option value="../../../pl/cam/wiki-2026-08/index.html" selected>Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="job/job.html">CAM: Zadanie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="output/post-process.html">CAM: Przetwarzanie końcowe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="job/sanity-check.html">CAM: Bezpieczeństwo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="job/export-template.html">CAM: Eksportuj szablon</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inspect/inspect.html">CAM: Sprawdź ścieżkę narzędzia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inspect/simulator-legacy.html">CAM: Symulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inspect/simulator.html">CAM: Nowy symulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inspect/select-loop.html">CAM: Zakończ zaznaczona pętlę</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="inspect/op-active-toggle.html">CAM: Przecz aktywne stadium operacji</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tools/library-manager.html">CAM ToolBitLibraryOpen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tools/add-toolbit.html">CAM ToolBitDock</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/profile.html">CAM: Profil</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/pocket.html">CAM: Obróbka kieszeni</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/mill-face.html">CAM: Powierzchnia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/helix.html">CAM: Helisa</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/adaptive.html">CAM: Adaptacyjnie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/slot.html">CAM: Rowek</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/drilling.html">CAM: Wiercenie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/engrave.html">CAM: Grawer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/deburr.html">CAM: Usuwanie zadziorów</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/vcarve.html">CAM: Wycięcie V</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/pocket-3d.html">CAM: Obróbka kieszeni</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/surface.html">Path: Powierzchnia 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/waterline.html">CAM: Linia poziomu</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dressups/axis-map.html">CAM: Odwzorowanie osi</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dressups/path-boundary.html">CAM: Ulepszenie ściezki konturu</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dressups/dogbone.html">CAM: Ulepszenie - nadcięcie w narożnikach</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dressups/drag-knife.html">CAM: Ulepszenie - rylec</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dressups/lead-in-out.html">CAM: Ulepszenie wprowadzenia / wyprowadzenia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dressups/ramp-entry.html">CAM: Ulepszenie - parkowanie narzędzia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dressups/tag.html">CAM: Ulepszenie - znacznik</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="dressups/zcorrect.html">CAM: Ulepszenie - korekta głębokości Z</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/comment.html">CAM: Komentarz</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/stop.html">CAM: Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/custom.html">CAM: Użytkownika</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/probe.html">CAM: Sonda</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/path-from-shape-tc.html">CAM: Z Kształtu</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="modify/copy.html">CAM: Kopia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="modify/array.html">CAM: Szyk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="modify/simple-copy.html">CAM: Szybka kopia</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="operations/thread-milling.html">CAM: Frezowanie gwintów</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="misc/area.html">CAM: Obszar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="misc/area-workplane.html">CAM: Obszar płaszczyzny roboczej</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="job/fixture.html">CAM: Mocowanie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">FreeCAD CAM</a></li>
+    <li><a href="index.html">CAM Workbench</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/pl/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Workbench</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="_images/Workbench_CAM.svg" alt="Ikonka FreeCAD dla środowiska pracy CAM" width="128">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wprowadzenie"><a class="anchor" href="#wprowadzenie"></a>Wprowadzenie</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Środowisko pracy <span class="image"><img src="_images/Workbench_CAM.svg" alt="Workbench CAM" width="24"></span> <a href="#">CAM</a> jest używane do tworzenia instrukcji maszynowych dla <a href="https://en.wikipedia.org/wiki/CNC_router">maszyn CNC</a> z modelu 3D FreeCAD. Instrukcje te wytwarzają rzeczywiste obiekty 3D na maszynach CNC, takich jak frezarki, tokarki, wycinarki laserowe i podobne. Zazwyczaj instrukcje są dialektem <a href="https://en.wikipedia.org/wiki/G-code">G-code</a>. Przedstawiono tu <a href="https://www.ange-softs.com/SIMULCNCHTML/index.html">ogólny przykład symulacji sekwencji ścieżki narzędzia tokarki CNC</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/Pathwb.png" alt="Pathwb" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Przepływ pracy środowiska FreeCAD CAM tworzy te instrukcje maszynowe w następujący sposób:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Model 3D jest obiektem bazowym, zwykle tworzonym przy użyciu jednego lub więcej środowisk pracy <span class="image"><img src="_images/Workbench_PartDesign.svg" alt="Workbench PartDesign" width="24"></span> <a href="https://wiki.freecad.org/PartDesign_Workbench">Projekt Części</a>, <span class="image"><img src="_images/Workbench_Part.svg" alt="Workbench Part" width="24"></span> <a href="https://wiki.freecad.org/Part_Workbench">Część</a> lub <span class="image"><img src="_images/Workbench_Draft.svg" alt="Workbench Draft" width="24"></span>. <a href="https://wiki.freecad.org/Draft_Workbench">Rysunek Roboczy</a>.</p>
+</li>
+<li>
+<p>W środowisku CAM tworzone jest <a href="job/job.html" class="xref page">Zadanie</a>. Zawiera ono wszystkie informacje potrzebne do wygenerowania niezbędnego G-kodu do obróbki zadania na frezarce CNC: jest materiał magazynowy, frezarka ma określony <a href="tools/library-manager.html" class="xref page">zestaw narzędzi</a> i wykonuje określone polecenia kontrolujące prędkość i ruchy <em>(zwykle G-kod)</em>.</p>
+</li>
+<li>
+<p><a href="tools/index.html" class="xref page">Narzędzia</a> są wybierane zgodnie z wymaganiami zadania.</p>
+</li>
+<li>
+<p>Ścieżki frezowania są tworzone przy użyciu np. operacji <a href="operations/profile.html" class="xref page">konturu</a> i <a href="operations/pocket-3d.html" class="xref page">kieszeni</a>. Te obiekty CAM używają wewnętrznego dialektu G-code FreeCAD, niezależnego od maszyny CNC.</p>
+</li>
+<li>
+<p>Wyeksportuj zadanie z G-kodem, dopasowanym do Twojej maszyny. Ten krok nazywany jest <em>postprocesowaniem</em>. Dostępne są różne postprocesory.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="koncepcje-ogólne"><a class="anchor" href="#koncepcje-ogólne"></a>Koncepcje ogólne</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Środowisko pracy CAM generuje G-kod definiujący ścieżki wymagane do frezowania projektu reprezentowanego przez model 3D na docelowej frezarce w <a href="reference/scripting.html#wewnc499trzny-format-gcode-programu-freecad" class="xref page">wewnętrznym formacie G-Code programu FreeCAD</a>, który jest następnie tłumaczony na odpowiedni dialekt dla docelowego sterownika CNC poprzez wybór odpowiedniego postprocesora.</p>
+</div>
+<div class="paragraph">
+<p>G-kod jest generowany na podstawie dyrektyw i operacji zawartych w zadaniu CAM. Obieg zadań zawiera ich listę w kolejności, w jakiej będą wykonywane. Listę tę tworzy się, dodając Operacje CAM, wykończenia CAM, Polecenia uzupełniające CAM i Modyfikacje CAM z menu CAM lub przycisków graficznego interfejsu użytkownika.</p>
+</div>
+<div class="paragraph">
+<p>Środowisko pracy CAM udostępnia menedżera narzędzi <em>(bibliotekę, tabelę narzędzi)</em>, narzędzia do inspekcji G-kodu oraz symulacji. Łączy się z postprocesorem i umożliwia importowanie i eksportowanie szablonów zadań.</p>
+</div>
+<div class="paragraph">
+<p>Środowisko CAM ma zewnętrzne zależności, w tym:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Jednostki modelu FreeCAD 3D są zdefiniowane w <span class="menuseq"><b class="menu">Edycja</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferencje &#8230;&#8203;</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Ogólne</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Domyślny układ jednostek</b></span>. Konfiguracja Postprocessora definiuje jednostki wynikowe G-kodu.</p>
+</li>
+<li>
+<p>Ścieżka do pliku Makrodefinicji oraz tolerancje geometryczne są zdefiniowane w zakładce <span class="menuseq"><b class="menu">Edycja</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferencje &#8230;&#8203;</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Ustawienia dla zadania</b></span>.</p>
+</li>
+<li>
+<p>Kolory są definiowane w zakładce <span class="menuseq"><b class="menu">Edycja</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferencje &#8230;&#8203;</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">GUI</b></span>.</p>
+</li>
+<li>
+<p>Parametry znaczników trzymania definiuje się w zakładce <span class="menuseq"><b class="menu">Edycja</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferencje &#8230;&#8203;</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Wykończenia</b></span>.</p>
+</li>
+<li>
+<p>To, że jakość modelu Base 3D jest zgodna z wymaganiami środowiska CAM, potwierdza <a href="https://wiki.freecad.org/Part_CheckGeometry">Sprawdzenie geometrii</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ograniczenia"><a class="anchor" href="#ograniczenia"></a>Ograniczenia</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Niektóre z obecnych ograniczeń, o których należy pamiętać, to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Większość narzędzi CAM nie jest prawdziwymi narzędziami 3D, a jedynie 2,5D. Oznacza to, że przyjmują one ustalony kształt 2D i mogą go przyciąć do określonej głębokości. Istnieją jednak dwa narzędzia, które tworzą prawdziwe ścieżki 3D: <span class="image"><img src="_images/CAM_3DPocket.svg" alt="CAM 3DPocket" width="24"></span> <a href="operations/pocket-3d.html" class="xref page">Kieszeń 3D</a> i <span class="image"><img src="_images/CAM_Surface.svg" alt="CAM Surface" width="24"></span> <a href="operations/surface.html" class="xref page">Powierzchnia 3D</a>.</p>
+</li>
+<li>
+<p>Większość środowiska pracy CAM jest zaprojektowana dla standardowej, prostej, 3-osiowej <em>(xyz)</em> frezarki / routera CNC, ale narzędzia tokarskie są wspierane poprzez dodatek <a href="https://wiki.freecad.org/CAM_Turning">Toczenie</a>.</p>
+</li>
+<li>
+<p>Większość operacji w środowisku pracy CAM zwróci ścieżki oparte tylko na standardowym narzędziu / bicie, niezależnie od typu narzędzia / bita przypisanego w danym kontrolerze narzędzia. <span class="since">introduced in 26.3</span>: <span class="image"><img src="_images/CAM_Engrave.svg" alt="CAM Engrave" width="24"></span> <a href="operations/engrave.html" class="xref page">Grawer</a>, <span class="image"><img src="_images/CAM_Surface.svg" alt="CAM Surface" width="24"></span> <a href="operations/surface.html" class="xref page">powierzchnia 3D</a> i inne operacje teraz wspierają uwzględnianie kształtu narzędzia.</p>
+</li>
+<li>
+<p>Operacje wykonywane w środowisku pracy CAM nie uwzględniają mechanizmów mocujących, które są używane do mocowania modelu na maszynie. W związku z tym przed wysłaniem kodu do maszyny należy przejrzeć i zasymulować generowane ścieżki. Jeśli to konieczne, wymodeluj mechanizmy mocujące w programie FreeCAD, aby lepiej sprawdzić wygenerowane ścieżki. Zwróć uwagę na ewentualne kolizje z zaciskami lub innymi przeszkodami na ścieżkach.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="jednostki"><a class="anchor" href="#jednostki"></a>Jednostki</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Obsługa jednostek w środowisku CAM może być myląca. Należy zrozumieć kilka kwestii:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Jednostkami podstawowymi FreeCAD dla długości i czasu są odpowiednio "mm" i "s". Prędkość jest więc "mm / s". To jest to, co FreeCAD przechowuje wewnętrznie, niezależnie od wszystkiego innego.</p>
+</li>
+<li>
+<p>Domyślny schemat jednostek używa jednostek domyślnych. Jeśli używasz domyślnego schematu i wprowadzasz prędkość posuwu bez łańcucha jednostek, zostanie ona wprowadzona jako "mm/s".</p>
+</li>
+<li>
+<p>Większość maszyn CNC oczekuje prędkości posuwu w postaci "mm / min" lub "in / min". Większość postprocesorów automatycznie konwertuje jednostkę podczas generowania G-kodu.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Schematy:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Zmiana schematu w preferencjach zmienia domyślny ciąg jednostek dla pól wejściowych. Jeśli jesteś użytkownikiem CAM i wolisz projektować w jednostkach metrycznych, zalecane jest użycie schematu "Metryczny drobne części i CNC". Jeśli projektujesz w jednostkach amerykańskich, możesz użyć schematu Calowy dziesiętny lub Budowlany US.</p>
+</li>
+<li>
+<p>Zmiana preferowanego schematu jednostek nie będzie miała wpływu na wynik, ale pomoże uniknąć błędów przy wprowadzaniu danych.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Wyjście:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Generowanie poprawnej jednostki na wyjściu jest zadaniem postprocesora i jest wykonywane tylko w tym czasie.</p>
+</li>
+<li>
+<p>Jednostka wyjściowa maszyny jest całkowicie niezwiązana z wybranym przez użytkownika schematem jednostek.</p>
+</li>
+<li>
+<p>Postprocesory generują dane wyjściowe w systemie metrycznym <em>(G21)</em>, imperialnym <em>(G20)</em> lub są konfigurowalne.</p>
+</li>
+<li>
+<p>Konfigurowalne postprocesory domyślnie produkują dane metryczne <em>(G21)</em>.</p>
+</li>
+<li>
+<p>Jeśli chcesz, aby twój konfigurowalny postprocesor generował G-code imperialny <em>(G20)</em>, ustaw odpowiedni argument w konfiguracji wyjścia zadania <em>(np. --inches dla linuxcnc)</em>. Można to zapisać w szablonie zadania i ustawić jako szablon domyślny, aby działało to automatycznie dla wszystkich przyszłych zadań.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Inspekcja CAM:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Jeśli użyjesz narzędzia Inspekcja CAM do obejrzenia G-kodu, zobaczysz go w "mm / s", ponieważ nie jest on poddawany obróbce postprocesora.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wysokość-i-głębokość"><a class="anchor" href="#wysokość-i-głębokość"></a>Wysokość i głębokość</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Wiele poleceń ma zróżnicowaną wysokość i głębokość:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/Path-DepthsAndHeights.gif" alt="Path DepthsAndHeights" width="500">
+</div>
+</div>
+<div class="paragraph caption">
+<p>Wizualne odniesienie do właściwości głębokości ''( ustawienia)''</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="polecenia"><a class="anchor" href="#polecenia"></a>Polecenia</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Niektóre polecenia są eksperymentalne i nie są domyślnie dostępne. Aby je włączyć, zobacz stronę <a href="reference/experimental.html" class="xref page">Funkcje eksperymentalne</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="polecenia-projektu"><a class="anchor" href="#polecenia-projektu"></a>Polecenia projektu</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/CAM_Job.svg" alt="CAM Job" width="32"></span> <a href="job/job.html" class="xref page">Zadanie</a>: Tworzy nowe zadanie obróbki CNC.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Sanity.svg" alt="CAM Sanity" width="32"></span> <a href="job/sanity-check.html" class="xref page">Sprawdź, czy zadanie CAM nie zawiera typowych błędów</a>: Sprawdza, czy w wybranym zadaniu nie występują brakujące wartości.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Post.svg" alt="CAM Post" width="32"></span> <a href="output/post-process.html" class="xref page">Post Process</a>: Eksportuje projekt do G-kodu.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_PostSelected.svg" alt="CAM PostSelected" width="32"></span> <a href="https://wiki.freecad.org/CAM_PostSelected">PSelektywne przetwarzanie końcowe</a>: do zrobienia <span class="since">introduced in 26.3</span></p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_ExportTemplate.svg" alt="CAM ExportTemplate" width="32"></span> <a href="job/export-template.html" class="xref page">Eksport szablonu</a>: Eksportuj aktualne zadanie jako szablon.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="polecenia-narzędzi"><a class="anchor" href="#polecenia-narzędzi"></a>Polecenia narzędzi</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/CAM_SimulatorGL.svg" alt="CAM SimulatorGL" width="32"></span> <a href="inspect/simulator.html" class="xref page">CAM SymulatorGL</a>: Uruchamia nowy, ulepszony symulator CAM. <span class="since">introduced in 1.0</span></p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Simulator.svg" alt="CAM Simulator" width="32"></span> <a href="inspect/simulator-legacy.html" class="xref page"> Symulator CAM</a>: Przedstawia operację frezowania w sposób, w jaki jest ona wykonywana na maszynie.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Inspect.svg" alt="CAM Inspect" width="32"></span> <a href="inspect/inspect.html" class="xref page">Przeglądaj polecenia CAM</a>: Wyświetla G-kod do weryfikacji.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_SelectLoop.svg" alt="CAM SelectLoop" width="32"></span> <a href="inspect/select-loop.html" class="xref page">Zakończ zaznaczanie pętli</a>: Uzupełnia pętlę na podstawie dwóch wybranych krawędzi.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_OpActiveToggle.svg" alt="CAM OpActiveToggle" width="32"></span> <a href="inspect/op-active-toggle.html" class="xref page">Przełącz aktywność operacji</a>: Aktywuje lub dezaktywuje operację na ścieżce.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_ToolBitLibraryOpen.svg" alt="CAM ToolBitLibraryOpen" width="32"></span> <a href="tools/library-manager.html" class="xref page">Edytor biblioteki narzędzi</a>: Otwiera edytor do zarządzania bibliotekami końcówek narzędzi.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_ToolBitDock.svg" alt="CAM ToolBitDock" width="32"></span> <a href="tools/add-toolbit.html" class="xref page">Dodaj końcówkę narzędzia…</a>: Otwiera selektor końcówek narzędzi.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="operacje-podstawowe"><a class="anchor" href="#operacje-podstawowe"></a>Operacje podstawowe</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/CAM_Profile.svg" alt="CAM Profile" width="32"></span> <a href="operations/profile.html" class="xref page">Profil</a>: Tworzy operację profilowania całego modelu albo jednej lub kilku wybranych powierzchni lub krawędzi.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Pocket_Shape.svg" alt="CAM Pocket Shape" width="32"></span> <a href="operations/pocket.html" class="xref page">Kształt kieszeni</a>: Tworzy operację kieszeni z jednej lub kilku wybranych kieszeni.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_MillFacing.svg" alt="CAM MillFacing" width="32"></span> <a href="https://wiki.freecad.org/CAM_MillFacing">Obróbka powierzchni</a>: Tworzy ścieżkę obróbki powierzchni.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Helix.svg" alt="CAM Helix" width="32"></span> <a href="operations/helix.html" class="xref page">Helisa</a>: Tworzy ścieżkę o kształcie helisy.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Adaptive.svg" alt="CAM Adaptive" width="32"></span> <a href="operations/adaptive.html" class="xref page">Algorytm adaptacyjny</a>: Tworzy operację dostosowania oczyszczania i profilowania.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Slot.svg" alt="CAM Slot" width="32"></span> <a href="operations/slot.html" class="xref page">Rowek</a>: Tworzy operację szczelinowania na podstawie wybranych elementów lub punktów niestandardowych. <a href="reference/experimental.html" class="xref page"><em>funkcja eksperymentalna</em></a>.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Drilling.svg" alt="CAM Drilling" width="32"></span> <a href="operations/drilling.html" class="xref page">Owierty</a>: Przeprowadza cykl wiercenia.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_ThreadMilling.svg" alt="CAM ThreadMilling" width="32"></span> <a href="operations/thread-milling.html" class="xref page">Frezowanie gwintów</a>: Tworzy operację CAM frezowania gwintów na podstawie cech obiektu bazowego.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Engrave.svg" alt="CAM Engrave" width="32"></span> <a href="operations/engrave.html" class="xref page">Grawer</a>: Tworzy trasę grawerowania.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Deburr.svg" alt="CAM Deburr" width="32"></span> <a href="operations/deburr.html" class="xref page">Usuwanie zadziorów</a>: Tworzy ścieżkę usuwania zadziorów.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Vcarve.svg" alt="CAM Vcarve" width="32"></span> <a href="operations/vcarve.html" class="xref page">Wycięcie V</a>: Tworzy ścieżkę grawerowania przy użyciu kształtu narzędzia V.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="operacje-przestrzenne"><a class="anchor" href="#operacje-przestrzenne"></a>Operacje przestrzenne</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/CAM_Pocket3D.svg" alt="CAM Pocket3D" width="32"></span> <a href="operations/pocket-3d.html" class="xref page">Kieszeń 3D</a>: Tworzy ścieżkę dla kieszeni 3D.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Surface.svg" alt="CAM Surface" width="32"></span> <a href="operations/surface.html" class="xref page">Powierzchnia 3D</a>: Tworzy ścieżkę dla powierzchni 3D. <a href="reference/experimental.html" class="xref page"><em>funkcja eksperymentalna</em></a>.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Waterline.svg" alt="CAM Waterline" width="32"></span> <a href="operations/waterline.html" class="xref page">Linia poziomu</a>: Tworzy ścieżkę linii poziomu dla powierzchni 3D. <a href="reference/experimental.html" class="xref page"><em>Experimental</em></a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="wykończenia-ścieżki"><a class="anchor" href="#wykończenia-ścieżki"></a>Wykończenia ścieżki</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupArray.svg" alt="CAM DressupArray" width="32"></span> <a href="https://wiki.freecad.org/CAM_DressupArray">Szyk</a>: do zrobienia <span class="since">introduced in 1.1</span></p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupAxisMap.svg" alt="CAM DressupAxisMap" width="32"></span> <a href="dressups/axis-map.html" class="xref page">Odwzorowanie osi</a>: Odwzorowuje jedną oś na drugą.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupPathBoundary.svg" alt="CAM DressupPathBoundary" width="32"></span> <a href="dressups/path-boundary.html" class="xref page">Kontur</a>: Dodaje ulepszenie obrysu krawędzi do wybranej ścieżki.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupDogbone.svg" alt="CAM DressupDogbone" width="32"></span> <a href="dressups/dogbone.html" class="xref page">Nadcięcie w narożnikach</a>: Dodaje modyfikację nadcięcia narożników do wybranej ścieżki.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupDragKnife.svg" alt="CAM DressupDragKnife" width="32"></span> <a href="dressups/drag-knife.html" class="xref page">Rylec</a>: Dodaje modyfikację dla noża do przeciągania do wybranej ścieżki.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupLeadInOut.svg" alt="CAM DressupLeadInOut" width="32"></span> <a href="dressups/lead-in-out.html" class="xref page">Wprowadzenie / wyprowadzenie</a>: Dodaje punkt wejścia i / lub wyjścia do wybranej ścieżki.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupMirror.svg" alt="CAM DressupMirror" width="32"></span> <a href="https://wiki.freecad.org/CAM_DressupMirror">Odbicie lustrzane</a>: do zrobienia <span class="since">introduced in 26.3</span></p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupRampEntry.svg" alt="CAM DressupRampEntry" width="32"></span> <a href="dressups/ramp-entry.html" class="xref page">Parkowanie narzędzia</a>: Dodaje modyfikację wejścia na rampę do wybranej ścieżki.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupTag.svg" alt="CAM DressupTag" width="32"></span> <a href="dressups/tag.html" class="xref page">Pola mocujące</a>: Dodaje modyfikację mostka przytrzymującego do wybranej ścieżki.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_DressupZCorrect.svg" alt="CAM DressupZCorrect" width="32"></span> <a href="dressups/zcorrect.html" class="xref page">Korekta głębokości Z</a>: Koryguje głębokość Z przy użyciu mapowania sondy.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="polecenia-uzupełniające"><a class="anchor" href="#polecenia-uzupełniające"></a>Polecenia uzupełniające</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/CAM_Comment.svg" alt="CAM Comment" width="32"></span> <a href="operations/comment.html" class="xref page">Komentarz</a>: Wstawia komentarz do G-kodu ścieżki.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Stop.svg" alt="CAM Stop" width="32"></span> <a href="operations/stop.html" class="xref page">Stop</a>: Wstawia instrukcję pełnego zatrzymania maszyny.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Custom.svg" alt="CAM Custom" width="32"></span> <a href="operations/custom.html" class="xref page">Wstawka Gcode</a>: Wstawia G-kod użytkownika.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Probe.svg" alt="CAM Probe" width="32"></span> <a href="operations/probe.html" class="xref page">Sonda</a>: Tworzy siatkę pomiarową z zasobu zadania.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Shape.svg" alt="CAM Shape" width="32"></span> <a href="operations/path-from-shape-tc.html" class="xref page">G-kod z kształtu</a>: Tworzy obiekt ścieżki z wybranego obiektu części. <a href="reference/experimental.html" class="xref page"><em>funkcja eksperymentalna</em></a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modyfikacja-ścieżki"><a class="anchor" href="#modyfikacja-ścieżki"></a>Modyfikacja ścieżki</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/CAM_Copy.svg" alt="CAM Copy" width="32"></span> <a href="modify/copy.html" class="xref page">Kopia</a>: Tworzy parametryczną Kopię wybranego obiektu ścieżki.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Array.svg" alt="CAM Array" width="32"></span> <a href="modify/array.html" class="xref page">Szyk</a>: Tworzy szyk przez powielanie wybranej ścieżki.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_SimpleCopy.svg" alt="CAM SimpleCopy" width="32"></span> <a href="modify/simple-copy.html" class="xref page">Szybka kopia</a>: Tworzy nieparametryczną kopię wybranego obiektu ścieżki.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="różności"><a class="anchor" href="#różności"></a>Różności</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/CAM_Area.svg" alt="CAM Area" width="32"></span> <a href="misc/area.html" class="xref page">Obszar</a>: Tworzy obszar charakterystyczny z wybranych obiektów. <a href="reference/experimental.html" class="xref page"><em>funkcja eksperymentalna</em></a>.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Area_Workplane.svg" alt="CAM Area Workplane" width="32"></span> <a href="misc/area-workplane.html" class="xref page">Obszar płaszczyzny roboczej</a>: Tworzy płaszczyznę roboczą obszaru cechy. <a href="reference/experimental.html" class="xref page"><em>funkcja eksperymentalna</em></a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="narzędzia-przestarzałe"><a class="anchor" href="#narzędzia-przestarzałe"></a>Narzędzia przestarzałe</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/CAM_Fixture.svg" alt="CAM Fixture" width="32"></span> <a href="job/fixture.html" class="xref page">Mocowanie</a>: Zmienia położenie uchwytu. Niedostępne w <span class="since">1.1 and later</span>.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_MillFace.svg" alt="CAM MillFace" width="32"></span> <a href="operations/mill-face.html" class="xref page">Ściana</a>: Tworzy ścieżkę obróbki powierzchni. Niedostępne w <span class="since">26.3 and later</span>.</p>
+</li>
+<li>
+<p><span class="image"><img src="_images/CAM_Tapping.svg" alt="CAM Tapping" width="32"></span> <a href="https://wiki.freecad.org/CAM_Tapping">Tapping</a>. Niedostępne w <span class="since">26.3 and later</span>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="noże-tokarskie-architektura"><a class="anchor" href="#noże-tokarskie-architektura"></a>Noże tokarskie, architektura</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Umożliwia zarządzanie narzędziami, nożami tokarskimi i biblioteką narzędzi. Oparte na architekturze noży tokarskich.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="tools/index.html" class="xref page">Narzędzia</a></p>
+</li>
+<li>
+<p><a href="tools/tool-shape.html" class="xref page">Profil narzędzia</a></p>
+</li>
+<li>
+<p><a href="tools/toolbit.html" class="xref page">Noże tokarskie</a></p>
+</li>
+<li>
+<p><a href="tools/toolbit-library.html" class="xref page">Biblioteka narzędzi</a></p>
+</li>
+<li>
+<p><a href="tools/tool-controller.html" class="xref page">Kontroler narzędzi</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pozostałe"><a class="anchor" href="#pozostałe"></a>Pozostałe</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="reference/faq.html" class="xref page">Często zadawane pytania</a>: Środowisko CAM ma wiele wspólnych koncepcji z innymi pakietami oprogramowania CAM, ale ma też swoje własne cechy szczególne. Jeśli coś wydaje się nie tak, to jest to dobre miejsce, aby zacząć.</p>
+</li>
+<li>
+<p><a href="job/setup-sheet.html" class="xref page">Karta konfiguracji</a>: Można użyć arkusza ustawień, aby dostosować sposób obliczania różnych wartości właściwości dla operacji.</p>
+</li>
+<li>
+<p><a href="output/postprocessor-customization.html" class="xref page">Dostosowywanie przetwarzania końcowego</a>: Jeśli masz specjalną maszynę, która nie może używać jednego z dostępnych postprocesorów, może być konieczne napisanie własnego postprocesora.</p>
+</li>
+<li>
+<p><a href="reference/fourth-axis.html" class="xref page">Oś czwarta</a>: Eksperymentalne frezowanie w czterech osiach.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ustawienia"><a class="anchor" href="#ustawienia"></a>Ustawienia</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="_images/Preferences-cam.svg" alt="Preferences cam" width="32"></span> <a href="reference/preferences.html" class="xref page">Ustawienia</a>: Preferencje dostępne dla środowiska pracy CAM.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tworzenie-skryptów"><a class="anchor" href="#tworzenie-skryptów"></a>Tworzenie skryptów</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Zobacz również: <a href="reference/scripting.html" class="xref page">skrypty dla środowiska Path</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="poradniki"><a class="anchor" href="#poradniki"></a>Poradniki</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="tutorials/walkthrough-for-the-impatient.html" class="xref page">opis dla niecierpliwych</a>: krótki samouczek pozwalający zapoznać się ze środowiskiem pracy CAM.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="filmy"><a class="anchor" href="#filmy"></a>Filmy</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.youtube.com/playlist?list=PLEuOia-QxyFKgzAeTyH62GKqWKVURiWJL">FreeCAD Path: Niestandardowe ścieżki z Pythonem - część 1 - 5</a>: lista odtwarzania z serią 5 filmów w języku angielskim autorstwa Sliptonic. Seria ta pokazuje, jak pracować ze środowiskiem <a href="#">CAM</a>.</p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/playlist?list=PLUrr_kHPp4vhGdLlj6IemtF-OPUlRvSTC">FreeCAD CAM Path Workbench</a>: lista odtwarzania z serią 7 filmów w języku angielskim przygotowana przez CAD CAM Lessons.</p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/playlist?list=PLUrr_kHPp4vh2n6DcIlegK4dEKIFjmISJ">FreeCAD CAM CNC</a>: lista odtwarzania z serią 8 filmów w języku angielskim przygotowana przez CAD CAM Lessons.</p>
+</li>
+<li>
+<p>Zobacz również sekcję <a href="https://wiki.freecad.org/Video_tutorials#Wytwarzanie_wspomagane_komputerowo_(CAM)">Wytwarzanie wspomagane komputerowo (CAM)</a> na stronie <a href="https://wiki.freecad.org/Video_tutorials">Wideo poradniki</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="plan-rozwoju"><a class="anchor" href="#plan-rozwoju"></a>Plan rozwoju</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="contributing/development-roadmap.html" class="xref page">CAM Development Roadmap</a>: Przeczytaj ten artykuł, jeśli jesteś programistą i chcesz przyczynić się do rozwoju środowiska CAM.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="next"><a href="job/job.html">CAM: Zadanie</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+  </body>
+</html>

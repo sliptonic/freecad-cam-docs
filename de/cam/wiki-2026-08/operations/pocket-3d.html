@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Tasche3D :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/de/cam/wiki-2026-08/operations/pocket-3d.html">
+    <link rel="prev" href="vcarve.html">
+    <link rel="next" href="surface.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/de">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/operations/pocket-3d.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/operations/pocket-3d.html" selected>Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/operations/pocket-3d.html">Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/operations/pocket-3d.html">Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM Auftrag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM Nachbereitung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM Plausibilitätsprüfung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM ExportVorlage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM Untersuchen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM SimulatorGL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM SchleifeAuswählen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM AktiveBearbeitungUmschalten</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">CAM WerkzeugbitBibliothekÖffnen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">CAM WerkzeugbitAblage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="profile.html">CAM Profil</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">CAM Taschenform</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">CAM FlächeFräsen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="helix.html">CAM Wendel</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">CAM Adaptiv</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">CAM Nut</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">CAM Bohren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">CAM Gravieren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">CAM Entgraten</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vcarve.html">CAM V-Schnitt</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">CAM Tasche3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="surface.html">CAM Oberfläche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="waterline.html">CAM Wasserlinie</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM AufbereitungAchsenZuordnung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM AufbereitungBegrenzungsPfad</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM AufbereitungHundeknochen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM AufbereitungSchleppmesser</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM AufbereitungAnAbfahren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM AufbereitungEingangsrampe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM AufbereitungHaltepunkt</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM AufbereitungZKorrektur</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">CAM Kommentar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">CAM Halt</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">CAM Benutzerdefiniert</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">CAM Sonde</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">CAM Form</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM Kopie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM Anordnung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM EinfacheKopie</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">CAM GewindeFräsen</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM Fläche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM Bereich Arbeitsebene</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>3D Operations</li>
+    <li><a href="pocket-3d.html">CAM Tasche3D</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/de/modules/ROOT/pages/operations/pocket-3d.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Tasche3D</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock fcinfobox">
+<div class="content">
+<div class="paragraph fcTitle">
+<p><span class="image"><img src="../_images/CAM_Pocket3D.svg" alt="CAM Tasche3D" width="32"></span> <strong>CAM Tasche3D</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">3D-Tasche</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>-</p>
+</dd>
+<dt class="hdlist1">See also</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="beschreibung"><a class="anchor" href="#beschreibung"></a>Beschreibung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Der Befehl <span class="image"><img src="../_images/CAM_Pocket3D.svg" alt="CAM Pocket3D" width="24"></span> <a href="#">CAM Tasche3D</a> fügt ein 3D-Taschenobjekt in den Auftrag ein. Dieser Vorgang berücksichtigt die Bodenfläche der Tasche sowie ausgewählte Wände, die nicht vertikal sind. In seinem aktuellen Zustand wird dieser Vorgang zum Schruppen einer Tasche mit nicht vertikalen Wänden und/oder nicht horizontaler Unterseite verwendet. Eine gängige Technik zum Schlichten ist die Verwendung eines Kugelfräsers mit der experimentellen Bearbeitung <span class="image"><img src="../_images/CAM_Surface.svg" alt="CAM Surface" width="16"></span> <a href="surface.html" class="xref page">3D-Oberfläche</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Path_3D_Pocket_Sample.png" alt="Path 3D Pocket Sample" width="600">
+</div>
+</div>
+<div class="paragraph caption">
+<p>Beispielbild der 3D-Taschen-Funktion zum Entfernen eines zylindrischen Batteriehalters.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="anwendung"><a class="anchor" href="#anwendung"></a>Anwendung</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="eine-3d-tasche-erstellen"><a class="anchor" href="#eine-3d-tasche-erstellen"></a>Eine 3D-Tasche erstellen</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Innerhalb eines Auftrags eine oder mehrere Flächen aus dem Auftragsmodell auswählen, die als Basisgeometrie verwendet werden sollen.</p>
+</li>
+<li>
+<p>Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Die Schaltfläche <span class="image"><img src="../_images/CAM_Pocket3D.svg" alt="CAM Pocket3D" width="16"></span> <a href="#">3D-Tasche 3D</a> drücken.</p>
+</li>
+<li>
+<p>Aus dem Menü die Option <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">3D-Tasche</b></span> wählen.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Eine Werkzeugsteuerung aus dem Popup-Auswahlfenster auswählen.</p>
+</li>
+<li>
+<p>Auf <b class="button">Anwenden</b> klicken, um den Fräsweg für die Durchgänge der Bearbeitung zu beobachten. Die Parameter anpassen, bis man mit der Bearbeitung zufrieden ist.</p>
+</li>
+<li>
+<p>Auf <b class="button">OK</b> klicken, um die Bearbeitung zu speichern.</p>
+</li>
+<li>
+<p>Nach Bedarf Elemente der Basisgeometrie hinzufügen oder entfernen, um die Bearbeitung zu konfigurieren.</p>
+</li>
+<li>
+<p>Die Registerkarte Tiefen überprüfen, um sicherzustellen, dass die Starttiefe, die Endtiefe und der Abwärtsschritt-Prozentsatz korrekt sind. Die Endtiefe wird durch die Auswahl der Körpergeometrie bestimmt und kann nicht geändert werden.</p>
+</li>
+<li>
+<p>Auf der Registerkarte Höhen überprüfen, ob die Sicherheits- und Freiraumhöhen angemessen sind.</p>
+</li>
+<li>
+<p>Die Registerkarte Bearbeitungen überprüfen, wo man den die Werkzeugsteuerung erneut auswählt, den Schnittmodus für Steig- oder konventionelles Fräsen konfiguriert, das Muster festlegt, den Schritt-Über-Prozentsatz anpasst und man die Durchlaufverlängerung anwenden kann.</p>
+</li>
+<li>
+<p>Auf <b class="button">Übernehmen</b> klicken, um die Fräsbahn für die Durchgänge des Arbeitsgangs anzuzeigen. Die Parameter anpassen, bis man mit der Bearbeitung zufrieden ist.</p>
+</li>
+<li>
+<p>Auf <b class="button">OK</b> klicken, um die Bearbeitung zu speichern.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hinweise"><a class="anchor" href="#hinweise"></a>Hinweise</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Alle aus diesem Vorgang generierten Bahnen basieren auf einem Standard-Schaftfräser mit dem Durchmesser des Werkzeugs, das für diesen 3D-Taschenfräsvorgang ausgewählt wurde.</p>
+</li>
+<li>
+<p>Kugelfräser und andere Formen werden bei der Bahngenerierung nicht berücksichtigt, selbst wenn sie als Werkzeug für diesen Vorgang ausgewählt wurden.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="optionen"><a class="anchor" href="#optionen"></a>Optionen</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Die Eigenschaft <strong>Adaptive Pocket Finish</strong> verwenden, um zu versuchen, das Fräsen von Luft unterhalb einer 3D-Tasche zu minimieren, wenn es sich bei der Tasche um ein Loch durch das Modell handelt.</p>
+</li>
+<li>
+<p>Die Eigenschaft <strong>Adaptive Pocket Start</strong> verwenden, um zu versuchen, das Fräsen von Luft beim Eintritt in die Tasche zu minimieren. Das Beispielbild oben im Abschnitt <a href="#description">Beschreibung</a> dieser Seite ansehen. Um das Fräsen über dieser 3D-Tasche zu reduzieren, setzt man diese Eigenschaft auf True und die Bahnen beginnen näher an der Tasche, viel näher an der Stelle, an der die Tasche tatsächlich beginnt. Das folgende Bild ansehen und den Unterschied in der Start-Höhe der Bahn beachten. Das Fräsen wird reduziert.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/3D_Pocket_Sample_Adaptive_Start.png" alt="3D Pocket Sample Adaptive Start" width="600">
+</div>
+</div>
+<div class="paragraph caption">
+<p>Beispielbild der 3D-Taschen-Funktion, die zum Fräsen eines zylindrischen Batteriehalters verwendet wird, wobei der adaptive Taschen-Start aktiviert ist, um das Fräsen von Luft beim Eintritt zu reduzieren.</p>
+</div>
+<div class="paragraph">
+<p>Wenn man das gesamte Modell und den gesamten Bestand als Ganzes verarbeiten möchte, verwendet man die Eigenschaft <strong>Process Stock Area</strong> mit dem Wert True und ohne ausgewählte Basisgeometrie.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eigenschaften"><a class="anchor" href="#eigenschaften"></a>Eigenschaften</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="daten"><a class="anchor" href="#daten"></a>Daten</h3>
+<div class="paragraph">
+<div class="title">Base</div>
+<p>Hinweis: Es wird empfohlen, die Eigenschaft Placement von Pfadbearbeitungen nicht zu bearbeiten. Stattdessen verschiebt oder dreht man das CAM-Auftragsmodell nach Bedarf.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Placement</strong>: Gesamtpositionierung [Position und Drehung] des Objekts – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Angle</strong>: Winkel in Grad, der auf die Drehung des Objekts um den Achsenwert angewendet wird</p>
+</li>
+<li>
+<p><strong>Axis</strong>: Achse (eine oder mehrere), um die das Objekt gedreht werden soll, festgelegt in den Untereigenschaften: X, Y, Z</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-Achswert</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-Achswert</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z-Achswert</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Position</strong>: Position des Objekts, festgelegt in Untereigenschaften: X, Y, Z – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-Abstandswert</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-Abstandswert</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z-Abstandswert</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Label</strong>: Vom Benutzer angegebener Name des Objekts (UTF-8)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Depth</div>
+<ul>
+<li>
+<p><strong>Clearance Height</strong>: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden</p>
+</li>
+<li>
+<p><strong>Final Depth</strong>: Endtiefe des Werkzeugs – niedrigster Wert in Z</p>
+</li>
+<li>
+<p><strong>Finish Depth</strong>: Maximale Materialabtragung beim letzten Durchgang</p>
+</li>
+<li>
+<p><strong>Safe Height</strong>: Die oben genannten schnellen Bewegungen sind erlaubt</p>
+</li>
+<li>
+<p><strong>Start Depth</strong>: Starttiefe des Werkzeugs – erste Schnitttiefe in Z</p>
+</li>
+<li>
+<p><strong>Step Down</strong>: Inkrementelle Absenkung des Werkzeugs</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Face</div>
+<ul>
+<li>
+<p><strong>Offset Pattern</strong>: Zu verwendendes Räumen-Muster. (Man wählt aus, auf welche Weise die horizontalen Bewegungen ausgeführt werden sollen.)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Active</strong>: Falsch setzen, um zu verhindern, dass der Vorgang Code generiert</p>
+</li>
+<li>
+<p><strong>Base</strong>: Die Basisgeometrie für diese Bearbeitung</p>
+</li>
+<li>
+<p><strong>Comment</strong>: Ein optionaler Kommentar zu dieser Bearbeitung</p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong>: Der Kühlmittelmodus für diese Bearbeitung</p>
+</li>
+<li>
+<p><strong>Cycle Time</strong>: Die Zykluszeitabschätzung für diese Bearbeitung</p>
+</li>
+<li>
+<p><strong>Tool Controller</strong>: Definiert die in der Bearbeitung verwendete Werkzeugsteuerung</p>
+</li>
+<li>
+<p><strong>User Label</strong>: Vom Benutzer zugewiesene Bezeichnung</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Pocket</div>
+<ul>
+<li>
+<p><strong>Adaptive Pocket Finish</strong>: Einen adaptiven Algorithmus verwenden, um übermäßiges Fräsen unterhalb des ebenen Taschenbodens zu vermeiden.</p>
+</li>
+<li>
+<p><strong>Adaptive Pocket Start</strong>: Einen adaptiven Algorithmus verwenden, um übermäßiges Fräsen über der ebenen Taschenoberseite zu vermeiden.</p>
+</li>
+<li>
+<p><strong>Cut Mode</strong>: Die Richtung, in der der Werkzeugpfad um das Teil verlaufen soll: im Uhrzeigersinn (CW) oder gegen den Uhrzeigersinn (CCW)</p>
+</li>
+<li>
+<p><strong>Extra Offset</strong>: Zusätzlicher Versatz, der auf die Bearbeitung angewendet werden soll. Die Richtung ist von der Bearbeitung abhängig.</p>
+</li>
+<li>
+<p><strong>Handle Multiple Features</strong>: Auswählen, wie mehrere Basisgeometrie-Formelemente verarbeitet werden sollen.</p>
+</li>
+<li>
+<p><strong>Keep Tool Down</strong>: Versuche, unnötige Rücknahmen zu vermeiden.</p>
+</li>
+<li>
+<p><strong>Min Travel</strong>: Die 3D-Sortierung von Pfaden verwenden</p>
+</li>
+<li>
+<p><strong>Process Stock Area</strong>: Das Modell und den Bestand in einem Vorgang bearbeiten, ohne dass eine Basisgeometrie ausgewählt ist.</p>
+</li>
+<li>
+<p><strong>Start At</strong>: Beginnen Sie mit dem Einstecken in der Mitte oder an der Grenze.</p>
+</li>
+<li>
+<p><strong>Step Over</strong>: Prozentualer Anteil des Fräserdurchmessers, der bei jedem Durchgang übersprungen werden soll</p>
+</li>
+<li>
+<p><strong>Zig Zag Angle</strong>: Winkel des Zickzackmusters</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Rotation</div>
+<p>Hinweis: Die Drehung ist für 3D-Taschen ab Version 0.19 nicht verfügbar.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Enable Rotation</strong>: Die Drehung aktivieren, um Zugang zu Taschen oder Bereichen zu erhalten, die nicht normal zur Z-Achse sind.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Start Point</div>
+<ul>
+<li>
+<p><strong>Start Point</strong>: Der benutzerdefinierte Startpunkt für den Pfad dieser Bearbeitung.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: X-Abstandswert</p>
+</li>
+<li>
+<p><strong>Y</strong>: Y-Abstandswert</p>
+</li>
+<li>
+<p><strong>Z</strong>: Z-Abstandswert</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Use Start Point</strong>: Diese Option auf True setzen, wenn man einen Startpunkt manuell festlegen möchte. Den Startpunkt im Feld Startpunkt der Eigenschaftsdaten festlegen.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ansicht"><a class="anchor" href="#ansicht"></a>Ansicht</h3>
+<div class="paragraph">
+<p>Empty</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="skripten"><a class="anchor" href="#skripten"></a>Skripten</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Siehe auch: <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">Grundlagen der Skripterstellung in FreeCAD</a>.</p>
+</div>
+<div class="paragraph">
+<p>Beispiel:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="vcarve.html">CAM V-Schnitt</a></span>
+  <span class="next"><a href="surface.html">CAM Oberfläche</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

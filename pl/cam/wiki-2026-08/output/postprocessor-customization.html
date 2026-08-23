@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Postprocessor Customization :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/pl/cam/wiki-2026-08/output/postprocessor-customization.html">
+    <link rel="prev" href="../job/fixture.html">
+    <link rel="next" href="../job/setup-sheet.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/pl">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/output/postprocessor-customization.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/output/postprocessor-customization.html">Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/output/postprocessor-customization.html">Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/output/postprocessor-customization.html" selected>Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM: Zadanie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="post-process.html">CAM: Przetwarzanie końcowe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM: Bezpieczeństwo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM: Eksportuj szablon</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM: Sprawdź ścieżkę narzędzia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM: Symulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM: Nowy symulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM: Zakończ zaznaczona pętlę</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM: Przecz aktywne stadium operacji</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">CAM ToolBitLibraryOpen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">CAM ToolBitDock</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">CAM: Profil</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">CAM: Obróbka kieszeni</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">CAM: Powierzchnia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">CAM: Helisa</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">CAM: Adaptacyjnie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">CAM: Rowek</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">CAM: Wiercenie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">CAM: Grawer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">CAM: Usuwanie zadziorów</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">CAM: Wycięcie V</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">CAM: Obróbka kieszeni</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">Path: Powierzchnia 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">CAM: Linia poziomu</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM: Odwzorowanie osi</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM: Ulepszenie ściezki konturu</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM: Ulepszenie - nadcięcie w narożnikach</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM: Ulepszenie - rylec</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM: Ulepszenie wprowadzenia / wyprowadzenia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM: Ulepszenie - parkowanie narzędzia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM: Ulepszenie - znacznik</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM: Ulepszenie - korekta głębokości Z</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">CAM: Komentarz</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">CAM: Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">CAM: Użytkownika</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">CAM: Sonda</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">CAM: Z Kształtu</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM: Kopia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM: Szyk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM: Szybka kopia</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">CAM: Frezowanie gwintów</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM: Obszar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM: Obszar płaszczyzny roboczej</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM: Mocowanie</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Other pages</li>
+    <li><a href="postprocessor-customization.html">CAM Postprocessor Customization</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/pl/modules/ROOT/pages/output/postprocessor-customization.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Postprocessor Customization</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wprowadzenie"><a class="anchor" href="#wprowadzenie"></a>Wprowadzenie</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>FreeCAD używa jako wewnętrznej reprezentacji dla generowanych ścieżek tzw. kodów G-code. Mogą one opisywać takie rzeczy jak: prędkość i szybkość posuwu, zatrzymywanie silnika itp. Jednak najważniejsze są ruchy, które opisują. Te ruchy są dość proste: mogą to być linie proste lub łuki okręgowe. Bardziej zaawansowane krzywe, takie jak krzywe złożone, są już przybliżane przez <span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="24"></span> <a href="../index.html" class="xref page">środowisko pracy CAM</a> we FreeCAD.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="co-postprocesor-może-dla-ciebie-zrobić"><a class="anchor" href="#co-postprocesor-może-dla-ciebie-zrobić"></a>Co postprocesor może dla Ciebie zrobić</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Wiele frezarek używa kodów G-code do kontrolowania procesu frezowania. Mogą one wyglądać niemal identycznie jak kody wewnętrzne, ale mogą występować pewne różnice:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>maszyna może mieć specjalną sekwencję uruchamiania</p>
+</li>
+<li>
+<p>może mieć specjalną sekwencję zatrzymywania</p>
+</li>
+<li>
+<p>łuki mogą być definiowane z względnym lub bezwzględnym środkiem</p>
+</li>
+<li>
+<p>może wymagać numerów linii w określonym formacie</p>
+</li>
+<li>
+<p>mogą być używane tzw. cykle gotowe do predefiniowanych podprocesów, takich jak wiercenie</p>
+</li>
+<li>
+<p>możesz preferować wyjście kodu G-code w jednostkach metrycznych lub imperialnych</p>
+</li>
+<li>
+<p>może być użyteczne wykonanie zestawu ruchów przed wezwaniem zmiany narzędzia, aby ułatwić pracę operatorowi</p>
+</li>
+<li>
+<p>możesz chcieć dodać komentarze dla czytelności lub je pominąć, aby program był mały</p>
+</li>
+<li>
+<p>możesz chcieć dodać niestandardowy nagłówek, aby zidentyfikować lub udokumentować program do przyszłego odniesienia</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ponadto, są inne języki do kontroli frezarek, takie jak PGL, DXF i inne.</p>
+</div>
+<div class="paragraph">
+<p>Postprocesor to program, który tłumaczy wewnętrzne kody na kompletne pliki, które można wgrać na obrabiarkę.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="przygotowania-do-napisania-własnego-postprocesora"><a class="anchor" href="#przygotowania-do-napisania-własnego-postprocesora"></a>Przygotowania do napisania własnego postprocesora</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Możesz zacząć od bardzo prostego modelu pokazującego jak Twoja obrabiarka czyta poste linie i łuki. Przygotuj go w dowolnym programie odpowiednim dla Twojej obrabiarki.</p>
+</div>
+<div class="paragraph">
+<p>Plik dla takich ścieżek zaczynających się w (0,0,0) i idących ku Y byłby pomocny. Upewnij się, że to samo narzędzie porusza się wzdłuż tej ścieżki - że nie trzeba zastosować kompensacji promienia narzędzia.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/Path_PostProcessorSketch.png" alt="Path PostProcessorSketch"></span></p>
+</div>
+<div class="paragraph">
+<p>Ścieżka we FreeCAD wyglądałaby tak. Zauważ małą niebieską strzałkę, która wskazuje kierunek początkowy. Dla pierwszej próby możesz zdefiniować tylko jeden poziom w płaszczyźnie XY.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/Path_PostProcessorModel.png" alt="Path PostProcessorModel"></span></p>
+</div>
+<div class="paragraph">
+<p>Możesz następnie przejrzeć plik i porównać go z wyjściem istniejących postprocesorów, takich jak <code>linux_cnc_post.py</code> lub <code>grbl_post.py</code>, i spróbować dostosować je samodzielnie lub przesłać swój postprocesor na <a href="https://forum.freecad.org/viewforum.php?f=15">forum Path/CAM</a>, aby uzyskać pomoc.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="konwencja-nazewnictwa"><a class="anchor" href="#konwencja-nazewnictwa"></a>Konwencja nazewnictwa</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Postprocesor można umieścić w katalogu makr FreeCAD. Dla przedrostka <code>&lt;filename&gt;</code>, postprocesor powinien mieć nazwę <code>&lt;filename&gt;_post.py</code>. Należy pamiętać, że przyrostek i rozszerzenie, <code>_post.py</code>, muszą być napisane małymi literami.</p>
+</div>
+<div class="paragraph">
+<p>Nowa nazwa powinna być uwzględniona na czele listy argumentów parsowania w pliku <code>&lt;filename&gt;_post.py</code>, np.:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">parser = argparse.ArgumentParser(prog="grbl", add_help=False)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jeśli testujesz, umieść go w katalogu makr. Jeśli działa poprawnie, rozważ udostępnienie go innym (opublikuj na forum FreeCAD Path/CAM), aby mógł być uwzględniony w przyszłych wersjach dystrybucji FreeCAD.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="inne-istniejące-postprocesory"><a class="anchor" href="#inne-istniejące-postprocesory"></a>Inne istniejące postprocesory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dla porównania możesz sprawdzić postprocesory, które są dostarczane z instalacją FreeCAD. Znajdują się one w katalogu &lt;path_to_your_FreeCAD_distro&gt;/Mod/CAM/Path/Post/scripts. Szeroko używane są postprocesory dla <a href="http://linuxcnc.org/">linuxcnc</a> i <a href="https://github.com/grbl/grbl">grbl</a>. Analiza ich kodu może dostarczyć przydatnych wskazówek.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="programowanie-własnego-postprocesora"><a class="anchor" href="#programowanie-własnego-postprocesora"></a>Programowanie własnego postprocesora</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ten post omawia niektóre szczegóły wewnętrzne postprocessorów linuxcnc. Ta sama struktura jest używana również w innych postprocessorach.</p>
+</div>
+<div class="paragraph">
+<p>Patrząc na linux_cnc_post.py, zauważysz funkcję eksportu (w wersji 0.19.20514 jest w linii 156)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def export(objectslist, filename, argstring):
+    # pylint: disable=global-statement
+    ...
+    gcode = ""
+    ...
+    ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>zbiera krok po kroku w zmiennej "gcode" przetworzone kody G-code i zarządza ogólnym eksportem obiektów do postprocesingu (operacje, narzędzia, zadania itp.). Eksport obsługuje elementy na wysokim poziomie, takie jak komentarze i chłodziwo, ale wszelkie obiekty, które mają wiele poleceń CAM (zmiany narzędzi i operacje), deleguje do funkcji parse (w wersji 0.19.20514 znajduje się w linii 288).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def parse(pathobj):
+    ...
+    out = ""
+    lastcommand = None
+    ...
+    ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Podobnie jak funkcja "export", funkcja parse zbiera kody G-code w zmiennej "out". W zmiennej "command" przechowywane są polecenia, które są widoczne w funkcji "inspect G-code" w środowisku pracy CAM i mogą być analizowane w celu dalszego przetwarzania.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">        for c in pathobj.Path.Commands:
+
+            command = c.Name</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Rozpoznaje różne kody G, M, F, S i inne kody G-code. Zapamiętując ostatnie polecenie w zmiennej "lastcommand", może tłumić późniejsze powtórzenia poleceń modalnych.</p>
+</div>
+<div class="paragraph">
+<p>Zarówno funkcje parse, jak i export zajmują się formatowaniem ciągów znaków i łączeniem ich w końcowe wyjście.</p>
+</div>
+<div class="paragraph">
+<p>Obie funkcje wywołują również funkcję "linenumber()". Jeśli użytkownik chce numerów linii, funkcja linenumber zwraca ciąg znaków, który należy wstawić w odpowiednie miejsce, w przeciwnym razie zwraca pusty ciąg, więc nic nie jest dodawane.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dodawanie-własnego-postprocessora"><a class="anchor" href="#dodawanie-własnego-postprocessora"></a>Dodawanie własnego postprocessora</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>1. <strong>Uzyskaj dostęp do ścieżki makra</strong>:</p>
+</div>
+<div class="paragraph">
+<p>Przejdź do menu <span class="menuseq"><b class="menu">Edycja</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferencje</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Python</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Makrodefinicja</b></span>. Zwróć uwagę na ścieżkę podaną w polu <em>Ścieżka makrodefinicji</em> (np. <code>/home/user/snap/freecad/common</code>).</p>
+</div>
+<div class="paragraph">
+<p>2. <strong>Skopiuj plik postprocessora</strong>:</p>
+</div>
+<div class="paragraph">
+<p>Umieść swój plik (np. <code>new_post.py</code>) <strong>bezpośrednio</strong> w folderze <em>Ścieżka makrodefinicji</em> wskazanym w poprzednim kroku (np. <code>/home/user/snap/freecad/common/new_post.py</code>).</p>
+</div>
+<div class="sect2">
+<h3 id="uwagi"><a class="anchor" href="#uwagi"></a>Uwagi</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Upewnij się, że plik ma wymagane uprawnienia do odczytu/zapisu.</p>
+</li>
+<li>
+<p>Zrestartuj FreeCAD, aby zastosować zmiany.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="powiązane"><a class="anchor" href="#powiązane"></a>Powiązane</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="24"></span> <a href="post-process.html" class="xref page">CAM: Przetwarzanie końcowe</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../job/fixture.html">CAM: Mocowanie</a></span>
+  <span class="next"><a href="../job/setup-sheet.html">CAM SetupSheet</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Profilage :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/fr/cam/wiki-2026-08/operations/profile.html">
+    <link rel="prev" href="../tools/add-toolbit.html">
+    <link rel="next" href="pocket.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/fr">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/operations/profile.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/operations/profile.html">Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/operations/profile.html" selected>Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/operations/profile.html">Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM Tâche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM Post-traitement</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM Chercher des erreurs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM Exporter un modèle</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM Inspecter des commandes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM Simulateur de parcours</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulateur GL de parcours</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM Sélectionner une Boucle</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM Activer une opération</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">CAM Gestionnaire des outils coupants</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">CAM Sélecteur d&#8217;outils coupants</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="profile.html">CAM Profilage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">CAM Poche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">CAM Surfaçage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="helix.html">CAM Parcours hélicoïdal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">CAM Adaptatif</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">CAM Rainure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">CAM Perçage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">CAM Gravure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">CAM Ébavurage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vcarve.html">CAM Gravure en V</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">CAM Évidement 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="surface.html">CAM Surfaçage 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="waterline.html">CAM Lignes de niveau</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM Assigner un axe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM Limitation d&#8217;une zone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM Dégagement des angles</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM Lame rotative</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM Entrée/sortie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM Rampe d&#8217;entrée</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM Attache</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM Correction en Z</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">CAM Commentaire</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">CAM Arrêter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">CAM Personnaliser</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">CAM Sonde</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">CAM Parcours à partir de formes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM Copier</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM Réseau</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM Copie simple</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">CAM Fraisage de filets</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM Zone du plan de travail</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Décaler l&#8217;origine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Basic Operations</li>
+    <li><a href="profile.html">CAM Profilage</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/fr/modules/ROOT/pages/operations/profile.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Profilage</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="openblock fcinfobox">
+<div class="content">
+<div class="paragraph fcTitle">
+<p><span class="image"><img src="../_images/CAM_Profile.svg" alt="CAM Profilage" width="32"></span> <strong>CAM Profilage</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Profiler</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>0.19</p>
+</dd>
+<dt class="hdlist1">See also</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La commande <span class="image"><img src="../_images/CAM_Profile.svg" alt="CAM Profile" width="24"></span> <a href="#">Profilage</a> crée une opération de profilage basée sur les fonctions sélectionnées du modèle. L&#8217;outil a été introduit dans la version 0.19. Il propose trois opérations qui étaient gérées par des outils distincts dans les versions précédentes.</p>
+</div>
+<div class="paragraph">
+<p>Toutes les opérations créent des objets qui font partie d&#8217;une <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Tâche</a>.</p>
+</div>
+<div class="paragraph">
+<p>Voici les opérations disponibles :</p>
+</div>
+<div class="sect2">
+<h3 id="opération-contour"><a class="anchor" href="#opération-contour"></a>Opération Contour</h3>
+<div class="paragraph">
+<p>Une opération de contour est l&#8217;opération par défaut. Elle crée une simple découpe de contour externe d&#8217;objets 3D complexes basés sur <span class="image"><img src="../_images/Workbench_Part.svg" alt="Workbench Part" width="24"></span> <a href="https://wiki.freecad.org/Part_Workbench">Part</a>. Le modèle entier de la tâche sert d&#8217;entrée pour l&#8217;opération, que la géométrie du corps soit sélectionnée ou non lorsque la commande de contour est appelée.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="opération-profilage-de-face"><a class="anchor" href="#opération-profilage-de-face"></a>Opération Profilage de face</h3>
+<div class="paragraph">
+<p>Une opération de profilage de face crée un parcours de contour simple à partir d&#8217;une ou plusieurs faces sélectionnées d&#8217;un objet.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="opération-profilage-des-arêtes"><a class="anchor" href="#opération-profilage-des-arêtes"></a>Opération Profilage des arêtes</h3>
+<div class="paragraph">
+<p>Une opération de profilage des arêtes crée un parcours de contour simple à partir des arêtes sélectionnées.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Path_profile_example.jpg" alt="Path profile example" width="600">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="utilisation"><a class="anchor" href="#utilisation"></a>Utilisation</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Il existe plusieurs façons de lancer la commande :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Appuyez sur le bouton <span class="image"><img src="../_images/CAM_Profile.svg" alt="CAM Profile" width="16"></span> <a href="#">Profiler</a>.</p>
+</li>
+<li>
+<p>Sélectionnez l&#8217;option <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Profiler</b></span> du menu.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Activez la section Géométrie de base en cliquant sur son onglet et sélectionnez les fonctions du modèle de la tâche.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Si aucune fonction n&#8217;est sélectionnée, la commande passe par défaut à une opération de <b class="menuref">Profilage</b>, profilant le modèle entier.</p>
+</li>
+<li>
+<p>Si des faces sont sélectionnées, le résultat est une opération <b class="menuref">Profiler des faces</b>.</p>
+</li>
+<li>
+<p>Si des arêtes sont sélectionnées, alors le résultat est une opération <b class="menuref">Profiler des arêtes</b>.<br></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>REMARQUE</strong> : cette opération a reçu des améliorations pour permettre la fonctionnalité sur certaines sélections d&#8217;arêtes ouvertes (non bouclées). Voir la section <a href="#remarques-dutilisation">Remarques d&#8217;utilisation</a> ci-dessous pour des informations supplémentaires sur les meilleures pratiques pour le profilage des arêtes ouvertes.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Activez la section Opération en cliquant sur son onglet et ajustez les paramètres de l&#8217;opération comme vous le souhaitez.</p>
+</li>
+<li>
+<p>Appuyez sur le bouton <b class="button">Appliquer</b> pour prévisualiser l&#8217;opération avec les paramètres en cours.</p>
+</li>
+<li>
+<p>Cliquez sur le bouton <b class="button">OK</b> ou sur le bouton <b class="button">Annuler</b> pour créer ou annuler l&#8217;opération.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Remarque importante : CAM Profilage ne prend pas en charge les autres détails de l&#8217;objet. Vous devez ajuster les propriétés, en particulier la profondeur finale, avec soin, une erreur pourrait endommager votre pièce</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Un point de départ peut être activé à partir de l&#8217;onglet Opération dans l&#8217;éditeur de fenêtre de tâches, en utilisant un emplacement défini dans <span class="menuseq"><b class="menu">Éditeur de propriétés</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Données</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Start Point</b></span>.</p>
+</div>
+<div class="paragraph">
+<p>Effectuez des ajustements supplémentaires à l&#8217;opération en modifiant les propriétés de l&#8217;opération dans l&#8217;onglet Données de l&#8217;éditeur de propriétés. Les propriétés avancées se trouvent ici, le cas échéant.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remarques-dutilisation"><a class="anchor" href="#remarques-dutilisation"></a>Remarques d&#8217;utilisation</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>L&#8217;opération <span class="image"><img src="../_images/CAM_Profile.svg" alt="CAM Profile" width="16"></span> <a href="#">Profilage</a> est capable de d&#8217;effectuer le contour des <strong>arêtes ouvertes</strong> (une ou plusieurs arêtes continues qui ne forme une boucle vue de la <em>vue de dessus</em>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Il est préférable de sélectionner les arêtes supérieures (arêtes les plus hautes) pour la sélection. Ensuite, vous devrez définir manuellement la profondeur finale de l&#8217;opération. La sélection des arêtes inférieures uniquement est imprévisible et risque de produire des trajectoires indésirables dans de nombreuses situations ; toutefois, elle produira des parcours corrects dans certaines situations.</p>
+</li>
+<li>
+<p>Les arêtes sélectionnées doivent former une arête supérieure continue <em>vue de dessus</em>. Les arêtes supérieures sélectionnées peuvent avoir des hauteurs différentes, pour autant qu&#8217;elles soient reliées à une coordonnée (X, Y) commune - des hauteurs Z différentes sont acceptables dans <em>certains<strong>**</strong></em> cas.<br>
+<strong>**</strong>Dans certains cas, l&#8217;utilisateur devra inclure dans sa sélection l&#8217;arête verticale droite reliant deux arêtes adjacentes de hauteurs différentes qui partagent une coordonnée (X, Y) commune.</p>
+</li>
+<li>
+<p>Comme les arêtes supérieures sont sélectionnées, la profondeur finale de l&#8217;opération devra être définie manuellement.</p>
+</li>
+<li>
+<p>Lors du profilage des arêtes ouvertes, la propriété <em>Side</em> ou <em>Cut Side</em> est désactivée en interne, même si elle sera probablement visible dans la fenêtre de l&#8217;éditeur de tâches et dans la liste des propriétés de l&#8217;onglet Données.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Lors du profilage du modèle entier (un contour complet du modèle), la propriété <em>Side</em> ou <em>Cut Side</em> est mise à <em>Outside</em> par défaut. L&#8217;utilisateur peut l&#8217;ajuster en fonction de la configuration de la pièce.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="propriétés"><a class="anchor" href="#propriétés"></a>Propriétés</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong><em>Remarque</em></strong>: toutes ces propriétés ne sont pas disponibles dans l&#8217;éditeur de fenêtre de tâches. Certaines ne sont accessibles que dans l&#8217;onglet Données du panneau Vue de propriétés pour cette opération.</p>
+</div>
+<div class="paragraph">
+<div class="title">Base</div>
+<p>Remarque : il est conseillé de ne pas modifier la propriété <strong>Placement</strong> des opérations de parcours. Il convient plutôt de déplacer ou de faire pivoter le modèle de la tâche de CAM selon les besoins.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Placement</strong> : emplacement global [position et rotation] de l&#8217;objet, par rapport à l&#8217;origine (ou à l&#8217;origine du conteneur de l&#8217;objet parent).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Angle</strong> : angle en degrés appliqué à la rotation de l&#8217;objet autour de la valeur de la propriété <strong>Axis</strong>.</p>
+</li>
+<li>
+<p><strong>Axis</strong> : axe (un ou plusieurs) autour duquel faire pivoter l&#8217;objet, défini dans les sous-propriétés : X, Y, Z.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong> : valeur de l&#8217;axe X.</p>
+</li>
+<li>
+<p><strong>Y</strong> : valeur de l&#8217;axe Y.</p>
+</li>
+<li>
+<p><strong>Z</strong> : valeur de l&#8217;axe Z.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Position</strong> : position de l&#8217;objet, définie dans les sous-propriétés : X, Y, Z, par rapport à l&#8217;origine (ou à l&#8217;origine du conteneur de l&#8217;objet parent).</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong> : valeur de la distance en X.</p>
+</li>
+<li>
+<p><strong>Y</strong> : valeur de la distance en Y.</p>
+</li>
+<li>
+<p><strong>Z</strong> : valeur de la distance en Z.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Label</strong> : nom de l&#8217;objet fourni par l&#8217;utilisateur (UTF-8).</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Depth</div>
+<ul>
+<li>
+<p><strong>Clearance Height</strong> : hauteur nécessaire pour éviter les collisions entre l&#8217;outil et les brides et autres obstacles.</p>
+</li>
+<li>
+<p><strong>Final Depth</strong> : profondeur finale de l&#8217;outil, valeur la plus basse de Z.</p>
+</li>
+<li>
+<p><strong>Finish Depth</strong> : le maximum de matériau retiré lors du dernier passage. La hauteur (épaisseur) du dernier niveau de coupe, <em>pour une meilleure finition</em>.</p>
+</li>
+<li>
+<p><strong>Safe Height</strong> : hauteur au-dessus de laquelle les mouvements rapides sont autorisés. (hauteur de sécurité rapide entre les sites).</p>
+</li>
+<li>
+<p><strong>Start Depth</strong> : profondeur de départ de l&#8217;outil, <em>première profondeur de coupe en Z</em>.</p>
+</li>
+<li>
+<p><strong>Step Down</strong> : pas incrémental de l&#8217;outil pendant l&#8217;opération.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Path-DepthsAndHeights.gif" alt="Path DepthsAndHeights" width="600">
+</div>
+</div>
+<div class="paragraph caption">
+<p>Référence visuelle pour les propriétés de profondeur (paramètres)</p>
+</div>
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Active</strong> : mettre à False pour empêcher l&#8217;opération de générer du code.</p>
+</li>
+<li>
+<p><strong>Base</strong> : géométrie de base pour cette opération.</p>
+</li>
+<li>
+<p><strong>Comment</strong> : commentaire facultatif pour cette opération.</p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong> : mode de refroidissement pour cette opération.</p>
+</li>
+<li>
+<p><strong>Cycle Time</strong> : estimation du temps de cycle pour cette opération.</p>
+</li>
+<li>
+<p><strong>Tool Controller</strong> : définit le contrôleur d&#8217;outil utilisé dans l&#8217;opération.</p>
+</li>
+<li>
+<p><strong>User Label</strong> : étiquette attribuée par l&#8217;utilisateur.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Profile</div>
+<ul>
+<li>
+<p><strong>Direction</strong> : direction dans laquelle la trajectoire d&#8217;outil doit faire le tour de la pièce : sens horaire [CW] ou antihoraire [CCW].</p>
+</li>
+<li>
+<p><strong>Expand Profile</strong> : étend le détourage du profilage au-delà du décalage supplémentaire.</p>
+</li>
+<li>
+<p><strong>Expand Profile Step Over</strong> : définit le pourcentage des recouvrements entre les passes, en fonction du diamètre de l&#8217;outil.</p>
+</li>
+<li>
+<p><strong>Handle Multiple Features</strong> : choix de comment traiter plusieurs fonctions de la géométrie de base. <code>Individually</code> traite chaque fonction séparément. <code>Collectively</code> regroupe les fonctions compatibles avant de générer le tracé du parcours. <span class="since">introduced in 26.3</span> : <code>Collectively</code> prend également en charge les sélections d&#8217;arêtes de profil et les profils de périmètre de l&#8217;ensemble du modèle.</p>
+</li>
+<li>
+<p><strong>OffsetExtra</strong> : valeur supplémentaire pour rester loin du profil final, utile pour dégrossir le parcours.</p>
+</li>
+<li>
+<p><strong>Process Circles</strong> : vérifie si vous souhaitez que cette opération de contour s&#8217;applique également aux trous cylindriques, <em>qui sont normalement percés</em>.</p>
+</li>
+<li>
+<p><strong>Process Holes</strong> : vérifie si cette opération de contour doit également traiter les trous dans la géométrie de base. <strong>Notez</strong> que cela n&#8217;inclut pas les trous cylindriques.</p>
+</li>
+<li>
+<p><strong>Process Perimeter</strong> : vérifie si cette opération de contour doit également traiter le périmètre extérieur des formes géométriques de base.</p>
+</li>
+<li>
+<p><strong>Retract Threshold</strong> : distance en dessous de laquelle l&#8217;outil peut rester abaissé lors des mouvements de repositionnement. Une valeur de <code>0</code> désactive ce comportement.</p>
+</li>
+<li>
+<p><strong>Side</strong> : (côté de la coupe) côté du bord que l&#8217;outil doit couper. Cela n&#8217;a d&#8217;importance que si <em>Utiliser la compensation</em> est coché.</p>
+</li>
+<li>
+<p><strong>Use Compensation</strong> : si cette case est cochée, l&#8217;opération de contour est décalée du rayon de l&#8217;outil. La direction du décalage est déterminée par le côté de la coupe.</p>
+</li>
+<li>
+<p><strong>SortingMode</strong> : détermine l&#8217;ordre dans lequel les entités sélectionnées sont classées. La valeur <code>Automatic</code> utilise le tri par parcours par défaut. La valeur <code>Manual</code> respecte l&#8217;ordre dans lequel les entités ont été sélectionnées.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Rotation</div>
+<ul>
+<li>
+<p><strong>Attempt Inverse Angle</strong> : tente automatiquement l&#8217;angle inverse si la rotation initiale est incorrecte.</p>
+</li>
+<li>
+<p><strong>Enable Rotation</strong> : active la rotation pour accéder aux poches ou aux zones qui ne sont pas normales à l&#8217;axe Z.</p>
+</li>
+<li>
+<p><strong>Inverse Angle</strong> : inverse l&#8217;angle de rotation. <em>*Exemple :* change une rotation de -22,5 à 22,5 degrés.</em></p>
+</li>
+<li>
+<p><strong>Limit Depth To Face</strong> : applique la profondeur Z de la face sélectionnée comme valeur la plus basse pour la profondeur finale. Des valeurs utilisateur plus élevées pour la profondeur finale seront observées.</p>
+</li>
+<li>
+<p><strong>Reverse Direction</strong> : inverse l&#8217;orientation de l&#8217;opération de 180 degrés.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Start Point</div>
+<ul>
+<li>
+<p><strong>Start Point</strong> : point de départ personnalisé pour le parcours de cette opération.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong> : valeur de distance x.</p>
+</li>
+<li>
+<p><strong>Y</strong> : valeur de distance y.</p>
+</li>
+<li>
+<p><strong>Z</strong> : valeur de distance z.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Use Start Point</strong> : mis à True, si vous spécifiez manuellement un point de départ. Définissez le point de départ dans le champ Start Point des propriétés de données.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="disposition-de-léditeur-de-la-fenêtre-des-tâches"><a class="anchor" href="#disposition-de-léditeur-de-la-fenêtre-des-tâches"></a>Disposition de l&#8217;éditeur de la fenêtre des tâches</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Les descriptions des paramètres sont fournies dans la liste des propriétés ci-dessus.</em> Cette section est simplement une représentation des paramètres de l’éditeur de fenêtres pour l’opération.</p>
+</div>
+<div class="sect2">
+<h3 id="géométrie-de-base"><a class="anchor" href="#géométrie-de-base"></a>Géométrie de base</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ajouter</strong> : ajoute le(s) élément(s) sélectionné(s) qui doit(vent) être la(les) base(s) pour le(s) trajectoire(s).</p>
+</li>
+<li>
+<p><strong>Enlever</strong> : supprime le ou les éléments sélectionnés dans la liste de la géométrie de base.</p>
+</li>
+<li>
+<p><strong>Réinitialiser</strong> : efface tous les éléments de la liste de la géométrie de base.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="profondeurs"><a class="anchor" href="#profondeurs"></a>Profondeurs</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Start Depth</strong></p>
+</li>
+<li>
+<p><strong>Final Depth</strong></p>
+</li>
+<li>
+<p><strong>Step Down</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hauteurs"><a class="anchor" href="#hauteurs"></a>Hauteurs</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Safe Height</strong></p>
+</li>
+<li>
+<p><strong>Clearance Height</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="opération"><a class="anchor" href="#opération"></a>Opération</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tool Controller</strong></p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong></p>
+</li>
+<li>
+<p><strong>Cut Side *</strong>*</p>
+</li>
+<li>
+<p><strong>Direction</strong></p>
+</li>
+<li>
+<p><strong>Extra Offset</strong></p>
+</li>
+<li>
+<p><strong>Enable Rotation</strong></p>
+</li>
+<li>
+<p><strong>Use Start Point</strong></p>
+</li>
+<li>
+<p><strong>Use Compensation</strong></p>
+</li>
+<li>
+<p><strong>Process Holes *</strong>*</p>
+</li>
+<li>
+<p><strong>Process Circles *</strong>*</p>
+</li>
+<li>
+<p><strong>Process Perimeter *</strong>*</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>**</strong> La disponibilité change en fonction des sélections dans la section Base Geometry.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="script"><a class="anchor" href="#script"></a>Script</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Voir aussi:</em> <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">FreeCAD Script de base</a>.</p>
+</div>
+<div class="paragraph">
+<p>Exemple :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../tools/add-toolbit.html">CAM Sélecteur d&#8217;outils coupants</a></span>
+  <span class="next"><a href="pocket.html">CAM Poche</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

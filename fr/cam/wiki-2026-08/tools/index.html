@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Tools :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/fr/cam/wiki-2026-08/tools/index.html">
+    <link rel="prev" href="../misc/area-workplane.html">
+    <link rel="next" href="tool-shape.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/fr">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/tools/index.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/tools/index.html">Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/tools/index.html" selected>Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/tools/index.html">Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM Tâche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM Post-traitement</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM Chercher des erreurs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM Exporter un modèle</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM Inspecter des commandes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM Simulateur de parcours</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulateur GL de parcours</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM Sélectionner une Boucle</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM Activer une opération</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="library-manager.html">CAM Gestionnaire des outils coupants</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="add-toolbit.html">CAM Sélecteur d&#8217;outils coupants</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">CAM Profilage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">CAM Poche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">CAM Surfaçage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">CAM Parcours hélicoïdal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">CAM Adaptatif</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">CAM Rainure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">CAM Perçage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">CAM Gravure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">CAM Ébavurage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">CAM Gravure en V</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">CAM Évidement 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">CAM Surfaçage 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">CAM Lignes de niveau</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM Assigner un axe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM Limitation d&#8217;une zone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM Dégagement des angles</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM Lame rotative</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM Entrée/sortie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM Rampe d&#8217;entrée</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM Attache</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM Correction en Z</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">CAM Commentaire</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">CAM Arrêter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">CAM Personnaliser</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">CAM Sonde</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">CAM Parcours à partir de formes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM Copier</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM Réseau</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM Copie simple</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">CAM Fraisage de filets</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM Zone du plan de travail</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Décaler l&#8217;origine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>ToolBit architecture</li>
+    <li><a href="index.html">CAM Tools</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/fr/modules/ROOT/pages/tools/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Tools</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cette page décrit l&#8217;architecture d&#8217;un outil coupant utilisée dans l&#8217;<a href="../index.html" class="xref page">atelier CAM</a> qui est devenu le système par défaut de FreeCAD V0.19. Les outils de l&#8217;atelier CAM sont gérés différemment de ceux des autres logiciels de <a href="https://fr.wikipedia.org/wiki/Fabrication_assist%C3%A9e_par_ordinateur">FAO</a>.</p>
+</div>
+<div class="paragraph">
+<p>Il y a plusieurs concepts que l&#8217;utilisateur doit comprendre :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="tool-shape.html" class="xref page">CAM Formes d&#8217;outils</a> : ce sont des modèles pour créer des outils. Les formes d&#8217;outil sont des documents FreeCAD qui modélisent l&#8217;outil en utilisant des contraintes nommées. La forme d&#8217;outil est un modèle d&#8217;outil <em>abstrait</em> à partir duquel sont créées les instances d&#8217;outils (appelées toolbits ou outils coupants). Par exemple, toutes les fraises partageront le même fichier Forme d&#8217;outil.</p>
+</li>
+<li>
+<p><a href="toolbit.html" class="xref page">CAM Outils coupants</a> : ce sont des instances d&#8217;une forme d&#8217;outil. Un outil coupant aura des valeurs <em>spécifiques</em> pour chacune des contraintes nommées dans la forme de l&#8217;outil. Un outil coupant est utilisé dans une tâche de CAM par le biais d&#8217;un contrôleur d&#8217;outils. Le même outil coupant peut exister dans plusieurs bibliothèques.</p>
+</li>
+<li>
+<p><a href="toolbit-library.html" class="xref page">CAM Bibliothèque des outils</a> : contient une collection arbitraire d&#8217;outils coupants. Les outils spécifiques d&#8217;une bibliothèque sont entièrement laissés à la discrétion de l&#8217;utilisateur. Cas d&#8217;utilisation possibles pour les bibliothèques :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Un utilisateur amateur peut n&#8217;avoir qu&#8217;une seule bibliothèque pour tous les outils qu&#8217;il possède.</p>
+</li>
+<li>
+<p>Une bibliothèque peut contenir tous les outils utilisés pour un matériau spécifique comme l&#8217;aluminium ou le bois.</p>
+</li>
+<li>
+<p>Une bibliothèque peut contenir des outils pour travailler sur un matériau spécifique.</p>
+</li>
+<li>
+<p>Une bibliothèque peut contenir des outils d&#8217;un fournisseur spécifique.</p>
+</li>
+<li>
+<p>Une bibliothèque peut correspondre à la disposition d&#8217;un changeur automatique d&#8217;outils.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Un <a href="tool-controller.html" class="xref page">Contrôleur d&#8217;outil</a> contrôle la façon dont un outil est utilisé dans une tâche de parcours. Un contrôleur combine l&#8217;outil coupant avec les propriétés de la vitesse de la broche, de la direction et des vitesses d&#8217;avance horizontales et verticales.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="boîtes-de-dialogue"><a class="anchor" href="#boîtes-de-dialogue"></a>Boîtes de dialogue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>L&#8217;utilisateur interagit avec le système de gestion des outils via le menu CAM dans deux flux de travail différents. Chaque flux de travail dispose d&#8217;éléments d&#8217;interface graphique dédiés.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Le fenêtre <span class="image"><img src="../_images/CAM_ToolBitLibraryOpen.svg" alt="CAM ToolBitLibraryOpen" width="24"></span> <a href="add-toolbit.html" class="xref page">Sélecteur d&#8217;outil coupant</a> pour utiliser les outils dans une tâche de parcours en créant des contrôleurs d&#8217;outils.</p>
+</li>
+<li>
+<p>Le <span class="image"><img src="../_images/CAM_ToolBitDock.svg" alt="CAM ToolBitDock" width="24"></span> <a href="library-manager.html" class="xref page">Gestionnaire des outils coupants</a> pour gérer les outils de l&#8217;utilisateur avec les boutons <em>Créer un outil coupant</em>, <em>Ajouter un outil existant</em> et <em>Supprimer</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="organisation"><a class="anchor" href="#organisation"></a>Organisation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lorsque FreeCAD est installé, un exemple de hiérarchie de bibliothèques d&#8217;outils et d&#8217;outils coupants est créé dans le répertoire d&#8217;installation à :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sous Linux, il s&#8217;agit généralement de <code>/usr/lib64/FreeCAD/Mod/CAM/Tools</code>.</p>
+</li>
+<li>
+<p>Sous Windows, il s&#8217;agit généralement de <code>C:\Program Files\FreeCAD\Mod\CAM\Tools</code>.</p>
+</li>
+<li>
+<p>Sous macOS, il s&#8217;agit généralement de <code>/Applications/FreeCAD.app/Contents/Resources/Mod/CAM/Tools</code>.</p>
+</li>
+</ul>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Tools
+  + Bit
+  + Library
+  + Shape</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Il est toujours recommandé de stocker les outils coupants et les bibliothèques nouvellement créés dans un endroit sûr pour éviter qu&#8217;ils ne soient écrasés lors d&#8217;une mise à jour du programme. Même les formes d&#8217;outils personnalisées peuvent être stockées dans des emplacements arbitraires où elles peuvent être sauvegardées. L&#8217;utilisateur est toutefois encouragé à utiliser une structure logique comparable à celle illustrée ci-dessus pour que les boîtes à outils et les bibliothèques soient bien organisées.</p>
+</div>
+<div class="paragraph">
+<p>Lorsque le gestionnaire de la bibliothèques des outils est ouvert, CAM vérifie l&#8217;emplacement du répertoire de travail. Si l&#8217;emplacement n&#8217;est pas accessible en écriture ou est identique à l&#8217;emplacement par exemple/par défaut, CAM invite l&#8217;utilisateur à sélectionner ou à créer un nouveau répertoire de travail.</p>
+</div>
+<div class="paragraph">
+<p>Des copies des formes d&#8217;outils, des outils coupants et de la bibliothèque par défaut sont copiées dans ce répertoire. Vous pouvez maintenant gérer vos outils, par exemple copier, modifier et créer des formes d&#8217;outils, des outils coupants et des bibliothèques, et vos modifications seront conservées. Notez que les formes d&#8217;outils ne sont pas copiées, car les doublons peuvent causer des problèmes. Voir le problème <a href="https://github.com/FreeCAD/FreeCAD/issues/15275">CAM: Tool shapes not copied by "Setup ToolBit working directory" #15275</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les références aux outils coupants et à leurs formes peuvent être stockées soit avec un chemin d&#8217;accès absolu, soit avec un chemin d&#8217;accès relatif au chemin de recherche. En général, il est recommandé d&#8217;utiliser des chemins relatifs en raison de leur flexibilité et de leur robustesse face aux changements de mise en page. Si plusieurs outils ou formes d&#8217;outils portant le même nom existent dans différents répertoires, il peut être nécessaire d&#8217;utiliser des chemins absolus.</p>
+</div>
+<div class="paragraph">
+<p>Voir <a href="../reference/preferences.html" class="xref page">CAM Préférences</a> pour choisir si des chemins d&#8217;accès absolus ou relatifs sont utilisés.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="migration-à-partir-des-outils-existants"><a class="anchor" href="#migration-à-partir-des-outils-existants"></a>Migration à partir des outils existants</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Si vous utilisez l&#8217;atelier CAM depuis un certain temps, vous devrez peut-être ajuster vos préférences avant de pouvoir utiliser le système d&#8217;outil coupant. Si en appuyant sur le bouton Bibliothèque d&#8217;outils de la barre d&#8217;outils, la fenêtre de dialogue des outils historiques s&#8217;affiche, allez à la page ci-dessous dans les <a href="../reference/preferences.html" class="xref page">CAM Préférences</a> et désactivez les outils historiques.<br>
+Vous devez redémarrer FreeCAD pour que la modification soit valide.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Preferences.png" alt="Désactivation des outils historiques">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="démarrer-avec-les-outils-dans-fc-0-19"><a class="anchor" href="#démarrer-avec-les-outils-dans-fc-0-19"></a>Démarrer avec les outils dans FC 0.19</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lisez la section <a href="#migration-à-partir-des-outils-existants">Migration à partir des outils existants</a> ci-dessus. Les étapes ci-dessous vous guideront dans le processus d&#8217;obtention d&#8217;un outil coupant dans votre <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Tâche</a>.</p>
+</div>
+<div class="paragraph">
+<p>En bref, le processus commence par un fichier forme d&#8217;outil (profil) qui ne contient qu&#8217;une esquisse FreeCAD de la moitié de la forme physique de l&#8217;outil (profil). Ce fichier de la forme de l&#8217;outil est ensuite utilisé comme base pour créer un fichier ToolBit contenant la représentation 3D de l&#8217;outil coupant ou du couteau. Un ou plusieurs outils coupants sont affectés à un nombre quelconque de bibliothèques d&#8217;outils, selon les besoins de l&#8217;utilisateur. Cette structure et ce flux de travail permettent de partager des formes d&#8217;outils, des outils coupants et des bibliothèques d&#8217;outils entières, ce qui représente un grand pas en avant par rapport au système de gestion d&#8217;outils existant avant la version 0.19.</p>
+</div>
+<div class="sect2">
+<h3 id="vérification-ou-création-dune-forme-doutil"><a class="anchor" href="#vérification-ou-création-dune-forme-doutil"></a>Vérification ou création d&#8217;une forme d&#8217;outil</h3>
+<div class="paragraph">
+<p>L&#8217;intégration d&#8217;un outil de coupe ou d&#8217;un outil dans une CAM Tâche en vue de son utilisation dans des opérations commence par une <a href="tool-shape.html" class="xref page">forme d&#8217;outil</a>. Cette étape de vérification ou de création d&#8217;une forme d&#8217;outil n&#8217;est pas nécessaire si vous disposez déjà d&#8217;un outil coupant existant.</p>
+</div>
+<div class="sect3">
+<h4 id="vérification-que-la-forme-de-loutil-souhaitée-existe"><a class="anchor" href="#vérification-que-la-forme-de-loutil-souhaitée-existe"></a>Vérification que la forme de l&#8217;outil souhaitée existe</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>FreeCAD inclut un ensemble de formes d&#8217;outils communes avec chaque distribution. Voir la page <a href="tool-shape.html" class="xref page">Path Forme d&#8217;outil</a> pour voir la liste des formes d&#8217;outils communes incluses.</p>
+</li>
+<li>
+<p>Vous pouvez disposer de fichiers de formes d&#8217;outils supplémentaires dans vos fichiers personnels.</p>
+</li>
+<li>
+<p>Soyez attentif à l&#8217;<a href="#organisation">organisation</a> du système des outils coupants dans son ensemble, comme mentionné ci-dessus.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="création-dune-nouvelle-forme-doutil"><a class="anchor" href="#création-dune-nouvelle-forme-doutil"></a>Création d&#8217;une nouvelle forme d&#8217;outil</h4>
+<div class="paragraph">
+<p>::
+  Suivez les instructions décrites dans la section <a href="tool-shape.html#utilisation" class="xref page">Utilisation</a> de la page <a href="tool-shape.html" class="xref page">Path Forme d&#8217;outil</a> pour créer une forme d&#8217;outil personnalisée.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="chargement-ou-création-dun-outil-coupant"><a class="anchor" href="#chargement-ou-création-dun-outil-coupant"></a>Chargement ou création d&#8217;un outil coupant</h3>
+<div class="paragraph">
+<p>Une fois que la forme de l&#8217;outil (profil) souhaitée existe, vous devez créer un <a href="toolbit.html" class="xref page">outil coupant</a> en utilisant la forme d&#8217;outil (profil).</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dans l&#8217;<span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="24"></span> <a href="../index.html" class="xref page">atelier CAM</a>, faites <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Créer un outil</b></span>.</p>
+</li>
+<li>
+<p>Dans le panneau de tâches de création d&#8217;<a href="toolbit.html" class="xref page">outil coupant</a> qui s&#8217;affiche, donnez un nom au nouvel outil et sélectionnez le fichier de forme d&#8217;outil correspondant comme base de ce nouvel outil.</p>
+</li>
+<li>
+<p>Une vignette de la forme d&#8217;outil sélectionnée devrait apparaître avec une liste de paramètres.</p>
+</li>
+<li>
+<p>Réglez les paramètres de l&#8217;embout comme vous le souhaitez.</p>
+</li>
+<li>
+<p>Cliquez sur <kbd>OK</kbd> pour enregistrer le nouvel outil coupant.</p>
+</li>
+<li>
+<p>Le nouvel outil apparaît dans l&#8217;arborescence des objets de FreeCAD.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sauvegarder-le-nouvel-outil-coupant"><a class="anchor" href="#sauvegarder-le-nouvel-outil-coupant"></a>Sauvegarder le nouvel outil coupant</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Localisez et sélectionnez le nouvel outil dans l&#8217;arbre des objets de la fenêtre principale de FreeCAD.</p>
+</li>
+<li>
+<p>Dans la barre de menu de l&#8217;<span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="24"></span> <a href="../index.html" class="xref page">atelier CAM</a>, sélectionnez <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Enregistrer l&#8217;outil sous&#8230;&#8203;</b></span>.</p>
+</li>
+<li>
+<p>Une fenêtre contextuelle s&#8217;affiche.</p>
+</li>
+<li>
+<p>Allez jusqu&#8217;au dossier dans lequel vous souhaitez enregistrer le nouveau fichier de l&#8217;outil coupant.</p>
+</li>
+<li>
+<p>Saisissez un nom de fichier pour l&#8217;outil coupant.</p>
+</li>
+<li>
+<p>Cliquez sur le bouton <kbd>Save</kbd>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enregistrement-de-loutil-coupant-dans-une-bibliothèque-doutils"><a class="anchor" href="#enregistrement-de-loutil-coupant-dans-une-bibliothèque-doutils"></a>Enregistrement de l&#8217;outil coupant dans une bibliothèque d&#8217;outils</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dans l&#8217;<span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="24"></span> <a href="../index.html" class="xref page">atelier CAM</a>, faites <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Gestionnaire des outils coupants</b></span>.</p>
+</li>
+<li>
+<p>La fenêtre <a href="library-manager.html" class="xref page">Gestionnaire d&#8217;outils</a> s&#8217;ouvre.</p>
+</li>
+<li>
+<p>En haut de cette fenêtre, vérifiez ou définissez le chemin d&#8217;accès au dossier contenant vos bibliothèques d&#8217;outils existantes, ou l&#8217;emplacement où vous souhaitez enregistrer vos bibliothèques d&#8217;outils.</p>
+</li>
+<li>
+<p>Sous le chemin d&#8217;accès, à gauche, se trouve la zone de liste des bibliothèques d&#8217;outils. Cliquez sur une bibliothèque d&#8217;outils existante que vous souhaitez utiliser comme destination pour votre nouvel outil coupant ou cliquez sur l&#8217;icône verte plus pour créer une nouvelle bibliothèque d&#8217;outils dans le dossier identifié ci-dessus.</p>
+</li>
+<li>
+<p>Sur le côté droit de la fenêtre de l&#8217;éditeur de bibliothèque d&#8217;outils se trouve la liste des outils coupants et les boutons d&#8217;action pour la bibliothèque d&#8217;outils actuellement sélectionnée. Cliquez sur l&#8217;icône <kbd>Ajouter un outil coupant</kbd>.</p>
+</li>
+<li>
+<p>Dans la fenêtre de navigation de fichier qui s&#8217;ouvre, naviguez jusqu&#8217;à votre nouvel élément, sélectionnez-le et cliquez sur le bouton <kbd>Ouvri</kbd>. Le nouvel outil coupant sera ajouté à la bibliothèque d&#8217;outils active.</p>
+</li>
+<li>
+<p>N&#8217;oubliez pas de cliquer sur le bouton <kbd>Enregistrer la table</kbd> au bas de la fenêtre de la bibliothèque d&#8217;outils afin d&#8217;enregistrer les modifications.</p>
+</li>
+<li>
+<p>Laissez cette fenêtre de bibliothèque d&#8217;outils ouverte pour l&#8217;étape suivante.</p>
+</li>
+<li>
+<p>Une fois que vos outils coupants sont créés et enregistrés dans une bibliothèque d&#8217;outils coupants, vous pouvez les réutiliser.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ajout-dun-outil-coupant-à-une-tâche"><a class="anchor" href="#ajout-dun-outil-coupant-à-une-tâche"></a>Ajout d&#8217;un outil coupant à une tâche</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dans la fenêtre de la bibliothèque d&#8217;outils ouverte, localisez et activez la bibliothèque d&#8217;outils souhaitée.</p>
+</li>
+<li>
+<p>Sélectionnez le(s) outil(s) à ajouter à la tâche. Sélectionnez en plusieurs en maintenant la touche CTRL enfoncée lors de la sélection.</p>
+</li>
+<li>
+<p>Cliquez sur le bouton <kbd>Ajouter un contrôleur d’outil à la tâche</kbd>.</p>
+</li>
+<li>
+<p>Fermez le gestionnaire d&#8217;outils.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="en-relation"><a class="anchor" href="#en-relation"></a>En relation</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="toolbit.html" class="xref page">CAM Outils coupants</a></p>
+</li>
+<li>
+<p><a href="library-manager.html" class="xref page">CAM Gestionnaire des outils</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../misc/area-workplane.html">CAM Zone du plan de travail</a></span>
+  <span class="next"><a href="tool-shape.html">CAM ToolShape</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

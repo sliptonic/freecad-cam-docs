@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Parcours hélicoïdal :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/fr/cam/wiki-2026-08/operations/helix.html">
+    <link rel="prev" href="mill-face.html">
+    <link rel="next" href="adaptive.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/fr">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/operations/helix.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/operations/helix.html">Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/operations/helix.html" selected>Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/operations/helix.html">Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM Tâche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM Post-traitement</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM Chercher des erreurs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM Exporter un modèle</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM Inspecter des commandes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM Simulateur de parcours</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulateur GL de parcours</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM Sélectionner une Boucle</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM Activer une opération</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">CAM Gestionnaire des outils coupants</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">CAM Sélecteur d&#8217;outils coupants</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="profile.html">CAM Profilage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">CAM Poche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">CAM Surfaçage</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="helix.html">CAM Parcours hélicoïdal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">CAM Adaptatif</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">CAM Rainure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">CAM Perçage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">CAM Gravure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">CAM Ébavurage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vcarve.html">CAM Gravure en V</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">CAM Évidement 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="surface.html">CAM Surfaçage 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="waterline.html">CAM Lignes de niveau</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM Assigner un axe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM Limitation d&#8217;une zone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM Dégagement des angles</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM Lame rotative</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM Entrée/sortie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM Rampe d&#8217;entrée</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM Attache</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM Correction en Z</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">CAM Commentaire</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">CAM Arrêter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">CAM Personnaliser</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">CAM Sonde</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">CAM Parcours à partir de formes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM Copier</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM Réseau</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM Copie simple</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">CAM Fraisage de filets</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM Zone du plan de travail</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Décaler l&#8217;origine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Basic Operations</li>
+    <li><a href="helix.html">CAM Parcours hélicoïdal</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/fr/modules/ROOT/pages/operations/helix.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Parcours hélicoïdal</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock fcinfobox">
+<div class="content">
+<div class="paragraph fcTitle">
+<p><span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Parcours hélicoïdal" width="32"></span> <strong>CAM Parcours hélicoïdal</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Détourer hélicoïdalement</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>-</p>
+</dd>
+<dt class="hdlist1">See also</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La commande <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> <a href="#">Parcours hélicoïdal</a> ajoute une opération de détourage hélicoïdale à la tâche. Le parcours hélicoïdal dans le sens horaire produit des commandes G-code (G2). Le sens anti-horaire produit des commandes de G-code (G3). Le pourcentage de recouvrement spécifie le recouvrement concentrique en pourcentage du diamètre de l&#8217;outil. Une ou plusieurs parcours hélicoïdales seront créés à des diamètres progressivement différents, pour détourer le trou.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="utilisation"><a class="anchor" href="#utilisation"></a>Utilisation</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Sélectionnez l&#8217;<span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="16"></span> <a href="../index.html" class="xref page">atelier CAM</a>.</p>
+</li>
+<li>
+<p>Sélectionnez l&#8217;icône <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> ou <kbd>CAM</kbd> → <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> Détourer hélicoïdalement du menu supérieur. Cela ouvre le <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> panneau de configuration du parcours hélicoïdal.</p>
+</li>
+<li>
+<p>Une pop-up <strong>Choisir un contrôleur d&#8217;outils</strong> vous invite à sélectionner un contrôleur d&#8217;outils. Dans les anciennes versions, dans l&#8217;onglet <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> Opération, choisissez un contrôleur d&#8217;outil et confirmez en appuyant sur <b class="button">Appliquer</b>.</p>
+</li>
+<li>
+<p>Ouvrez l&#8217;onglet Géométrie de base. Tous les trous disponibles compatibles avec l&#8217;outil Parcours hélicoïdal dans le modèle de tâche pourront être sélectionnés pour le traitement. Dans la <a href="https://wiki.freecad.org/3D_View">vue 3D</a>, sélectionnez les trous par leur arête ou les faces de leur paroi et ajoutez-les avec le bouton <b class="button">Ajouter</b>. Vérifiez qu&#8217;ils apparaissent dans la liste. Confirmez que la liste correspond aux trous destinés à être traités.</p>
+</li>
+<li>
+<p>Pour supprimer des trous, sélectionnez-les dans la liste et appuyez sur le bouton <b class="button">Supprimer</b>.</p>
+</li>
+<li>
+<p>Assurez-vous que la profondeur initiale, la profondeur finale et le pas de descente (le pas de l&#8217;hélicoïde) sont corrects. Ajustez-les si ce n&#8217;est pas le cas.</p>
+</li>
+<li>
+<p>Assurez-vous que les hauteurs de sécurité et de dégagement sont correctes.</p>
+</li>
+<li>
+<p>Dans l&#8217;onglet Opération, spécifiez la surface de départ de l&#8217;hélicoïde (extérieure/intérieure), la direction (sens horaire/sens anti-horaire) et le pourcentage de recouvrement.</p>
+</li>
+<li>
+<p>Cliquez sur <b class="button">Appliquer</b> pour créer ou mettre à jour le parcours, <b class="button">OK</b> pour appliquer et fermer le panneau, ou <b class="button">Annuler</b> pour abandonner et fermer le panneau.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Décalage supplémentaire</strong> ajoute une marge de matériau à ne pas usiner. Il s&#8217;agit généralement d&#8217;une opération séparée pour permettre une légère finition.</p>
+</div>
+<div class="paragraph">
+<p><strong>Pas maximal</strong> remplace <em>Pas</em> de l&#8217;hélicoïde et limite le pas maximal de l&#8217;hélicoïde lorsqu&#8217;il est différent de zéro. <span class="since">introduced in 26.3</span></p>
+</div>
+<div class="paragraph">
+<p><strong>Angle maximum de la rampe</strong> de l&#8217;hélicoïde limite l&#8217;angle d&#8217;entrée de la rampe lorsqu&#8217;il est différent de zéro. Le pas est calculé pour chaque rayon de l&#8217;hélicoïde.</p>
+</div>
+<div class="paragraph">
+<p><strong>Rayon de départ</strong> n&#8217;est pas disponible dans le panneau de tâches <em>Détourer hélicoïdalement</em> mais peut être édité directement dans l&#8217;<a href="https://wiki.freecad.org/Property_View">éditeur de propriétés</a></p>
+</div>
+<div class="paragraph">
+<p>Il s&#8217;agit du rayon de matière restant au centre. Par défaut, il est égal à zéro, ce qui donne un parcours où l&#8217;outil touche juste l&#8217;axe du trou. Cela produit un parcours central découpant un trou deux fois plus grand que le diamètre de l&#8217;outil.</p>
+</div>
+<div class="paragraph">
+<p>Si ce paramètre est réglé sur une valeur négative, il peut permettre un rayon du parcour hélicoïdal plus petit. Par exemple, un rayon négatif égal au rayon de l&#8217;outil produira un parcour hélicoïdal de rayon zéro, c&#8217;est-à-dire une coupe en plongée avec la fraise en bout, si l&#8217;outil est approprié. Cela fonctionnera comme première coupe dans une opération en plusieurs passes, mais toute tentative de créer un parcour hélicoïdal avec un outil de la même taille que le trou dans le modèle sera rejetée.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="commentaires"><a class="anchor" href="#commentaires"></a>Commentaires</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>La limite du pas de l&#8217;hélicoïde n&#8217;est pas exactement respectée. Elle est toujours arrondie pour donner un nombre complet de tours de la profondeur de départ à la profondeur finale.</p>
+</li>
+<li>
+<p>De même, le pas d&#8217;avance n&#8217;est pas exactement respecté. Il est toujours arrondi pour donner un nombre de pas égaux.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Le paramètre d&#8217;avance est constant pour toutes les coupes et est basé sur la position de l&#8217;axe de l&#8217;outil. L&#8217;avance réelle de l&#8217;arête de coupe de l&#8217;outil peut donc varier considérablement entre la coupe la plus intérieure et la surface extérieure. Si les dimensions de la tâche produisent un diamètre de parcours plus petit que le diamètre de l&#8217;outil, cela peut conduire à des vitesses de coupe beaucoup plus rapides que l&#8217;avance donnée pour l&#8217;outil dans le contrôleur d&#8217;outil. Il peut être nécessaire d&#8217;en tenir compte lors de la sélection de "l&#8217;avance et des vitesses" dans le <a href="../tools/tool-controller.html" class="xref page">contrôleur d&#8217;outil</a> pour la tâche.</p>
+</div>
+<div class="paragraph">
+<p>De plus, la mise en œuvre actuelle n&#8217;utilise que la vitesse horizontale de l&#8217;outil pour les parcours hélicoïdales, même dans le cas où une spirale serrée peut être proche d&#8217;une coupe verticale.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="propriétés"><a class="anchor" href="#propriétés"></a>Propriétés</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="données"><a class="anchor" href="#données"></a>Données</h3>
+<div class="paragraph">
+<p>Vide</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vue"><a class="anchor" href="#vue"></a>Vue</h3>
+<div class="paragraph">
+<p>Vide</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="script"><a class="anchor" href="#script"></a>Script</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Voir aussi :</em> <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">FreeCAD Script de base</a>.</p>
+</div>
+<div class="paragraph">
+<p>Exemple :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="mill-face.html">CAM Surfaçage</a></span>
+  <span class="next"><a href="adaptive.html">CAM Adaptatif</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

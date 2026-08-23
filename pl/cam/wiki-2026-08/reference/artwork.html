@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Artwork CAM :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/pl/cam/wiki-2026-08/reference/artwork.html">
+    <link rel="prev" href="scripting.html">
+    <link rel="next" href="../contributing/development-roadmap.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/pl">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/reference/artwork.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/reference/artwork.html">Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/reference/artwork.html">Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/reference/artwork.html" selected>Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM: Zadanie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM: Przetwarzanie końcowe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM: Bezpieczeństwo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM: Eksportuj szablon</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM: Sprawdź ścieżkę narzędzia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM: Symulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM: Nowy symulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM: Zakończ zaznaczona pętlę</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM: Przecz aktywne stadium operacji</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">CAM ToolBitLibraryOpen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">CAM ToolBitDock</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">CAM: Profil</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">CAM: Obróbka kieszeni</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">CAM: Powierzchnia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">CAM: Helisa</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">CAM: Adaptacyjnie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">CAM: Rowek</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">CAM: Wiercenie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">CAM: Grawer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">CAM: Usuwanie zadziorów</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">CAM: Wycięcie V</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">CAM: Obróbka kieszeni</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">Path: Powierzchnia 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">CAM: Linia poziomu</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM: Odwzorowanie osi</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM: Ulepszenie ściezki konturu</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM: Ulepszenie - nadcięcie w narożnikach</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM: Ulepszenie - rylec</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM: Ulepszenie wprowadzenia / wyprowadzenia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM: Ulepszenie - parkowanie narzędzia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM: Ulepszenie - znacznik</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM: Ulepszenie - korekta głębokości Z</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">CAM: Komentarz</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">CAM: Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">CAM: Użytkownika</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">CAM: Sonda</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">CAM: Z Kształtu</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM: Kopia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM: Szyk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM: Szybka kopia</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">CAM: Frezowanie gwintów</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM: Obszar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM: Obszar płaszczyzny roboczej</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM: Mocowanie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Other pages</li>
+    <li><a href="artwork.html">Artwork CAM</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/pl/modules/ROOT/pages/reference/artwork.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Artwork CAM</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ikony te znajdują się we wskazanej ścieżce źródłowej.</p>
+</div>
+<div class="paragraph">
+<p>Wszystkie ikonki widoczne na liście źródłowej, patrz <a href="https://wiki.freecad.org/Artwork">Grafika</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="srcmodcam"><a class="anchor" href="#srcmodcam"></a>src/Mod/CAM/</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="srcmodcamguiresourcesicons"><a class="anchor" href="#srcmodcamguiresourcesicons"></a>src/Mod/CAM/Gui/Resources/icons/</h3>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/Arrow-ccw.svg" alt="Arrow ccw" width="64"></span> <span class="image"><img src="../_images/Arrow-cw.svg" alt="Arrow cw" width="64"></span> <span class="image"><img src="../_images/Arrow-down.svg" alt="Arrow down" width="64"></span> <span class="image"><img src="../_images/Arrow-left.svg" alt="Arrow left" width="64"></span> <span class="image"><img src="../_images/Arrow-left-down.svg" alt="Arrow left down" width="64"></span> <span class="image"><img src="../_images/Arrow-left-up.svg" alt="Arrow left up" width="64"></span> <span class="image"><img src="../_images/Arrow-right.svg" alt="Arrow right" width="64"></span> <span class="image"><img src="../_images/Arrow-right-down.svg" alt="Arrow right down" width="64"></span> <span class="image"><img src="../_images/Arrow-right-up.svg" alt="Arrow right up" width="64"></span> <span class="image"><img src="../_images/Arrow-up.svg" alt="Arrow up" width="64"></span> <span class="image"><img src="../_images/CAM_3DPocket.svg" alt="CAM 3DPocket" width="64"></span> <span class="image"><img src="../_images/CAM_3DSurface.svg" alt="CAM 3DSurface" width="64"></span> <span class="image"><img src="../_images/CAM_Adaptive.svg" alt="CAM Adaptive" width="64"></span> <span class="image"><img src="../_images/CAM_Area.svg" alt="CAM Area" width="64"></span> <span class="image"><img src="../_images/CAM_Area_View.svg" alt="CAM Area View" width="64"></span> <span class="image"><img src="../_images/CAM_Area_Workplane.svg" alt="CAM Area Workplane" width="64"></span> <span class="image"><img src="../_images/CAM_Array.svg" alt="CAM Array" width="64"></span> <span class="image"><img src="../_images/CAM_BaseGeometry.svg" alt="CAM BaseGeometry" width="64"></span> <span class="image"><img src="../_images/CAM_BFastForward.svg" alt="CAM BFastForward" width="64"></span> <span class="image"><img src="../_images/CAM_BPause.svg" alt="CAM BPause" width="64"></span> <span class="image"><img src="../_images/CAM_BPlay.svg" alt="CAM BPlay" width="64"></span> <span class="image"><img src="../_images/CAM_BStep.svg" alt="CAM BStep" width="64"></span> <span class="image"><img src="../_images/CAM_BStop.svg" alt="CAM BStop" width="64"></span> <span class="image"><img src="../_images/CAM_Camotics.svg" alt="CAM Camotics" width="64"></span> <span class="image"><img src="../_images/CAM_Comment.svg" alt="CAM Comment" width="64"></span> <span class="image"><img src="../_images/CAM_Compound.svg" alt="CAM Compound" width="64"></span> <span class="image"><img src="../_images/CAM_Copy.svg" alt="CAM Copy" width="64"></span> <span class="image"><img src="../_images/CAM_Custom.svg" alt="CAM Custom" width="64"></span> <span class="image"><img src="../_images/CAM_Datums.svg" alt="CAM Datums" width="64"></span> <span class="image"><img src="../_images/CAM_Deburr.svg" alt="CAM Deburr" width="64"></span> <span class="image"><img src="../_images/CAM_Depths.svg" alt="CAM Depths" width="64"></span> <span class="image"><img src="../_images/CAM_Dressup.svg" alt="CAM Dressup" width="64"></span> <span class="image"><img src="../_images/CAM_Drilling.svg" alt="CAM Drilling" width="64"></span> <span class="image"><img src="../_images/CAM_Engrave.svg" alt="CAM Engrave" width="64"></span> <span class="image"><img src="../_images/CAM_ExportTemplate.svg" alt="CAM ExportTemplate" width="64"></span> <span class="image"><img src="../_images/CAM_Face.svg" alt="CAM Face" width="64"></span> <span class="image"><img src="../_images/CAM_FacePocket.svg" alt="CAM FacePocket" width="64"></span> <span class="image"><img src="../_images/CAM_FaceProfile.svg" alt="CAM FaceProfile" width="64"></span> <span class="image"><img src="../_images/CAM_Heights.svg" alt="CAM Heights" width="64"></span> <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="64"></span> <span class="image"><img src="../_images/CAM_InactiveOp.svg" alt="CAM InactiveOp" width="64"></span> <span class="image"><img src="../_images/CAM_Inspect.svg" alt="CAM Inspect" width="64"></span> <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="64"></span> <span class="image"><img src="../_images/CAM_LengthOffset.svg" alt="CAM LengthOffset" width="64"></span> <span class="image"><img src="../_images/CAM_Machine.svg" alt="CAM Machine" width="64"></span> <span class="image"><img src="../_images/CAM_Machine_test1.svg" alt="CAM Machine test1" width="64"></span> <span class="image"><img src="../_images/CAM_MachineLathe.svg" alt="CAM MachineLathe" width="64"></span> <span class="image"><img src="../_images/CAM_MachineMill.svg" alt="CAM MachineMill" width="64"></span> <span class="image"><img src="../_images/CAM_OpActive.svg" alt="CAM OpActive" width="64"></span> <span class="image"><img src="../_images/CAM_OpCopy.svg" alt="CAM OpCopy" width="64"></span> <span class="image"><img src="../_images/CAM_OperationA.svg" alt="CAM OperationA" width="64"></span> <span class="image"><img src="../_images/CAM_OperationB.svg" alt="CAM OperationB" width="64"></span> <span class="image"><img src="../_images/CAM_Pocket.svg" alt="CAM Pocket" width="64"></span> <span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="64"></span> <span class="image"><img src="../_images/CAM_Probe.svg" alt="CAM Probe" width="64"></span> <span class="image"><img src="../_images/CAM_Profile.svg" alt="CAM Profile" width="64"></span> <span class="image"><img src="../_images/CAM_Profile_Edges.svg" alt="CAM Profile Edges" width="64"></span> <span class="image"><img src="../_images/CAM_Profile_Face.svg" alt="CAM Profile Face" width="64"></span> <span class="image"><img src="../_images/CAM_Sanity.svg" alt="CAM Sanity" width="64"></span> <span class="image"><img src="../_images/CAM_SelectLoop.svg" alt="CAM SelectLoop" width="64"></span> <span class="image"><img src="../_images/CAM_SetupSheet.svg" alt="CAM SetupSheet" width="64"></span> <span class="image"><img src="../_images/CAM_Shape.svg" alt="CAM Shape" width="64"></span> <span class="image"><img src="../_images/CAM_SimpleCopy.svg" alt="CAM SimpleCopy" width="64"></span> <span class="image"><img src="../_images/CAM_Simulator.svg" alt="CAM Simulator" width="64"></span> <span class="image"><img src="../_images/CAM_SimulatorGL.svg" alt="CAM SimulatorGL" width="64"></span> <span class="image"><img src="../_images/CAM_Slot.svg" alt="CAM Slot" width="64"></span> <span class="image"><img src="../_images/CAM_Speed.svg" alt="CAM Speed" width="64"></span> <span class="image"><img src="../_images/CAM_Stop.svg" alt="CAM Stop" width="64"></span> <span class="image"><img src="../_images/CAM_Tags.svg" alt="CAM Tags" width="64"></span> <span class="image"><img src="../_images/CAM_ThreadMilling.svg" alt="CAM ThreadMilling" width="64"></span> <span class="image"><img src="../_images/CAM_ToolBit.svg" alt="CAM ToolBit" width="64"></span> <span class="image"><img src="../_images/CAM_ToolChange.svg" alt="CAM ToolChange" width="64"></span> <span class="image"><img src="../_images/CAM_ToolController.svg" alt="CAM ToolController" width="64"></span> <span class="image"><img src="../_images/CAM_ToolDuplicate.svg" alt="CAM ToolDuplicate" width="64"></span> <span class="image"><img src="../_images/CAM_Toolpath.svg" alt="CAM Toolpath" width="64"></span> <span class="image"><img src="../_images/CAM_ToolTable.svg" alt="CAM ToolTable" width="64"></span> <span class="image"><img src="../_images/CAM_Vcarve.svg" alt="CAM Vcarve" width="64"></span> <span class="image"><img src="../_images/CAM_Waterline.svg" alt="CAM Waterline" width="64"></span> <span class="image"><img src="../_images/CAMWorkbench.svg" alt="CAMWorkbench" width="64"></span> <span class="image"><img src="../_images/Edge-join-miter.svg" alt="Edge join miter" width="64"></span> <span class="image"><img src="../_images/Edge-join-miter-not.svg" alt="Edge join miter not" width="64"></span> <span class="image"><img src="../_images/Edge-join-round.svg" alt="Edge join round" width="64"></span> <span class="image"><img src="../_images/Edge-join-round-not.svg" alt="Edge join round not" width="64"></span> <span class="image"><img src="../_images/Preferences-cam.svg" alt="Preferences cam" width="64"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="srcmodcamimagesops"><a class="anchor" href="#srcmodcamimagesops"></a>src/Mod/CAM/Images/Ops/</h3>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/Chamfer.svg" alt="Chamfer" width="64"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="srcmodcamimagestools"><a class="anchor" href="#srcmodcamimagestools"></a>src/Mod/CAM/Images/Tools/</h3>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/Drill.svg" alt="Drill" width="64"></span> <span class="image"><img src="../_images/Endmill.svg" alt="Endmill" width="64"></span> <span class="image"><img src="../_images/Reamer.svg" alt="Reamer" width="64"></span> <span class="image"><img src="../_images/V-bit.svg" alt="V bit" width="64"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="srcmodcampathmaingui"><a class="anchor" href="#srcmodcampathmaingui"></a>src/Mod/CAM/Path/Main/Gui/</h3>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/Sanity_Bulb.svg" alt="Sanity Bulb" width="64"></span> <span class="image"><img src="../_images/Sanity_Caution.svg" alt="Sanity Caution" width="64"></span> <span class="image"><img src="../_images/Sanity_Note.svg" alt="Sanity Note" width="64"></span> <span class="image"><img src="../_images/Sanity_Warning.svg" alt="Sanity Warning" width="64"></span></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>++&lt;++noinclude++&gt;++++&lt;++/noinclude++&gt;++</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="scripting.html">CAM scripting</a></span>
+  <span class="next"><a href="../contributing/development-roadmap.html">CAM Development Roadmap</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM: Linia poziomu :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/pl/cam/wiki-2026-08/operations/waterline.html">
+    <link rel="prev" href="surface.html">
+    <link rel="next" href="../dressups/axis-map.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/pl">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/operations/waterline.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/operations/waterline.html">Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/operations/waterline.html">Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/operations/waterline.html" selected>Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM: Zadanie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM: Przetwarzanie końcowe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM: Bezpieczeństwo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM: Eksportuj szablon</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM: Sprawdź ścieżkę narzędzia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM: Symulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM: Nowy symulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM: Zakończ zaznaczona pętlę</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM: Przecz aktywne stadium operacji</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">CAM ToolBitLibraryOpen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">CAM ToolBitDock</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="profile.html">CAM: Profil</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">CAM: Obróbka kieszeni</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">CAM: Powierzchnia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="helix.html">CAM: Helisa</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">CAM: Adaptacyjnie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">CAM: Rowek</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">CAM: Wiercenie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">CAM: Grawer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">CAM: Usuwanie zadziorów</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vcarve.html">CAM: Wycięcie V</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">CAM: Obróbka kieszeni</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="surface.html">Path: Powierzchnia 3D</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="waterline.html">CAM: Linia poziomu</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM: Odwzorowanie osi</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM: Ulepszenie ściezki konturu</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM: Ulepszenie - nadcięcie w narożnikach</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM: Ulepszenie - rylec</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM: Ulepszenie wprowadzenia / wyprowadzenia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM: Ulepszenie - parkowanie narzędzia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM: Ulepszenie - znacznik</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM: Ulepszenie - korekta głębokości Z</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">CAM: Komentarz</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">CAM: Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">CAM: Użytkownika</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">CAM: Sonda</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">CAM: Z Kształtu</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM: Kopia</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM: Szyk</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM: Szybka kopia</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">CAM: Frezowanie gwintów</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM: Obszar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM: Obszar płaszczyzny roboczej</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM: Mocowanie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>3D Operations</li>
+    <li><a href="waterline.html">CAM: Linia poziomu</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/pl/modules/ROOT/pages/operations/waterline.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM: Linia poziomu</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Jest to nieukończona funkcja eksperymentalna. <a href="../reference/experimental.html" class="xref page">Włącz funkcje eksperymentalne</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock fcinfobox">
+<div class="content">
+<div class="paragraph fcTitle">
+<p><span class="image"><img src="../_images/CAM_Waterline.svg" alt="CAM: Linia poziomu" width="32"></span> <strong>CAM: Linia poziomu</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Linia poziomu</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>0.19</p>
+</dd>
+<dt class="hdlist1">See also</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="opis"><a class="anchor" href="#opis"></a>Opis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Narzędzie <span class="image"><img src="../_images/Path_Waterline.svg" alt="Path Waterline" width="24"></span> <strong>Linia poziomu</strong> tworzy nową operację Linii poziomu. Od wersji 0.19_pre operacja działa na całym modelu, generując G-code dla zadania. Obecnie w ustawieniach operacji nie ma funkcji wyboru określonych obszarów, powierzchni lub regionów modelu.</p>
+</div>
+<div class="paragraph">
+<p>Operacja Linii poziomu ma trzy algorytmy: OCL Dropcutter, OCL Adaptive i Experimental.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Algorytmy OCL Dropcutter i OCL Adaptive łączą się z OCL.pyd, zewnętrznym modułem Open Source o nazwie <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a>, który generuje ścieżki narzędzia z modelu 3D. OpenCamLib nie jest zintegrowany bezpośrednio z FreeCAD.</p>
+</li>
+<li>
+<p><span class="since">introduced in 26.3</span>: Algorytm OCL Adaptive jest dostępny. Może generować gładsze ścieżki szybciej dla odpowiednich modeli. Nie jest ograniczony przez brzegi Waterline; użyj <a href="../dressups/path-boundary.html" class="xref page">Ulepszenia ścieżki konturu</a>, jeśli to konieczne.</p>
+</li>
+<li>
+<p>Eksperymentalny algorytm wykorzystuje wbudowaną klasę Path.Area().</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong><em>Uwaga</em></strong>: Aby skorzystać z operacji Linia poziomu powinieneś:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Prawidłowo zainstalować <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a>.</p>
+</li>
+<li>
+<p>Włączyć <a href="../reference/experimental.html" class="xref page">funkcje eksperymentalne</a> dla środowiska pracy CAM.</p>
+</li>
+<li>
+<p>Sprawdzić nastawy <span class="menuseq"><b class="menu">Edycja</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferencje &#8230;&#8203;</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Zaawansowane</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Włącz funkcje zależne od OpenCamLib</b></span>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="użycie"><a class="anchor" href="#użycie"></a>Użycie</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Poniżej przedstawiono instrukcje użytkowania dla wielu wariantów operacji <strong>Linii poziomu</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="operacje-podstawowe"><a class="anchor" href="#operacje-podstawowe"></a>Operacje podstawowe</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Naciśnij <span class="image"><img src="../_images/CAM_Waterline.svg" alt="CAM Waterline" width="24"></span> Linia poziomu lub wybierz narzędzie <strong>Linia poziomu</strong> z menu <strong>CAM</strong>.</p>
+</li>
+<li>
+<p>Wybierz kontroler narzędzia dla operacji z okna dialogowego Kontroler narzędzia.</p>
+</li>
+<li>
+<p>Dostosuj głębokość operacji zgodnie z potrzebami w zakładce Głębokość: Głębokość początkowa, Głębokość końcowa, Krok w dół.</p>
+</li>
+<li>
+<p>W razie potrzeby dostosuj ustawienia w zakładce Wysokość.</p>
+</li>
+<li>
+<p>Skonfiguruj ustawienia w zakładce Operacje w oparciu o wybrany algorytm:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>OCL Dropcutter</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Wybierz pole Ramka otaczająca: Przygotówka lub Punkt bazowy obiektu Ramki otaczającej.</p>
+</li>
+<li>
+<p>Ustaw tryb warstwy: Pojedyncze przejście lub Wielokrotne przejście.</p>
+</li>
+<li>
+<p>Ustaw interwał próbkowania używany do skanowania OCL.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>OCL Adaptive</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Ustaw Tryb warstwy: Jedno przejście lub Wiele przejść.</p>
+</li>
+<li>
+<p>Ustaw Interwał próbek i Minimalny interwał próbek dla skanu adaptive OCL.</p>
+</li>
+<li>
+<p>Opcjonalnie włącz opcję Optymalizuj liniowe ścieżki.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Eksperymentalne</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Wybierz Ramka otaczająca: Przygotówka lub Punkt bazowy obiektu Ramki otaczającej.</p>
+</li>
+<li>
+<p>Ustaw tryb warstwy: Pojedyncze przejście lub Wielokrotne przejście.</p>
+</li>
+<li>
+<p>Ustaw wzorzec cięcia, jeśli chcesz wyczyścić każdą warstwę.</p>
+</li>
+<li>
+<p>Ustaw dostosowanie granic <em>(naddatek materiału)</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Jeśli chcesz wyświetlić podgląd wyniku przed zaakceptowaniem ustawień, kliknij przycisk Zastosuj.</p>
+</li>
+<li>
+<p>Kliknij przycisk <em>OK</em>, aby potwierdzić i wygenerować ścieżki.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Aby uzyskać inne lub bardziej złożone efekty, należy dostosować dodatkowe właściwości operacji na karcie Dane w widoku Właściwości operacji.</p>
+</div>
+<div class="sect3">
+<h4 id="uwagi-o-algorytmie-eksperymentalnym"><a class="anchor" href="#uwagi-o-algorytmie-eksperymentalnym"></a>Uwagi o algorytmie eksperymentalnym</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Nie obsługuje prawidłowo nawisów.</p>
+</li>
+<li>
+<p>Zwraca ścieżki tylko dla frezów typu End Mill <em>(bit narzędziowy)</em>.</p>
+</li>
+<li>
+<p>Może nie wychwytywać poprawnie wszystkich elementów wewnętrznych.</p>
+</li>
+<li>
+<p>Jest po prostu eksperymentalna i nie jest gotowa na integrację z głównym nurtem. Prosimy o sprawdzanie ścieżek za pomocą wbudowanego narzędzia <span class="image"><img src="../_images/CAM_Simulator.svg" alt="CAM Simulator" width="16"></span> <a href="../inspect/simulator-legacy.html" class="xref page">Symulator CAM</a> lub innych narzędzi do kontroli G-Code innych firm, przed rozpoczęciem procesu obróbki.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="dostępne-kształty-narzędzi-frezów"><a class="anchor" href="#dostępne-kształty-narzędzi-frezów"></a>Dostępne kształty narzędzi (frezów)</h4>
+<div class="paragraph">
+<p>W przypadku korzystania z algorytmu "OCL Dropcutter", operacja Waterline wykorzystuje <a href="../reference/opencamlib.html" class="xref page"> OpenCamLib (OCL)</a> do wyodrębniania ścieżek z podstawy części. W związku z tym wymagana jest translacja narzędzia między kontrolerem narzędzi FreeCAD a OCL w celu zakończenia skanowania wybranym kształtem narzędzia <em>(frezu)</em>. Te kształty narzędzi są <em>(powinny być)</em> respektowane i dostępne dla OCL Dropcutter, o ile używane są wbudowane kształty narzędzi, zarówno narzędzia starszego typu, jak i narzędzia typu ToolBit:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Frez trzpieniowy</p>
+</li>
+<li>
+<p>Frez kulowy</p>
+</li>
+<li>
+<p>frez walcowo-czołowy</p>
+</li>
+<li>
+<p>Końcówka fazująca</p>
+</li>
+<li>
+<p>Grawer</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="uwagi-dodatkowe"><a class="anchor" href="#uwagi-dodatkowe"></a>Uwagi dodatkowe</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Jeśli zdecydujesz się uruchomić symulator <span class="image"><img src="../_images/CAM_Simulator.svg" alt="CAM Simulator" width="16"></span> <a href="../inspect/simulator-legacy.html" class="xref page">CAM symulator</a>, w środowisku pracy CAM możesz nie zobaczyć usuwania materiału specyficznego dla kształtu narzędzia. Zachowaj ostrożność. Zaleca się wykonanie małego zadania próbnego przy użyciu pianki lub innego bardzo niegęstego materiału w celu sprawdzenia poprawności ścieżek z wybranym kontrolerem narzędzia.</p>
+</li>
+<li>
+<p>Od maja 2020 r. tylko frez walcowo-czołowy jest testowany w celu określenia dokładności translacji ustawień narzędzia z FreeCAD doOCL. Prosimy o przesyłanie wszelkich opinii dotyczących użycia frezów innych niż frezy walcowo-czołowe do sekcji <a href="https://forum.freecad.org/viewforum.php?f=15">CAM</a> na forum FreeCAD.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="właściwości"><a class="anchor" href="#właściwości"></a>Właściwości</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong><em>Uwaga</em></strong>: Nie wszystkie z tych właściwości są dostępne w edytorze okna zadań. Niektóre są dostępne tylko na karcie Dane w panelu Widok właściwości dla tej operacji.</p>
+</div>
+<div class="paragraph">
+<div class="title">Podstawa</div>
+<p>Uwaga: Zaleca się, aby nie edytować właściwości Umiejscowienie operacji ścieżki. W razie potrzeby należy raczej przesunąć lub obrócić model zadania CAM.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Umiejscowienie</strong>: Ogólne położenie <em>(pozycja i obrót)</em> obiektu - w odniesieniu do punktu odniesienie położenia <em>(lub punktu odniesienie położenia kontenera obiektu nadrzędnego)</em>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Kąt</strong>: Kąt w stopniach zastosowany do obrotu obiektu wokół wartości właściwości Oś.</p>
+</li>
+<li>
+<p><strong>Oś</strong>: Oś <em>(jedna lub wiele)</em>, wokół której ma zostać obrócony obiekt, ustawiona we właściwościach podrzędnych: X, Y, Z</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: Wartość osi X.</p>
+</li>
+<li>
+<p><strong>Y</strong>: Wartość osi Y.</p>
+</li>
+<li>
+<p><strong>Z</strong>: Wartość osi Z.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Pozycja</strong>: Pozycja obiektu, ustawiona we właściwościach podrzędnych: X, Y, Z - względem początku <em>(lub początku kontenera obiektu nadrzędnego)</em>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: Wartość odległości X.</p>
+</li>
+<li>
+<p><strong>Y</strong>: wartość odległości Y.</p>
+</li>
+<li>
+<p><strong>Z</strong>: wartość odległości Z.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Etykieta</strong>: Nazwa obiektu podana przez użytkownika <em>(UTF-8)</em>.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Opcje czyszczenia</div>
+<ul>
+<li>
+<p><strong>Algorytm</strong>: Biblioteka używana do generowania ścieżki.</p>
+</li>
+<li>
+<p><strong>Ramka otaczająca</strong>: Czy operacja powinna być ograniczona przez obiekt podstawowy, czy przez obwiednię obiektu podstawowego?</p>
+</li>
+<li>
+<p><strong>Wyczyść ostatnią warstwę</strong>: Ustawia czyszczenie ostatniej warstwy w operacji wieloprzebiegowej.</p>
+</li>
+<li>
+<p><strong>Tryb obróbki</strong>: Kierunek, w którym ścieżka narzędzia powinna przebiegać wokół części: Wspinanie <em>(zgodnie z ruchem wskazówek zegara)</em> lub Konwencjonalny <em>(przeciwnie do ruchu wskazówek zegara)</em>.</p>
+</li>
+<li>
+<p><strong>Wzorzec obróbki</strong>: Wzorzec czyszczenia do użycia.</p>
+</li>
+<li>
+<p><strong>Odsunięcie głębokości</strong>:</p>
+</li>
+<li>
+<p><strong>Ignoruj zewnętrzne powyżej</strong>:</p>
+</li>
+<li>
+<p><strong>Tryb warstwy</strong>: Tryb zakończenia operacji: jedno- lub wieloprzebiegowy.</p>
+</li>
+<li>
+<p><strong>Minimalny interwał próbek</strong>: Minimalna rozdzielczość próbkowania dla algorytmu OCL Adaptive</p>
+</li>
+<li>
+<p><strong>Optymalizuj liniowe ścieżki</strong>: Usuwa zbędne współliniowe punkty z wyjściowego kodu G</p>
+</li>
+<li>
+<p><strong>Krok powyżej</strong>:</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Głębokość</div>
+<ul>
+<li>
+<p><strong>Wysokość prześwitu</strong>: Wysokość potrzebna do usunięcia zacisków i przeszkód.</p>
+</li>
+<li>
+<p><strong>Głębokość końcowa</strong>: Głębokość końcowa narzędzia - najniższa wartość w Z.</p>
+</li>
+<li>
+<p><strong>Wysokość bezpieczna</strong>: Wysokość, powyżej której dozwolone są szybkie ruchy.</p>
+</li>
+<li>
+<p><strong>Głębokość początkowa</strong>: Głębokość początkowa narzędzia - pierwsza głębokość cięcia w Z.</p>
+</li>
+<li>
+<p><strong>Krok w dół</strong>: Przyrostowy krok w dół narzędzia.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Ścieżka</div>
+<ul>
+<li>
+<p><strong>Aktywny</strong>: Ustaw wartość <code>false</code>, aby zapobiec generowaniu kodu przez operację.</p>
+</li>
+<li>
+<p><strong>Baza</strong>: Geometria bazowa dla tej operacji.</p>
+</li>
+<li>
+<p><strong>Komentarz</strong>: Opcjonalny komentarz dla tej operacji.</p>
+</li>
+<li>
+<p><strong>Tryb chłodzenia</strong>:</p>
+</li>
+<li>
+<p><strong>Czas cyklu</strong>:</p>
+</li>
+<li>
+<p><strong>Kontroler narzędzi</strong>: Określa kontroler narzędzia używany w operacji.</p>
+</li>
+<li>
+<p><strong>Etykieta użytkownika</strong>: Etykieta przypisana przez użytkownika.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Punkt początkowy</div>
+<ul>
+<li>
+<p><strong>Punkt początkowy</strong>: Niestandardowy punkt początkowy dla ścieżki tej operacji.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong>: wartość odległości X.</p>
+</li>
+<li>
+<p><strong>Y</strong>: wartość odległości Y.</p>
+</li>
+<li>
+<p><strong>Z</strong>: wartość odległości Z.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Użyj punktu początkowego</strong>: Ustaw wartość <code>true</code>, jeśli określono punkt początkowy.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="układ-edytora-w-oknie-zadań"><a class="anchor" href="#układ-edytora-w-oknie-zadań"></a>Układ edytora w oknie zadań</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Opisy ustawień znajdują się na powyższej liście właściwości</em>.</p>
+</div>
+<div class="paragraph">
+<p>Ta sekcja jest po prostu mapą układu ustawień w edytorze okien dla operacji.</p>
+</div>
+<div class="sect2">
+<h3 id="lokalizacja-bazowa"><a class="anchor" href="#lokalizacja-bazowa"></a>Lokalizacja bazowa</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Dodaj</strong>: Dodaje wybrane elementy, które powinny być bazą dla ścieżek.</p>
+</li>
+<li>
+<p><strong>Usuń</strong>: Usuwa wybrane elementy z listy Lokalizacja bazowa.</p>
+</li>
+<li>
+<p><strong>Edytuj</strong>: Czyści wszystkie elementy na liście Lokalizacja bazowa.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="głębokości"><a class="anchor" href="#głębokości"></a>Głębokości</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Głębokość początkowa</strong></p>
+</li>
+<li>
+<p><strong>Głębokość końcowa</strong></p>
+</li>
+<li>
+<p><strong>Krok w dół</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="wysokości"><a class="anchor" href="#wysokości"></a>Wysokości</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Wysokość bezpieczna</strong></p>
+</li>
+<li>
+<p><strong>Wysokość prześwitu</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="operacja"><a class="anchor" href="#operacja"></a>Operacja</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Kontroler narzędzi</strong>.</p>
+</li>
+<li>
+<p><strong>Tryb chłodzenia</strong></p>
+</li>
+<li>
+<p><strong>Algorytm</strong></p>
+</li>
+<li>
+<p><strong>Ramka otaczająca</strong></p>
+</li>
+<li>
+<p><strong>Tryb warstwy</strong></p>
+</li>
+<li>
+<p><strong>Wzór obróbki</strong>~.</p>
+</li>
+<li>
+<p><strong>Regulacja granic</strong>~.</p>
+</li>
+<li>
+<p><strong>Odstęp między próbkami</strong>~.</p>
+</li>
+<li>
+<p><strong>Minimalny interwał próbek</strong>~</p>
+</li>
+<li>
+<p><strong>Optymalizuj liniowe ścieżki</strong>~</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>~Widoczność zmienia się wraz z innymi ustawieniami.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="zasoby"><a class="anchor" href="#zasoby"></a>Zasoby</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://ncviewer.com/">Symulator G-kodu NCViewer</a></p>
+</li>
+<li>
+<p><a href="https://www.camotics.org/">Symulator G-kodu CAMotics</a></p>
+</li>
+<li>
+<p><a href="https://youtu.be/WYSjf5Omo9c">Filmik pokazujący jak korzystać z tego narzędzia</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="surface.html">Path: Powierzchnia 3D</a></span>
+  <span class="next"><a href="../dressups/axis-map.html">CAM: Odwzorowanie osi</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

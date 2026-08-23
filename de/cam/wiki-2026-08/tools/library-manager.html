@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM WerkzeugbitBibliothekÖffnen :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/de/cam/wiki-2026-08/tools/library-manager.html">
+    <link rel="prev" href="../inspect/op-active-toggle.html">
+    <link rel="next" href="add-toolbit.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/de">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/tools/library-manager.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/tools/library-manager.html" selected>Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/tools/library-manager.html">Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/tools/library-manager.html">Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM Auftrag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM Nachbereitung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM Plausibilitätsprüfung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM ExportVorlage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM Untersuchen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM SimulatorGL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM SchleifeAuswählen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM AktiveBearbeitungUmschalten</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="library-manager.html">CAM WerkzeugbitBibliothekÖffnen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="add-toolbit.html">CAM WerkzeugbitAblage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">CAM Profil</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">CAM Taschenform</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">CAM FlächeFräsen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">CAM Wendel</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">CAM Adaptiv</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">CAM Nut</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">CAM Bohren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">CAM Gravieren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">CAM Entgraten</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">CAM V-Schnitt</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">CAM Tasche3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">CAM Oberfläche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">CAM Wasserlinie</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM AufbereitungAchsenZuordnung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM AufbereitungBegrenzungsPfad</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM AufbereitungHundeknochen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM AufbereitungSchleppmesser</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM AufbereitungAnAbfahren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM AufbereitungEingangsrampe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM AufbereitungHaltepunkt</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM AufbereitungZKorrektur</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">CAM Kommentar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">CAM Halt</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">CAM Benutzerdefiniert</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">CAM Sonde</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">CAM Form</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM Kopie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM Anordnung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM EinfacheKopie</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">CAM GewindeFräsen</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM Fläche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM Bereich Arbeitsebene</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Tool Commands</li>
+    <li><a href="library-manager.html">CAM WerkzeugbitBibliothekÖffnen</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/de/modules/ROOT/pages/tools/library-manager.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM WerkzeugbitBibliothekÖffnen</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock fcinfobox">
+<div class="content">
+<div class="paragraph fcTitle">
+<p><span class="image"><img src="../_images/CAM_ToolBitLibraryOpen.svg" alt="CAM WerkzeugbitBibliothekÖffnen" width="32"></span> <strong>CAM WerkzeugbitBibliothekÖffnen</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Werkzeugbit-Bibliotheks-Editor</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>0.19</p>
+</dd>
+<dt class="hdlist1">See also</dt>
+<dd>
+<p><a href="add-toolbit.html" class="xref page">CAM WerkzeugbitAblage</a>, <a href="index.html" class="xref page">CAM Werkzeuge</a>, <a href="toolbit.html" class="xref page">CAM Werkzeugbit</a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="beschreibung"><a class="anchor" href="#beschreibung"></a>Beschreibung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Der Befehl <span class="image"><img src="../_images/CAM_ToolBitLibraryOpen.svg" alt="CAM ToolBitLibraryOpen" width="16"></span> <a href="#">Werkzeugbit-Bibliothek-Editor</a> dient zum Erstellen, Verwalten und Organisieren von Werkzeugbits. Beim Starten des Bibliotheksmanagers wird dieser als modales Dialogfeld angezeigt.</p>
+</div>
+<div class="paragraph">
+<p>Von hier aus kann der Benutzer alle Aufgaben im Zusammenhang mit der Verwaltung von Werkzeugbits ausführen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Standardbibliothek auswählen</p>
+</li>
+<li>
+<p>Werkzeugbits erstellen/bearbeiten/löschen</p>
+</li>
+<li>
+<p>Bibliotheken erstellen</p>
+</li>
+<li>
+<p>Bibliotheken durch Hinzufügen und Entfernen von Werkzeugbits ändern</p>
+</li>
+<li>
+<p>Bibliothek unter neuem Namen speichern</p>
+</li>
+<li>
+<p>Bibliothek in das LinuxCNC-Werkzeugtabellenformat (.tbl) exportieren</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Nur das Erstellen neuer Werkzeugformen kann nicht über den Werkzeugbit-Bibliotheksmanager erfolgen. Dies ist ein fortgeschrittenes Thema. (Siehe <a href="tool-shape.html" class="xref page">CAM Werkzeugform</a> erstellen).</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/Toolbitmanager.png" alt="Toolbitmanager"></span></p>
+</div>
+<div class="paragraph caption">
+<p>Der Bibliotheksmanager</p>
+</div>
+<div class="paragraph">
+<p>Der linke Bereich <strong>(1)</strong> zeigt eine Liste aller Bibliotheken im aktuellen Arbeitsverzeichnis. Die aktuelle Bibliothek ist hervorgehoben.</p>
+</div>
+<div class="paragraph">
+<p>Der Pfad des aktuellen Arbeitsverzeichnisses wird in der Titelleiste des Fensters <strong>(2)</strong> angezeigt. Mit einem Dateiauswahlfeld <strong>(3)</strong> kann ein anderes Arbeitsverzeichnis ausgewählt werden.</p>
+</div>
+<div class="paragraph">
+<p>Der rechte Bereich <strong>(4)</strong> zeigt alle Werkzeugbits in der aktuell ausgewählten Bibliothek an. Durch Doppelklicken in die linke Spalte kann die Standard-Werkzeugnummer für dieses Werkzeugbit geändert werden. Die Werkzeugnummer wird beim Erstellen einer Werkzeugsteuerung verwendet. Die Nummer ist ein Attribut der Bibliothek. Das bedeutet, dass dasselbe Werkzeugbit in mehreren Werkzeugbibliotheken vorhanden sein kann und in jeder Bibliothek eine andere Standard-Werkzeugnummer haben kann.</p>
+</div>
+<div class="paragraph">
+<p>Die Werkzeuge oben <strong>(5)</strong> dienen zum Erstellen/Hinzufügen/Entfernen von Werkzeugbits aus der aktuellen Bibliothek.</p>
+</div>
+<div class="paragraph">
+<p>Mit der Schaltfläche Speichern unter (6) kann die Bibliothek in eine neue Datei geschrieben werden oder in ein gültiges Tooltable-Format exportiert werden. Derzeit wird nur das LinuxCNC-Format unterstützt.</p>
+</div>
+<div class="paragraph">
+<p>Der Manager speichert die zuletzt verwendete Werkzeug-Bibliothek und das Arbeitsverzeichnis zwischen den einzelnen Verwendungen.</p>
+</div>
+<div class="paragraph">
+<p>Die Schaltfläche Schließen <strong>(7)</strong> unten rechts schließt den Werkzeug-Bibliotheksmanager. Alle Änderungen an der aktuellen Bibliothek werden auf der Festplatte gespeichert. Durch Drücken der Escape-Taste wird der Manager geschlossen, ohne dass Änderungen an der aktuellen Bibliothek vorgenommen werden. Die Bibliothek, die beim Schließen des Managers ausgewählt ist, wird zur neuen Standardbibliothek und wird in der Werkzeugbit-Ablage angezeigt.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="anwendung"><a class="anchor" href="#anwendung"></a>Anwendung</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Es gibt mehrere Möglichkeiten, den Werkzeugbit-Bibliotheksmanager zu öffnen:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Die Option <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Werkzeugbit-Bibliotheksmanager</b></span> aus dem Menü wählen.</p>
+</li>
+<li>
+<p>Die <a href="add-toolbit.html" class="xref page">Werkzeugbit-Auswahl</a> wie beschrieben öffnen und die Schaltfläche <a href="#">Werkzeugbit-Bibliotheksmanager öffnen</a> drücken.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Eine Bibliothek aus der Liste auswählen.</p>
+</li>
+<li>
+<p>Erstellen/Hinzufügen/Entfernen von Werkzeugbits aus der Bibliothek.</p>
+</li>
+<li>
+<p>Auf eine Zeile doppelklicken, um den Werkzeugbit zu bearbeiten.</p>
+</li>
+<li>
+<p>Den Manager schließen.</p>
+</li>
+<li>
+<p>Die ausgewählte Bibliothek wird zur Standardbibliothek für die Ablage.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="werkzeugbits-bearbeiten"><a class="anchor" href="#werkzeugbits-bearbeiten"></a>Werkzeugbits bearbeiten</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Es gibt mehrere Möglichkeiten, die Werkzeugbits und die Bibliothek zu bearbeiten:</p>
+</div>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Durch Klicken auf die Spaltenüberschriften der Bibliothek kann die Werkzeugbit-Bibliothek sortiert werden. Die Bibliothek behält die Sortierung bei und verwendet sie in der Ablage.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>::
+  <span class="image"><img src="../_images/Librarysort.png" alt="Librarysort"></span>
+ <br></p>
+</div>
+<div class="paragraph caption">
+<p>Die Werkzeugbibliothek über die Spaltenüberschriften sortieren</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Durch Doppelklicken in die erste Spalte kann die Werkzeugnummer bearbeitet werden. Dies ist die Standard-Werkzeugnummer, die beim Erstellen einer neuen Werkzeugsteuerung verwendet wird. Es ist möglich, dieselbe Nummer für mehrere Werkzeuge zu verwenden.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>::
+  <span class="image"><img src="../_images/Edittoolnumber.png" alt="Edittoolnumber"></span>
+ <br></p>
+</div>
+<div class="paragraph caption">
+<p>Auf die erste Spalte doppelklicken, um die Werkzeugnummer zu bearbeiten</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Durch Doppelklicken auf eine beliebige andere Stelle in der Zeile wird das Bearbeitungsfeld für das Werkzeug geöffnet. Hier können weitere Eigenschaften des Werkzeugs bearbeitet werden.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>::
+  <span class="image"><img src="../_images/Editingpanel.png" alt="Editingpanel"></span>
+ <br></p>
+</div>
+<div class="paragraph caption">
+<p>Das Bearbeitungsfeld für das Werkzeug öffnen, indem auf eine beliebige andere Stelle in der Zeile geklickt wird.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="verwandtes"><a class="anchor" href="#verwandtes"></a>Verwandtes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="index.html" class="xref page">CAM Werkzeuge</a></p>
+</li>
+<li>
+<p><a href="toolbit.html" class="xref page">CAM Werkzeugbit</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../inspect/op-active-toggle.html">CAM AktiveBearbeitungUmschalten</a></span>
+  <span class="next"><a href="add-toolbit.html">CAM WerkzeugbitAblage</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

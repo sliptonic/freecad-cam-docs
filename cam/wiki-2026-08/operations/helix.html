@@ -29,6 +29,15 @@
     </div>
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="" selected>English</option>
+            <option value="../../../de/cam/wiki-2026-08/operations/helix.html">Deutsch</option>
+            <option value="../../../fr/cam/wiki-2026-08/operations/helix.html">Français</option>
+            <option value="../../../pl/cam/wiki-2026-08/operations/helix.html">Polski</option>
+          </select>
+        </div>
         <div class="navbar-item fc-version">
           <label class="fc-version-label" for="fc-version-select">Version</label>
           <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">

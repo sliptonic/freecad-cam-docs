@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM scripting :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/de/cam/wiki-2026-08/reference/scripting.html">
+    <link rel="prev" href="preferences.html">
+    <link rel="next" href="artwork.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/de">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/reference/scripting.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/reference/scripting.html" selected>Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/reference/scripting.html">Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/reference/scripting.html">Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM Auftrag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM Nachbereitung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM Plausibilitätsprüfung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM ExportVorlage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM Untersuchen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM SimulatorGL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM SchleifeAuswählen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM AktiveBearbeitungUmschalten</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">CAM WerkzeugbitBibliothekÖffnen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">CAM WerkzeugbitAblage</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">CAM Profil</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">CAM Taschenform</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">CAM FlächeFräsen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">CAM Wendel</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">CAM Adaptiv</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">CAM Nut</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">CAM Bohren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">CAM Gravieren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">CAM Entgraten</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">CAM V-Schnitt</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">CAM Tasche3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">CAM Oberfläche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">CAM Wasserlinie</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM AufbereitungAchsenZuordnung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM AufbereitungBegrenzungsPfad</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM AufbereitungHundeknochen</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM AufbereitungSchleppmesser</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM AufbereitungAnAbfahren</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM AufbereitungEingangsrampe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM AufbereitungHaltepunkt</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM AufbereitungZKorrektur</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">CAM Kommentar</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">CAM Halt</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">CAM Benutzerdefiniert</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">CAM Sonde</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">CAM Form</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM Kopie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM Anordnung</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM EinfacheKopie</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">CAM GewindeFräsen</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM Fläche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM Bereich Arbeitsebene</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Additional</li>
+    <li><a href="scripting.html">CAM scripting</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/de/modules/ROOT/pages/reference/scripting.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM scripting</h1>
+<div class="sect1">
+<h2 id="einführung"><a class="anchor" href="#einführung"></a>Einführung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Der Arbeitsbereichen CAM bietet Werkzeuge zum Importieren, Erstellen, Ändern und Exportieren von <a href="https://en.wikipedia.org/wiki/G-code">Bearbeitungs-Werkzeugbahnen</a> in FreeCAD. Mit ihnen kann der Anwender bestehende G-code-Programme importieren, visualisieren und modifizieren, Werkzeugbahnen aus 3D-Formen erstellen und diese Werkzeugbahnen in G-code exportieren.</p>
+</div>
+<div class="paragraph">
+<p>Der Arbeitsbereich CAM befindet sich derzeit in einer frühen Entwicklungsphase und bietet nicht alle erweiterten Funktionen, die in einigen kommerziellen Alternativen zu finden sind. Die Python-Skript-Schnittstelle macht es jedoch einfach, Werkzeuge zu modifizieren oder leistungsfähigere zu entwickeln.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="schnellstart"><a class="anchor" href="#schnellstart"></a>Schnellstart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Die Pfadobjekte von FreeCAD bestehen aus einer Folge von Bewegungsbefehlen. Eine typische Anwendung ist diese:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; import Path
+&gt;&gt;&gt; c1 = Path.Command("g1x1")
+&gt;&gt;&gt; c2 = Path.Command("g1y4")
+&gt;&gt;&gt; c3 = Path.Command("g1 x2 y2") # spaces end newlines are ignored
+&gt;&gt;&gt; p = Path.Path([c1,c2,c3])
+&gt;&gt;&gt; o = App.ActiveDocument.addObject("Path::Feature","mypath")
+&gt;&gt;&gt; o.Path = p
+&gt;&gt;&gt; print (p.toGCode())</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="freecads-internes-g-code-format"><a class="anchor" href="#freecads-internes-g-code-format"></a>FreeCADs internes G-Code-Format</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Es ist wichtig, ein vorläufiges Konzept zu verstehen. Der Großteil der folgenden Implementierung stützt sich stark auf Bewegungsbefehle, die dieselben Namen wie G-Code-Befehle haben, jedoch nicht auf die Implementierung eines bestimmten Controllers ausgerichtet sind. Namen wie 'G0' für 'Schnellbewegung' oder 'G1' für 'Vorschubbewegung' wurden aus Gründen der Leistungsfähigkeit (effizientes Speichern von Dateien) und zur Minimierung des Aufwands für die Übersetzung in andere G-Code-Formate gewählt. Da es in der CNC-Welt Tausende von G-Code-Dialekten gibt, wurde eine stark vereinfachte Untergruppe davon ausgewählt. Man könnte das G-Code-Format von FreeCAD als eine "maschinenunabhängige" Form des G-Codes beschreiben.</p>
+</div>
+<div class="paragraph">
+<p>Innerhalb von .FCStd-Dateien werden Pfaddaten direkt in diesem G-Code-Format gespeichert.</p>
+</div>
+<div class="paragraph">
+<p>Alle Übersetzungen von/in Dialekte zu FreeCAD-G-Code erfolgen über Vor- und Nachbearbeitungsskripte. Das bedeutet, dass man, wenn man mit einer Maschine arbeiten möchte, die einen bestimmten LinuxCNC-, Fanuc-, Mitusubishi- oder HAAS-Controller usw. verwendet, einen Nachbearbeitungsprozessor für diesen bestimmten Controller verwendet (oder erstellt, falls nicht vorhanden) muss (siehe Abschnitt "Importieren und Exportieren von G-Code" weiter unten).</p>
+</div>
+<div class="sect2">
+<h3 id="g-code-referenz"><a class="anchor" href="#g-code-referenz"></a>G-Code-Referenz</h3>
+<div class="paragraph">
+<p>Die folgenden Regeln und Richtlinien definieren den G-Code-Befehlssatz, den FreeCAD intern benutzt:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>G-Code-Daten innerhalb von FreeCAD-Pfadobjekten sind in "Befehle" unterteilt. Ein Befehl wird durch einen Befehlsnamen definiert, der mit G oder M beginnen muss, und (optional) durch Argumente, die aus einem Buchstaben und einer Fließkommazahl bestehen, zum Beispiel X 0.02 oder Y 3.5 oder F 300. Dies sind Beispiele für typische G-Code-Befehle in FreeCAD:</p>
+</li>
+</ul>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>G0 X2.5 Y0 (Der Befehlsname ist G0, die Argumente sind X=2.5 und Y=0)</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>G1 X30 (Der Befehlsname ist G1, das einzige Argument its X=30)</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>G90 (Der Befehlsname ist G90, es gibt keine weiteren Argumente)</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Für den numerischen Teil eines G- oder M-Befehls werden sowohl die Form "G1" als auch "G01" unterstützt.</p>
+</li>
+<li>
+<p>Derzeit werden nur Befehle unterstützt, die mit G oder M beginnen.</p>
+</li>
+<li>
+<p>Derzeit werden nur Millimeter akzeptiert. G20/G21 werden ignoriert.</p>
+</li>
+<li>
+<p>Argumente werden immer alphabetisch sortiert. Das bedeutet, wenn man einen Befehl mit "G1 X2 Y4 F300" erstellt, wird dieser als "G1 F300 X2 Y4" gespeichert.</p>
+</li>
+<li>
+<p>Argumente können innerhalb eines Befehls nicht wiederholt werden. Beispielsweise funktioniert "G1 X1 Y2 X2 Y3" nicht. Man muss ihn in zwei Befehle aufteilen, zum Beispiel: "G1 X1 Y2, G1 X2 Y3".</p>
+</li>
+<li>
+<p>Die Argumente X, Y, Z, A, B, C sind je nach aktuellem G90/G91-Modus absolut oder relativ. Die Standardeinstellung (sofern nicht anders angegeben) ist absolut.</p>
+</li>
+<li>
+<p>I, J, K sind immer relativ zum letzten Punkt. K kann weggelassen werden.</p>
+</li>
+<li>
+<p>X, Y oder Z (und A, B, C) können weggelassen werden. In diesem Fall werden die vorherigen X-, Y- oder Z-Koordinaten beibehalten.</p>
+</li>
+<li>
+<p>Andere G-Code-Befehle als die in der folgenden Tabelle aufgeführten werden unterstützt, d. h. sie werden in den Pfaddaten gespeichert (sofern sie natürlich den oben genannten Regeln entsprechen), aber sie erzeugen einfach kein sichtbares Ergebnis auf dem Bildschirm. Es könnte beispielsweise einen G81-Befehl hinzugefügt werden, der gespeichert, aber nicht angezeigt wird.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="liste-der-aktuell-unterstützten-g-code-befehle"><a class="anchor" href="#liste-der-aktuell-unterstützten-g-code-befehle"></a>Liste der aktuell unterstützten G-Code Befehle</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Befehl</th>
+<th class="tableblock halign-left valign-top">Beschreibung</th>
+<th class="tableblock halign-left valign-top">Unterstützte Argumente</th>
+<th class="tableblock halign-left valign-top">Angezeigt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">schnelle Bewegung</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X,Y,Z,A,B,C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rot</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">normale Bewegung</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X,Y,Z,A,B,C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grün</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bogen im Uhrzeigersinn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X,Y,Z,A,B,C,I,J,K</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grün</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bogen gegen den Uhrzeigersinn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X,Y,Z,A,B,C,I,J,K</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Grün</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G81, G82, G83</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bohren</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X,Y,Z,R,Q</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rot/Grün</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G38.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gerade Sondenbewegung (verwendet im Sondenmodus)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Z,F</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gelb</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G90</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">absolute Koordinaten</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G91</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">relative Koordinaten</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Nachricht)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kommentar</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="das-befehlsobjekt"><a class="anchor" href="#das-befehlsobjekt"></a>Das Befehlsobjekt</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Das Command-Objekt repräsentiert einen G-Code-Befehl. Es hat drei Attribute: Name, Parameters (Parameter) und Placement (Positionierung) sowie zwei Methoden: toGCode() und setFromGCode(). Intern enthält es nur einen Namen und ein Wörterbuch mit Parametern. Der Rest (Positionierung und G-Code) wird anhand dieser Daten berechnet.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; import Path
+&gt;&gt;&gt; c=Path.Command()
+&gt;&gt;&gt; c
+Command  ( )
+&gt;&gt;&gt; c.Name = "G1"
+&gt;&gt;&gt; c
+Command G1 ( )
+&gt;&gt;&gt; c.Parameters= {"X":1,"Y":0}
+&gt;&gt;&gt; c
+Command G1 ( X:1 Y:0 )
+&gt;&gt;&gt; c.Parameters
+{'Y': 0.0, 'X': 1.0}
+&gt;&gt;&gt; c.Parameters= {"X":1,"Y":0.5}
+&gt;&gt;&gt; c
+Command G1 ( X:1 Y:0.5 )
+&gt;&gt;&gt; c.toGCode()
+'G1X1Y0.5'
+&gt;&gt;&gt; c2=Path.Command("G2")
+&gt;&gt;&gt; c2
+Command G2 ( )
+&gt;&gt;&gt; c3=Path.Command("G1",{"X":34,"Y":1.2})
+&gt;&gt;&gt; c3
+Command G1 ( X:34 Y:1.2 )
+&gt;&gt;&gt; c3.Placement
+Placement [Pos=(34,1.2,0), Yaw-Pitch-Roll=(0,0,0)]
+&gt;&gt;&gt; c3.toGCode()
+'G1X34Y1.2'
+&gt;&gt;&gt; c3.setFromGCode("G1X1Y0")
+&gt;&gt;&gt; c3
+Command G1 [ X:1 Y:0 ]
+&gt;&gt;&gt; c4 = Path.Command("G1X4Y5")
+&gt;&gt;&gt; c4
+Command G1 [ X:4 Y:5 ]
+&gt;&gt;&gt; p1 = App.Placement()
+&gt;&gt;&gt; p1.Base = App.Vector(3,2,1)
+&gt;&gt;&gt; p1
+Placement [Pos=(3,2,1), Yaw-Pitch-Roll=(0,0,0)]
+&gt;&gt;&gt; c5=Path.Command("g1",p1)
+&gt;&gt;&gt; c5
+Command G1 [ X:3 Y:2 Z:1 ]
+&gt;&gt;&gt; p2=App.Placement()
+&gt;&gt;&gt; p2.Base = App.Vector(5,0,0)
+&gt;&gt;&gt; c5
+Command G1 [ X:3 Y:2 Z:1 ]
+&gt;&gt;&gt; c5.Placement=p2
+&gt;&gt;&gt; c5
+Command G1 [ X:5 ]
+&gt;&gt;&gt; c5.x
+5.0
+&gt;&gt;&gt; c5.x=10
+&gt;&gt;&gt; c5
+Command G1 [ X:10 ]
+&gt;&gt;&gt; c5.y=2
+&gt;&gt;&gt; c5
+Command G1 [ X:10 Y:2 ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="das-bahnobjekt"><a class="anchor" href="#das-bahnobjekt"></a>Das Bahnobjekt</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Das Pfad-Objekt enthält eine Liste von Befehlen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; import Path
+&gt;&gt;&gt; c1=Path.Command("g1",{"x":1,"y":0})
+&gt;&gt;&gt; c2=Path.Command("g1",{"x":0,"y":2})
+&gt;&gt;&gt; p=Path.Path([c1,c2])
+&gt;&gt;&gt; p
+Path [ size:2 length:3 ]
+&gt;&gt;&gt; p.Commands
+[Command G1 [ X:1 Y:0 ], Command G1 [ X:0 Y:2 ]]
+&gt;&gt;&gt; p.Length
+3.0
+&gt;&gt;&gt; p.addCommands(c1)
+Path [ size:3 length:4 ]
+&gt;&gt;&gt; p.toGCode()
+'G1X1G1Y2G1X1'
+
+lines = """
+G0X-0.5905Y-0.3937S3000M03
+G0Z0.125
+G1Z-0.004F3
+G1X0.9842Y-0.3937F14.17
+G1X0.9842Y0.433
+G1X-0.5905Y0.433
+G1X-0.5905Y-0.3937
+G0Z0.5
+"""
+
+slines = lines.split('\n')
+p = Path.Path()
+for line in slines:
+    p.addCommands(Path.Command(line))
+
+o = App.ActiveDocument.addObject("Path::Feature","mypath")
+o.Path = p
+
+# but you can also create a path directly form a piece of G-code.
+# The commands will be created automatically:
+
+p = Path.Path()
+p.setFromGCode(lines)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Als Abkürzung kann ein Pfadobjekt auch direkt aus einer vollständigen G-Code-Sequenz erstellt werden. Es wird automatisch in eine Folge von Befehlen unterteilt.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; p = Path.Path("G0 X2 Y2 G1 X0 Y2")
+&gt;&gt;&gt; p
+Path [ size:2 length:2 ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="die-bahn-funktion"><a class="anchor" href="#die-bahn-funktion"></a>Die Bahn Funktion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Die Pfadfunktion ist ein FreeCAD-Dokumentobjekt, das einen Pfad enthält und diesen in der 3D-Ansicht darstellt.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; pf = App.ActiveDocument.addObject("Path::Feature","mypath")
+&gt;&gt;&gt; pf
+&lt;Document object&gt;
+&gt;&gt;&gt; pf.Path = p
+&gt;&gt;&gt; pf.Path
+Path [ size:2 length:2 ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Die Pfad Funktion besitzt auch eine Eigenschaft Positionierung. Ändern des Wertes dieser Positionierung , ändert die Position der Funktion in der 3D Ansicht, obwohl die Pfadinformationen selbst nicht verändert werden. Die Transformation ist rein visuell. Auf diese Weise kann zum Beispiel ein Pfad um eine Fläche herum erstellt werden, die eine bestimmte Ausrichtung auf dem Modell hat, die nicht die gleiche Ausrichtung ist, die das Schneidmaterial auf der CNC Maschine haben wird.</p>
+</div>
+<div class="paragraph">
+<p>Pfadverbünde können jedoch die Positionierung ihrer Unterelemente nutzen (siehe unten).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="die-werkzeug-und-werkzeugtabellen-objekte"><a class="anchor" href="#die-werkzeug-und-werkzeugtabellen-objekte"></a>Die Werkzeug- und Werkzeugtabellen-Objekte</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>HINWEIS:</strong> Diese Art der Werkzeug-Verwendung ist seit der offiziellen Version 0.19 veraltet. In 0.19 wurde das neue Werkzeugbit-Werkzeug-System implementiert, um dieses ältere, veraltete System zu ersetzen. Daher hat sich die Codierung gegenüber der unten dargestellten geändert. Weitere Informationen findet man auf der Seite <a href="../tools/index.html" class="xref page">CAM Werkzeuge</a>.</p>
+</div>
+<div class="paragraph">
+<p>===Skripten &lt;= 0.18===</p>
+</div>
+<div class="paragraph">
+<p>Das Tool-Objekt enthält die Definitionen eines CNC-Werkzeugs. Das Tooltable-Objekt enthält eine geordnete Liste von Werkzeugen. Werkzeugtabellen werden als Eigenschaft an Path Project-Features angehängt und können auch über die grafische Benutzeroberfläche bearbeitet werden, indem man in der Baumansicht auf ein Projekt doppelklickt und in der sich öffnenden Aufgabenansicht auf die Schaltfläche "Werkzeugtabelle bearbeiten" klickt.</p>
+</div>
+<div class="paragraph">
+<p>Über diesen Dialog können Werkzeugtabellen aus den Formaten .xml von FreeCAD und .tooltable von HeeksCad importiert und in das Format .xml von FreeCAD exportiert werden.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; import Path
+&gt;&gt;&gt; t1=Path.Tool()
+&gt;&gt;&gt; t1
+Tool Default tool
+&gt;&gt;&gt; t1.Name = "12.7mm Drill Bit"
+&gt;&gt;&gt; t1
+Tool 12.7mm Drill Bit
+&gt;&gt;&gt; t1.ToolType
+'Undefined'
+&gt;&gt;&gt; t1.ToolType = "Drill"
+&gt;&gt;&gt; t1.Diameter= 12.7
+&gt;&gt;&gt; t1.LengthOffset = 127
+&gt;&gt;&gt; t1.CuttingEdgeAngle = 59
+&gt;&gt;&gt; t1.CuttingEdgeHeight = 50.8
+&gt;&gt;&gt; t2 = Path.Tool("my other tool",tooltype="EndMill",diameter=10)
+&gt;&gt;&gt; t2
+Tool my other tool
+&gt;&gt;&gt; t2.Diameter
+10.0
+&gt;&gt;&gt; table = Path.Tooltable()
+&gt;&gt;&gt; table
+Tooltable containing 0 tools
+&gt;&gt;&gt; table.addTools(t1)
+Tooltable containing 1 tools
+&gt;&gt;&gt; table.addTools(t2)
+Tooltable containing 2 tools
+&gt;&gt;&gt; table.Tools
+{1: Tool 12.7mm Drill Bit, 2: Tool my other tool}
+&gt;&gt;&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="funktionen"><a class="anchor" href="#funktionen"></a>Funktionen</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="die-pfad-verbund-funktion"><a class="anchor" href="#die-pfad-verbund-funktion"></a>Die Pfad Verbund Funktion</h3>
+<div class="paragraph">
+<p>Das Ziel dieser Funktion ist es, einen oder mehrere Werkzeugwege zu sammeln und sie mit einer Werkzeugtabelle zu verknüpfen. Die Funktion "Verbund" verhält sich auch wie eine Standard-FreeCAD-Gruppe, sodass man Objekte direkt aus der Baumansicht hinzufügen oder entfernen kann. Es können Elemente auch neu angeordnet werden, indem man in der Baumansicht auf das Verbund-Objekt doppelklickt und dessen Elemente in der sich öffnenden Aufgabenansicht neu anordnet.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; import Path
+&gt;&gt;&gt; p1 = Path.Path("G1X1")
+&gt;&gt;&gt; o1 = App.ActiveDocument.addObject("Path::Feature","path1")
+&gt;&gt;&gt; o1.Path=p1
+&gt;&gt;&gt; p2 = Path.Path("G1Y1")
+&gt;&gt;&gt; o2 = App.ActiveDocument.addObject("Path::Feature","path2")
+&gt;&gt;&gt; o2.Path=p2
+&gt;&gt;&gt; o3 = App.ActiveDocument.addObject("Path::FeatureCompound","compound")
+&gt;&gt;&gt; o3.Group=[o1,o2]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Eine wichtige Funktion von Pfadkomponenten ist die Möglichkeit, die Platzierung ihrer untergeordneten Pfade zu berücksichtigen oder nicht, indem ihre UsePlacements-Eigenschaft auf True oder False gesetzt wird. Wenn nicht, werden die Pfaddaten ihrer untergeordneten Elemente einfach sequenziell hinzugefügt. Wenn True, wird jeder Befehl der untergeordneten Pfade, sofern er Positionsinformationen (G0, G1 usw.) enthält, zunächst durch die Positionierung transformiert, bevor er hinzugefügt wird.</p>
+</div>
+<div class="paragraph">
+<p>Durch das Erstellen einer Verbindung mit nur einem untergeordneten Pfad kann man daher die Positionierung des untergeordneten Pfads "real" machen (sie wirkt sich auf die Pfaddaten aus).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="die-pfad-projekt-funktion"><a class="anchor" href="#die-pfad-projekt-funktion"></a>Die Pfad Projekt Funktion</h3>
+<div class="paragraph">
+<p>Das Path-Projekt ist eine erweiterte Form von Verbund, die über einige zusätzliche maschinenbezogene Eigenschaften wie beispielsweise eine Werkzeugtabelle verfügt. Es ist in erster Linie als Hauptobjekttyp gedacht, den man nach Fertigstellung der gesamten Pfadkonfiguration in G-Code exportieren möchten. Das Projekt-Objekt ist nun in Python programmiert, sodass sich sein Erstellungsmechanismus etwas unterscheidet:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; from PathScripts import PathProject
+&gt;&gt;&gt; o4 = App.ActiveDocument.addObject("Path::FeatureCompoundPython","prj")
+&gt;&gt;&gt; PathProject.ObjectPathProject(o4)
+&gt;&gt;&gt; o4.Group = [o3]
+&gt;&gt;&gt; o4.Tooltable
+Tooltable containing 0 tools</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Das Path-Modul verfügt außerdem über einen GUI-Werkzeugtabellen-Editor, der aus Python heraus aufgerufen werden kann und ihm ein Objekt mit einer ToolTable-Eigenschaft zur Verfügung stellt:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; from PathScripts import TooltableEditor
+&gt;&gt;&gt; TooltableEditor.edit(o4)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pfad-aus-form-holen"><a class="anchor" href="#pfad-aus-form-holen"></a>Pfad aus Form holen</h3>
+<div class="paragraph">
+<p>Die Form des Linienzugteils einem normalen Pfadobjekt zuweisen, indem man die Skriptfunktion Path.fromShape() (oder die leistungsstärkere Path.fromShapes()) verwendet. Wenn man ein Linienzugteilobjekt als Parameter angibt, wird dessen Pfad automatisch aus der Form berechnet. Es muss beachtet werden, dass in diesem Fall die Platzierung automatisch auf den ersten Punkt des Linienzugs gesetzt wird und das Objekt daher nicht mehr durch Ändern seiner Positionierung verschoben werden kann. Um es zu verschieben, muss die zugrunde liegende Form selbst verschoben werden.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">&gt;&gt;&gt; import Part
+&gt;&gt;&gt; import Path
+&gt;&gt;&gt; v1 = FreeCAD.Vector(0,0,0)
+&gt;&gt;&gt; v2 = FreeCAD.Vector(0,2,0)
+&gt;&gt;&gt; v3 = FreeCAD.Vector(2,2,0)
+&gt;&gt;&gt; v4 = FreeCAD.Vector(3,3,0)
+&gt;&gt;&gt; wire = Part.makePolygon([v1,v2,v3,v4])
+&gt;&gt;&gt; o = FreeCAD.ActiveDocument.addObject("Path::Feature","myPath2")
+&gt;&gt;&gt; o.Path = Path.fromShape(wire)
+&gt;&gt;&gt; FreeCAD.ActiveDocument.recompute()
+&gt;&gt;&gt; p =  o.Path
+&gt;&gt;&gt; print(p.toGCode())</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="python-funktionen"><a class="anchor" href="#python-funktionen"></a>Python Funktionen</h3>
+<div class="paragraph">
+<p>Sowohl Path::Feature als auch Path::FeatureShape verfügen über eine Python-Version mit den Namen Path::FeaturePython bzw. Path::FeatureShapePython, die in Python-Code verwendet werden kann, um daraus abgeleitete, komplexere parametrische Objekte zu erstellen.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="g-code-importieren-und-exportieren"><a class="anchor" href="#g-code-importieren-und-exportieren"></a>G-Code importieren und exportieren</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="ursprungsformat"><a class="anchor" href="#ursprungsformat"></a>Ursprungsformat</h3>
+<div class="paragraph">
+<p>G-Code-Dateien können über die GUI direkt importiert und exportiert werden, indem man die Menüpunkte "Öffnen", "Einfügen" oder "Exportieren" verwendet. Nachdem der Dateiname abgerufen wurde, erscheint ein Dialogfeld, in dem man gefragt wird, welches Verarbeitungsskript verwendet werden soll. Dies kann auch über Python erfolgen:</p>
+</div>
+<div class="paragraph">
+<p>Pfadinformationen werden in Pfadobjekten unter Verwendung einer Teilmenge des G-Codes gespeichert, die im Abschnitt "FreeCADs internes G-Code-Format" oben beschrieben ist. Diese Teilmenge kann "unverändert" importiert oder exportiert oder in eine für Ihre Maschine geeignete Version des G-Codes konvertiert werden.</p>
+</div>
+<div class="paragraph">
+<p>Wenn man ein sehr einfaches und standardmäßiges G-Code-Programm hat, das den im Abschnitt "FreeCADs internes G-Code-Format" oben beschriebenen Regeln entspricht, beispielsweise der Bumerang aus <a href="https://www.cnccookbook.com/g-code-examples-files/">cnccookbook</a>, kann es ohne Übersetzung direkt in ein Pfadobjekt importiert werden (dies entspricht der Verwendung der Option "Keine" im GUI-Dialogfeld):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path
+f = open("/path/to/boomerangv4.ncc")
+s = f.read()
+p = Path.Path(s)
+o = App.ActiveDocument.addObject("Path::Feature","boomerang")
+o.Path = p</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Auf dieselbe Weise kann man die Pfadinformationen als "agnostischen" G-Code abrufen und manuell in einer Datei speichern:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">text = o.Path.toGCode()
+print text
+myfile = open("/path/to/newfile.ngc")
+myfile.write(text)
+myfile.close()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wenn man jedoch eine andere Ausgabe benötigt, muss man diesen agnostischen G-Code in ein für die Maschine geeignetes Format konvertieren. Das ist die Aufgabe von Nachbearbeitungsskripten.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="verwendung-von-vor-und-nachbearbeitungsskripten"><a class="anchor" href="#verwendung-von-vor-und-nachbearbeitungsskripten"></a>Verwendung von Vor- und Nachbearbeitungsskripten</h3>
+<div class="paragraph">
+<p>Wenn man eine G-Code-Datei für eine bestimmte Maschine hat, die nicht den internen Regeln von FreeCAD entspricht, die im Abschnitt "FreeCADs internes G-Code-Format" oben beschrieben sind, kann es sein, dass sie nicht richtig importiert und/oder in der 3D-Ansicht gerendert wird. Um dies zu beheben, muss ein Vorverarbeitungsskript verwendet werden, das das maschinenspezifisches Format in das FreeCAD-Format konvertiert.</p>
+</div>
+<div class="paragraph">
+<p>Wenn der Name des zu verwendenden Vorverarbeitungsskripts bekannt ist, kann die Datei damit aus der Python-Konsole wie folgt importiert werden:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import example_pre
+example_pre.insert("/path/to/myfile.ncc","DocumentName")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Auf dieselbe Weise kann ein Path-Objekt mit einem Postprozessor-Skript wie diesem in G-Code ausgeben werden:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import example_post
+example_post.export (myObjectName,"/path/to/outputFile.ncc")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="schreiben-von-verarbeitungsskripten"><a class="anchor" href="#schreiben-von-verarbeitungsskripten"></a>Schreiben von Verarbeitungsskripten</h3>
+<div class="paragraph">
+<p>Vor- und Nachbearbeitungsskripte verhalten sich wie andere gängige FreeCAD-Importe/Exporte. Wenn man im Dialogfeld ein Vor-/Nachbearbeitungsskript auswählt, wird der Import-/Exportvorgang an das angegebene Skript weitergeleitet. Vorbearbeitungsskripte müssen mindestens die folgenden Methoden enthalten: open(filename) und insert(filename,docname). Nachbearbeitungsskripte müssen export(objectslist,filename) implementieren.</p>
+</div>
+<div class="paragraph">
+<p>Skripte werden entweder im Ordner Mod/Path/Path/Post/scripts oder im Makro-Pfadverzeichnis des Benutzers abgelegt. Man kann ihnen einen beliebigen Namen geben, aber gemäß der Konvention und damit sie vom GUI-Dialog ausgewählt werden können, müssen die Namen von Vorverarbeitungsskripten mit „_pre“ und die von Nachverarbeitungsskripten mit „_post“ enden (unbedingt den Unterstrich und keinen Bindestrich verwenden, da Python sie sonst nicht importieren kann). Dies ist ein Beispiel für einen sehr, sehr einfachen Präprozessor. Komplexere Beispiele findet man im Ordner Mod/Path/Path/Post/scripts:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def open(filename):
+    gfile = __builtins__.open(filename)
+    inputstring = gfile.read()
+    # the whole gcode program will come in as one string,
+    # for example: "G0 X1 Y1\nG1 X2 Y2"
+    output = ""
+    # we add a comment
+    output += "(This is my first parsed output!)\n"
+    # we split the input string by lines
+    lines = inputstring.split("\n")
+    for line in lines:
+        output += line
+        # we must insert the "end of line" character again
+        # because the split removed it
+        output += "\n"
+    # another comment
+    output += "(End of program)"
+    import Path
+    p = Path.Path(output)
+    myPath = FreeCAD.ActiveDocument.addObject("Path::Feature","Import")
+    myPath.Path = p
+    FreeCAD.ActiveDocument.recompute()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vor- und Nachprozessoren funktionieren genau gleich. Sie machen nur das Gegenteil: Die Vorskripte konvertieren von spezifischem G-Code in den "agnostischen" G-Code von FreeCAD, während Nachskripte vom "agnostischen" G-Code von FreeCAD in maschinenspezifischen G-Code konvertieren.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hinzufügen-aller-flächen-eines-textform-zur-liste-der-basisfunktionen-einer-profilvonflächen-operation"><a class="anchor" href="#hinzufügen-aller-flächen-eines-textform-zur-liste-der-basisfunktionen-einer-profilvonflächen-operation"></a>Hinzufügen aller Flächen eines Textform zur Liste der BasisFunktionen einer ProfilVonFlächen Operation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dieses Beispiel basiert auf einer Diskussion <a href="https://forum.freecad.org/viewtopic.php?f=13&amp;t=33310&amp;p=279991#p279959">im deutschsprachigen Forum</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="voraussetzungen"><a class="anchor" href="#voraussetzungen"></a>Voraussetzungen</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Mit Textform als Ausschnitt einen Volumenkörper erstellen.</p>
+</li>
+<li>
+<p>Einen Auftrag erstellen, der diesen Volumenkörper als Basisobjekt verwendet.</p>
+</li>
+<li>
+<p>Eine Bearbeitung ProfileFromFaces mit dem Namen "Profile_Faces" und einer leeren Basisgeometrie erstellen.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="der-code"><a class="anchor" href="#der-code"></a>Der Code</h3>
+<div class="paragraph">
+<p>Der folgende Code fügt dann alle Flächen aus Textform hinzu und erstellt die Pfade:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">doc = App.ActiveDocument
+list_of_all_element_faces = []
+for i, face in enumerate(doc.ShapeString.Shape.Faces):
+    list_of_all_element_faces.append('Face' + str(i + 1))
+
+doc.Profile_Faces.Base = [(doc.ShapeString, tuple(list_of_all_element_faces))]
+doc.recompute()</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="preferences.html">CAM Preferences</a></span>
+  <span class="next"><a href="artwork.html">Artwork CAM</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

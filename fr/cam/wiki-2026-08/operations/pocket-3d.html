@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Évidement 3D :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/fr/cam/wiki-2026-08/operations/pocket-3d.html">
+    <link rel="prev" href="vcarve.html">
+    <link rel="next" href="surface.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs/fr">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            <option value="../../../../cam/wiki-2026-08/operations/pocket-3d.html">English</option>
+            <option value="../../../../de/cam/wiki-2026-08/operations/pocket-3d.html">Deutsch</option>
+            <option value="../../../../fr/cam/wiki-2026-08/operations/pocket-3d.html" selected>Français</option>
+            <option value="../../../../pl/cam/wiki-2026-08/operations/pocket-3d.html">Polski</option>
+          </select>
+        </div>
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="../index.html" selected>Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="wiki-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">CAM Tâche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">CAM Post-traitement</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">CAM Chercher des erreurs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">CAM Exporter un modèle</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">CAM Inspecter des commandes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">CAM Simulateur de parcours</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulateur GL de parcours</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">CAM Sélectionner une Boucle</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">CAM Activer une opération</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">CAM Gestionnaire des outils coupants</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">CAM Sélecteur d&#8217;outils coupants</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="profile.html">CAM Profilage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">CAM Poche</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">CAM Surfaçage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="helix.html">CAM Parcours hélicoïdal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">CAM Adaptatif</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">CAM Rainure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">CAM Perçage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">CAM Gravure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">CAM Ébavurage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vcarve.html">CAM Gravure en V</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">CAM Évidement 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="surface.html">CAM Surfaçage 3D</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="waterline.html">CAM Lignes de niveau</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">CAM Assigner un axe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">CAM Limitation d&#8217;une zone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">CAM Dégagement des angles</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">CAM Lame rotative</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">CAM Entrée/sortie</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">CAM Rampe d&#8217;entrée</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">CAM Attache</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">CAM Correction en Z</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">CAM Commentaire</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">CAM Arrêter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">CAM Personnaliser</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">CAM Sonde</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">CAM Parcours à partir de formes</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">CAM Copier</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">CAM Réseau</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">CAM Copie simple</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">CAM Fraisage de filets</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">CAM Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">CAM Zone du plan de travail</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">CAM Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">CAM ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">CAM ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">CAM ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">CAM ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">CAM Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">CAM scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Décaler l&#8217;origine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Wiki (Aug 2026)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>3D Operations</li>
+    <li><a href="pocket-3d.html">CAM Évidement 3D</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/wiki/l10n/fr/modules/ROOT/pages/operations/pocket-3d.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Évidement 3D</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock fcinfobox">
+<div class="content">
+<div class="paragraph fcTitle">
+<p><span class="image"><img src="../_images/CAM_Pocket3D.svg" alt="CAM Évidement 3D" width="32"></span> <strong>CAM Évidement 3D</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Évider en 3D</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>-</p>
+</dd>
+<dt class="hdlist1">See also</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La commande <span class="image"><img src="../_images/CAM_Pocket3D.svg" alt="CAM Pocket3D" width="24"></span> <a href="#">Évidement 3D</a> insère un évidement 3D dans la tâche. Cette opération prend en compte la surface inférieure de la poche, ainsi que les parois sélectionnées qui ne sont pas verticales. Dans son état actuel, cette opération est utilisée pour dégrossir une poche avec des parois non verticales et/ou un fond non horizontal. Une technique de finition courante consiste à utiliser une fraise à bout sphérique avec l&#8217;opération expérimentale de <span class="image"><img src="../_images/CAM_Surface.svg" alt="CAM Surface" width="16"></span> <a href="surface.html" class="xref page">Surfaçage 3D</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Path_3D_Pocket_Sample.png" alt="Path 3D Pocket Sample" width="600">
+</div>
+</div>
+<div class="paragraph caption">
+<p>Exemple d&#8217;image de l&#8217;opération Évidement 3D utilisée pour dégager un support de batterie cylindrique</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="utilisation"><a class="anchor" href="#utilisation"></a>Utilisation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="créer-dun-évidement-3d"><a class="anchor" href="#créer-dun-évidement-3d"></a>Créer d&#8217;un évidement 3D</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dans une tâche, sélectionnez une ou plusieurs faces du modèle de la tâche à inclure comme géométrie de base.</p>
+</li>
+<li>
+<p>Il existe plusieurs façons de lancer la commande :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Cliquez sur le bouton <span class="image"><img src="../_images/CAM_Pocket3D.svg" alt="CAM Pocket3D" width="16"></span> <a href="#">Évider en 3D</a>.</p>
+</li>
+<li>
+<p>Sélectionnez l&#8217;option <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Évider en 3D</b></span> du menu.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Choisissez un contrôleur d&#8217;outil dans la fenêtre de sélection contextuelle.</p>
+</li>
+<li>
+<p>Ajoutez ou soustrayez des éléments de géométrie de base selon vos besoins pour configurer l&#8217;opération.</p>
+</li>
+<li>
+<p>Vérifiez l&#8217;onglet Profondeurs pour vous assurer que la profondeur de départ, la profondeur de fin et le pourcentage de descente sont corrects. La profondeur finale est déterminée par la sélection de la géométrie du corps et n&#8217;est pas modifiable.</p>
+</li>
+<li>
+<p>Vérifiez l&#8217;onglet Hauteurs pour vous assurer que les hauteurs de sécurité et de dégagement sont appropriées.</p>
+</li>
+<li>
+<p>Vérifiez l&#8217;onglet Opération où le contrôleur d&#8217;outil peut être resélectionné, le mode de coupe peut être configuré pour le fraisage ascendant ou conventionnel, le motif peut être défini, le pourcentage de pas latéral peut être ajusté et l&#8217;extension de passe peut être appliquée.</p>
+</li>
+<li>
+<p>Cliquez sur <b class="button">Appliquer</b> pour visualiser le parcours du fraisage des passes de l&#8217;opération. Ajustez les paramètres jusqu&#8217;à ce que vous soyez satisfait de l&#8217;opération.</p>
+</li>
+<li>
+<p>Cliquez sur <b class="button">OK</b> pour enregistrer l&#8217;opération.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remarques"><a class="anchor" href="#remarques"></a>Remarques</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Tous les parcours générés à partir de cette opération sont basés sur une fraise à bout standard utilisant le diamètre de l&#8217;outil que vous avez sélectionné pour cette opération Évidement 3D.</p>
+</li>
+<li>
+<p>Les fraises à bout sphérique et autres formes ne sont pas respectées pour la génération de parcours même si elles sont sélectionnées comme outil pour cette opération.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Utilisez la propriété <strong>Adaptive Pocket Finish</strong> pour tenter de minimiser l&#8217;usinage en l&#8217;air sous un évidement 3D dans les cas où la poche est un trou dans le modèle.</p>
+</li>
+<li>
+<p>Utilisez la propriété <strong>Adaptive Pocket Start</strong> pour tenter de minimiser le fraisage en l&#8217;air à l&#8217;entrée de la poche. Par exemple, regardez l&#8217;image ci-dessus dans la section <a href="#description">Description</a> de cette page. Afin de réduire le fraisage en l&#8217;air au-dessus de cet évidement 3D, mettez cette propriété sur True et les parcours commenceront plus près de la poche, beaucoup plus près de l&#8217;endroit où la poche commence réellement. Regardez l&#8217;image suivante et notez la différence dans la hauteur de départ du parcours. Le fraisage en l&#8217;air est réduit.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/3D_Pocket_Sample_Adaptive_Start.png" alt="3D Pocket Sample Adaptive Start" width="600">
+</div>
+</div>
+<div class="paragraph caption">
+<p>Image d&#8217;un exemple d&#8217;opération Évidement 3D utilisée pour dégager un support de batterie cylindrique avec le démarrage adaptatif de la poche activé afin de réduire le fraisage de l&#8217;air à l&#8217;entrée.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Si vous souhaitez traiter l&#8217;ensemble du modèle et du brut, utilisez la propriété <strong>Process Stock Area</strong> mise à True sans sélectionner de géométrie de base.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="propriétés"><a class="anchor" href="#propriétés"></a>Propriétés</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="données"><a class="anchor" href="#données"></a>Données</h3>
+<div class="paragraph">
+<div class="title">Base</div>
+<p>Remarque : il est conseillé de ne pas modifier la propriété <strong>Placement</strong> des opérations de parcours. Il convient plutôt de déplacer ou de faire pivoter le modèle de la tâche de CAM selon les besoins.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Placement</strong> : placement global [position et rotation] de l&#8217;objet, par rapport à l&#8217;origine (ou l&#8217;origine du conteneur de l&#8217;objet parent)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Angle</strong> : angle en degrés appliqué à la rotation de l&#8217;objet autour de la valeur de la propriété <strong>Axis</strong></p>
+</li>
+<li>
+<p><strong>Axis</strong> : axe (un ou plusieurs) autour duquel l&#8217;objet doit tourner, défini dans les sous-propriétés : X, Y, Z.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong> : valeur de l&#8217;axe X</p>
+</li>
+<li>
+<p><strong>Y</strong> : valeur de l&#8217;axe Y</p>
+</li>
+<li>
+<p><strong>Z</strong> : valeur de l&#8217;axe Z</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Position</strong> : Position de l&#8217;objet, définie dans les sous-propriétés : X, Y, Z, par rapport à l&#8217;origine (ou l&#8217;origine du conteneur de l&#8217;objet parent)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong> : valeur de la distance en X</p>
+</li>
+<li>
+<p><strong>Y</strong> : valeur de la distance en Y</p>
+</li>
+<li>
+<p><strong>Z</strong> : valeur de la distance en Z</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Label</strong> : nom de l&#8217;objet fourni par l&#8217;utilisateur (UTF-8)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Depth</div>
+<ul>
+<li>
+<p><strong>Clearance Height</strong> : hauteur nécessaire pour contourner les brides et les obstructions.</p>
+</li>
+<li>
+<p><strong>Final Depth</strong> : profondeur finale de l&#8217;outil - valeur la plus basse de Z.</p>
+</li>
+<li>
+<p><strong>Finish Depth</strong> : maximum de matériau retiré lors du passage final.</p>
+</li>
+<li>
+<p><strong>Safe Height</strong> : seuil supérieur duquel les mouvements rapides sont autorisés.</p>
+</li>
+<li>
+<p><strong>Start Depth</strong> : profondeur initiale de l&#8217;outil - première profondeur de coupe en Z.</p>
+</li>
+<li>
+<p><strong>Step Down</strong> : abaissement incrémentiel de l&#8217;outil.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Face</div>
+<ul>
+<li>
+<p><strong>Offset Pattern</strong> : motif de détourage à utiliser. (Sélectionner la manière dont les mouvements horizontaux doivent être effectués.)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Active</strong> : mettre à False pour empêcher l&#8217;opération de générer du code.</p>
+</li>
+<li>
+<p><strong>Base</strong> : géométrie de base pour cette opération.</p>
+</li>
+<li>
+<p><strong>Comment</strong> : commentaire facultatif pour cette opération.</p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong> : mode de refroidissement pour cette opération.</p>
+</li>
+<li>
+<p><strong>Cycle Time</strong> : estimation du temps de cycle pour cette opération.</p>
+</li>
+<li>
+<p><strong>Tool Controller</strong> : définit le contrôleur d&#8217;outil utilisé dans l&#8217;opération.</p>
+</li>
+<li>
+<p><strong>User Label</strong> : étiquette attribuée par l&#8217;utilisateur.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Pocket</div>
+<ul>
+<li>
+<p><strong>Adaptive Pocket Finish</strong> : utilise un algorithme adaptatif pour éliminer les fraisages excessifs au-dessus de la partie inférieure de la poche planaire.</p>
+</li>
+<li>
+<p><strong>Adaptive Pocket Start</strong> : utilise un algorithme adaptatif pour éliminer les fraisages excessifs au-dessus de la partie supérieure de la poche planaire.</p>
+</li>
+<li>
+<p><strong>Cut Mode</strong> : direction que le parcours de l&#8217;outil doit prendre autour de la pièce : sens horaire (ClockWise = CW) ou sens antihoraire (CounterClockWise = CCW).</p>
+</li>
+<li>
+<p><strong>Extra Offset</strong> : décalage supplémentaire à appliquer à l&#8217;opération. La direction dépend de l&#8217;opération.</p>
+</li>
+<li>
+<p><strong>Handle Multiple Features</strong> : choisit comment traiter les fonctions multiples de la géométrie de base.</p>
+</li>
+<li>
+<p><strong>Keep Tool Down</strong> : tente d&#8217;éviter les rétractions inutiles.</p>
+</li>
+<li>
+<p><strong>Min Travel</strong> : utilise le triage 3D des parcours</p>
+</li>
+<li>
+<p><strong>Process Stock Area</strong> : traite le modèle et le brut dans une opération sans géométrie de base sélectionnée.</p>
+</li>
+<li>
+<p><strong>Start At</strong> : commence la fonction poche au centre ou à la limite</p>
+</li>
+<li>
+<p><strong>Step Over</strong> : pourcentage du diamètre de l&#8217;outil à passer à chaque passe</p>
+</li>
+<li>
+<p><strong>Zig Zag Angle</strong> : angle du motif zigzag</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Rotation</div>
+<p>Remarque : la rotation n&#8217;est pas disponible pour 3D Pocket à partir de la version 0.19.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Enable Rotation</strong> : active la rotation pour accéder aux poches ou aux zones non normales à l&#8217;axe Z.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Start Point</div>
+<ul>
+<li>
+<p><strong>Start Point</strong> : point de départ personnalisé pour le parcours de cette opération.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>X</strong> : valeur de la distance en X.</p>
+</li>
+<li>
+<p><strong>Y</strong> : valeur de la distance en Y.</p>
+</li>
+<li>
+<p><strong>Z</strong> : valeur de la distance en Z.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Use Start Point</strong> : mis à True, si vous spécifiez manuellement un point de départ. Définir le point de départ dans le champ Start Point des propriétés de données.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vue"><a class="anchor" href="#vue"></a>Vue</h3>
+<div class="paragraph">
+<p>Vide</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="script"><a class="anchor" href="#script"></a>Script</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Voir aussi : <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">Débuter avec les scripts FreeCAD</a>.</p>
+</div>
+<div class="paragraph">
+<p>Exemple :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="vcarve.html">CAM Gravure en V</a></span>
+  <span class="next"><a href="surface.html">CAM Surfaçage 3D</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
