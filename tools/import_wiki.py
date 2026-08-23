@@ -119,8 +119,9 @@ def load_path_redirects(src):
 
 
 class PageCtx:
-    def __init__(self, name):
+    def __init__(self, name, lang=None):
         self.name = name
+        self.lang = lang
         self.properties = []
         self.version_tags = {}
         self.guicommand = {}
@@ -189,6 +190,9 @@ def strip_plumbing(text):
     text = re.sub(r"<!--\s*T:\d+\s*-->", "", text)
     text = text.replace("{{#translation:}}", "")
     text = re.sub(r"\{\{#translation:\}\}", "", text)
+    # Translated pages carry '<span id="English"></span>' shims above headings to keep the
+    # English anchors valid; the importer's anchors come from the visible headings instead.
+    text = re.sub(r"<span id=\"[^\"]*\"></span>\s*", "", text)
     return text
 
 
@@ -385,7 +389,11 @@ def normalize_headings(adoc):
 
 
 def page_title(name, ctx):
-    t = ctx.guicommand.get("name") if ctx.guicommand else None
+    g = ctx.guicommand or {}
+    t = None
+    if ctx.lang:
+        t = g.get(f"name/{ctx.lang}")
+    t = t or g.get("name")
     if t:
         return plain(t, ctx)
     return name.replace("_", " ")
@@ -405,7 +413,8 @@ def plain(text, ctx):
 
 def header(name, path, ctx, aliases, revision):
     lines = [f"= {page_title(name, ctx)}"]
-    lines.append(f":page-origin: {WIKI_BASE}{name}")
+    suffix = f"/{ctx.lang}" if ctx.lang else ""
+    lines.append(f":page-origin: {WIKI_BASE}{name}{suffix}")
     if revision:
         lines.append(f":page-origin-revision: {revision}")
     if aliases:
@@ -463,8 +472,16 @@ def post_pass(adoc, name, path, ctx, aliases, revision):
 
 # ---------------------------------------------------------------- nav
 
-def write_nav(out_dir, navi_groups, page_map, pages, redirects):
-    lines = ["* xref:index.adoc[CAM Workbench]"]
+def write_nav(out_dir, navi_groups, page_map, pages, redirects, titles=None, lang=None):
+    titles = titles or {}
+
+    def label_for(page, default):
+        t = titles.get(page)
+        if t and lang:
+            return t
+        return default
+
+    lines = [f"* xref:index.adoc[{label_for('CAM_Workbench', 'CAM Workbench')}]"]
     placed = {"CAM_Workbench"}
     for group, items in navi_groups:
         entries = [(p, l) for p, l in items if p in page_map and p in pages and p not in placed]
@@ -472,15 +489,16 @@ def write_nav(out_dir, navi_groups, page_map, pages, redirects):
             continue
         lines.append(f"* {group}")
         for p, label in entries:
-            lines.append(f"** xref:{page_map[p]}[{label}]")
+            lines.append(f"** xref:{page_map[p]}[{label_for(p, label)}]")
             placed.add(p)
     rest = [p for p in pages if p not in placed and p not in redirects]
     if rest:
         lines.append("* Other pages")
         for p in sorted(rest):
-            lines.append(f"** xref:{page_map[p]}[{p.replace('_', ' ')}]")
-    lines.append("* About")
-    lines.append("** xref:about/import-report.adoc[Import report]")
+            lines.append(f"** xref:{page_map[p]}[{label_for(p, p.replace('_', ' '))}]")
+    if not lang:
+        lines.append("* About")
+        lines.append("** xref:about/import-report.adoc[Import report]")
     with open(os.path.join(out_dir, "nav.adoc"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines) + "\n")
 
@@ -555,9 +573,12 @@ def main():
     ap.add_argument("--build-dir", default=os.path.join(ROOT, "build"))
     ap.add_argument("--no-pandoc", action="store_true", help="write pre-pass text instead of AsciiDoc")
     ap.add_argument("--only", help="comma-separated page names to process")
+    ap.add_argument("--lang", help="import a translation: read <source>/<lang>, write l10n/<lang>/modules/ROOT")
     args = ap.parse_args()
 
-    src = args.source
+    root_src = args.source
+    src = os.path.join(root_src, args.lang) if args.lang else root_src
+    en_names = sorted(f[:-9] for f in os.listdir(root_src) if f.startswith("CAM_") and f.endswith(".wikitext"))
     names = sorted(f[:-9] for f in os.listdir(src) if f.startswith("CAM_") and f.endswith(".wikitext"))
     names += [n for n in EXTRA_PAGES if os.path.exists(os.path.join(src, n + ".wikitext"))]
 
@@ -571,18 +592,28 @@ def main():
             redirects[n] = LANG_SUFFIX_RE.sub("", m.group(1).strip()).replace(" ", "_")
     pages = [n for n in names if n not in redirects]
 
-    navi_path = os.path.join(src, "Template;CAM_Tools_navi.wikitext")
+    navi_path = os.path.join(root_src, "Template;CAM_Tools_navi.wikitext")
     navi_groups = parse_navi(open(navi_path, encoding="utf-8").read()) if os.path.exists(navi_path) else []
 
     existing = {}
     if os.path.exists(args.page_map):
         with open(args.page_map, encoding="utf-8") as fh:
             existing = yaml.safe_load(fh) or {}
-    page_map = build_page_map(pages, navi_groups, existing.get("pages"))
+    en_redirects = {}
+    for n in en_names:
+        with open(os.path.join(root_src, n + ".wikitext"), encoding="utf-8") as fh:
+            m = re.match(r"\s*#REDIRECT\s*\[\[([^\]|]+)", fh.read(200), re.I)
+        if m:
+            en_redirects[n] = LANG_SUFFIX_RE.sub("", m.group(1).strip()).replace(" ", "_")
+    en_pages = [n for n in en_names if n not in en_redirects] + EXTRA_PAGES
+    page_map = build_page_map(en_pages, navi_groups, existing.get("pages"))
     for r, target in redirects.items():
         if target in page_map:
             page_map[r] = page_map[target]
-    for r, target in load_path_redirects(src).items():
+    for r, target in en_redirects.items():
+        if target in page_map:
+            page_map.setdefault(r, page_map[target])
+    for r, target in load_path_redirects(root_src).items():
         target = LINK_ALIASES.get(target, target)
         if target in page_map and r not in page_map:
             page_map[r] = page_map[target]
@@ -603,9 +634,12 @@ def main():
     except Exception:
         sync = "unknown"
 
+    if args.lang:
+        args.out = os.path.join(ROOT, "l10n", args.lang, "modules", "ROOT")
     only = set(args.only.split(",")) if args.only else None
     images = set()
     report = {"generated": dt.date.today().isoformat(), "source_sync": sync, "pages": {}, "templates": {}}
+    titles = {}
     pages_dir = os.path.join(args.out, "pages")
     written = 0
     for name in pages:
@@ -618,7 +652,7 @@ def main():
                                   "--", os.path.join("wiki", name + ".wikitext")], capture_output=True, text=True).stdout.strip()
         except Exception:
             rev = ""
-        ctx = PageCtx(name)
+        ctx = PageCtx(name, lang=args.lang)
         pre = pre_pass(wikitext, ctx, page_map, images)
         if ctx.infobox_icon:
             images.add(ctx.infobox_icon)
@@ -643,6 +677,7 @@ def main():
             "unsupported": ctx.unsupported, "properties": ctx.properties, "pandoc_stderr": stderr,
             "guicommand": ctx.guicommand, "tokens": ctx.ntok,
         }
+        titles[name] = page_title(name, ctx)
 
     # template usage counts for the report (expanded ones)
     tcount = {}
@@ -668,10 +703,40 @@ def main():
     report["manual_review"] = sorted(manual)
     report["images"] = sorted(images)
 
-    if not args.no_pandoc and not only:
+    if args.lang and not args.no_pandoc and not only:
+        # Stub the English pages this language does not translate, so every nav entry exists.
+        missing = [n for n in en_pages if n not in set(pages)]
+        for n in missing:
+            dest = os.path.join(pages_dir, page_map[n])
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            html_path = page_map[n][:-5] + ".html"
+            with open(dest, "w", encoding="utf-8") as fh:
+                fh.write(f"""= {n.replace('_', ' ')}
+:page-status: untranslated
+
+This page has not been translated. The English page is at
+link:{{site-en-url}}/cam/{{page-component-version}}/{html_path}[{n.replace('_', ' ')}].
+""")
+        write_nav(args.out, navi_groups, page_map, en_pages, redirects, titles=titles, lang=args.lang)
+        with open(os.path.join(ROOT, "l10n", args.lang, "antora.yml"), "w", encoding="utf-8") as fh:
+            fh.write(f"""name: cam
+title: FreeCAD CAM
+version: wiki-2026-08
+display_version: Wiki (Aug 2026)
+start_page: index.adoc
+nav:
+  - modules/ROOT/nav.adoc
+asciidoc:
+  attributes:
+    site-en-url: https://sliptonic.github.io/freecad-cam-docs
+    page-component-version: wiki-2026-08
+""")
+        print(f"stubbed {len(missing)} untranslated pages")
+    elif not args.no_pandoc and not only:
         write_nav(args.out, navi_groups, page_map, pages, redirects)
         write_report(report, args.out, args.build_dir)
-    with open(os.path.join(args.build_dir if os.path.isdir(args.build_dir) else HERE, "images.txt"), "w") as fh:
+    imgname = f"images-{args.lang}.txt" if args.lang else "images.txt"
+    with open(os.path.join(args.build_dir if os.path.isdir(args.build_dir) else HERE, imgname), "w") as fh:
         fh.write("\n".join(sorted(images)) + "\n")
     print(json.dumps(report["summary"], indent=2))
     if manual:

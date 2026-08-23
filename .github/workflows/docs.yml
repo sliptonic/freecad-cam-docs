@@ -55,7 +55,13 @@ jobs:
           fi
 
       - name: Build site
-        run: npx antora --fetch --stacktrace "${{ steps.playbook.outputs.file }}"
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            npx antora --fetch --stacktrace "${{ steps.playbook.outputs.file }}"
+          else
+            python3 -m pip install --quiet pyyaml
+            python3 tools/build_all.py
+          fi
 
       - uses: actions/upload-artifact@v4
         with:

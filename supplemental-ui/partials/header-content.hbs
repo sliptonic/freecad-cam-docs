@@ -18,6 +18,24 @@
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
         {{#if page.component}}
+        {{#if (ne page.componentVersion.version 'DEV')}}
+        <div class="navbar-item fc-version fc-language">
+          <label class="fc-version-label" for="fc-language-select">Language</label>
+          <select id="fc-language-select" class="fc-version-select" aria-label="Language" onchange="if (this.value) window.location.href = this.value">
+            {{#if env.SITE_LANG}}
+            <option value="{{{siteRootPath}}}/..{{{page.url}}}">English</option>
+            <option value="{{{siteRootPath}}}/../de{{{page.url}}}"{{#if (eq env.SITE_LANG 'de')}} selected{{/if}}>Deutsch</option>
+            <option value="{{{siteRootPath}}}/../fr{{{page.url}}}"{{#if (eq env.SITE_LANG 'fr')}} selected{{/if}}>Français</option>
+            <option value="{{{siteRootPath}}}/../pl{{{page.url}}}"{{#if (eq env.SITE_LANG 'pl')}} selected{{/if}}>Polski</option>
+            {{else}}
+            <option value="" selected>English</option>
+            <option value="{{{siteRootPath}}}/de{{{page.url}}}">Deutsch</option>
+            <option value="{{{siteRootPath}}}/fr{{{page.url}}}">Français</option>
+            <option value="{{{siteRootPath}}}/pl{{{page.url}}}">Polski</option>
+            {{/if}}
+          </select>
+        </div>
+        {{/if}}
         <div class="navbar-item fc-version">
           <label class="fc-version-label" for="fc-version-select">Version</label>
           <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
