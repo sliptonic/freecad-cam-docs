@@ -1,0 +1,42 @@
+= CAM DressupLeadInOut
+:page-origin: https://wiki.freecad.org/CAM_DressupLeadInOut
+:page-origin-revision: 0dd8b6045a 2026-06-08
+:page-menu: CAM → Path Dressup → Lead In/Out
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Path Dressup > Lead In/Out]
+Workbenches:: xref:index.adoc[CAM]
+See also:: xref:dressups/dogbone.adoc[CAM DressupDogbone], xref:dressups/tag.adoc[CAM DressupTag], xref:dressups/ramp-entry.adoc[CAM DressupRampEntry], xref:dressups/drag-knife.adoc[CAM DressupDragKnife]
+
+== Description
+
+The image:CAM_DressupLeadInOut.svg[width=24] xref:dressups/lead-in-out.adoc[CAM DressupLeadInOut] command dresses up an existing path by adding lead-in and lead-out moves at the beginning and end of the toolpath.
+
+== Usage
+
+. Select an existing path object.
+. There are several ways to invoke the command:
+* Press the image:CAM_DressupLeadInOut.svg[width=16] xref:dressups/lead-in-out.adoc[Lead In/Out] button.
+* Select the menu:CAM[Path Dressup > Lead In/Out] option from the menu.
+. Adjust the lead-in and lead-out settings in the task panel.
+. Confirm the dressup.
+
+== Options
+
+* *Lead in*: Controls the entry move added before the main cutting path.
+* *Lead out*: Controls the exit move added after the main cutting path.
+* *Feed rate*: [.since]#introduced in 26.3# The corresponding lead-in and lead-out moves use the feed rates defined for these moves in the tool controller. By default these follow the horizontal feed rate.
+
+== Limitations
+
+* This dressup modifies the start and end of an existing path.
+* The exact result depends on the selected path and the chosen lead-in and lead-out settings.
+* [.since]#introduced in 26.3# image:CAM_DressupRampEntry.svg[width=16] xref:dressups/ramp-entry.adoc[CAM DressupRampEntry] can also be applied to a path that already has a Lead In/Out dressup.
+
+== Scripting
+
+[source,python]
+----
+Add python code here
+----

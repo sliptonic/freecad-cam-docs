@@ -1,0 +1,79 @@
+= CAM Engrave
+:page-origin: https://wiki.freecad.org/CAM_Engrave
+:page-origin-revision: 4dd78cfa10 2026-07-08
+:page-menu: CAM → Engrave
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Engrave]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+The image:CAM_Engrave.svg[width=24] xref:operations/engrave.adoc[CAM Engrave] command is primarily for engraving a image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft ShapeString] onto a part. It can also be used with other flat 2D geometry, for example imported SVG-based shapes.
+
+== Usage
+
+. There are several ways to invoke the command:
+* Press the image:CAM_Engrave.svg[width=16] xref:operations/engrave.adoc[Engrave] button.
+* Select the menu:CAM[Engrave] option from the menu.
+. In the menu:Base Geometry[] section, select the geometry to engrave.
+* A image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft ShapeString] can be used.
+* Other flat 2D geometry, such as imported SVG-based shapes, can also be used.
+* When possible, select the whole flat shape instead of selecting many individual edges in the https://wiki.freecad.org/3D_View[3D View].
+. In the menu:Depths[] section, check and adjust the depth settings as required.
+. Confirm the operation.
+
+== Options
+
+* *Base*: The geometry to engrave.
+* *Clear*: Clears the current geometry selection.
+
+== Properties
+
+=== Data
+
+.Base
+* *Placement*:
+* *Label*: User name of the object (UTF-8)
+
+.Depth
+* *Clearance Height*: The height needed to clear clamps and obstructions
+* *Final Depth*: Final Depth of Tool- lowest value in Z
+* *Safe Height*: The above which Rapid motions are allowed.
+* *Start Depth*: Starting Depth of Tool- first cut depth in Z
+* *Step Down*: Incremental Step Down of Tool
+
+.Path
+* *Active*: Make False, to prevent operation from generating code
+* *Base*: The base geometry for this operation
+* *Comment*: An optional comment for this operation
+* *Coolant Mode*: Coolant mode for this operation
+* *Cycle Time*: Estimated cycle time for this operation
+* *Start Vertex*: The vertex index to start the path from
+* *Tool Controller*: The tool controller that will be used to calculate the path
+* *User Label*: User assigned label
+
+.Hidden
+* *Base Object*:
+* *Base Shapes*:
+* *Expression Engine*:
+* *Label2*:
+* *Path*:
+* *Proxy*:
+* *Visibility*:
+
+=== View
+
+Empty
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+#Place code example here.
+----

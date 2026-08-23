@@ -1,0 +1,27 @@
+= CAM DressupDragKnife
+:page-origin: https://wiki.freecad.org/CAM_DressupDragKnife
+:page-origin-revision: 74cb634042 2025-11-05
+:page-menu: CAM → Path Dressup → Drag Knife
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Path Dressup > Drag Knife]
+Workbenches:: xref:index.adoc[CAM]
+See also:: xref:dressups/tag.adoc[CAM DressupTag], xref:dressups/ramp-entry.adoc[CAM DressupRampEntry], xref:dressups/dogbone.adoc[CAM DressupDogbone]
+
+== Description
+
+The image:CAM_DressupDragKnife.svg[width=24] xref:dressups/drag-knife.adoc[CAM DressupDragKnife] command uses a cutting edge on a pivot to cut sheet material like vinyl, cardboard, and leather. The cutting point is not aligned with the center of the spindle but rather follows it as the spindle moves. Because the cutting point is offset, the path must be modified to extend past the endpoint of each segment. Also, the dragknife is incapable of making extremely tight turns. To compensate, a pivot 'corner action' is inserted which momentarily lifts the blade slightly and then pivots into the new position.
+
+This tool dresses up an existing path to add corner actions and edge extensions for drag knife cutting.
+
+== Usage
+
+. Select a contour or profile path object.
+. Select the menu:CAM[Path Dressup > Drag Knife] option from the menu.
+
+== Options
+
+* *Filter Angle* : Determines how acute an angle must be before a corner action is inserted.
+* *Offset* : Input how much the blade point is offset from the spindle center.
+* *Pivot Height* : Determines how high to lift the cutting blade during a corner action. This is material dependent and should be higher for thicker materials. Ideally, the point should remain in the material slightly.

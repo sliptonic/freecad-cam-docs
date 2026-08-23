@@ -1,0 +1,31 @@
+= CAM DressupDogbone
+:page-origin: https://wiki.freecad.org/CAM_DressupDogbone
+:page-origin-revision: 62aa965a97 2026-06-08
+:page-menu: CAM → Path Dressup → Dogbone
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Path Dressup > Dogbone]
+Workbenches:: xref:index.adoc[CAM]
+See also:: xref:dressups/tag.adoc[CAM DressupTag], xref:dressups/ramp-entry.adoc[CAM DressupRampEntry], xref:dressups/drag-knife.adoc[CAM DressupDragKnife]
+
+== Description
+
+The image:CAM_DressupDogbone.svg[width=24] xref:dressups/dogbone.adoc[CAM DressupDogbone] command dresses up an existing path to overcut corners on inside angles of a profile or contour operation. A cylindrical cutter cannot cut all the way into an acute corner without colliding with the model. In certain cases, it may be preferable to violate the model and ensure that the material at the corner is removed. This is especially necessary if parts are going to intersect/interlock with each other.
+
+== Usage
+
+. Select a contour or profile path xref:index.adoc[CAM] objects.
+. Select the menu:CAM[Path Dressup > Dogbone] option from the menu.
+
+== Options
+
+* *Side*: Which side of the path the modification will be added to.
+* *Style*: Style of overcut (Dogbone, T-Bone Horizontal, T-Bone Vertical, T-Bone Long Edge, T-Bone Short Edge).
+* *Incision*: The algorithm used to calculate the overcut length.
+* *Custom*: If *Incision* is set to `Custom`, this value defines the overcut length.
+* [.since]#introduced in 26.3# For the adaptive incision type, a non-zero *Custom* value can also be used to limit the maximum incision length.
+
+== Limitations
+
+The dogbone dressup needs a straight path segment (G1) before and after the corner where the dressup should be inserted.

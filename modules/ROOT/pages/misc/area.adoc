@@ -1,0 +1,110 @@
+= CAM Area
+:page-origin: https://wiki.freecad.org/CAM_Area
+:page-origin-revision: 1ca8f71391 2026-07-08
+:page-menu: CAM → Area
+:page-imported: true
+
+WARNING: This is an unfinished experimental feature. See xref:reference/experimental.adoc[Enable Experimental Features].
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.guicommand]
+Menu location:: menu:CAM[Area]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+Empty
+
+== Usage
+
+Empty
+
+== Options
+
+Empty
+
+== Properties
+
+=== Data
+
+.Area
+* *Operation*: -
+* *Fill*: -
+* *Coplanar*: -
+* *Reorient*: -
+* *Outline*: -
+* *Explode*: -
+* *OpenMode*: -
+* *Deflection*: -
+* *SubjectFill*: -
+* *ClipFill*: -
+
+.Base
+* *Sources*: -
+* *Placement*: -
+* *Label*: -
+
+.Offset
+* *Offset*: -
+* *ExtraPass*: -
+* *Stepover*: -
+* *LastStepover*: -
+* *JoinType*: -
+* *EndType*: -
+* *MiterLimit*: -
+* *RoundPrecision*: -
+
+.Pocket
+* *PocketMode*: -
+* *ToolRadius*: -
+* *PocketExtraOffset*: -
+* *PocketStepover*: -
+* *PocketLastStepover*: -
+* *FromCenter*: -
+* *Angle*: -
+* *AngleShift*: -
+* *Shift*: -
+* *Thicken*: -
+
+.Section
+* *SectionCount*: -
+* *Stepdown*: -
+* *SectionOffset*: -
+* *SectionTolerance*: -
+* *SectionMode*: -
+* *Project*: -
+
+.libarea
+* *Tolerance*: -
+* *FitArcs*: -
+* *Simplify*: -
+* *CleanDistance*: -
+* *Accuracy*: -
+* *Unit*: -
+* *MinArcPoints*: -
+* *MaxArcPoints*: -
+* *ClipperScale*: -
+
+==== Hidden
+
+* *ExpressionEngine*: -
+* *Label2*: -
+* *Shape*: -
+* *Visibility*: -
+* *WorkPlane*: -
+
+=== View
+
+Empty
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+#Place code example here.
+----

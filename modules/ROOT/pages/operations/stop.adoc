@@ -1,0 +1,23 @@
+= CAM Stop
+:page-origin: https://wiki.freecad.org/CAM_Stop
+:page-origin-revision: 53631f1535 2025-11-05
+:page-menu: CAM → Supplemental Commands → Stop
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Supplemental Commands > Stop]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+The image:CAM_Stop.svg[width=24] xref:operations/stop.adoc[CAM Stop] command inserts a Stop command (M1). This command will Pause a running program on the CNC controller, waiting for user interaction to continue.
+
+*Note: this does not stop the spindle.*
+
+== Usage
+
+. Press the image:CAM_Stop.svg[width=16] xref:operations/stop.adoc[Stop] button
+
+== Properties
+
+* *Stop*: Defines if the Stop is optional or mandatory.

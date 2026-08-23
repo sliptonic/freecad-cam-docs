@@ -1,0 +1,44 @@
+= CAM Preferences
+:page-origin: https://wiki.freecad.org/CAM_Preferences
+:page-origin-revision: c0f7759332 2026-08-07
+:page-imported: true
+
+== Overview
+
+After selecting the xref:index.adoc[CAM Workbench] the preferences screen is found in the https://wiki.freecad.org/Preferences_Editor[Preferences Editor], menu:Edit[Preferences > CAM].
+
+There are five pages: <<gui,GUI>>, <<assets,Assets>>, <<job-preferences,Job preferences>>, <<dressups,Dressups>>, and <<advanced,Advanced>>.
+
+== GUI
+
+image:Preference_Path_Tab_03_V020.png[]
+
+== Assets
+
+TBD
+
+[.since]#introduced in 26.3#: machine assets can be managed from the CAM preferences. The Machine Library and Machine Editor create and edit `*.fcm` machine configuration files used by machine-based postprocessing.
+
+== Job preferences
+
+There are four sections: General, Post processor, Setup and Tools.
+
+=== General
+
+image:Preference_Path_Tab_01_01_V020.png[]
+
+=== Post processor
+
+image:Preference_Path_Tab_01_02_V020.png[]
+
+=== Setup
+
+image:Preference_Path_Tab_01_03_V020.png[]
+
+== Dressups
+
+image:Preference_Path_Tab_02_V020.png[]
+
+== Advanced
+
+image:Preference_Path_Tab_04_V020.png[]

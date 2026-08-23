@@ -1,0 +1,46 @@
+= CAM Area Workplane
+:page-origin: https://wiki.freecad.org/CAM_Area_Workplane
+:page-origin-revision: 309578ac37 2025-11-07
+:page-menu: CAM → Area workplane
+:page-imported: true
+
+WARNING: This is an unfinished experimental feature. See xref:reference/experimental.adoc[Enable Experimental Features].
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.guicommand]
+Menu location:: menu:CAM[Area workplane]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+Empty
+
+== Usage
+
+Empty
+
+== Options
+
+Empty
+
+== Properties
+
+=== Data
+
+Empty
+
+=== View
+
+Empty
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+#Place code example here.
+----

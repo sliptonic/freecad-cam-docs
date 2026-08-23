@@ -1,0 +1,143 @@
+= CAM Pocket Shape
+:page-origin: https://wiki.freecad.org/CAM_Pocket_Shape
+:page-origin-revision: 6645424a75 2026-07-08
+:page-menu: CAM → Pocket Shape
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Pocket Shape]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+The image:CAM_Pocket_Shape.svg[width=24] xref:operations/pocket.adoc[CAM Pocket Shape] command creates a pocketing operation from selected bottom faces, or walls, of one or more pockets of the jobs base object.
+
+The CAM Pocket Shape object is made to be part of a image:CAM_Job.svg[width=16] xref:job/job.adoc[CAM Job].
+
+image::Path_Pocket_Shape_example.png[width=600]
+
+== Usage
+
+. Select the bottom or the wall(s) of a pocket. While it is usually easier to select the bottom, the walls have to be selected when a pocket goes through all.
+. [.since]#introduced in 26.3#: Horizontal edges can also be selected. Edges are combined into wires, and a closed horizontal wire is converted into a pocket face.
+. There are several ways to invoke the command:
+* Press the image:CAM_Pocket_Shape.svg[width=16] xref:operations/pocket.adoc[Pocket Shape] button.
+* Select the menu:CAM[Pocket Shape] option from the menu.
+. Adjust the desired properties.
+
+== Properties
+
+*_Note_*: Not all of these Properties are available in the Task Window Editor. Some are only accessible in the Data tab of the Properties View panel for this Operation.
+
+.Base
+Note: It is suggested that you do not edit the *Placement* property of path operations. Rather, move or rotate the CAM Job model as needed.
+
+* *Placement*: Overall placement++[++position and rotation++]++ of the object - with respect to the origin (or origin of parent object container)
+** *Angle*: Angle in degrees applied to rotation of the object around Axis property value
+** *Axis*: Axis (one or multiple) around which to rotate the object, set in sub-properties: X, Y, Z
+*** *X*: X-axis value
+*** *Y*: Y-axis value
+*** *Z*: Z-axis value
+** *Position*: Position of the object, set in sub-properties: X, Y, Z - with respect to the origin (or origin of parent object container)
+*** *X*: X-distance value
+*** *Y*: Y-distance value
+*** *Z*: Z-distance value
+* *Label*: User-provided name of the object (UTF-8)
+
+.Depth
+* *Clearance Height*: The height needed to clear clamps and obstructions
+* *Final Depth*: Final Depth of Tool- lowest value in Z
+* *Finish Depth*: Maximum material removed on final pass. The height (thickness) of the last cutting level - _set for a better finish_.
+* *Safe Height*: The height above which Rapid motions are allowed. (Rapid safety height between locations)
+* *Start Depth*: Starting depth of Tool - _first cut depth in Z_
+* *Step Down*: Incremental step down of Tool during operation
+
+image::Path-DepthsAndHeights.gif[width=500]
+
+[.caption]
+Visual reference for Depth properties (settings)
+
+.Extension
+* *Extension Corners*: When enabled connected extension edges are combined to wires.
+* *Extension Length Default*: Default length of extensions.
+
+.Face
+* *Offset Pattern*: Clearing pattern to use. (Select in which manner the horizontal movements should be done.)
+
+.Path
+* *Active*: Make False, to prevent operation from generating code
+* *Comment*: An optional comment for this Operation
+* *User Label*: User assigned label
+* *Tool Controller*: Defines the Tool controller used in the Operation
+
+.Pocket
+* *Cut Mode*: Specifies a CW or CCW move for the cut
+* *Extra Offset*: Extra offset to apply to the operation. Direction is operation dependent. (Extra value to stay away from final profile _good for roughing toolpath_)
+* *Min Travel*: Use 3D Sorting of Path (when multiple base geometries used).
+* *Retract Threshold*: Distance below which the operation can stay down for repositioning moves. A value of `0` disables this behavior. [.since]#introduced in 26.3#: This replaces *Keep Tool Down*.
+* *Start At*: Start pocketing at center or boundary.
+* *Step Over*: Select the horizontal step over (*Percent* of tool diameter: 100% = tool diameter).
+* *Use Outline*: Uses the outline of the base geometry.
+* *Angle*: Angle of the clearing pattern relative to the X-axis. This property was formerly named *Zig Zag Angle*. It is hidden when *Offset Pattern* is set to `Offset`.
+* *SortingMode*: Controls how multiple selected base geometries are ordered. `Automatic` uses automatic sorting. `Manual` follows the selection order.
+
+.Rotation
+* *Attempt Inverse Angle*: Automatically attempt Inverse Angle if initial rotation is incorrect.
+* *B_Axis Error Override*: Visually orient B(y) rotations to model (error in FreeCAD rendering).
+* *Enable Rotation*: Enable rotation to gain access to pockets or areas not normal to Z axis.
+* *Inverse Angle*: Inverse the angle of the rotation. _*Example:* change a rotation from -22.5 to 22.5 degrees._
+* *Reverse Direction*: Reverse orientation of Operation by 180 degrees.
+
+.Start Point
+* *Start Point*: The start point of this path.
+* *Use Start Point*: Make True, if manually specifying a Start Point, then enter Start Points in the property data Start Points field.
+
+== Tasks Window Editor Layout
+
+_Descriptions for the settings are provided in the Properties list above._
+
+This section is simply a layout map of the settings in the window editor for the Operation.
+
+=== Base Geometry
+
+* *Add*: Adds selected element(s) which should be the base(s) for the path(s)
+* *Delete*: Delete the selected item(s) in the Base Geometry list
+* *Clear*: Clear all items in the Base Geometry list
+
+=== Extensions
+
+* *Show All*: If selected, all potential extensions are visualized. Enabled extensions in purple, disabled extensions in yellow.
+* *Extension Corners*
+* *Extension Length Default*
+* *Enable*
+* *Disable*
+* *Clear*
+
+=== Depths
+
+* *Start Depth*
+* *Final Depth*
+* *Step Down*
+
+=== Heights
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Operation
+
+* *Tool Controller*
+* *Cut Mode*
+* *Pattern* (Offset Pattern)
+* *Angle*
+* *Step Over Percent* (Step Over)
+* *Pass Extension*: The distance the facing operation will extend beyond the boundary shape (base geometry)
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+[source,python]
+----
+#Place code example here.
+----

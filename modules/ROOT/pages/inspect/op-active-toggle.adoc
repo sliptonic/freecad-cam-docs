@@ -1,0 +1,50 @@
+= CAM OpActiveToggle
+:page-origin: https://wiki.freecad.org/CAM_OpActiveToggle
+:page-origin-revision: 11bc22084b 2026-05-17
+:page-menu: CAM → Toggle Operation
+:page-shortcut: P X
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.guicommand]
+Menu location:: menu:CAM[Toggle Operation]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[X]]
+
+== Description
+
+The image:CAM_OpActiveToggle.svg[width=24] xref:inspect/op-active-toggle.adoc[CAM OpActiveToggle] command toggles the *Active* property of a selected CAM operation.
+
+If this property is set to `false`, the operation is treated as inactive. Its path is not shown in the https://wiki.freecad.org/3D_View[3D View], and it is ignored by commands such as image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[CAM Inspect] and image:CAM_Post.svg[width=16] xref:output/post-process.adoc[CAM Post].
+
+== Usage
+
+. Select an operation in the menu:Operations[] group belonging to a Job. A deactivated operation can be recognized by its grayed out label and icon.
+. There are several ways to invoke the command:
+* Press the image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Toggle Operation] button.
+* Select the menu:CAM[Toggle Operation] option from the menu.
+* Use the keyboard shortcut: kbd:[P] then kbd:[X].
+. The result depends on the selected operation:
+* If you have selected an active operation the command deactivates it:
+** The operation icon is replaced with the command icon: image:CAM_OpActiveToggle.svg[width=16].
+** The operation icon and label are grayed out.
+** The paths generated from the operation disappear from the https://wiki.freecad.org/3D_View[3D View].
+** When using the image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[CAM Inspect] command or the image:CAM_Post.svg[width=16] xref:output/post-process.adoc[CAM Post] command, the operation's G-code is not provided.
+** If the operation has dressups, they are also shown in an inactive state in the https://wiki.freecad.org/Tree_View[Tree View].
+* If you have selected a deactivated operation the command activates it:
+** The operation icon is replaced with that belonging to the operation.
+** The operation icon and label are no longer grayed out.
+** The paths generated from the operation are recomputed and displayed in the https://wiki.freecad.org/3D_View[3D View].
+** When using the image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[CAM Inspect] command or the image:CAM_Post.svg[width=16] xref:output/post-process.adoc[CAM Post] command, the operation's G-code is provided again.
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+# Place code example here.
+----

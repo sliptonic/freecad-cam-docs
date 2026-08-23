@@ -1,0 +1,41 @@
+= CAM experimental
+:page-origin: https://wiki.freecad.org/CAM_experimental
+:page-origin-revision: 80ba071766 2026-07-08
+:page-imported: true
+
+== Description
+
+The CAM Workbench contains a set of hidden commands. They are hidden by default because they are experimental. A command can be considered experimental for any of the following reasons:
+
+* It is incomplete.
+* It is bug-ridden.
+* It is unstable.
+* It does not produce correct, stable, safe, paths.
+* It is not a standard, regularly used command in the traditional CAM workflow.
+* It is mature but has not yet been moved to the standard tool list.
+* ... other reasons.
+
+== Enable experimental commands
+
+To access the hidden experimental commands of the CAM Workbench, the user must enable them.
+
+=== Enable xref:operations/surface.adoc[CAM Surface] and xref:operations/waterline.adoc[CAM Waterline] commands
+
+. Open the https://wiki.freecad.org/Preferences_Editor[Preferences Editor] via menu:Edit[Preferences].
+. Go to the menu:CAM[Advanced] page.
+. Check the menu:Enable OCL dependent features[] checkbox.
+. Restart FreeCAD.
+
+=== Enable other experimental commands
+
+. Open the https://wiki.freecad.org/Std_DlgParameter[Parameter Editor] via menu:Tools[Edit Parameters].
+. Once in the editor the path is menu:BaseApp[Preferences > Mod > CAM].
+. Right-click in the parameter list area and select menu:New[New Boolean item] from the context menu.
+. Name the new parameter: `EnableExperimentalFeatures` (case-sensitive).
+. Set it to: `True`.
+. Save the settings.
+. Restart FreeCAD.
+
+== Additional Information
+
+Read more about the specific experimental commands on the https://wiki.freecad.org/Special:WhatLinksHere/CAM_experimental[wiki pages that link to this one].

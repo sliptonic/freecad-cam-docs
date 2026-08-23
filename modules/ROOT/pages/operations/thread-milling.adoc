@@ -1,0 +1,21 @@
+= CAM ThreadMilling
+:page-origin: https://wiki.freecad.org/CAM_ThreadMilling
+:page-origin-revision: b36bf90091 2026-07-08
+:page-menu: CAM → Specialty Operations → Thread Milling
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.guicommand]
+Menu location:: menu:CAM[Specialty Operations > Thread Milling]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+== Usage
+
+== Options
+
+== Properties
+
+== Scripting

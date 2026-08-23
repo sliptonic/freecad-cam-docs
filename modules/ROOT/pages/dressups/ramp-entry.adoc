@@ -1,0 +1,41 @@
+= CAM DressupRampEntry
+:page-origin: https://wiki.freecad.org/CAM_DressupRampEntry
+:page-origin-revision: e791dacd42 2025-11-05
+:page-menu: CAM → Path Dressup → Ramp Entry
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Path Dressup > Ramp Entry]
+Workbenches:: xref:index.adoc[CAM]
+See also:: xref:dressups/tag.adoc[CAM DressupTag], xref:dressups/dogbone.adoc[CAM DressupDogbone], xref:dressups/drag-knife.adoc[CAM DressupDragKnife]
+
+== Description
+
+The image:CAM_DressupRampEntry.svg[width=24] xref:dressups/ramp-entry.adoc[CAM DressupRampEntry] command dresses up an existing path to add a ramp entry.
+
+== Usage
+
+. Select a contour or profile path objects.
+. Select the menu:CAM[Path Dressup > Ramp Entry] option from the menu.
+
+== Properties
+
+* *Ramp Feed Rate* : Can either be the current vertical or horizontal feed rate or some other custom value
+* *Angle* : Angle of the ramp against the vertical axis. A smaller value makes the ramp steeper.
+* *Method* : Used to select different modes of ramping:
+** _RampMethod1_: goes down at the ramp angle and the moves horizontal to the target point
+** _RampMethod2_: goes horizontal first and then down at the ramp angle to the target point
+** _RampMethod3_: goes down in a zigzag way
+** _Helix_: goes down spiraling
+* *Dressup Start Depth* : The distance above the target level where ramping starts
+* *Use Start Depth* : Indicates that the ramping does not start above the stock level. If it is not set to true the first ramp can be steeper than expected.
+
+image:Ramp_method_1.png[x250px] image:Ramp_method_2.png[x250px] image:Ramp_method_3.png[x250px]
+
+[.caption]
+From left to right: Ramp method 1, 2 and 3
+
+image:Ramp_method_Helix.png[x250px]
+
+[.caption]
+Ramp method Helix

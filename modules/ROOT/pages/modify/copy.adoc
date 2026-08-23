@@ -1,0 +1,30 @@
+= CAM Copy
+:page-origin: https://wiki.freecad.org/CAM_Copy
+:page-origin-revision: 3f5597dfb4 2026-05-17
+:page-aliases: CAM_OperationCopy.adoc
+:page-menu: CAM → Path Modification → Copy Operation
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Path Modification > Copy Operation]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+The image:CAM_Copy.svg[width=24] xref:modify/copy.adoc[CAM Copy] command creates a copy of a selected path.
+
+== Usage
+
+. Select a image:Workbench_CAM.svg[width=16] xref:index.adoc[CAM] object
+. There are several ways to invoke the command:
+* Press the image:CAM_Copy.svg[width=16] xref:modify/copy.adoc[Copy Operation] button in the CAM toolbar
+* Use the kbd:[P] then kbd:[Y] keyboard shortcut
+* Use the menu:CAM[Path Modification > Copy Operation] entry in the CAM menu
+
+== Properties
+
+* *Base*: The base path to be copied
+
+== Options
+
+The copy stays linked with the original path. If the original changes, so does the copy.

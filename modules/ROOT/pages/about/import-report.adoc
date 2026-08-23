@@ -1,0 +1,116 @@
+= Import report
+:page-status: generated
+
+Generated 2026-08-23 from the wiki bridge repository (sync 2026-08-22).
+
+[cols="1,1"]
+|===
+| Pages selected | 63
+| Pages written | 61
+| Redirects turned into aliases | 2
+| Internal links resolved to xref | 681
+| Links left pointing at the wiki | 88
+| Links to missing CAM pages | 6
+| Images referenced | 183
+| Templates expanded | 1544
+| Templates unsupported | 0
+| Pages needing manual review | 1
+|===
+
+== Templates
+
+[cols="2,1"]
+|===
+| Template | Uses
+| `propertydata` | 668
+| `#translation:` | 150
+| `menucommand` | 114
+| `docnav` | 112
+| `key` | 82
+| `titleproperty` | 77
+| `button` | 69
+| `code` | 45
+| `guicommand` | 44
+| `value` | 32
+| `caption` | 26
+| `filename` | 26
+| `top` | 26
+| `version` | 19
+| `incode` | 17
+| `tocright` | 14
+| `veryimportantmessage` | 7
+| `versionplus` | 5
+| `emphasis` | 5
+| `false` | 2
+| `coloredtext` | 2
+| `unfinisheddocu` | 1
+| `tutorialinfo` | 1
+|===
+
+== Pages
+
+[cols="2,2,1,1,1,1,3",options="header"]
+|===
+| Wiki page | Path | xref | wiki links | images | version markers | Issues
+| Artwork_CAM | `reference/artwork.adoc` | 0 | 1 | 93 |  | 
+| CAM_Adaptive | `operations/adaptive.adoc` | 14 | 0 | 6 |  | 
+| CAM_Area | `misc/area.adoc` | 8 | 1 | 0 |  | 
+| CAM_Area_Workplane | `misc/area-workplane.adoc` | 8 | 1 | 0 |  | 
+| CAM_Array | `modify/array.adoc` | 9 | 1 | 2 | 26.3×1 | 
+| CAM_Comment | `operations/comment.adoc` | 9 | 1 | 2 |  | 
+| CAM_Copy | `modify/copy.adoc` | 10 | 0 | 3 |  | 
+| CAM_Custom | `operations/custom.adoc` | 10 | 0 | 2 |  | 
+| CAM_Deburr | `operations/deburr.adoc` | 9 | 0 | 4 |  | 
+| CAM_Development_Roadmap | `contributing/development-roadmap.adoc` | 1 | 0 | 0 |  | 
+| CAM_DressupAxisMap | `dressups/axis-map.adoc` | 7 | 0 | 0 |  | 
+| CAM_DressupDogbone | `dressups/dogbone.adoc` | 12 | 0 | 2 | 26.3×1 | 
+| CAM_DressupDragKnife | `dressups/drag-knife.adoc` | 11 | 0 | 2 |  | 
+| CAM_DressupLeadInOut | `dressups/lead-in-out.adoc` | 14 | 0 | 4 | 26.3×2 | 
+| CAM_DressupPathBoundary | `dressups/path-boundary.adoc` | 10 | 1 | 2 |  | 
+| CAM_DressupRampEntry | `dressups/ramp-entry.adoc` | 11 | 0 | 6 |  | 
+| CAM_DressupTag | `dressups/tag.adoc` | 11 | 0 | 2 |  | 
+| CAM_DressupZCorrect | `dressups/zcorrect.adoc` | 7 | 0 | 0 |  | 
+| CAM_Drilling | `operations/drilling.adoc` | 9 | 2 | 4 |  | 
+| CAM_Engrave | `operations/engrave.adoc` | 9 | 4 | 5 |  | 
+| CAM_ExportTemplate | `job/export-template.adoc` | 10 | 0 | 2 |  | 
+| CAM_FAQ | `reference/faq.adoc` | 17 | 1 | 0 |  | 
+| CAM_Fixture | `job/fixture.adoc` | 5 | 0 | 2 | 1.1×1 | 
+| CAM_Helix | `operations/helix.adoc` | 10 | 3 | 6 | 26.3×1 | 
+| CAM_Inspect | `inspect/inspect.adoc` | 9 | 1 | 5 |  | 
+| CAM_Job | `job/job.adoc` | 13 | 0 | 8 |  | 
+| CAM_MillFace | `operations/mill-face.adoc` | 8 | 1 | 4 | 26.3×1 | 
+| CAM_OpActiveToggle | `inspect/op-active-toggle.adoc` | 15 | 5 | 10 |  | 
+| CAM_Pocket3D | `operations/pocket-3d.adoc` | 11 | 1 | 6 |  | 
+| CAM_Pocket_Shape | `operations/pocket.adoc` | 10 | 1 | 6 | 26.3×2 | 
+| CAM_Post | `output/post-process.adoc` | 14 | 1 | 5 |  | 
+| CAM_Postprocessor_Customization | `output/postprocessor-customization.adoc` | 8 | 0 | 4 |  | 
+| CAM_Preferences | `reference/preferences.adoc` | 7 | 1 | 6 | 26.3×1 | 
+| CAM_Probe | `operations/probe.adoc` | 7 | 0 | 0 |  | 
+| CAM_Profile | `operations/profile.adoc` | 11 | 2 | 8 | 26.3×1 | 
+| CAM_Sanity | `job/sanity-check.adoc` | 11 | 1 | 5 |  | 
+| CAM_SelectLoop | `inspect/select-loop.adoc` | 9 | 0 | 3 |  | 
+| CAM_SetupSheet | `job/setup-sheet.adoc` | 7 | 0 | 0 |  | 
+| CAM_Shape | `operations/path-from-shape-tc.adoc` | 10 | 4 | 3 |  | 
+| CAM_SimpleCopy | `modify/simple-copy.adoc` | 12 | 0 | 2 | 26.3×2 | 
+| CAM_Simulator | `inspect/simulator-legacy.adoc` | 11 | 0 | 9 |  | 
+| CAM_SimulatorGL | `inspect/simulator.adoc` | 11 | 0 | 5 |  | 
+| CAM_Slot | `operations/slot.adoc` | 11 | 2 | 5 |  | 
+| CAM_Stop | `operations/stop.adoc` | 9 | 0 | 2 |  | 
+| CAM_Surface | `operations/surface.adoc` | 22 | 7 | 14 |  | 
+| CAM_ThreadMilling | `operations/thread-milling.adoc` | 7 | 0 | 0 |  | 
+| CAM_ToolBit | `tools/toolbit.adoc` | 9 | 0 | 0 | 26.3×1 | 
+| CAM_ToolBitDock | `tools/add-toolbit.adoc` | 12 | 0 | 4 |  | 
+| CAM_ToolBitLibraryOpen | `tools/library-manager.adoc` | 16 | 0 | 6 |  | 
+| CAM_ToolBit_Library | `tools/toolbit-library.adoc` | 7 | 0 | 0 |  | 
+| CAM_ToolController | `tools/tool-controller.adoc` | 6 | 0 | 0 |  | 
+| CAM_ToolShape | `tools/tool-shape.adoc` | 8 | 10 | 6 |  | 
+| CAM_Tools | `tools/index.adoc` | 29 | 0 | 7 |  | 
+| CAM_Vcarve | `operations/vcarve.adoc` | 10 | 11 | 18 | 26.3×1 | 
+| CAM_Walkthrough_for_the_Impatient | `tutorials/walkthrough-for-the-impatient.adoc` | 20 | 4 | 26 |  | 
+| CAM_Waterline | `operations/waterline.adoc` | 19 | 0 | 4 | 26.3×1 | 
+| CAM_Workbench | `index.adoc` | 75 | 16 | 61 | 1.0×1, 1.1×2, 26.3×5 | unresolved: CAM_DressupArray, CAM_DressupMirror, CAM_MillFacing, CAM_PostSelected, CAM_Tapping, CAM_Turning
+| CAM_experimental | `reference/experimental.adoc` | 2 | 2 | 0 |  | 
+| CAM_fourth_axis | `reference/fourth-axis.adoc` | 8 | 0 | 0 |  | 
+| CAM_scripting | `reference/scripting.adoc` | 5 | 0 | 0 |  | 
+| OpenCamLib | `reference/opencamlib.adoc` | 1 | 2 | 1 |  | 
+|===

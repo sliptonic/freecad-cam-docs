@@ -1,0 +1,144 @@
+= CAM Vcarve
+:page-origin: https://wiki.freecad.org/CAM_Vcarve
+:page-origin-revision: 3653b060cb 2026-06-08
+:page-menu: CAM → Vcarve
+:page-since: 0.19
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Vcarve]
+Workbenches:: xref:index.adoc[CAM]
+Introduced in version:: 0.19
+
+== Description
+
+The image:CAM_Vcarve.svg[width=24] xref:operations/vcarve.adoc[CAM Vcarve] command is primarily for center-line engraving a image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft ShapeString] onto a part. However, it may be useful for other kinds of 2D.
+
+Unlike engraving which follows the lines in the shapestring, V-carving uses a V-shaped cutter and attempts to clear the area by moving the cutter down the center of the region and varying the depth of cut. Since a v-cutter radius varies with the depth, the width of cut varies as well. The result is a more natural looking cut, particularly for serif fonts.
+
+image::Engravepath.png[]
+
+ 
+
+image::Vcarvepath.png[Example Vcarving Path]
+
+ 
+
+image::Vcarved.png[]
+
+ 
+
+image::Scrolltest.png[]
+
+The V-carve algorithm calculates a path down the center-line of a region using a Voronoi diagram. This center-line is the path the tool will follow in the XY-plane. It next calculates a 'maximum inscribed circle' along the path. This is the largest circle that can be drawn at that point and remain entirely inside the clearing area. Using the circle radius and the tip angle of the cutter, the depth of cut is calculated.
+
+[.since]#introduced in 26.3#: Routing can use virtual edge backtracking. If the next cutting start point is reachable through an already-carved path, or through an edge that will be carved next, the operation can follow that edge instead of a retract, rapid move and plunge.
+
+== Usage
+
+=== Prepare the shapes to engrave
+
+* image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft ShapeStrings] are usable out of the box
+* SVG files require some massaging, both in the editor and in the image:Workbench_Draft.svg[width=16] https://wiki.freecad.org/Draft_Workbench[Draft Workbench]:
+** In the editor (e.g. https://www.inkscape.org[Inkscape]): make sure the file only contains paths and that the paths are ungrouped; make sure there are no self-intersecting paths, (in Inkscape) use Path → Simplify and union to join paths that overlap.
+** Switch to the image:Workbench_Draft.svg[width=16] https://wiki.freecad.org/Draft_Workbench[Draft Workbench] in https://wiki.freecad.org/Std_Workbench[workbench dropdown list]
+** Import the SVG using menu:File[Import > select "SVG as geometry"]
+** The result should look similar to this:
++
+::
+  image:Svgimport.png[frameless]
+  +
+  
+[.caption]
+Above: Results of importing 'SVG as geometry'
+
+::
+  ;;
+    Paths with holes (letters, the vine in the image above) are imported as 2 separate paths (named along the lines of `Path905` and `Path905001` in the https://wiki.freecad.org/Tree_View[Tree View]), one of them is the hole and the other one is the outline; we'll deal with this in the next step
+
+* {blank}
+** In order to get the 2D faces, xref:operations/vcarve.adoc[CAM Vcarve] needs:
+*** For paths without holes:
+. Select the path
+. Choose menu:Modification[]
+. Followed by menu:Modification[]
+*** For paths with holes:
+. Select the outer path, then the inner path
+. Choose menu:Modification[] *twice*
++
+::
+  Some paths will behave differently, so you may need to play with image:Draft_Upgrade.svg[width=16] Upgrade and image:Draft_Downgrade.svg[width=16] Downgrade until you get something named: `Face<number>`
+  +
+  The end result should look like this:
+  +
+  image:Svgfaces.png[frameless]
+
+=== Create the Vcarve operation
+
+* Switch to the image:Workbench_CAM.svg[width=16] xref:index.adoc[CAM Workbench] in the https://wiki.freecad.org/Std_Workbench[workbench dropdown menu]
+* Add a job, use the objects named `Face<number>` (or the ShapeString) as a base, add a v-bit tool controller, set feeds, speeds, etc.
+* The operation only supports one object (either a single Face object, or a ShapeString) so for each object:
+** Select menu:CAM[Vcarve] from the top menu. This opens the configuration panel.
+** Open the kbd:[Base Geometry] tab and add all faces of the ShapeString, or the face of a single Face object obtained above
+** Press btn:[Apply] and inspect the generated path; if necessary, adjust operation parameters (Threshold can be set higher in most situations)
+** Press btn:[OK] to finish
+
+== Options
+
+Empty
+
+== Properties
+
+=== Data
+
+.Base
+* *Placement*: -
+* *Label*: -
+
+.Depth
+* *ClearanceHeight*: -
+* *FinalDepth*: -
+* *SafeHeight*: -
+* *StartDepth*: -
+* *StepDown*: -
+
+.Op Values
+* *OpFinalDepth*: -
+* *OpStartDepth*: -
+* *OpStockZMax*: -
+* *OpStockZMin*: -
+* *OpToolDiameter*: -
+
+.Path
+* *Active*: -
+* *Comment*: -
+* *CoolantMode*: -
+* *StartVertex*: -
+* *ToolController*: -
+* *UserLabel*: -
+
+==== Hidden
+
+* *Base*: -
+* *BaseObject*: -
+* *BaseShapes*: -
+* *ExpressionEngine*: -
+* *Label2*: -
+* *Path*: -
+* *Proxy*: -
+* *Visibility*: -
+
+=== View
+
+Empty
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+#Place code example here.
+----

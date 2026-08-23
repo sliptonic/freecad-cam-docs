@@ -1,0 +1,30 @@
+= CAM Inspect
+:page-origin: https://wiki.freecad.org/CAM_Inspect
+:page-origin-revision: 1fc124417a 2026-07-08
+:page-menu: CAM → Inspect Toolpath
+:page-shortcut: P I
+:page-imported: true
+
+[.guicommand]
+Menu location:: menu:CAM[Inspect Toolpath]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[I]]
+
+== Description
+
+The image:CAM_Inspect.svg[width=24] xref:inspect/inspect.adoc[CAM Inspect] command allows inspection of the internal FreeCAD G-code dialect contents of a CAM Operation object.
+
+image:Path_inspector.jpg[]
+
+== Usage
+
+. Select a CAM object.
+. There are several ways to invoke the command:
+* Press the image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[Inspect Toolpath] button.
+* Select the menu:CAM[Inspect Toolpath] option from the menu.
+* Select the menu:Inspect Toolpath[] option from the https://wiki.freecad.org/Tree_View[Tree View] context menu.
+* Use the keyboard shortcut: kbd:[P] then kbd:[I].
+
+== Options
+
+* The font and colors of the editor window follow the settings from menu:Edit[Preferences > Editor]

@@ -1,0 +1,21 @@
+= CAM Probe
+:page-origin: https://wiki.freecad.org/CAM_Probe
+:page-origin-revision: f75d54e204 2025-01-23
+:page-menu: CAM → Supplemental Commands → Probe
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.guicommand]
+Menu location:: menu:CAM[Supplemental Commands > Probe]
+Workbenches:: xref:index.adoc[CAM]
+
+== Description
+
+== Usage
+
+== Options
+
+== Properties
+
+== Scripting
