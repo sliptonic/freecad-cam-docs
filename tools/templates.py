@@ -161,7 +161,11 @@ def gui_command(pos, named, ctx):
     ctx.guicommand = g
     icon = g.get("icon") or (ctx.name + ".svg")
     ctx.infobox_icon = icon
-    name = _strip_tokens(g.get("name", "")) or ctx.name.replace("_", " ")
+    lang = getattr(ctx, "lang", None)
+    name = ""
+    if lang:
+        name = _strip_tokens(g.get(f"name/{lang}", ""))
+    name = name or _strip_tokens(g.get("name", "")) or ctx.name.replace("_", " ")
     rows = [
         ("Menu location", menu_command([g["menulocation"]], {}, ctx) if g.get("menulocation") else "_None_"),
     ]
@@ -223,7 +227,9 @@ HANDLERS = {
 
 
 def normalize_name(name):
-    return name.strip().lower().replace(" ", "_")
+    name = name.strip().lower().replace(" ", "_")
+    name = re.sub(r"/[a-z]{2}(?:-[a-z]{2,4})?$", "", name)   # {{GuiCommand/de}} → guicommand
+    return name
 
 
 def handle(name, pos, named, ctx):
