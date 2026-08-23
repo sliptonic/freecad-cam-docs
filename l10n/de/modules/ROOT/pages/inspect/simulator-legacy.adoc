@@ -1,0 +1,54 @@
+= CAM Simulator
+:page-origin: https://wiki.freecad.org/CAM_Simulator/de
+:page-origin-revision: 9dd1fb975f 2026-07-09
+:page-command: CAM_Simulator
+:page-icon: CAM_Simulator.svg
+:page-menu: CAM → Veralteter CAM-Simulator
+:page-workbench: CAM
+:page-shortcut: P M
+:page-see-also: CAM Untersuchen, CAM SimulatorGL
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Simulator.svg[CAM Simulator,32] *CAM Simulator*
+
+Menu location:: menu:CAM[Veralteter CAM-Simulator]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[M]]
+Introduced in version:: -
+See also:: xref:inspect/inspect.adoc[CAM Untersuchen], xref:inspect/simulator.adoc[CAM SimulatorGL]
+--
+
+== Beschreibung
+
+Das Werkzeug image:CAM_Simulator.svg[width=24] xref:inspect/simulator-legacy.adoc[Simulator] ermöglicht die Simulation des CAM-Auftrags, indem es 3D-Modelle der in jedem Arbeitsgang verwendeten Werkzeuge entlang der G-Code-Bahnen abtastet, Material aus dem Rohling subtrahiert, wo sich Rohling und Werkzeug überlappen, und so eine Visualisierung des Auftrags ermöglicht. Auf diese Weise können Fehler erkannt und isoliert werden, bevor der Auftrag auf einer Fräsmaschine ausgeführt wird.
+
+image:Path-Simulation.gif[]
+
+== Anwendung
+
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Taste image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[Veralteter CAM-Simulator] drücken.
+* Die Option menu:CAM[Legacy CAM Simulator] aus dem Menü wählen.
+* Die Tastenkombination: kbd:[P] und dann kbd:[M] verwenden.
+. Alle menu:Bearbeitungen[], die nicht simuliert werden sollen, deaktivieren.
+. Die Einstellungen für menu:Geschwindigkeit[] und menu:Genauigkeit[] anpassen.
+. Im Dropdown-Menü die Option menu:Auftrag[] für die Simulation auswählen.
+. Die Symbolleiste menu:Pfad-Simulator[] verwenden, um verschiedene Aktionen aufzurufen:
+* Die Taste image:CAM_BPlay.svg[width=24] (Wiedergabe) drücken, um eine Animation der Vorgänge abzuspielen oder wiederzugeben.
+* Die Schaltfläche image:CAM_BFastForward.svg[width=24] (Schnellvorlauf) drücken, um die Geschwindigkeit erheblich zu erhöhen (um komplizierte Pfade schnell zu überprüfen).
+* Die Schaltfläche image:CAM_BPause.svg[width=24] (Pause) drücken, um die Animation zur Fehlerbehebung anzuhalten.
+* Die Schaltfläche image:CAM_BStep.svg[width=24] (Einzelschritt) drücken, um die Animation zu verlangsamen. Diese Funktion hilft bei der Fehlerbehebung und der Lösung spezifischer Schnitte und/oder Bewegungen.
+* Die Taste image:CAM_BStop.svg[width=24] (Stopp) drücken, um die Animation anzuhalten.
+. Durch Drücken der Taste btn:[Abbrechen] wird der für die Simulation erstellte Bestand entfernt. Wenn man btn:[OK] drückt, bleibt dieses Objekt im Auftrag erhalten.
+
+== Eigenschaften
+
+* *Playback Speed*: Die Geschwindigkeit der Simulationswiedergabe in G-Code-Zeilen/Sekunde.
+* *Accuracy*: Die Genauigkeit der Simulation, ausgedrückt als Prozentsatz, der die Abweichung der Simulation vom Auftrag angibt. Bei interaktiven Simulationen läuft die Reduzierung der Genauigkeit auf 0.3 wesentlich schneller.
+* *Job*: Der Auftrag, der als Grundlage für die Simulation verwendet wurde.
+* *Operation List*:Die Liste der für die Simulation ausgewählten Bearbeitungen.

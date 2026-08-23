@@ -1,0 +1,53 @@
+= CAM SimulatorGL
+:page-origin: https://wiki.freecad.org/CAM_SimulatorGL/de
+:page-origin-revision: 2b851fb85a 2026-07-09
+:page-command: CAM_SimulatorGL
+:page-icon: CAM_SimulatorGL.svg
+:page-menu: CAM → CAM-Simulator
+:page-workbench: CAM
+:page-shortcut: P N
+:page-since: 1.0
+:page-see-also: CAM Simulator
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SimulatorGL.svg[CAM SimulatorGL,32] *CAM SimulatorGL*
+
+Menu location:: menu:CAM[CAM-Simulator]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[N]]
+Introduced in version:: 1.0
+See also:: xref:inspect/simulator-legacy.adoc[CAM Simulator]
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_SimulatorGL.svg[width=24] xref:inspect/simulator.adoc[CAM SimulatorGL] ist eine neue Alternative zum xref:inspect/simulator-legacy.adoc[veralteten CAM-Simulator]. Es basiert auf Low-Level-OpenGL-Funktionen. Um Interferenzen mit der 3D-Ansicht von FreeCAD zu vermeiden, läuft es in einem separaten Fenster mit einem separaten OpenGL-Kontext. Es soll schneller und präziser sein als der alte Simulator.
+
+image::CAM_new_simulator.PNG[width=600]
+
+== Anwendung
+
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Taste image:CAM_SimulatorGL.svg[width=16] xref:inspect/simulator.adoc[CAM-Simulator] drücken.
+* Die Option menu:CAM[CAM-Simulator] aus dem Menü wählen.
+* Die Tastenkombination: kbd:[P] und dann kbd:[N] verwenden.
+. Alle menu:Operationen[] deaktivieren, die nicht simuliert werden sollen.
+. Die Einstellung menu:Genauigkeit[] anpassen.
+. Den menu:Auftrag[] für die Simulation aus dem Dropdown-Menü auswählen.
+. Die Schaltfläche image:CAM_BPlay.svg[width=24] (Simulation aktivieren/fortsetzen) drücken.
+* Es öffnet sich ein separates Fenster mit dem Simulator.
+* Die Schaltflächen auf der linken Seite verwenden: Wiedergabe, Einzelschritt, Verringern/Erhöhen der Simulationsgeschwindigkeit und den Schieberegler, um die Animation zu steuern.
+* Die Schaltflächen auf der rechten Seite verwenden, um: die Kamera zurückzusetzen, die Überlagerung des Basismodells ein- oder auszublenden, das Modell zu umkreisen, den Pfad anzuzeigen und die Umgebungszusammenschluss zu aktivieren/deaktivieren.
+* Die 3D-Ansicht mit den folgenden Maussteuerungen steuern:
+** Zoomen: Verwenden Sie das Mausrad oder halten Sie kbd:[Strg] und kbd:[Umschalt] gedrückt und bewegen Sie den Cursor, um hinein- und herauszuzoomen.
+** Schwenken: Halten Sie die mittlere Maustaste oder kbd:[Shift] gedrückt und bewegen Sie den Cursor.
+** Drehen: Die mittlere Maustaste gedrückt halten, dann die linke Maustaste drücken und sie gedrückt halten, während der Cursor bewegt wird, oder kbd:[Alt] gedrückt halten und den Cursor bewegen.
+
+== Eigenschaften
+
+* *Accuracy*: Die Genauigkeit der Simulation, ausgedrückt als Prozentsatz, der die Abweichung der Simulation vom Auftrag angibt. Bei interaktiven Simulationen läuft die Reduzierung der Genauigkeit auf 0.3 wesentlich schneller.
+* *Job*: Der Auftrag, der als Grundlage für die Simulation verwendet wurde.
+* *Operation List*: Die Liste der für die Simulation ausgewählten Bearbeitungen.

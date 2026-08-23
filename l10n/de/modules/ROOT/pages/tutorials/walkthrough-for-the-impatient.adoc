@@ -1,0 +1,169 @@
+= CAM Walkthrough for the Impatient
+:page-origin: https://wiki.freecad.org/CAM_Walkthrough_for_the_Impatient/de
+:page-imported: true
+
+[.tutorialinfo]
+Topic:: Arbeitsbereich CAM
+Level:: Anfänger/Mittelmäßig
+Time:: 15 Minuten
+Author:: Chrisb
+Fcversion:: 0.19
+
+== Ziel
+
+Veranschaulichen der Erstellung eines Auftrags des image:Workbench_CAM.svg[width=32] xref:index.adoc[Arbeitsbereichs CAM], abgeleitet von einem 3D-Modell. Anschließend wird dialekt-richtiger G-Code für eine Ziel-CNC-Fräse erzeugt.
+
+== Das 3D Modell
+
+{empty}1. Das Projekt startet mit einem einfachen FreeCAD Modell entworfen im image:Workbench_PartDesign.svg[width=32] https://wiki.freecad.org/PartDesign_Workbench[Part Design] ein Würfel mit einer rechteckigen Tasche.
+
+::
+  image:Path-SquarePocketModel.png[]
+
+[.caption]
+Oben: Erstellt in der image:Workbench_PartDesign.svg[width=24] 
+ https://wiki.freecad.org/PartDesign_Workbench[Part Design] einschließlich eines Körpers, eines Kastens mit einer Tasche, basierend auf einer in der  image:View-top.svg[width=16] XY Ebene
+ orientierten Skizze.
+
+{empty}2. Ist das 3D-Modell fertiggestellt, wird mit der https://wiki.freecad.org/Std_Workbench[Arbeitsbereichsauswahl] (Ausklappmenü) zum Arbeitsbereich image:Workbench_CAM.svg[width=32] xref:index.adoc[CAM] gewechselt.
+
+== Der Auftrag
+
+{empty}3. Jetzt den xref:job/job.adoc[CAM-Auftrag] erstellen, durch Auswahl einer der folgenden Methoden:
+
+* Die Schaltfläche image:CAM_Job.svg[width=24] xref:job/job.adoc[Auftrag] drücken.
+* Das Tastaturkürzel kbd:[P] dann kbd:[J].
+* Den Menüeintrag menu:CAM[Auftrag] auswählen.
+
+image:Path-JobCreationDialog.png[]
+
+::
+  ;;
+    
+[.caption]
+Oben: Dialog xref:job/job.adoc[CAM-Auftrag] erstellen
+
+{empty}4. Dies öffnet ein Dialogfeld Auftrag erstellen. In diesem Dialog btn:[OK] anklicken, um den Körper (Body-Objekt) als Basismodell ohne Vorlage zu akzeptieren.
+
+=== Auftragseinrichtung
+
+{empty}5. Das Auftragsbearbeitungsfenster öffnet sich im Aufgaben-Fenster, und das Modellansichtsfenster zeigt das Material als einen Drahtgitterwürfel, der den Grundkörper umgibt. Der Einrichtungsreiter ist ausgewählt.
+
+=== Auftragsausgabe
+
+{empty}6. Der Ausgabereiter legt den Pfad, den Namen und die Erweiterung der Ausgabedatei sowie den Postprozessor fest. Für fortgeschrittene Benutzer können Postprozessor-Argumente angepasst werden (der Mauszeiger darüber zeigt QuickInfos zu den allgemeinen Argumenten an).
+
+::
+  image:Path-JobOutput.png[]
+  +
+  
+[.caption]
+Oben: Dialog xref:job/job.adoc[CAM-Auftrag] bearbeiten mit ausgewähltem Ausgabe-Reiter
+
+=== Auftragswerkzeuge
+
+::
+  image:Path-JobTools.png[]
+  +
+  
+[.caption]
+Oben: Dialog xref:job/job.adoc[CAM-Ausgabe] bearbeiten mit ausgewähltem Werkzeuge-Reiter
+
+{empty}7. Das Standardwerkzeug anpassen, indem es ausgewählt und auf die Schaltfläche btn:[Bearbeiten] geklickt wird. Dies öffnet das Fenster für die Werkzeugsteuerung.
+
+::
+  image:Path-ToolConfig.gif[]
+  +
+  
+[.caption]
+Above: Dialog xref:job/job.adoc[CAM-Auftrag] bearbeiten, Werkzeuge, Unterbereich Steuerung
+
+{empty}8. Der dem Werkzeug gegebene Name und die Werkzeugnummer entsprechen der Werkzeugnummer der Maschine. Im Dialog (siehe oben) ist es Werkzeug Nr. 4. Die Werkzeugsteuerung ist für horizontale und vertikale Vorschübe von `2 mm/s` und eine Spindeldrehzahl von `2000 U/min` ausgelegt.
+
+{empty}9. Das Unterbereich Werkzeug der Werkzeugsteuerung auswählen. Den Durchmesser festlegen (und - falls das Werkzeug image:CAM_Simulator.svg[width=24] xref:inspect/simulator-legacy.adoc[CAM-Simulator] später verwendet werden soll: einen Schneidenwinkel und eine Schneidenhöhe hinzufügen).
+
+::
+  image:Path-ToolAdd.gif[]
+  +
+  
+[.caption]
+Oben: Dialog xref:job/job.adoc[CAM-Auftrag] bearbeiten, Werkzeuge, Unterbereich Werkzeug
+
+{empty}10. Die Werte werden mit btn:[OK] bestätigt.
+
+Hinweis: Für einen einfachen Zugriff können alle Werkzeuge vordefiniert und mit dem image:CAM_ToolLibraryEdit.svg[width=24] xref:tools/library-manager.adoc[Werkzeug-Manager] ausgewählt werden.
+
+=== Auftragsarbeitsplan
+
+Der Reiter Arbeitsplan wird anfangs leer dargestellt. Er wird dann von der Abfolge von Auftragsvorgängen, Teil-CAM-befehlen und CAM-Verschönerungen ausgefüllt. Die Reihenfolge dieser Elemente wird hier geordnet.
+
+Dieser Baum wird nach der Konfiguration des Auftrags angezeigt, sobald der CAM-Auftrag aufgeklappt ist:
+
+::
+  image:Path-TreeWithJob.png[]
+
+== Die Pfadabläufe
+
+{empty}11. Es werden zwei Bearbeitungen hinzugefügt, um Fräsbahnen für diesen CAM-Auftrag zu erzeugen. Der Ablauf xref:operations/profile.adoc[Profil] erzeugt eine Bahn um den Kasten herum und der Ablauf xref:operations/pocket.adoc[Tasche] erzeugt eine Bahn für die Innentasche.
+
+{empty}12. Fürs Erste werden wir es einfach halten. Die Schaltfläche image:CAM_Profile.svg[width=32] xref:operations/profile.adoc[Profil] öffnet das Konturpaneel. Nach der Bestätigung mit btn:[OK] unter Verwendung der Standardwerte, wird der der grüne Pfad um das Objekt herum sichtbar.
+
+{empty}13. Den Taschenboden auswählen und dann mit der Schaltfläche image:CAM_Pocket_Shape.svg[width=32] xref:operations/pocket.adoc[Tasche] das Fenster Taschenform öffnen. Die Standardwerte für Basisgeometrie, Tiefen und Höhen werden verwendet und das Unter-Panel Operation ausgewählt sowie die Schrittweite in Prozent auf 50 eingestellt.
+
+::
+  image:Path-PocketOperation.gif[]
+  +
+  
+[.caption]
+Oben: Dialog Taschenform mit dem ausgewählten Unterbereich Operation
+
+{empty}14. Das Muster wird in "Versatz" geändert, und die Auftragsausführung wird für die Taschenkonfiguration mit btn:[OK] bestätigt.
+
+Das Ergebnis ist ein Modell mit zwei Pfaden:
+
+::
+  image:Path-WalkThroughResult.gif[]
+  +
+  
+[.caption]
+Oben: Ergebnis mit einem Modell mit zwei Bewegungsbahnen
+
+== Pfade überprüfen
+
+Es gibt zwei Möglichkeiten, die erstellten Pfade zu überprüfen. Der G-Code kann überprüft werden, einschließlich der Hervorhebung der entsprechenden Pfadsegmente. Der Fräsprozess des CAM-Auftrags kann auch simuliert werden, um die idealisierten Werkzeugbahnen zu demonstrieren, die für die Werkzeuggeometrien zum Fräsen des Rohteils erforderlich sind.
+
+Um den G-Code zu untersuchen, wird das Werkzeug image:CAM_Inspect.svg[width=32] xref:inspect/inspect.adoc[CAM-Befehle untersuchen] verwendet. Durch Auswählen der entsprechenden G-Code-Zeilen innerhalb des G-Code-Inspektionsfensters werden einzelne Pfadsegmente hervorgehoben.
+
+::
+  image:Path-InspectWindow.gif[]
+  +
+  
+[.caption]
+Above: Das Werkzeug xref:inspect/inspect.adoc[CAM-Befehle untersuchen] öffnet den Dialog G-Code-Inspektion
+
+Um die Simulation zu beginnen wird das Werkzeug image:CAM_Simulator.svg[width=32] xref:inspect/simulator-legacy.adoc[CAM-Simulator] verwendet.
+
+Geschwindigkeit und Genauigkeit einstellen und die Simulation mit der image:CAM_BPlay.svg[width=24] Wiedergabetaste (Play) starten.
+
+::
+  image:Path-Simulation.gif[]
+  +
+  
+[.caption]
+Oben: xref:inspect/simulator-legacy.adoc[CAM-Simulator] in Betrieb
+
+Soll die Simulation beendet werden, wird die Schaltfläche btn:[Abbrechen] angeklickt, dadurch wird das für die Simulation erstellte Material entfernt. Wird btn:[OK] angeklickt, wird dieses Objekt in deinem Auftrag behalten.
+
+== Nachbearbeitung des Auftrags
+
+Der letzte Schritt zur Erzeugung von G-Code für die Zielfräse ist die Nachbearbeitung des Auftrags. Dabei werden die G-Codes in eine Datei ausgegeben, die auf die Ziel CNC Maschinensteuerung hochgeladen werden kann. So rufst du den Postprozessor auf:
+
+* Das Auftragsobjekt in der https://wiki.freecad.org/Tree_View[Baumansicht] auswählen.
+* Das Werkzeug image:CAM_Post.svg[width=32] xref:output/post-process.adoc[CAM Nachbearbeitung] zum Nachbearbeiten der Datei auswählen. Dies öffnet ein G-Code Fenster, in dem die endgültige Ausgabedatei vor dem Speichern überprüft werden kann.
+
+::
+  image:Path-PostOutput.gif[]
+  +
+  
+[.caption]
+Oben: G-Code-Fenster, das die Überprüfung der endgültigen Ausgabedatei erlaubt

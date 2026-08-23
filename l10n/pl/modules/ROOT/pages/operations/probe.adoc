@@ -1,0 +1,31 @@
+= CAM: Sonda
+:page-origin: https://wiki.freecad.org/CAM_Probe/pl
+:page-command: CAM_Probe
+:page-icon: CAM_Probe.svg
+:page-menu: CAM → Dodatkowe polecenia → Sonda
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Probe.svg[CAM: Sonda,32] *CAM: Sonda*
+
+Menu location:: menu:CAM[Dodatkowe polecenia > Sonda]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+== Użycie
+
+== Opcje
+
+== Właściwości
+
+== Tworzenie skryptów

@@ -1,0 +1,89 @@
+= CAM Entgraten
+:page-origin: https://wiki.freecad.org/CAM_Deburr/de
+:page-command: CAM_Deburr
+:page-icon: CAM_Deburr.svg
+:page-menu: CAM → Entgraten
+:page-workbench: CAM
+:page-since: 0.18
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Deburr.svg[CAM Entgraten,32] *CAM Entgraten*
+
+Menu location:: menu:CAM[Entgraten]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.18
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Deburr.svg[width=24] xref:operations/deburr.adoc[CAM Entgraten] ist primär für das Entgraten einer Kante.
+
+== Anwendung
+
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_Deburr.svg[width=16] xref:operations/deburr.adoc[Entgraten] drücken.
+* Die Option menu:CAM[Entgraten] aus dem Menü wählen.
+. Das Aufgaben-Fenster menu:Entgraten[] wird geöffnet. Siehe <<options,Optionen>>.
+. Wähle menu:Basisgeometrie[].
+. Die erforderlichen Parameter angeben.
+. Die Schaltfläche btn:[OK] drücken.
+
+== Optionen
+
+Nachdem man die Geometrie im Abschnitt menu:Basisgeometrie[] des Aufgaben-Fensters ausgewählt hat, kann man auf btn:[Anwenden] klicken, um den durch die Standardoptionen definierten Werkzeugpfad anzuzeigen.
+
+Als Nächstes kann man die Tiefen/Absätze und Höhen überprüfen, genau wie bei anderen Pfadbefehlen.
+
+Der letzte Schritt besteht darin, den Abschnitt menu:Bearbeitungen[] zu aktivieren, in dem Folgendes festgelegt werden kann:
+
+* menu:Werkzeugsteuerung[]: Das zu verwendende Werkzeug auswählen.
+* menu:Kühlmittelmodus[]: `Nichts`, `Fluten` oder `Nebel`.
+* menu:Richtungen[]: `CW` (im Uhrzeigersinn) oder `CCW` (gegen den Uhrzeigersinn) wählen.
+* menu:W[]: Die Abmessung der Kante.
+* menu:h[]: Der Versatz vom unteren Ende des Werkzeugs. Dies ist eine Sicherheitsfunktion, denn wenn die Spitze über die Kante hinausragt, schneidet sie nicht mehr.
+
+::
+  
+
+image::Path_Deburr_Operations-tab.png[Entgratungs-Schnittstelle mit den Optionen,300]
+
+== Eigenschaften
+
+=== Daten
+
+.Base
+* *Placement*:
+* *Label*: Benutzername des Objekts (UTF-8)
+
+.Deburr
+* *Direction*: `CCW` oder `CW`.
+* *Entry Point*: Einstiegspunkt der Bearbeitung. Bei einer Einstellung von 2 wird der Standardwert um 2 Ecken verschoben.
+* *Extra depth*: Zusätzliche Tiefe (menu:h[] im Aufgaben-Fenster).
+* *Join*: So verbindet man Fasenabschnitte, `Round` oder `Miter`.
+* *Side*: Seite der Operation, `Outside` oder `Inside`.
+* *Width*: Die Breite der Fase (menu:W[] im Aufgaben-Fenster).
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu umgehen (standardmäßig auf `OpStockZMax + SetupSheet.ClearanceHeightOffset` eingestellt).
+* *Safe Height*: Die Höhe, über der schnelle Bewegungen erlaubt sind. (eingestellt auf `OpStockZMax + SetupSheet.SafeHeightOffset`).
+* *Start Depth*: Starttiefe des Werkzeugs, erste Schnitttiefe in Z.
+* *Step Down*: Inkrementelles Absenken des Werkzeugs.
+
+.Op Values
+* *Op Stock ZMax*: Der maximale Z-Wert der Befestigung.
+* *Op Stock ZMin*: Der minimale Z-Wert der Befestigung.
+* *Op Tool Diameter*: Der Werkzeugdurchmesser.
+
+.Path
+* *Active*: Setzen Sie `false`, um zu verhindern, dass der Vorgang Code generiert.
+* *Base*: Die Basisgeometrie für diesen Vorgang, Kanten oder eine Fläche.
+* *Comment*: Ein optionaler Kommentar zu diesem Vorgang.
+* *Coolant Mode*: Kühlmittelmodus für diesen Vorgang.
+* *Cycle Time*: Geschätzte Zykluszeit für diesen Vorgang.
+* *Tool Controller*: Die Werkzeugsteuerung, die zur Berechnung des Pfades verwendet wird.
+* *User Label*: Vom Benutzer zugewiesene Bezeichnung.

@@ -1,0 +1,44 @@
+= CAM Preferences
+:page-origin: https://wiki.freecad.org/CAM_Preferences/pl
+:page-origin-revision: dbf4889a06 2026-08-07
+:page-imported: true
+
+== Informacje ogólne
+
+Po wybraniu środowiska pracy xref:index.adoc[CAM] ekran preferencji znajduje się w https://wiki.freecad.org/Preferences_Editor[Edytorze ustawień], menu:Edycja[Preferencje > CAM].
+
+Dostępnych jest pięć stron: <<gui,GUI>>, <<zasoby,Zasoby>>, <<preferencje-zadań,Preferencje zadań>>, <<wykończenia,Wykończenia>> oraz <<zaawansowane,Zaawansowane>>.
+
+== GUI
+
+image:Preference_Path_Tab_03_V020.png[]
+
+== Zasoby
+
+Do opracowania
+
+[.since]#introduced in 26.3#: zasobami maszyn można zarządzać z poziomu preferencji środowiska pracy CAM. Biblioteka maszyn i Edytor maszyn tworzą i edytują pliki `*.fcm` konfiguracji maszyn używane przez postprocessing oparty na maszynach.
+
+== Ustawienia dla zadania
+
+Dostępne są cztery sekcje: Ogólne, Post-procesor, Konfiguracja i Przybory.
+
+=== Ogólne
+
+image:Preference_Path_Tab_01_01_V020.png[]
+
+=== Post-procesor
+
+image:Preference_Path_Tab_01_02_V020.png[]
+
+=== Konfiguracja
+
+image:Preference_Path_Tab_01_03_V020.png[]
+
+== Ulepszenia
+
+image:Preference_Path_Tab_02_V020.png[]
+
+== Zaawansowane
+
+image:Preference_Path_Tab_04_V020.png[]

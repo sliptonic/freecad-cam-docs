@@ -1,0 +1,49 @@
+= CAM AufbereitungEingangsrampe
+:page-origin: https://wiki.freecad.org/CAM_DressupRampEntry/de
+:page-command: CAM_DressupRampEntry
+:page-icon: CAM_DressupRampEntry.svg
+:page-menu: CAM → Bahnbearbeitung → Eingangsrampe
+:page-workbench: CAM
+:page-see-also: CAM AufbereitungHaltesteg, CAM AufbereitungHundeknochen, CAM AufbereitungSchleppmesser
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupRampEntry.svg[CAM AufbereitungEingangsrampe,32] *CAM AufbereitungEingangsrampe*
+
+Menu location:: menu:CAM[Bahnbearbeitung > Eingangsrampe]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/tag.adoc[CAM AufbereitungHaltesteg], xref:dressups/dogbone.adoc[CAM AufbereitungHundeknochen], xref:dressups/drag-knife.adoc[CAM AufbereitungSchleppmesser]
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_DressupRampEntry.svg[width=24] xref:dressups/ramp-entry.adoc[CAM AufbereitungEingangsrampe] bereitet einen bestehenden Pfad auf, um einen Rampeneingang hinzuzufügen.
+
+== Anwendung
+
+. Ein Kontur- oder Profilpfadobjekt wählen.
+. Die Option menu:CAM[Bahnbearbeitung > Eingangsrampe] aus dem Menü wählen.
+
+== Eigenschaften
+
+* *Ramp Feed Rate* : Kann entweder die aktuelle vertikale oder horizontale Vorschubgeschwindigkeit oder ein anderer benutzerdefinierter Wert sein
+* *Angle* : Winkel der Rampe zur vertikalen Achse. Ein kleinerer Wert macht die Rampe steiler.
+* *Method* : Dient zur Auswahl verschiedener Rampenmodi:
+** _RampMethod1_: fährt mit dem Rampenwinkel nach unten und bewegt sich horizontal zum Zielpunkt.
+** _RampMethod2_: zuerst horizontal und dann im Rampenwinkel zum Zielpunkt hin abwärts verläuft
+** _RampMethod3_: geht im Zickzack hinunter
+** _Wendel_: geht spiralförmig nach unten
+* *Dressup Start Depth* : Der Abstand über dem Zielniveau, bei dem das Hochfahren beginnt
+* *Use Start Depth* : Gibt an, dass die Rampenfunktion nicht oberhalb der Materialebene beginnt. Wenn diese Option nicht auf true gesetzt ist, kann die erste Rampe steiler als erwartet ausfallen.
+
+image:Ramp_method_1.png[x250px] image:Ramp_method_2.png[x250px] image:Ramp_method_3.png[x250px] 
+[.caption]
+Von links nach Rechts: Rampenmethode 1, 2 und 3
+
+image:Ramp_method_Helix.png[x250px] 
+[.caption]
+Rampen-Methode Wendel

@@ -1,0 +1,56 @@
+= CAM Bereich Arbeitsebene
+:page-origin: https://wiki.freecad.org/CAM_Area_Workplane/de
+:page-command: CAM_Area_Workplane
+:page-icon: CAM_Area_Workplane.svg
+:page-menu: CAM → Bereich Arbeitsebene
+:page-workbench: CAM
+:page-imported: true
+
+WARNING: Dies ist eine unvollendete experimentelle Funktion. Siehe xref:reference/experimental.adoc[Enable Experimental Features].
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Area_Workplane.svg[CAM Bereich Arbeitsebene,32] *CAM Bereich Arbeitsebene*
+
+Menu location:: menu:CAM[Bereich Arbeitsebene]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Leer
+
+== Anwendung
+
+Leer
+
+== Optionen
+
+Leer
+
+== Eigenschaften
+
+=== Daten
+
+Leer
+
+=== Ansicht
+
+Empty
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+#Place code example here.
+----

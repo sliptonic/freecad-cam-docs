@@ -1,0 +1,41 @@
+= CAM Limitation d'une zone
+:page-origin: https://wiki.freecad.org/CAM_DressupPathBoundary/fr
+:page-origin-revision: 4129233d37 2026-05-21
+:page-command: CAM_DressupPathBoundary
+:page-icon: CAM_DressupPathBoundary.svg
+:page-menu: CAM → Finition du parcours → Limiter à une zone
+:page-workbench: CAM
+:page-see-also: CAM Attaches, CAM Rampe d'entrée
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupPathBoundary.svg[CAM Limitation d'une zone,32] *CAM Limitation d'une zone*
+
+Menu location:: menu:CAM[Finition du parcours > Limiter à une zone]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/tag.adoc[CAM Attaches], xref:dressups/ramp-entry.adoc[CAM Rampe d'entrée]
+--
+
+== Description
+
+La commande image:CAM_DressupPathBoundary.svg[width=24] xref:dressups/path-boundary.adoc[Limitation d'une zone] permet de restreindre l'étendue d'un parcours à une plus petite partie de l'objet. Par exemple, restreindre un parcours de contour à une seule face ou une partie du modèle.
+
+== Utilisation
+
+. Sélectionnez un parcours tel qu'un contour, contournage ou une opération de poche
+. Sélectionnez l'option menu:CAM[Finition du parcours > Limiter à une zone] du menu.
+
+== Options
+
+* *Créer une boîte*
+* *Créer un cylindre*
+* *Étendre une boîte englobante du modèle* : un moyen très pratique de limiter un parcours consiste à sélectionner cette option et à utiliser des valeurs négatives.
+* *Utiliser un solide existant*
+
+== Limitations
+
+* L'option _Créer une boîte_ ne définit que les dimensions de la boîte, pas son origine. Pour modifier son origine, il est nécessaire d'ajuster _Placement_ dans l'https://wiki.freecad.org/Tree_View[arborescence].

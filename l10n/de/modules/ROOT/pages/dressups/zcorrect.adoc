@@ -1,0 +1,31 @@
+= CAM AufbereitungZKorrektur
+:page-origin: https://wiki.freecad.org/CAM_DressupZCorrect/de
+:page-command: CAM_DressupZCorrect
+:page-icon: CAM_DressupZCorrect.svg
+:page-menu: CAM → Bahnbearbeitung → Z-Tiefenkorrektur
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupZCorrect.svg[CAM AufbereitungZKorrektur,32] *CAM AufbereitungZKorrektur*
+
+Menu location:: menu:CAM[Bahnbearbeitung > Z-Tiefenkorrektur]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+== Anwendung
+
+== Optionen
+
+== Eigenschaften
+
+== Skripten

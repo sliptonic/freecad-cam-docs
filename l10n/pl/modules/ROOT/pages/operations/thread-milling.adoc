@@ -1,0 +1,32 @@
+= CAM: Frezowanie gwintów
+:page-origin: https://wiki.freecad.org/CAM_ThreadMilling/pl
+:page-origin-revision: a5e6357dbc 2026-07-08
+:page-command: CAM_ThreadMilling
+:page-icon: CAM_ThreadMilling.svg
+:page-menu: CAM → Operacje specjalne → Frezowanie gwintów
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ThreadMilling.svg[CAM: Frezowanie gwintów,32] *CAM: Frezowanie gwintów*
+
+Menu location:: menu:CAM[Operacje specjalne > Frezowanie gwintów]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+== Użycie
+
+== Opcje
+
+== Właściwości
+
+== Tworzenie skryptów

@@ -1,0 +1,11 @@
+name: cam
+title: FreeCAD CAM
+version: wiki-2026-08
+display_version: Wiki (Aug 2026)
+start_page: index.adoc
+nav:
+  - modules/ROOT/nav.adoc
+asciidoc:
+  attributes:
+    site-en-url: https://sliptonic.github.io/freecad-cam-docs
+    page-component-version: wiki-2026-08

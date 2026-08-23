@@ -1,0 +1,89 @@
+= CAM: Usuwanie zadziorów
+:page-origin: https://wiki.freecad.org/CAM_Deburr/pl
+:page-command: CAM_Deburr
+:page-icon: CAM_Deburr.svg
+:page-menu: CAM → Usuwanie zadziorów
+:page-workbench: CAM
+:page-since: 0.18
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Deburr.svg[CAM: Usuwanie zadziorów,32] *CAM: Usuwanie zadziorów*
+
+Menu location:: menu:CAM[Usuwanie zadziorów]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.18
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_Deburr.svg[width=24] *Usuwanie zadziorów* służy przede wszystkim do gratowania krawędzi.
+
+== Użycie
+
+. Istnieje kilka sposobów wywołania tego polecenia:
+* Wciśnij przycisk image:CAM_Deburr.svg[width=16] xref:operations/deburr.adoc[Usuwanie zadziorów].
+* Wybierz opcję menu:CAM[Usuwanie zadziorów] z menu.
+. Otwiera się panel zadań menu:Usuwanie zadziorów[]. Zobacz <<opcje,Opcje>>.
+. Wybierz menu:Geometrię bazową[].
+. Określ wymagane parametry.
+. Naciśnij przycisk btn:[OK].
+
+== Opcje
+
+Po wybraniu geometrii w sekcji menu:Geometria bazowa[] panelu zadań możesz wcisnąć przycisk btn:[Zastosuj] aby zobaczyć ścieżkę narzędzia zdefiniowaną z domyślnymi opcjami.
+
+Następnie możesz sprawdzić swoje głębokości/zejścia i wysokości, jak z innymi poleceniami ścieżki.
+
+Ostatnim krokiem jest aktywacja sekcji menu:Operacja[], w której można określić następujące parametry:
+
+* menu:Kontroler narzędzia[]: Wybierz narzędzie do użycia.
+* menu:Tryb chłodzenia[]: Wybierz `Żaden`, `Zalewanie` lub `Mgiełka`.
+* menu:Directions[]: Wybierz `CW` (zgodnie z ruchem wskazówek zegara) lub `CCW` (przeciwnie do ruchu wskazówek zegara).
+* menu:W[]: Wymiar krawędzi.
+* menu:h[]: Przesunięcie od dolnej części narzędzia. To funkcja bezpieczeństwa, ponieważ jeśli końcówka narzędzia znajdzie się powyżej krawędzi, nie będzie już cięła.
+
+::
+  
+
+image::Path_Deburr_Operations-tab.png[Interfejs usuwania zadziorów z opcjami,300]
+
+== Właściwości
+
+=== Dane
+
+.Podstawa
+* *Placement*:
+* *Label*: Dostosowywalna nazwa obiektu (UTF-8)
+
+.Usuwanie zadziorów
+* *Direction*: `CCW` lub `CW`.
+* *Entry Point*: Punkt wejścia operacji; jeśli ustawiony na 2, będzie przechodzić w 2 narożnikach od domyślnego.
+* *Extra depth*: Dodatkowa głębokość (menu:h[] w panelu zadań).
+* *Join*: Sposób łączenia segmentów fazy, `Round` lub `Miter`.
+* *Side*: Strona operacji, `Outside` lub `Inside`.
+* *Width*: Szerokość fazy (menu:W[] w panelu zadań).
+
+.Głębokość
+* *Clearance Height*: Wysokość potrzebna do przejścia ponad zaciskami i przeszkodami (domyślnie ustawione na `OpStockZMax + SetupSheet.ClearanceHeightOffset`).
+* *Safe Height*: Wysokość, powyżej której dozwolone są szybkie ruchy (ustawione na `OpStockZMax + SetupSheet.SafeHeightOffset`).
+* *Start Depth*: Początkowa głębokość narzędzia, pierwsza głębokość cięcia w osi Z.
+* *Step Down*: Krok narzędzia w dół.
+
+.Wartości operacyjne
+* *Op Stock ZMax*: Maksymalna wartość Z materiału.
+* *Op Stock ZMin*: Minimalna wartość Z materiału.
+* *Op Tool Diameter*: Średnica narzędzia.
+
+.Ścieżka
+* *Active*: Ustaw na `false`, aby zapobiec generowaniu kodu przez operację.
+* *Base*: Geometria bazowa dla tej operacji, krawędzie lub powierzchnia.
+* *Comment*: Opcjonalny komentarz do tej operacji.
+* *Coolant Mode*: Tryb chłodzenia dla tej operacji.
+* *Cycle Time*: Szacunkowy czas cyklu dla tej operacji.
+* *Tool Controller*: Kontroler narzędzia, który będzie używany do obliczenia ścieżki.
+* *User Label*: Etykieta przypisana przez użytkownika.

@@ -1,0 +1,288 @@
+= CAM Oberfläche
+:page-origin: https://wiki.freecad.org/CAM_Surface/de
+:page-origin-revision: 4c0dd6a225 2026-05-24
+:page-command: CAM_Surface
+:page-icon: CAM_Surface.svg
+:page-menu: CAM → 3D-Oberfläche
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+WARNING: Dies ist eine unvollendete experimentelle Funktion. Siehe xref:reference/experimental.adoc[Enable Experimental Features].
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Surface.svg[CAM Oberfläche,32] *CAM Oberfläche*
+
+Menu location:: menu:CAM[3D-Oberfläche]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[CAM Oberfläche] erstellt eine neue 3D-Oberflächenbearbeitung, die G-Code-Pfade für die gesamte Oberseite eines 3D-Modells generieren kann (oder mit ausgewählten Flächen arbeiten kann) und es ermöglicht, Flächen zu vermeiden. Diese Operation bietet mehrere Schnittmuster: Linie, Zickzack, Kreis, Kreis-Zickzack, Versatz und Spirale (ähnlich einem adaptiven Muster). Ab Version 0.19 bietet diese Bearbeitung viele Anpassungsmöglichkeiten, um eine höhere Produktivität zu ermöglichen.
+
+Der Befehl 3D-Oberfläche kann auch grundlegende rotierende 3D-Oberflächenpfade generieren. Die Rotationsfunktionen sind auf das gesamte Modell beschränkt und erlauben keine Isolierung bestimmter Flächen oder Bereiche. Die Rotationspfade sind ebenfalls auf Linien-Schnittmuster beschränkt.
+
+Die Befehlsschnittstellen zu OCL.pyd, einem Open-Source-Modul eines Drittanbieters mit dem Titel xref:reference/opencamlib.adoc[OpenCamLib], das Werkzeugpfade aus einem 3D-Modell generiert. OpenCamLib ist nicht direkt in FreeCAD integriert.
+
+*_Hinweis_*: Um die 3D-Oberflächen-Funktion nutzen zu können, muss man:
+
+. xref:reference/opencamlib.adoc[OpenCamLib] ordnungsgemäß installieren.
+. xref:reference/experimental.adoc[Experimentelle Funktionen] für den Arbeitsbereich CAM aktivieren.
+. menu:Bearbeiten[Einstellungen > CAM > Erweitert > OCL-abhängige Funktionen aktivieren] aktivieren.
+
+== Anwendung
+
+Hier findet man Anwendungshinweise für verschiedene Varianten der Operation xref:operations/surface.adoc[3D-Oberfläche].
+
+=== Grundlegende Bearbeitungen
+
+. Auf das Symbol image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[3D-Oberfläche] klicken oder menu:CAM[3D-Oberfläche] aus dem Dropdown-Menü wählen.
+. Die Werkzeugsteuerung für den Vorgang aus dem Popup-Fenster Werkzeugsteuerung auswählen, falls diese angezeigt wird.
+. Auf der Registerkarte Basisgeometrie alle spezifischen Flächen auswählen, auf die man sich konzentrieren und/oder die man für den Vorgang vermeiden möchten.
+. Die Bearbeitungstiefen nach Bedarf auf der Registerkarte Tiefen anpassen: Starttiefe, Endtiefe, Absenkung.
+. Bei Bedarf Anpassungen auf der Registerkarte Höhen vornehmen.
+. Die Einstellungen auf der Registerkarte Vorgänge nach Bedarf konfigurieren:
+* Den Kühlmittelmodus wählen.
+* Die Begrenzungsbox wählen: Rohteil oder Basisbegrenzungsbox.
+* Den Scan-Typ für den Vorgang festlegen: planar oder rotierend.
+* Den Schichtmodus für den Vorgang wählen: Einfachdurchlauf oder Mehrfachdurchlauf.
+.. Einfachdurchlauf ist für einen Schlichtdurchlauf vorgesehen.
+.. Multi-Pass kann in Kombination mit der Verwendung von Depth Offset (Tiefenversatz) zum Ausräumen verwendet werden, um eine dünne Oberflächenschicht für einen Finish-Durchgang zu hinterlassen.
+* Nach Bedarf einen zusätzlichen Versatz der Begrenzungsbox zu X und Y hinzufügen (_nur bei Rotationsscans_).
+* Die Senkrichtung des Fräsers festlegen: X oder Y. Dies ist die lineare Richtung, in der sich der Fräser (die Spindel) bewegt (_nur bei Rotationsscans_).
+* Einen Tiefenversatzwert hinzufügen, wenn man eine bestimmte Materialstärke auf der Oberfläche belassen möchte, beispielsweise für einen letzten Finish-Durchgang.
+* Das für den OCL-Scan verwendete Abtastintervall festlegen.
+* Den Step-Over-Wert als Prozentsatz des Werkzeugdurchmessers festlegen.
+* Das Kontrollkästchen Startpunkt verwenden aktiveren, wenn man einen Startpunkt für den Vorgang in der Eigenschaftenansicht der Registerkarte Daten für den Vorgang angeben möchte.
+* Die Begrenzungsdurchsetzung ist standardmäßig aktiviert. Dadurch wird der Fräser gezwungen, innerhalb der Begrenzungen der Formelement-Geometrie für den Vorgang zu bleiben, wie z. B. bei einem Taschenfräsvorgang. Diese Option deaktivieren, damit sich der Fräser über die Begrenzungen der Formelement-Geometrie hinaus erstrecken kann. Die Eigenschaft Boundary Adjustment (Begrenzungsanpassung) hat Vorrang vor dieser Eigenschaft.
+* Optimize Linear Paths (Lineare Pfade optimieren) ist standardmäßig aktiviert. Durch Deaktivieren wird ein längeres G-Code-Ergebnis erzielt und die Schnittzeit wahrscheinlich verlängert.
+. Wenn man das Ergebnis vor dem Akzeptieren der Einstellungen in der Vorschau anzeigen möchte, klickt man auf btn:[Übernehmen].
+. Auf die Schaltfläche btn:[OK] klicken, um zu bestätigen und Pfade zu generieren.
+
+Um andere oder komplexere Effekte zu erzielen, zusätzliche Bearbeitungseigenschaften auf der Registerkarte Daten der https://wiki.freecad.org/Property_View[Eigenschaften-Ansicht] für die Bearbeitung anpassen.
+
+==== Rotations-Scans (4. Achse)
+
+. Eine <<basic-operation,Grundlegende Operation>> wie oben beschrieben starten und den *Scan Type* auf *Rotational* einstellen.
+. *Hinweis:* Die Flächenauswahl ist für Rotationsscans nicht verfügbar, daher werden Änderungen an der Basisgeometrie ignoriert.
+. Die Registerkarte Daten und die Eigenschaften-Ansicht für die neue xref:operations/surface.adoc[3D-Oberflächen]-Operation suchen. Es sollte ein Abschnitt *Rotation* mit zusätzlichen Eigenschaften zum Anpassen verfügbar sein, die unten aufgeführt sind. +
+Es wird empfohlen, die gewünschten Rotationseigenschaften vor der Neuberechnung auf einmal festzulegen. Dazu unmittelbar nach dem Ändern einer Eigenschaftseinstellung auf die Eingabetaste drücken. Auf diese Weise können mehrere Eigenschaften geändert und gespeichert werden, bevor man die Operation neu berechnet.
+. Die folgenden Einstellungen nach Bedarf anpassen:
+* *Cutter Tilt* auf den Versatzindex (Winkel) ++[++0-90++]++ setzen. (Wird für Kugelfräser verwendet)
+* *Drop Cutter Dir* auf die Bewegungsachse für den Fräser (Spindel) ändern.
+* *Drop Cutter Extra Offset* (Zusätzlicher Versatz des Fallfräsers) ändern, um den Begrenzungsrahmen in X- und Y-Richtung zu erweitern.
+* *Rotation Axis* (Drehachse) auf die gewünschte Achse setzen.
+* *Start Index* (Startindex) auf den Startindex (Winkel) ++[++0-360++]++ anpassen.
+* *Stop Index* anpassen, um den Stoppindex (Winkel) ++[++0-360++]++ festzulegen.
+. Auf das Symbol image:View-refresh.svg[width=16] https://wiki.freecad.org/Std_Refresh[Aktualisieren] in der Symbolleiste klicken.
+. Auf die Ergebnisse warten...
+
+===== Hinweise zu Rotations-Scans
+
+* *Rotationsscans* erfordern viel mehr Zeit und Rechenleistung als *Planarscans*. Zu den Faktoren, die die Verarbeitungszeit beeinflussen, gehören: Abtastintervall, Schrittweite, Werkzeugdurchmesser und Modellgröße. Auch hier gilt: Rotationsscans können sehr lange dauern. Einige können 3, 5 oder 10 Minuten oder länger dauern.
+* Aus Zeitgründen ist es besser, einen Rotationsscan nicht nach jeder Eigenschaftsänderung neu zu berechnen, sondern eine der folgenden Optionen in Betracht zu ziehen:
+** Die in Schritt 2 oben erwähnte Technik ' _Alle Einstellungen mit der ENTER-Taste ändern_ ' nutzen und dann image:View-refresh.svg[width=16] https://wiki.freecad.org/Std_Refresh[Aktualisieren] drücken.
+** Den Vorgang mit dem Umschaltwerkzeug image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Aktiv] deaktivieren, die Änderungen an den Eigenschaften des Vorgangs vornehmen und dann erneut auf das Symbol image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Aktiv] klicken, um den Vorgang wieder zu aktivieren – dies löst intern eine Neuberechnung aus.
+* Der Befehl image:CAM_Surface.svg[width=16] xref:operations/surface.adoc[3D-Oberfläche] gilt seit dem 25.06.2019 weiterhin als _experimentelle Funktion_. Daher kann er noch einige Fehler enthalten, die noch nicht eindeutig identifiziert wurden. Bitte Fehler und Probleme im https://forum.freecad.org/viewforum.php?f=15[FreeCAD-CAM-Forum] melden.
+* Der integrierte image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[CAM-Simulator] unterstützt KEINE 4-Achsen-Simulation. Man müsmusssen einen Simulator eines Drittanbieters verwenden, um Pfade visuell zu überprüfen oder zu verifizieren. Vorschläge findet man im Abschnitt <<ressourcen,Ressourcen>> weiter unten.
+* Wahrscheinlich sieht man rote Rotationslinien um das Modell im Ansichtsfenster. Dies ist in FreeCAD derzeit normal.
+
+===== Hinweise zu Scans von komplexen Modellen
+
+Bei der Verarbeitung großer komplexer Modelle kann es zu übermäßig langen Verarbeitungszeiten (länger als 10 Minuten) kommen. Zusätzlich zu den bereits genannten Faktoren können die folgenden Schritte dabei helfen, mögliche Ursachen und Lösungen zu identifizieren.
+
+*_Geringer Speicher_* +
+Während des Scans mit einem Werkzeug wie dem Windows-Task-Manager (Registerkarte *Speicher*) überprüfen wie viel Speicher verfügbar ist. Wenn ständig mehr als 90 % des Speichers belegt sind, könnte ein kleiner *Linear Deflection*-Parameter ein für den verfügbaren Speicher zu großes Netz erzeugen. Um dies zu bestätigen:
+
+. Einen neuen Befehl image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[3D-Oberfläche] erstellen.
+. Zur Registerkarte Modell wechseln und den Wert *Linear Deflection* erhöhen. Beispielsweise den Wert von 2,5 µm auf 20 µm erhöhen.
+. Zurück zur Registerkarte Aufgaben wechseln, um die Einrichtung des Vorgangs abzuschließen.
+. Zur Bestätigung und zum Generieren der Pfade auf die Schaltfläche btn:[OK] klicken. +
+
+Um diesen Wert als Standard für alle neuen image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[3D-Oberflächen]-Befehle festzulegen, ändert man den Parameter *GeometryTolerance*. +
+menu:Werkzeuge[Parameter bearbeiten > Einstellungen > Mod > CAM > Geometrietoleranz]. +
+Es ist zu beachten, dass ab Version 0.19 der Standardwert für *Linear Deflection* = GeometryTolerance / 4 ist.
+
+*_Ungültige Geometrie_* +
+Wenn ein Modell ungültige Geometrien enthält, kann sich die Scanzeit erheblich verlängern. Ein Modell kann mit der Funktion https://wiki.freecad.org/Part_CheckGeometry[Part GeometrieÜberprüfen] im image:Workbench_Part.svg[width=24] https://wiki.freecad.org/Part_Workbench[Arbeitsbereich Part] überprüft werden. +
+So wird das Werkzeug ausgeführt:
+
+. Zum image:Workbench_Part.svg[width=24]**Arbeitsbereich Part** wechseln und das zu überprüfende Modell auswählen
+. Auf die Schaltfläche image:Part_CheckGeometry.svg[width=16] https://wiki.freecad.org/Part_CheckGeometry[Part GeometrieÜberprüfen] in der Symbolleiste des Arbeitsbereichs Part klicken ODER den Eintrag menu:Part[Geometrie überprüfen] im oberen Menü verwenden.
+. Die Schaltfläche *Überprüfung ausführen* klicken und die Ergebnisse anschauen.
+
+Wenn die Ergebnisse Elemente wie _BOPAlgo SelfIntersect_ enthalten, ist die Geometrie ungültig und sollte durch Anpassen des Modells korrigiert werden. +
+(Hinweis: Boolesche Operationen und Ausformungs-Befehle können manchmal zu _Selbstüberschneidungen_ führen) +
+
+==== Verfügbare Werkzeugformen (Fräser)
+
+Diese 3D-Oberflächenbearbeitungen verwendet derzeit xref:reference/opencamlib.adoc[OpenCamLib], um Pfade aus der Teilebasis zu extrahieren. Daher ist eine Werkzeug-Einstellungsübersetzung zwischen dem FreeCAD-Werkzeugsteuerung und OCL erforderlich, um den Scan mit der von Ihnen gewählten Werkzeugform (Fräser) abzuschließen.
+
+Diese Werkzeugformen werden berücksichtigt und stehen für diesen 3D-Oberflächenvorgang zur Verfügung:
+
+* Schaftfräser
+* Kugelfräser
+* Rundfräser
+* Fasenfräser
+* Gravurfräser
+
+Wenn man sich dafür entscheidet, den Pfadsimulator im Arbeitsbereich CAM auszuführen, wird zur Simulation der Pfade nur der Standard-Schaftfräser verwendet. Daher wird keine werkzeugformspezifische Materialabtragung angezeigt. Die Materialabtragung wird anhand der Form des Schaftfräsers dargestellt.
+
+HINWEIS: Seit Mai 2019 gibt es nur für den Schaftfräser Tests, um die Genauigkeit der Übersetzung der FreeCAD-zu-OCL-Werkzeugeinstellungen zu bestimmen. Bitte die Rückmeldung zur Verwendung anderer Werkzeuge als Schaftfräser im Bereich https://forum.freecad.org/viewforum.php?f=15[CAM] in den FreeCAD-Foren teilen.
+
+== Eigenschaften: Version 0.19
+
+*_Hinweis_*: Nicht alle diese Eigenschaften sind im Aufgaben-Fenster-Editor verfügbar. Einige sind nur auf der Registerkarte Daten der https://wiki.freecad.org/Property_View[Eigenschaften-Ansicht] für diese Bearbeitung zugänglich.
+
+.Base
+Hinweis: Es wird empfohlen, die Eigenschaft Placement von Pfadbearbeitungen nicht zu bearbeiten. Stattdessen verschiebt oder dreht man das CAM-Auftragsmodell nach Bedarf.
+
+* *Placement*: Gesamtpositionierung ++[++Position und Drehung++]++ des Objekts – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+** *Angle*: Winkel in Grad, der auf die Drehung des Objekts um den Achsenwert angewendet wird
+** *Axis*: Achse (eine oder mehrere), um die das Objekt gedreht werden soll, festgelegt in den Untereigenschaften: X, Y, Z
+*** *X*: X-Achswert
+*** *Y*: Y-Achswert
+*** *Z*: Z-Achswert
+** *Position*: Position des Objekts, festgelegt in Untereigenschaften: X, Y, Z – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+*** *X*: X-Abstandswert
+*** *Y*: Y-Abstandswert
+*** *Z*: Z-Abstandswert
+* *Label*: Vom Benutzer angegebener Name des Objekts (UTF-8)
+
+.Clearing Options
+* *Bound Box*: Sollte die Operation durch das Material-Objekt oder durch die Begrenzungsbox des Basisobjekts eingeschränkt werden?
+* *Cut Mode*: Die Richtung, in der der Werkzeugpfad um das Teil verlaufen soll: Aufwärts (im Uhrzeigersinn) oder Konventionell (gegen den Uhrzeigersinn)
+* *Cut Pattern*: Zu verwendendes Räumen-Muster
+* *Cut Pattern Reversed*: Die Schnittreihenfolge der Überlappungspfade umkehren. Bei kreisförmigen Schnittmustern an der Außenseite beginnen und sich zur Mitte hin vorarbeiten
+* *Depth Offset*: Z-Achsen-Versatz von der Oberfläche des Objekts
+* *Layer Mode*: Der Abschlussmodus für den Vorgang: Einzel- oder Mehrfachdurchlauf
+* *Pattern Center At*: Die Position des Mittelpunkts für den Beginn des Schnittmusters wählen
+* *Pattern Center Custom*: Den Startpunkt für das Schnittmuster festlegen
+* *Profile Edges*: Die Kanten der Auswahl profilieren. Es gibt folgende Optionen (Bilder findet man in diesem Forumsbeitrag: https://forum.freecad.org/viewtopic.php?p=676452#p676452):
+** *None*: Kein Profil erstellen
+** *Only*: Nur ein Profil erstellen, keine inneren Pfade
+** *First*: Mit dem Profil beginnen und dann den Rest machen
+** *Last*: Mit dem Rest beginnen und dann das Profil erstellen
+* *Sample Interval*: Das Abtastintervall. Kleine Werte verursachen lange Wartezeiten
+* *Step Over*: Prozentualer Überschreitungswert des Drop-Cutter-Pfads
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden
+* *Final Depth*: Endtiefe des Werkzeugs – niedrigster Wert in Z
+* *Safe Height*: Die oben genannten schnellen Bewegungen sind erlaubt
+* *Start Depth*: Starttiefe des Werkzeugs – erste Schnitttiefe in Z
+* *Step Down*: Inkrementelle Absenkung des Werkzeugs
+
+.Mesh Conversion
+* *Angular Deflection*: Kleinere Werte ergeben ein feineres, genaueres Netz. Kleinere Werte erhöhen die Verarbeitungszeit erheblich.
+* *Linear Deflection*: Kleinere Werte ergeben ein feineres, genaueres Netz. Kleinere Werte erhöhen die Verarbeitungszeit nicht wesentlich, können jedoch den Speicherverbrauch erhöhen.
+
+.Optimization
+* *Circular Use G2 G3*: Koplanare Bögen in G2/G3-Gcode-Befehle für die Schnittmuster 'Circular' und 'CircularZigZag' konvertieren
+* *Gap Sizes*: Rückmeldung: die drei kleinsten Lücken, die in der Pfadgeometrie identifiziert wurden
+* *Gap Threshold*: Kollineare und ko-radiale Artefaktlücken, die kleiner als dieser Schwellenwert sind, werden im Pfad geschlossen
+* *Optimize Linear Paths*: Aktiviert die Optimierung linearer Pfade (kolineare Punkte). Entfernt unnötige kolineare Punkte aus der G-Code-Ausgabe
+* *Optimize Step Over Transitions*: Die separate Optimierung von Übergängen zwischen und Unterbrechungen innerhalb jedes Schritts über den Pfad aktivieren
+
+.Path
+* *Active*: Falsch setzen, um zu verhindern, dass der Vorgang Code generiert
+* *Base*: Die Basisgeometrie für diese Bearbeitung
+* *Comment*: Ein optionaler Kommentar zu dieser Bearbeitung
+* *Coolant Mode*: Der Kühlmittelmodus für diese Bearbeitung
+* *Cycle Time*: Die Zykluszeitabschätzung für diese Bearbeitung
+* *Tool Controller*: Definiert die in der Bearbeitung verwendete Werkzeugsteuerung
+* *User Label*: Vom Benutzer zugewiesene Bezeichnung
+
+.Rotation
+* *Cutter Tilt*: Den Neigungswinkel des Fräsers (der Spindel) einstellen.
+* *Drop Cutter Dir*: Die Richtung, in der Dropcutter-Linien erstellt werden
+* *Drop Cutter Extra Offset*: Zusätzlicher Versatz zum ausgewählten Begrenzungsrahmen – Werte mithilfe von Untereigenschaften festlegen
+** *X*: X-Abstandswert
+** *Y*: Y-Abstandswert
+** *Z*: Z-Abstandswert
+* *Rotation Axis*: Legt die Achse für die Modellrotation fest.
+* *Start Index*: Startindex (Winkel) für Drehung
+* *Stop Index*: Stoppindex (Winkel) für Drehung
+
+.Selected Geometry Settings
+* *Avoid Last X Faces*: Es vermeiden, die letzten 'N'-Flächen in der Liste Base Geometry (Basisgeometrie) der ausgewählten Flächen zu schneiden
+* *Avoid Last X Internal Features*: Keine internen Merkmale auf vermiedenen Flächen schneiden
+* *Boundary Adjustment*: Positive Werte schieben den Fräser in Richtung der Grenze oder darüber hinaus. Negative Werte ziehen den Fräser von der Grenze weg
+* *Boundary Enforcement*: Wenn dies zutrifft, bleibt der Fräser innerhalb der Grenzen des Modells oder der ausgewählten Fläche(n)
+* *Handle Multiple Features*: Auswählen, wie mehrere Basisgeometrie-Formelemente verarbeitet werden sollen
+* *Internal Features Adjustment*: Positive Werte drücken den Fräser in Richtung des Werkstücks oder in das Werkstück hinein. Negative Werte ziehen den Fräser vom Werkstück weg
+* *Internal Features Cut*: Interne Formelement-Bereiche innerhalb einer größeren ausgewählten Fläche ausschneiden
+
+.Start Point
+* *Start Point*: Der benutzerdefinierte Startpunkt für den Pfad dieser Bearbeitung, in Untereigenschaften festlegen: X, Y, Z
+** *X*: X-Achsenwert
+** *Y*: Y-Achsenwert
+** *Z*: Z-Achsenwert
+* *Use Start Point*: Auf True setzen, wenn ein Startpunkt angegeben wird
+
+.Surface
+* *Scan Type*: Planar: Flacher 3D-Oberflächenscan. Rotations-Scan: Rotations-Scan mit 4. Achse.
+
+.Waste
+* *Ignore Waste*: Bereiche ignorieren, die unterhalb der angegebenen Tiefe liegen.
+* *Ignore Waste Depth*: Tiefe, die verwendet wird, um zu ignorierende Abfallbereiche zu identifizieren.
+* *Release From Waste*: Den Abfall bis zur Tiefe an der Modellkante durchschneiden, um das Modell freizugeben.
+
+== Layout des Aufgaben-Fenster-Editors
+
+_Beschreibungen zu den Einstellungen findet man in der Eigenschaften-Liste oben._
+
+Dieser Abschnitt ist lediglich eine Übersichtskarte der Einstellungen im Fenster-Editor für die Bearbeitungen.
+
+=== Basisposition
+
+* *Auswahl für den Import der Basisgeometrie*: Diese Liste verwenden, um die Basisgeometrie auszuwählen, die aus dem ausgewählten, vorhandenen Vorgang importiert werden soll
+* *Import*: Importiert die Basisgeometrie der ausgewählten Bearbeitung in die Liste der Basisgeometrien der aktuellen Bearbeitung
+* *Basisgeometrieliste für aktuelle Bearbeitung*: Liste der Basisgeometrien für die aktuelle Bearbeitung, falls ausgewählt
+* *Hinzufügen*: Fügt ausgewählte Elemente hinzu, die als Basis für die Pfade dienen sollen
+* *Entfernen*: Die ausgewählten Elemente aus der Liste Basisposition entfernen
+* *Löschen*: Alle Elemente in der Liste Basisposition löschen
+
+=== Tiefe
+
+* *Start Depth*
+* *Final Depth*
+* *Step Down*
+
+=== Höhe
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Bearbeitung
+
+* *Tool Controller*
+* *Coolant Mode*
+
+* *BoundBox*
+* *Scan Type*
+* *Layer Mode*
+* *BoundBox extra offset X*
+* *BoundBox extra offset Y*
+* *Drop Cutter Direction*
+* *Depth Offset*
+* *Step Over*
+* *Sample Interval*
+* *Optimize Output Enabled*
+
+* *Use Start Point*
+* *Boundary Enforcement*
+* *Optimize Linear Paths*
+
+== Ressourcen
+
+* G-Code(Pfad)-Simulator: https://ncviewer.com/[NCViewer]
+* G-Code(Pfad)-Simulator: https://www.camotics.org/[CAMotics]

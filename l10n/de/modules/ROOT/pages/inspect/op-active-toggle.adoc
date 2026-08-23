@@ -1,0 +1,60 @@
+= CAM AktiveBearbeitungUmschalten
+:page-origin: https://wiki.freecad.org/CAM_OpActiveToggle/de
+:page-origin-revision: 0fd5a67723 2026-04-09
+:page-command: CAM_OpActiveToggle
+:page-icon: CAM_OpActiveToggle.svg
+:page-menu: CAM → Bearbeitung umschalten
+:page-workbench: CAM
+:page-shortcut: P X
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_OpActiveToggle.svg[CAM AktiveBearbeitungUmschalten,32] *CAM AktiveBearbeitungUmschalten*
+
+Menu location:: menu:CAM[Bearbeitung umschalten]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[X]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_OpActiveToggle.svg[width=24] xref:inspect/op-active-toggle.adoc[CAM AktiveBearbeitungUmschalten] schaltet die Eigenschaft *Active* einer ausgewählten CAM-Bearbeitung ein oder aus.
+
+Wenn diese Eigenschaft auf `false` gesetzt ist, wird die Bearbeitung als inaktiv behandelt. Ihr Pfad wird in der https://wiki.freecad.org/3D_View[3D-Ansicht] nicht angezeigt, und er wird von Befehlen wie image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[CAM Untersuchen] und image:CAM_Post.svg[width=16] xref:output/post-process.adoc[CAM Nachbereitung] ignoriert.
+
+== Anwendung
+
+. Eine Bearbeitung in der Gruppe menu:Operationen[] auswählen, die zu einem Auftrag gehört. Eine deaktivierte Bearbeitung ist an ihrer ausgegrauten Beschriftung und ihrem Symbol zu erkennen.
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Taste image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Bearbeitung umschalten] drücken.
+* Die Option menu:CAM[Bearbeitung umschalten] aus dem Menü wählen.
+* Die Tastenkombination: kbd:[P] und dann kbd:[X] verwenden.
+. Das Ergebnis hängt von der ausgewählten Bearbeitung ab:
+* Wenn eine aktive Bearbeitung ausgewählt wurde, deaktiviert der Befehl diese:
+** Das Bearbeitungssymbol wird durch das Befehlssymbol ersetzt: image:CAM_OpActiveToggle.svg[width=16].
+** Das Symbol und die Bezeichnung der Bearbeitung werden ausgegraut.
+** Die aus der Bearbeitung generierten Pfade verschwinden aus der https://wiki.freecad.org/3D_View[3D-Ansicht].
+** Bei Verwendung des Befehls image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[CAM Untersuchen] oder des Befehls image:CAM_Post.svg[width=16] xref:output/post-process.adoc[CAM Nachbearbeitung] wird der G-Code der Bearbeitung nicht bereitgestellt.
+** Wenn der Vorgang Aufbereitungen enthält, werden diese ebenfalls in einem inaktiven Zustand in der https://wiki.freecad.org/Tree_View[Baumansicht] angezeigt.
+* Wenn eine deaktivierte Bearbeitung ausgewählt ist, wird diese durch den Befehl aktiviert:
+** Das Symbol für den Bearbeitung wird durch das Symbol für die Bearbeitung ersetzt.
+** Das Symbol und die Bezeichnung für die Bearbeitung sind nicht mehr ausgegraut.
+** Die aus der Bearbeitung generierten Pfade werden neu berechnet und in der https://wiki.freecad.org/3D_View[3D-Ansicht] angezeigt.
+** Bei Verwendung des Befehls image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[CAM Untersuchen] oder des Befehls image:CAM_Post.svg[width=16] xref:output/post-process.adoc[CAM Nachbearbeitung] wird der G-Code der Bearbeitung erneut bereitgestellt.
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+# Place code example here.
+----

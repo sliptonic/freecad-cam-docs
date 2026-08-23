@@ -1,0 +1,38 @@
+= CAM Sélectionner une Boucle
+:page-origin: https://wiki.freecad.org/CAM_SelectLoop/fr
+:page-origin-revision: b05821df50 2026-07-08
+:page-command: CAM_SelectLoop
+:page-icon: CAM_SelectLoop.svg
+:page-menu: CAM → Sélectionner une boucle
+:page-workbench: CAM
+:page-shortcut: P L
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SelectLoop.svg[CAM Sélectionner une Boucle,32] *CAM Sélectionner une Boucle*
+
+Menu location:: menu:CAM[Sélectionner une boucle]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[L]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+La commande image:CAM_SelectLoop.svg[width=24] xref:inspect/select-loop.adoc[Sélectionner une boucle] permet de sélectionner une boucle d'arêtes.
+
+== Utilisation
+
+. Sélectionnez une arête.
+. Il y a plusieurs façons de lancer cette commande :
+* Appuyez sur le bouton image:CAM_SelectLoop.svg[width=16] xref:inspect/select-loop.adoc[Sélectionner une boucle].
+* Sélectionnez la commande menu:CAM[Sélectionner une boucle] du menu.
+* Utilisez le raccourci clavier : kbd:[P] puis kbd:[L].
+. Les arêtes restantes de la boucle sont ajoutées à la sélection.
+
+== Remarques
+
+* Cette commande peut également être très utile dans d'autres ateliers.

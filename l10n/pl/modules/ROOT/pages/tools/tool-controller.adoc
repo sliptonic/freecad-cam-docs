@@ -1,0 +1,24 @@
+= CAM ToolController
+:page-origin: https://wiki.freecad.org/CAM_ToolController/pl
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+== Opis
+
+Sterownik narzędzia zawiera właściwości określające sposób użycia narzędzia w jednej lub wielu operacjach.
+
+Na przykład narzędzie, takie jak frez 1/4 cala, może pracować przy wielu różnych prędkościach wrzeciona i posuwach. To samo narzędzie może być używane na różne sposoby w tym samym zadaniu.
+
+== Właściwości
+
+* posuw roboczy _(h)_
+* posuw roboczy _(v)_
+
+* posuw szybki _(h)_
+* posuw szybki _(v)_
+
+* obroty wrzeciona _(rpm)_
+* kierunek obrotów _(prawo / lewo)_
+
+* numer narzędzia

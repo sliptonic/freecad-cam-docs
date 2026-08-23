@@ -1,0 +1,39 @@
+= CAM: Kopia
+:page-origin: https://wiki.freecad.org/CAM_Copy/pl
+:page-command: CAM_Copy
+:page-icon: CAM_Copy.svg
+:page-menu: CAM → Modyfikacja ścieżki → Kopiuj operację w zadaniu
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Copy.svg[CAM: Kopia,32] *CAM: Kopia*
+
+Menu location:: menu:CAM[Modyfikacja ścieżki > Kopiuj operację w zadaniu]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_Copy.svg[width=24] xref:modify/copy.adoc[Kopia] tworzy kopię wybranej ścieżki.
+
+== Użycie
+
+. Wybierz obiekt image:Workbench_CAM.svg[width=16] xref:index.adoc[środowiska pracy CAM].
+. Istnieje kilka sposobów na wywołanie tego polecenia:
+* Naciśnij przycisk image:CAM_Copy.svg[width=16] xref:modify/copy.adoc[Kopiuj operację] na pasku narzędzi CAM.
+* Użyj skrótu klawiaturowego kbd:[P], a następnie kbd:[Y].
+* Skorzystaj z opcji menu:CAM[Modyfikacja ścieżki > Kopiuj operację] w menu CAM.
+
+== Właściwości
+
+* *Base*: Bazowa ścieżka do skopiowania
+
+== Opcje
+
+Kopia pozostaje połączona z oryginalną ścieżką. Jeśli oryginał się zmieni, kopia też ulegnie zmianie.

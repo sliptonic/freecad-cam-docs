@@ -1,0 +1,42 @@
+= CAM AufbereitungHaltepunkt
+:page-origin: https://wiki.freecad.org/CAM_DressupTag/de
+:page-origin-revision: 7b187fd406 2026-05-22
+:page-command: CAM_DressupTag
+:page-icon: CAM_DressupTag.svg
+:page-menu: CAM → Bahnbearbeitung → Haltepunkt
+:page-workbench: CAM
+:page-see-also: CAM AufbereitungEingangsrampe, CAM AufbereitungHundknochen, CAM AufbereitungSchleppmesser
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupTag.svg[CAM AufbereitungHaltepunkt,32] *CAM AufbereitungHaltepunkt*
+
+Menu location:: menu:CAM[Bahnbearbeitung > Haltepunkt]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/ramp-entry.adoc[CAM AufbereitungEingangsrampe], xref:dressups/dogbone.adoc[CAM AufbereitungHundknochen], xref:dressups/drag-knife.adoc[CAM AufbereitungSchleppmesser]
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_DressupTag.svg[width=24] xref:dressups/tag.adoc[CAM AufbereitungHaltesteg] versieht einen bestehenden Pfad (in der Regel einen 2D-Konturschnittpfad) mit Haltestegen, die das Teil an seinem Platz halten. Ohne diese Haltestege kann ein Teil (das nicht an der Basis befestigt ist) beim letzten Schnitt unkontrolliert aus der Maschine fliegen. Die Haltestege sind dazu gedacht, von Hand (oder mit einem Meißel) abgebrochen und dann abgefeilt zu werden, um das Teil fertigzustellen.
+
+Eine Videoerklärung zu dieser Funktion findet man unter: https://www.youtube.com/watch?v=JZ4prlR6sps
+
+== Anwendung
+
+. Ein Kontur- oder Profilpfadobjekt auswählen.
+. Die Option menu:CAM[Bearbeitungspfad > Haltesteg] aus dem Menü wählen.
+
+== Optionen
+
+* *Angle* : Steuert den Eintauch- und Aufstiegswinkel beim Erstellen eines Haltestegs.
+* *Height* : Steuert die Höhe der Haltesteg-Oberkante vom unteren Rand des Profilschnitts aus.
+* *Radius* : Radius der Rundung für den Haltesteg.
+* *Segmentation Factor* : Anzahl der Segmente zur Annäherung an einen abgerundeten Haltesteg.
+* *Width* : Gesamtbreite des Haltestegs.
+
+Haltestege werden automatisch in gleichmäßigen Abständen entlang der Kontur generiert, beginnend mit der größten Kante. Man hat die Möglichkeit, nicht gewünschte Haltestege zu löschen oder ihre Position zu ändern, sodass sie an den konvexen Stellen des Werkstücks erscheinen, wo sich überschüssiges Material leichter abfeilen lässt.

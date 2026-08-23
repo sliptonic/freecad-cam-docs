@@ -1,0 +1,32 @@
+= CAM Fraisage de filets
+:page-origin: https://wiki.freecad.org/CAM_ThreadMilling/fr
+:page-origin-revision: 6b4231e2d3 2026-07-08
+:page-command: CAM_ThreadMilling
+:page-icon: CAM_ThreadMilling.svg
+:page-menu: CAM → Opérations spécialisées → Fraiser un filetage
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ThreadMilling.svg[CAM Fraisage de filets,32] *CAM Fraisage de filets*
+
+Menu location:: menu:CAM[Opérations spécialisées > Fraiser un filetage]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+== Utilisation
+
+== Options
+
+== Propriétés
+
+== Script

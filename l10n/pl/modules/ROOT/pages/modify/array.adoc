@@ -1,0 +1,55 @@
+= CAM: Szyk
+:page-origin: https://wiki.freecad.org/CAM_Array/pl
+:page-origin-revision: c97dcf8cdc 2026-06-08
+:page-command: CAM_Array
+:page-icon: CAM_Array.svg
+:page-menu: CAM → Modyfikacja ścieżki → Szyk
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Array.svg[CAM: Szyk,32] *CAM: Szyk*
+
+Menu location:: menu:CAM[Modyfikacja ścieżki > Szyk]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_Array.svg[width=24] xref:modify/array.adoc[Szyk] tworzy nową ścieżkę poprzez zduplikowanie innej kilkukrotnie z danymi odstępami.
+
+== Użycie
+
+. Wybierz operację, którą chcesz powtórzyć
+. Wciśnij przycisk image:CAM_Array.svg[width=24] xref:modify/array.adoc[Szyk]
+. Wciśnij przycisk btn:[Zastosuj]
+. Dostosuj żądane właściwości w polu danych
+
+== Właściwości
+
+* *Type*: Typ szyku: `Liniowy1D`, `Liniowy2D` lub `Biegunowy`
+* *Offset*: Odstęp między kopiami szyku dla każdego kierunku.
+* *Copies*: Liczba kopii (nie licząc oryginału) dla każdego kierunku.
+
+[.since]#introduced in 26.3#: Poprzednia kontrola losowych odchyleń oparta na procentach została zastąpiona przez *UseJitter*. Losowe odchylenia mogą być stosowane do szyków biegunowych, a losowe odchylenia obrotu są dostępne dla wszystkich typów szyków.
+
+* *UseJitter*: Włącza losowe przesunięcia i obroty dla generowanych kopii szyku
+* *JitterMagnitude*: Maksymalne losowe przesunięcie w każdym kierunku
+* *JitterAngle*: Maksymalny losowy kąt obrotu
+* *JitterSeed*: Wartość ziarna dla powtarzalnych losowych odchyleń
+
+== Tworzenie skryptów
+
+_Zobacz również:_ https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD podstawy tworzenia skryptów].
+
+Przykład:
+
+[source,python]
+----
+#Place code example here.
+----

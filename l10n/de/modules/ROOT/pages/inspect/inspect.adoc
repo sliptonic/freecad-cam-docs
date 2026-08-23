@@ -1,0 +1,40 @@
+= CAM Untersuchen
+:page-origin: https://wiki.freecad.org/CAM_Inspect/de
+:page-origin-revision: 48adf2a8d0 2026-07-09
+:page-command: CAM_Inspect
+:page-icon: CAM_Inspect.svg
+:page-menu: CAM → Werkzeugpfad untersuchen
+:page-workbench: CAM
+:page-shortcut: P I
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Inspect.svg[CAM Untersuchen,32] *CAM Untersuchen*
+
+Menu location:: menu:CAM[Werkzeugpfad untersuchen]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[I]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Inspect.svg[width=24] xref:inspect/inspect.adoc[CAM Untersuchen] ermöglicht die Überprüfung des internen FreeCAD-G-Code-Dialekt-Inhalts eines CAM-Bearbeitungsobjekts.
+
+image:Path_inspector.jpg[]
+
+== Anwendung
+
+. Ein CAM-Objekt auswählen.
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[Werkzeugpfad untersuchen] drücken.
+* Die Option menu:CAM[Werkzeugpfad untersuchen] aus dem Menü wählen.
+* Die Option menu:Werkzeugpfad untersuchen[] im Kontextmenü der https://wiki.freecad.org/Tree_View[Baumansicht] auswählen.
+* Die Tastenkombination: kbd:[P] dann kbd:[I] nutzen.
+
+== Optionen
+
+* Die Schriftart und Farben des Editorfensters entsprechen den Einstellungen aus menu:Bearbeiten[Einstellungen > Editor]

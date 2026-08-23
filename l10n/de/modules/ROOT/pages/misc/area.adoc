@@ -1,0 +1,121 @@
+= CAM Fläche
+:page-origin: https://wiki.freecad.org/CAM_Area/de
+:page-origin-revision: 411be0edb5 2026-07-08
+:page-command: CAM_Area
+:page-icon: CAM_Area.svg
+:page-menu: CAM → Fläche
+:page-workbench: CAM
+:page-imported: true
+
+WARNING: Dies ist eine unvollendete experimentelle Funktion. Siehe xref:reference/experimental.adoc[Enable Experimental Features].
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Area.svg[CAM Fläche,32] *CAM Fläche*
+
+Menu location:: menu:CAM[Fläche]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Leer
+
+== Anwendung
+
+Leer
+
+== Optionen
+
+Leer
+
+== Eigenschaften
+
+=== Daten
+
+.Area
+* *Operation*: -
+* *Fill*: -
+* *Coplanar*: -
+* *Reorient*: -
+* *Outline*: -
+* *Explode*: -
+* *OpenMode*: -
+* *Deflection*: -
+* *SubjectFill*: -
+* *ClipFill*: -
+
+.Base
+* *Sources*: -
+* *Placement*: -
+* *Label*: -
+
+.Offset
+* *Offset*: -
+* *ExtraPass*: -
+* *Stepover*: -
+* *LastStepover*: -
+* *JoinType*: -
+* *EndType*: -
+* *MiterLimit*: -
+* *RoundPrecision*: -
+
+.Pocket
+* *PocketMode*: -
+* *ToolRadius*: -
+* *PocketExtraOffset*: -
+* *PocketStepover*: -
+* *PocketLastStepover*: -
+* *FromCenter*: -
+* *Angle*: -
+* *AngleShift*: -
+* *Shift*: -
+* *Thicken*: -
+
+.Section
+* *SectionCount*: -
+* *Stepdown*: -
+* *SectionOffset*: -
+* *SectionTolerance*: -
+* *SectionMode*: -
+* *Project*: -
+
+.libarea
+* *Tolerance*: -
+* *FitArcs*: -
+* *Simplify*: -
+* *CleanDistance*: -
+* *Accuracy*: -
+* *Unit*: -
+* *MinArcPoints*: -
+* *MaxArcPoints*: -
+* *ClipperScale*: -
+
+==== Versteckt
+
+* *ExpressionEngine*: -
+* *Label2*: -
+* *Shape*: -
+* *Visibility*: -
+* *WorkPlane*: -
+
+=== Ansicht
+
+Leer
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+#Place code example here.
+----

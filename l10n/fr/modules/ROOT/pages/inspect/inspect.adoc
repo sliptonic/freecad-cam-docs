@@ -1,0 +1,40 @@
+= CAM Inspecter des commandes
+:page-origin: https://wiki.freecad.org/CAM_Inspect/fr
+:page-origin-revision: b135de9fd9 2026-07-08
+:page-command: CAM_Inspect
+:page-icon: CAM_Inspect.svg
+:page-menu: CAM → Inspecter les commandes
+:page-workbench: CAM
+:page-shortcut: P I
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Inspect.svg[CAM Inspecter des commandes,32] *CAM Inspecter des commandes*
+
+Menu location:: menu:CAM[Inspecter les commandes]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[I]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+La commande image:CAM_Inspect.svg[width=24] xref:inspect/inspect.adoc[Inspecter des commandes] permet l'inspection du G-code interne de FreeCAD d'une opération de CAM.
+
+image:Path_inspector.jpg[]
+
+== Utilisation
+
+. Sélectionnez un objet CAM
+. Il existe plusieurs façons de lancer la commande :
+* Appuyez sur le bouton image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[Inspecter les commandes].
+* Sélectionnez l'option menu:CAM[Inspecter les commandes] du menu.
+* Sélectionnez l'option menu:Inspecter les commandes[] dans le menu contextuel de l'https://wiki.freecad.org/Tree_View[arborescence].
+* Utilisez le raccourci clavier : kbd:[P] puis kbd:[I].
+
+== Options
+
+* La police et les couleurs de la fenêtre d'édition suivent les paramètres de menu:Édition[Préférences > Éditeur].

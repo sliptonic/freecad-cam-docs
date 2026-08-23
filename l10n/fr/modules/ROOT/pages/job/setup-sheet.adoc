@@ -1,0 +1,48 @@
+= CAM SetupSheet
+:page-origin: https://wiki.freecad.org/CAM_SetupSheet/fr
+:page-origin-revision: 64278c5307 2026-05-22
+:page-imported: true
+
+== Description
+
+L'utilisation d'une *feuille de configuration* permet à l'utilisateur de personnaliser le mode de calcul des différentes valeurs de propriété pour les opérations. L'utilisateur a toujours la possibilité de remplacer les valeurs de la feuille de configuration par une valeur explicite ou de modifier le mode de calcul des valeurs de la feuille de configuration.
+
+Etant donné que les feuilles de configuration font partie des tâches de CAM, les valeurs ne modifient pas le comportement par défaut de CAM. Au contraire, elles ne changent que le comportement dans le contexte de la tâche en cours.
+
+Les feuilles de configuration sont particulièrement utiles lorsqu’elles sont enregistrées avec un xref:job/export-template.adoc[modèle de tâche].
+
+== Propriétés
+
+* *VertRapid* : définit la vitesse de déplacement rapide verticale dans les nouveaux contrôleurs d'outils. (utilisé dans les post-processeurs prenant en charge les vitesses de déplacement rapide personnalisables)
+* *HorizRapid* : définit la vitesse de déplacement rapide horizontale dans les nouveaux contrôleurs d'outil. (utilisé dans les post-processeurs prenant en charge les vitesses de déplacement rapide personnalisables)
+* *SafeHeightOffset* : l'utilisation de ce champ dépend de SafeHeightExpression (voir ci-dessous).
+* *SafeHeightExpression* : le résultat de cette expression sera utilisé pour définir la hauteur de sécurité des opérations.
+* *ClearanceHeightOffset* : l'utilisation de ce champ dépend de ClearanceHeightExpression (voir ci-dessous).
+* *ClearanceHeightExpression*: le résultat de cette expression sera utilisé pour définir la hauteur de sécurité des opérations.
+* *StartDepthExpression* : le résultat de cette expression sera utilisé pour définir la propriété StartDepth des opérations.
+* *FinalDepthExpression* : le résultat de cette expression sera utilisé pour définir la propriété FinalDepth des opérations.
+* *StepDownExpression* : le résultat de cette expression sera utilisé pour définir la propriété StepDown des opérations.
+
+== Paramètres des opérations
+
+Les paramètres suivants sont tirés de:
+
+* OpFinalDepth : valeur de la propriété FinalDepth.
+* OpStartDepth : valeur de la propriété FinalDepth.
+* OpToolDiameter : valeur de la propriété Tool Diameter du contrôleur d'outil référencé par l'opération.
+
+== Valeurs de la feuille de configuration
+
+D'autres valeurs de la feuille de configuration peuvent être référencées directement :
+
+* SetupSheet.ClearanceHeightOffset
+* SetupSheet.SafeHeightOffset
+
+* StartDepth
+* SafeHeightOffset
+* SafeHeightExpression
+* ClearanceHeightOffset
+* ClearanceHeightExpression
+* StartDepthExpression
+* FinalDepthExpression
+* StepDownExpression

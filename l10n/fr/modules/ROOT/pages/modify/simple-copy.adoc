@@ -1,0 +1,38 @@
+= CAM Copie simple
+:page-origin: https://wiki.freecad.org/CAM_SimpleCopy/fr
+:page-origin-revision: c98e649156 2026-07-08
+:page-command: CAM_SimpleCopy
+:page-icon: CAM_SimpleCopy.svg
+:page-menu: CAM → Modification du parcours → Copie simple
+:page-workbench: CAM
+:page-see-also: CAM Copier
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SimpleCopy.svg[CAM Copie simple,32] *CAM Copie simple*
+
+Menu location:: menu:CAM[Modification du parcours > Copie simple]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:modify/copy.adoc[CAM Copier]
+--
+
+== Description
+
+La commande image:CAM_SimpleCopy.svg[width=24] xref:modify/simple-copy.adoc[Copie simple] crée une copie non-paramétrique d'un parcours donné.
+
+[.since]#introduced in 26.3# : la commande permet de regrouper plusieurs opérations sélectionnées en une seule opération de copie.
+
+== Utilisation
+
+. Sélectionnez un ou plusieurs objets de xref:index.adoc[CAM]
+. Cliquez sur le bouton image:CAM_SimpleCopy.svg[width=16] xref:modify/simple-copy.adoc[Copie simple]
+
+== Options
+
+* La copie simple n'est plus liée au parcours utilisé pour créer la copie et n'est pas paramétrique. Par conséquent, lorsqu'elle est modifiée à l'aide de l'outil xref:inspect/inspect.adoc[CAM Inspecter des commandes], toute modification apportée à son G-code sera conservée.
+* Les opérations sélectionnées en plusieurs exemplaires doivent utiliser les mêmes propriétés *Coolant Mode* et *Tool Controller*.
+* [.since]#introduced in 26.3# : *Copie simple* peut également copier des opérations contenant des commandes sans utiliser la classe de base standard des opérations de CAM.

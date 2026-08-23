@@ -1,0 +1,40 @@
+= CAM: Sprawdź ścieżkę narzędzia
+:page-origin: https://wiki.freecad.org/CAM_Inspect/pl
+:page-origin-revision: ced7995bc4 2026-07-08
+:page-command: CAM_Inspect
+:page-icon: CAM_Inspect.svg
+:page-menu: CAM → Sprawdź ścieżkę narzędzia
+:page-workbench: CAM
+:page-shortcut: P I
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Inspect.svg[CAM: Sprawdź ścieżkę narzędzia,32] *CAM: Sprawdź ścieżkę narzędzia*
+
+Menu location:: menu:CAM[Sprawdź ścieżkę narzędzia]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[I]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_Inspect.svg[width=24] xref:inspect/inspect.adoc[Sprawdź ścieżkę narzędzia] umożliwia przeglądanie zawartości obiektu operacji CAM w wewnętrznym języku G-code programu FreeCAD.
+
+image:Path_inspector.jpg[]
+
+== Użycie
+
+. Wybierz obiekt środowiska CAM.
+. Jest kilka sposobów na wywołanie tego polecenia:
+* Wciśnij przycisk image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[Sprawdź ścieżkę narzędzia].
+* Wybierz opcję menu:CAM[Sprawdź ścieżkę narzędzia] z menu.
+* Wybierz opcję menu:Sprawdź ścieżkę narzędzia[] z menu kontekstowego w https://wiki.freecad.org/Tree_view[widoku drzewa].
+* Użyj skrótu klawiszowego: kbd:[P] a następnie kbd:[I].
+
+== Opcje
+
+* Czcionka i kolory okna edytora są zgodne z ustawieniami w menu:Edycja[Preferencje > Edytor]

@@ -1,0 +1,148 @@
+= CAM Tasche3D
+:page-origin: https://wiki.freecad.org/CAM_Pocket3D/de
+:page-origin-revision: b7d89381ea 2026-05-24
+:page-aliases: CAM_Pocket_3D.adoc
+:page-command: CAM_Pocket3D
+:page-icon: CAM_Pocket3D.svg
+:page-menu: CAM → 3D-Tasche
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Pocket3D.svg[CAM Tasche3D,32] *CAM Tasche3D*
+
+Menu location:: menu:CAM[3D-Tasche]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Pocket3D.svg[width=24] xref:operations/pocket-3d.adoc[CAM Tasche3D] fügt ein 3D-Taschenobjekt in den Auftrag ein. Dieser Vorgang berücksichtigt die Bodenfläche der Tasche sowie ausgewählte Wände, die nicht vertikal sind. In seinem aktuellen Zustand wird dieser Vorgang zum Schruppen einer Tasche mit nicht vertikalen Wänden und/oder nicht horizontaler Unterseite verwendet. Eine gängige Technik zum Schlichten ist die Verwendung eines Kugelfräsers mit der experimentellen Bearbeitung image:CAM_Surface.svg[width=16] xref:operations/surface.adoc[3D-Oberfläche].
+
+image::Path_3D_Pocket_Sample.png[width=600]
+
+ 
+[.caption]
+Beispielbild der 3D-Taschen-Funktion zum Entfernen eines zylindrischen Batteriehalters.
+
+== Anwendung
+
+=== Eine 3D-Tasche erstellen
+
+. Innerhalb eines Auftrags eine oder mehrere Flächen aus dem Auftragsmodell auswählen, die als Basisgeometrie verwendet werden sollen.
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_Pocket3D.svg[width=16] xref:operations/pocket-3d.adoc[3D-Tasche 3D] drücken.
+* Aus dem Menü die Option menu:CAM[3D-Tasche] wählen.
+. Eine Werkzeugsteuerung aus dem Popup-Auswahlfenster auswählen.
+. Auf btn:[Anwenden] klicken, um den Fräsweg für die Durchgänge der Bearbeitung zu beobachten. Die Parameter anpassen, bis man mit der Bearbeitung zufrieden ist.
+. Auf btn:[OK] klicken, um die Bearbeitung zu speichern.
+. Nach Bedarf Elemente der Basisgeometrie hinzufügen oder entfernen, um die Bearbeitung zu konfigurieren.
+. Die Registerkarte Tiefen überprüfen, um sicherzustellen, dass die Starttiefe, die Endtiefe und der Abwärtsschritt-Prozentsatz korrekt sind. Die Endtiefe wird durch die Auswahl der Körpergeometrie bestimmt und kann nicht geändert werden.
+. Auf der Registerkarte Höhen überprüfen, ob die Sicherheits- und Freiraumhöhen angemessen sind.
+. Die Registerkarte Bearbeitungen überprüfen, wo man den die Werkzeugsteuerung erneut auswählt, den Schnittmodus für Steig- oder konventionelles Fräsen konfiguriert, das Muster festlegt, den Schritt-Über-Prozentsatz anpasst und man die Durchlaufverlängerung anwenden kann.
+. Auf btn:[Übernehmen] klicken, um die Fräsbahn für die Durchgänge des Arbeitsgangs anzuzeigen. Die Parameter anpassen, bis man mit der Bearbeitung zufrieden ist.
+. Auf btn:[OK] klicken, um die Bearbeitung zu speichern.
+
+== Hinweise
+
+* Alle aus diesem Vorgang generierten Bahnen basieren auf einem Standard-Schaftfräser mit dem Durchmesser des Werkzeugs, das für diesen 3D-Taschenfräsvorgang ausgewählt wurde.
+* Kugelfräser und andere Formen werden bei der Bahngenerierung nicht berücksichtigt, selbst wenn sie als Werkzeug für diesen Vorgang ausgewählt wurden.
+
+== Optionen
+
+* Die Eigenschaft *Adaptive Pocket Finish* verwenden, um zu versuchen, das Fräsen von Luft unterhalb einer 3D-Tasche zu minimieren, wenn es sich bei der Tasche um ein Loch durch das Modell handelt.
+* Die Eigenschaft *Adaptive Pocket Start* verwenden, um zu versuchen, das Fräsen von Luft beim Eintritt in die Tasche zu minimieren. Das Beispielbild oben im Abschnitt xref:operations/pocket-3d.adoc#description[Beschreibung] dieser Seite ansehen. Um das Fräsen über dieser 3D-Tasche zu reduzieren, setzt man diese Eigenschaft auf True und die Bahnen beginnen näher an der Tasche, viel näher an der Stelle, an der die Tasche tatsächlich beginnt. Das folgende Bild ansehen und den Unterschied in der Start-Höhe der Bahn beachten. Das Fräsen wird reduziert.
+
+image::3D_Pocket_Sample_Adaptive_Start.png[width=600]
+
+ 
+[.caption]
+Beispielbild der 3D-Taschen-Funktion, die zum Fräsen eines zylindrischen Batteriehalters verwendet wird, wobei der adaptive Taschen-Start aktiviert ist, um das Fräsen von Luft beim Eintritt zu reduzieren.
+
+Wenn man das gesamte Modell und den gesamten Bestand als Ganzes verarbeiten möchte, verwendet man die Eigenschaft *Process Stock Area* mit dem Wert True und ohne ausgewählte Basisgeometrie.
+
+== Eigenschaften
+
+=== Daten
+
+.Base
+Hinweis: Es wird empfohlen, die Eigenschaft Placement von Pfadbearbeitungen nicht zu bearbeiten. Stattdessen verschiebt oder dreht man das CAM-Auftragsmodell nach Bedarf.
+
+* *Placement*: Gesamtpositionierung ++[++Position und Drehung++]++ des Objekts – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+** *Angle*: Winkel in Grad, der auf die Drehung des Objekts um den Achsenwert angewendet wird
+** *Axis*: Achse (eine oder mehrere), um die das Objekt gedreht werden soll, festgelegt in den Untereigenschaften: X, Y, Z
+*** *X*: X-Achswert
+*** *Y*: Y-Achswert
+*** *Z*: Z-Achswert
+** *Position*: Position des Objekts, festgelegt in Untereigenschaften: X, Y, Z – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+*** *X*: X-Abstandswert
+*** *Y*: Y-Abstandswert
+*** *Z*: Z-Abstandswert
+* *Label*: Vom Benutzer angegebener Name des Objekts (UTF-8)
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden
+* *Final Depth*: Endtiefe des Werkzeugs – niedrigster Wert in Z
+* *Finish Depth*: Maximale Materialabtragung beim letzten Durchgang
+* *Safe Height*: Die oben genannten schnellen Bewegungen sind erlaubt
+* *Start Depth*: Starttiefe des Werkzeugs – erste Schnitttiefe in Z
+* *Step Down*: Inkrementelle Absenkung des Werkzeugs
+
+.Face
+* *Offset Pattern*: Zu verwendendes Räumen-Muster. (Man wählt aus, auf welche Weise die horizontalen Bewegungen ausgeführt werden sollen.)
+
+.Path
+* *Active*: Falsch setzen, um zu verhindern, dass der Vorgang Code generiert
+* *Base*: Die Basisgeometrie für diese Bearbeitung
+* *Comment*: Ein optionaler Kommentar zu dieser Bearbeitung
+* *Coolant Mode*: Der Kühlmittelmodus für diese Bearbeitung
+* *Cycle Time*: Die Zykluszeitabschätzung für diese Bearbeitung
+* *Tool Controller*: Definiert die in der Bearbeitung verwendete Werkzeugsteuerung
+* *User Label*: Vom Benutzer zugewiesene Bezeichnung
+
+.Pocket
+* *Adaptive Pocket Finish*: Einen adaptiven Algorithmus verwenden, um übermäßiges Fräsen unterhalb des ebenen Taschenbodens zu vermeiden.
+* *Adaptive Pocket Start*: Einen adaptiven Algorithmus verwenden, um übermäßiges Fräsen über der ebenen Taschenoberseite zu vermeiden.
+* *Cut Mode*: Die Richtung, in der der Werkzeugpfad um das Teil verlaufen soll: im Uhrzeigersinn (CW) oder gegen den Uhrzeigersinn (CCW)
+* *Extra Offset*: Zusätzlicher Versatz, der auf die Bearbeitung angewendet werden soll. Die Richtung ist von der Bearbeitung abhängig.
+* *Handle Multiple Features*: Auswählen, wie mehrere Basisgeometrie-Formelemente verarbeitet werden sollen.
+* *Keep Tool Down*: Versuche, unnötige Rücknahmen zu vermeiden.
+* *Min Travel*: Die 3D-Sortierung von Pfaden verwenden
+* *Process Stock Area*: Das Modell und den Bestand in einem Vorgang bearbeiten, ohne dass eine Basisgeometrie ausgewählt ist.
+* *Start At*: Beginnen Sie mit dem Einstecken in der Mitte oder an der Grenze.
+* *Step Over*: Prozentualer Anteil des Fräserdurchmessers, der bei jedem Durchgang übersprungen werden soll
+* *Zig Zag Angle*: Winkel des Zickzackmusters
+
+.Rotation
+Hinweis: Die Drehung ist für 3D-Taschen ab Version 0.19 nicht verfügbar.
+
+* *Enable Rotation*: Die Drehung aktivieren, um Zugang zu Taschen oder Bereichen zu erhalten, die nicht normal zur Z-Achse sind.
+
+.Start Point
+* *Start Point*: Der benutzerdefinierte Startpunkt für den Pfad dieser Bearbeitung.
+** *X*: X-Abstandswert
+** *Y*: Y-Abstandswert
+** *Z*: Z-Abstandswert
+* *Use Start Point*: Diese Option auf True setzen, wenn man einen Startpunkt manuell festlegen möchte. Den Startpunkt im Feld Startpunkt der Eigenschaftsdaten festlegen.
+
+=== Ansicht
+
+Empty
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+#Place code example here.
+----

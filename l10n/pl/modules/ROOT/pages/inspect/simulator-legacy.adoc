@@ -1,0 +1,54 @@
+= CAM: Symulator
+:page-origin: https://wiki.freecad.org/CAM_Simulator/pl
+:page-origin-revision: 3e3196a4cf 2026-07-08
+:page-command: CAM_Simulator
+:page-icon: CAM_Simulator.svg
+:page-menu: CAM → Symulator CAM
+:page-workbench: CAM
+:page-shortcut: P M
+:page-see-also: Sprawdź ścieżkę narzędzia, Nowy symulator
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Simulator.svg[CAM: Symulator,32] *CAM: Symulator*
+
+Menu location:: menu:CAM[Symulator CAM]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[M]]
+Introduced in version:: -
+See also:: xref:inspect/inspect.adoc[Sprawdź ścieżkę narzędzia], xref:inspect/simulator.adoc[Nowy symulator]
+--
+
+== Opis
+
+Narzędzie *Symulator CAM* umożliwia symulację procesu obróbki poprzez przemieszczanie modeli 3D narzędzi po ścieżkach G-Code, odejmując materiał obrabiany tam gdzie narzędzie go przecina, zapewniając wizualizację zadania obróbki. Umożliwia to wykrywanie i eliminowanie błędów przed uruchomieniem zadania obróbki na maszynie.
+
+image:Path-Simulation.gif[]
+
+== Użycie
+
+. Jest kilka sposobów na uruchomienie tego polecenia:
+* Wciśnij przycisk image:CAM_Simulator.svg[width=16] '''Symulator CAM'''.
+* Wybierz opcję z menu menu:CAM[Symulator CAM].
+* Użyj skrótu klawiszowego: kbd:[P] a następnie kbd:[M].
+. Odznacz wszelkie menu:Operacje[], które nie mają być symulowane
+. Dostosuj ustawienia menu:Prędkość[] i menu:Dokładność[].
+. Wybierz menu:Zadanie[] do zasymulowania z listy rozwijanej.
+. Użyj paska narzędzi menu:Symulator CAM[] aby wywołać różne polecenia:
+* Wciśnij przycisk image:CAM_BPlay.svg[width=24] _(Aktywuj / wznów symulację)_ aby uruchomić lub wznowić animację operacji.
+* Wciśnij przycisk image:CAM_BFastForward.svg[width=24] _(Uruchom całą symulację bez animacji)_ aby znacznie zwiększyć prędkość _(żeby szybko obejrzeć skomplikowane ścieżki)_.
+* Wciśnij przycisk image:CAM_BPause.svg[width=24] _(Wstrzymaj symulację)_ aby zatrzymać animację do rozwiązania problemów
+* Wciśnij przycisk image:CAM_BStep.svg[width=24] _(Symulacja pojedynczym krokiem)_ aby spowolnić animację, co ułatwia rozwiązywanie problemów i przyglądanie się konkretnym cięciom i/lub ruchom.
+* Wciśnij przycisk image:CAM_BStop.svg[width=24] _(Zatrzymaj aktywną symulację)_ aby zatrzymać animację.
+. Wciśnięcie przycisku btn:[Anuluj] usunie materiał obrabiany utworzony dla symulacji. Wciśnięcie btn:[OK] spowoduje jego zachowanie w Twoim zadaniu obróbki.
+
+== Właściwości
+
+* *Prędkość*: Prędkość odtwarzania symulacji, w liniach G-code na sekundę.
+* *Dokładność*: Dokładność symulacji wyrażona jako procent wskazujący rozbieżność symulacji od zadania obróbki. W przypadku interaktywnych symulacji, redukcja dokładności do 0.3 działa znacznie szybciej.
+* *Zadanie*: Zadanie obróbki używane jako podstawa symulacji
+* *Lista operacji*: Lista operacji wybranych do uwzględnienia w symulacji.

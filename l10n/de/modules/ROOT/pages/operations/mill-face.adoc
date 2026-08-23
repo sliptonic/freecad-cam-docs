@@ -1,0 +1,122 @@
+= CAM FlächeFräsen
+:page-origin: https://wiki.freecad.org/CAM_MillFace/de
+:page-origin-revision: 6a9edc3ad4 2026-07-09
+:page-command: CAM_MillFace
+:page-icon: CAM_MillFace.svg
+:page-menu: CAM → Fläche
+:page-workbench: CAM
+:page-imported: true
+
+WARNING: DIESER BEFEHL IST VERALTET Er ist in [.since]#26.3 and later# nicht mehr enthalten.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_MillFace.svg[CAM FlächeFräsen,32] *CAM FlächeFräsen*
+
+Menu location:: menu:CAM[Fläche]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_MillFace.svg[width=24] xref:operations/mill-face.adoc[CAM Fläche] erstellt einen Pfad zur Durchführung einer Planfräsbearbeitung auf einer horizontalen Fläche. Dieser Vorgang wird im Allgemeinen verwendet, um
+
+* eine raue Werkstückoberfläche zu glätten,
+* ausgewählte Flächen auf die gewünschte Tiefe zu fräsen, um nachfolgende Räumvorgänge innerhalb der von diesem Vorgang betroffenen Bereiche vorzubereiten,
+* oder um eine Endbearbeitungsoberfläche auf die ausgewählten Flächen aufzubringen.
+
+Dieser Vorgang enthält eine *BoundaryShape*-Eigenschaft, die eine modifizierte Auswahlfläche basierend auf den ausgewählten Flächen ermöglicht.
+
+image::MillFace_Sample.png[Beispielbild einer Fräsbearbeitung, die zur Vorbereitung der Werkstückoberfläche für die anschließende Räumbearbeitung verwendet wird.,600]
+
+== Anwendung
+
+. Eine oder mehrere Flächen auswählen, die bearbeitet werden sollen. *Hinweis:* Wenn ausgewählte Flächen unterschiedliche Höhen aufweisen, werden alle auf die Einstellung Endtiefe gefräst.
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_MillFace.svg[width=16] xref:operations/mill-face.adoc[Fläche] drücken.
+* Die Option menu:CAM[Fläche] aus dem Menü wählen.
+. Die richtige Einstellung für *BoundaryShape* wählen, um den Fräsbereich basierend auf den als menu:Basisgeometrie[] ausgewählten Flächen zu ändern.
+. Die anderen Eigenschaften nach Bedarf anpassen. Diese sind weiter unten aufgeführt.
+
+== Vorbehalte
+
+* Die Verwendung auf einer schrägen Ebene kann zu unerwarteten Ergebnissen führen: Es wird dennoch eine Bahn zum Schneiden einer horizontalen Fläche erzeugt. Der Umfang des Schnitts entspricht der vertikalen Projektion der schrägen Ebene, ausgeführt in einer Höhe, die dem tiefsten Punkt dieser Ebene entspricht.
+
+* Da die CAM-Werkzeuge nur auf die Geometrie der ausgewählten Kanten/Flächen wirken und keinen Bezug zum Rest des 3D-Modells haben, gehen die Pfade nicht über die Grenzen der ausgewählten Ebene hinaus, selbst wenn diese von ungenutztem Material oder Luft umgeben ist. Dadurch bleiben unbearbeitete Ecken zurück. Diese können manchmal mit einem der Bearbeitungswerkzeuge aus dem Menü _CAM_ entfernt werden.
+
+== Vertikalflächenfräsen
+
+* Dieses Werkzeug funktioniert nicht auf einer *vertikalen Ebene* oder einer vertikalen, nicht ebenen Oberfläche. Vertikale Bearbeitungen können mit dem Werkzeug xref:operations/profile.adoc[Flächen-Profil] oder xref:operations/profile.adoc[Kanten-Profil] durchgeführt werden. Dazu muss eine Fläche oder eine geschlossene Kantenlinie ausgewählt werden, die die Ober- oder Unterkante der gewünschten vertikalen Fläche einschließt. Die Ausdehnung des Pfades kann dann mit dem Werkzeug xref:dressups/path-boundary.adoc[Aufbereitung Begrenzungspfad] aus dem Menü _CAM_ reduziert werden. Mit dem Werkzeug _Dress-up_ die Option _Create Box_ wählen und die Größe reduzieren, um den Umfang des Profilpfads zu begrenzen. Mit diesen Einstellungen kann jedoch der Ursprung des Begrenzungsrahmens nicht verschoben werden. Dies muss durch Anpassen der Positionierungseinstellungen in der https://wiki.freecad.org/Tree_View[Baumansicht] erfolgen.
+* Dies funktioniert auf zusammengesetzten Oberflächen wie mehreren vertikalen Ebenen oder zylindrischen Oberflächen, die miteinander verbunden sind, solange sie eine durchgehende Oberfläche bilden.
+
+== Eigenschaften
+
+*_Hinweis_*: Die Namen einiger Eigenschaften in dieser Liste unterscheiden sich geringfügig von den gleichen Einstellungen, die im Aufgaben-Fenster-Editor verwendet werden.
+
+=== Daten
+
+.Base
+Hinweis: Es wird empfohlen, die Eigenschaft Placement von Pfadbearbeitungen nicht zu bearbeiten. Stattdessen verschiebt oder dreht man das CAM-Auftragsmodell nach Bedarf.
+
+* *Placement*: Gesamtpositionierung ++[++Position und Drehung++]++ des Objekts – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+** *Angle*: Winkel in Grad, der auf die Drehung des Objekts um den Achsenwert angewendet wird
+** *Axis*: Achse (eine oder mehrere), um die das Objekt gedreht werden soll, festgelegt in den Untereigenschaften: X, Y, Z
+*** *X*: X-Achswert
+*** *Y*: Y-Achswert
+*** *Z*: Z-Achswert
+** *Position*: Position des Objekts, festgelegt in Untereigenschaften: X, Y, Z – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+*** *X*: X-Abstandswert
+*** *Y*: Y-Abstandswert
+*** *Z*: Z-Abstandswert
+* *Label*: Vom Benutzer angegebener Name des Objekts (UTF-8)
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden
+* *Final Depth*: Endtiefe des Werkzeugs – niedrigster Wert in Z
+* *Finish Depth*: Maximale Materialabtragung beim letzten Durchgang
+* *Safe Height*: Die oben genannten schnellen Bewegungen sind erlaubt
+* *Start Depth*: Starttiefe des Werkzeugs – erste Schnitttiefe in Z
+* *Step Down*: Inkrementelle Absenkung des Werkzeugs
+
+.Face
+* *BoundaryShape*: Form zur Berechnung der Grenze
+* *ClearEdges*: Kanten der Oberfläche bereinigen (nur für die Begrenzungsbox anwendbar)
+* *ExcludeRaisedAreas*: Erhabene Bereiche innerhalb der Fläche ausfräsen
+* *Offset Pattern*: Zu verwendendes Bereinigungs-Muster. (Auswählen, auf welche Weise die horizontalen Bewegungen ausgeführt werden sollen.)
+
+.Path
+* *Active*: Falsch setzen, um zu verhindern, dass der Vorgang Code generiert
+* *Base*: Die Basisgeometrie für diese Bearbeitung
+* *Comment*: Ein optionaler Kommentar zu dieser Bearbeitung
+* *Coolant Mode*: Der Kühlmittelmodus für diese Bearbeitung
+* *Cycle Time*: Die Zykluszeitabschätzung für diese Bearbeitung
+* *Tool Controller*: Definiert die in der Bearbeitung verwendete Werkzeugsteuerung
+* *User Label*: Vom Benutzer zugewiesene Bezeichnung
+
+.Pocket
+* *Cut Mode*: Die Richtung, in der der Werkzeugpfad um das Teil verlaufen soll: im Uhrzeigersinn (CW) oder gegen den Uhrzeigersinn (CCW)
+* *Extra Offset*: Zusätzlicher Versatz, der auf die Bearbeitung angewendet werden soll. Die Richtung ist vom Vorgang abhängig
+* *StartAt*: Mit dem Einstechen in der Mitte oder an der Grenze beginnen
+* *Step Over*: Prozentualer Anteil des Fräserdurchmessers, der bei jedem Durchgang übersprungen werden soll
+* *Zig Zag Angle*: Winkel des Zickzackmusters
+* *Offset Pattern*: Zu verwendendes Räum-Muster
+* *Min Travel*: Die 3D-Sortierung von Pfaden verwenden
+* *Keep Tool Down*: Versuche, unnötige Rücknahmen zu vermeiden
+
+.Rotation
+* *Attempt Inverse Angle*: Automatisch den inversen Winkel versuchen, wenn die anfängliche Drehung falsch ist.
+* *Enable Rotation*: Die Drehung aktivieren, um Zugang zu Taschen oder Bereichen zu erhalten, die nicht normal zur Z-Achse sind.
+* *Inverse Angle*: Den Drehwinkel umkehren. _*Beispiel:* eine Drehung von -22,5 auf 22,5 Grad ändern._
+* *Limit Depth To Face*: Die Z-Tiefe der ausgewählten Fläche wird als niedrigster Wert für die endgültige Tiefe erzwungen. Höhere Benutzerwerte für die endgültige Tiefe werden berücksichtigt.
+* *Reverse Direction*: Umkehrung der Ausrichtung der Bearbeitung um 180 Grad.
+
+.Start Point
+* *Start Point*: Der benutzerdefinierte Startpunkt für den Pfad dieser Bearbeitung.
+** *X*: X-Abstandswert
+** *Y*: Y-Abstandswert
+** *Z*: Z-Abstandswert
+* *Use Start Point*: Diese Option auf True setzen, wenn man einen Startpunkt manuell festlegen möchte. Den Startpunkt im Feld Startpunkt der Eigenschaftsdaten festlegen.

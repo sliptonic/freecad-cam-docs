@@ -1,0 +1,191 @@
+= CAM: Linia poziomu
+:page-origin: https://wiki.freecad.org/CAM_Waterline/pl
+:page-origin-revision: 5bbc0a93d4 2026-06-08
+:page-command: CAM_Waterline
+:page-icon: CAM_Waterline.svg
+:page-menu: CAM → Linia poziomu
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+WARNING: Jest to nieukończona funkcja eksperymentalna. xref:reference/experimental.adoc[Włącz funkcje eksperymentalne]
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Waterline.svg[CAM: Linia poziomu,32] *CAM: Linia poziomu*
+
+Menu location:: menu:CAM[Linia poziomu]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:Path_Waterline.svg[width=24] *Linia poziomu* tworzy nową operację Linii poziomu. Od wersji 0.19++_++pre operacja działa na całym modelu, generując G-code dla zadania. Obecnie w ustawieniach operacji nie ma funkcji wyboru określonych obszarów, powierzchni lub regionów modelu.
+
+Operacja Linii poziomu ma trzy algorytmy: OCL Dropcutter, OCL Adaptive i Experimental.
+
+* Algorytmy OCL Dropcutter i OCL Adaptive łączą się z OCL.pyd, zewnętrznym modułem Open Source o nazwie xref:reference/opencamlib.adoc[OpenCamLib], który generuje ścieżki narzędzia z modelu 3D. OpenCamLib nie jest zintegrowany bezpośrednio z FreeCAD.
+* [.since]#introduced in 26.3#: Algorytm OCL Adaptive jest dostępny. Może generować gładsze ścieżki szybciej dla odpowiednich modeli. Nie jest ograniczony przez brzegi Waterline; użyj xref:dressups/path-boundary.adoc[Ulepszenia ścieżki konturu], jeśli to konieczne.
+* Eksperymentalny algorytm wykorzystuje wbudowaną klasę Path.Area().
+
+*_Uwaga_*: Aby skorzystać z operacji Linia poziomu powinieneś:
+
+. Prawidłowo zainstalować xref:reference/opencamlib.adoc[OpenCamLib].
+. Włączyć xref:reference/experimental.adoc[funkcje eksperymentalne] dla środowiska pracy CAM.
+. Sprawdzić nastawy menu:Edycja[Preferencje ... > CAM > Zaawansowane > Włącz funkcje zależne od OpenCamLib].
+
+== Użycie
+
+Poniżej przedstawiono instrukcje użytkowania dla wielu wariantów operacji *Linii poziomu*.
+
+=== Operacje podstawowe
+
+. Naciśnij image:CAM_Waterline.svg[width=24] Linia poziomu lub wybierz narzędzie *Linia poziomu* z menu *CAM*.
+. Wybierz kontroler narzędzia dla operacji z okna dialogowego Kontroler narzędzia.
+. Dostosuj głębokość operacji zgodnie z potrzebami w zakładce Głębokość: Głębokość początkowa, Głębokość końcowa, Krok w dół.
+. W razie potrzeby dostosuj ustawienia w zakładce Wysokość.
+. Skonfiguruj ustawienia w zakładce Operacje w oparciu o wybrany algorytm:
+.. OCL Dropcutter
+... Wybierz pole Ramka otaczająca: Przygotówka lub Punkt bazowy obiektu Ramki otaczającej.
+... Ustaw tryb warstwy: Pojedyncze przejście lub Wielokrotne przejście.
+... Ustaw interwał próbkowania używany do skanowania OCL.
+.. OCL Adaptive
+... Ustaw Tryb warstwy: Jedno przejście lub Wiele przejść.
+... Ustaw Interwał próbek i Minimalny interwał próbek dla skanu adaptive OCL.
+... Opcjonalnie włącz opcję Optymalizuj liniowe ścieżki.
+.. Eksperymentalne
+... Wybierz Ramka otaczająca: Przygotówka lub Punkt bazowy obiektu Ramki otaczającej.
+... Ustaw tryb warstwy: Pojedyncze przejście lub Wielokrotne przejście.
+... Ustaw wzorzec cięcia, jeśli chcesz wyczyścić każdą warstwę.
+... Ustaw dostosowanie granic _(naddatek materiału)_.
+. Jeśli chcesz wyświetlić podgląd wyniku przed zaakceptowaniem ustawień, kliknij przycisk Zastosuj.
+. Kliknij przycisk _OK_, aby potwierdzić i wygenerować ścieżki.
+
+Aby uzyskać inne lub bardziej złożone efekty, należy dostosować dodatkowe właściwości operacji na karcie Dane w widoku Właściwości operacji.
+
+==== Uwagi o algorytmie eksperymentalnym
+
+* Nie obsługuje prawidłowo nawisów.
+* Zwraca ścieżki tylko dla frezów typu End Mill _(bit narzędziowy)_.
+* Może nie wychwytywać poprawnie wszystkich elementów wewnętrznych.
+* Jest po prostu eksperymentalna i nie jest gotowa na integrację z głównym nurtem. Prosimy o sprawdzanie ścieżek za pomocą wbudowanego narzędzia image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[Symulator CAM] lub innych narzędzi do kontroli G-Code innych firm, przed rozpoczęciem procesu obróbki.
+
+==== Dostępne kształty narzędzi (frezów)
+
+W przypadku korzystania z algorytmu "OCL Dropcutter", operacja Waterline wykorzystuje xref:reference/opencamlib.adoc[ OpenCamLib (OCL)] do wyodrębniania ścieżek z podstawy części. W związku z tym wymagana jest translacja narzędzia między kontrolerem narzędzi FreeCAD a OCL w celu zakończenia skanowania wybranym kształtem narzędzia _(frezu)_. Te kształty narzędzi są _(powinny być)_ respektowane i dostępne dla OCL Dropcutter, o ile używane są wbudowane kształty narzędzi, zarówno narzędzia starszego typu, jak i narzędzia typu ToolBit:
+
+* Frez trzpieniowy
+* Frez kulowy
+* frez walcowo-czołowy
+* Końcówka fazująca
+* Grawer
+
+==== Uwagi dodatkowe
+
+* Jeśli zdecydujesz się uruchomić symulator image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[CAM symulator], w środowisku pracy CAM możesz nie zobaczyć usuwania materiału specyficznego dla kształtu narzędzia. Zachowaj ostrożność. Zaleca się wykonanie małego zadania próbnego przy użyciu pianki lub innego bardzo niegęstego materiału w celu sprawdzenia poprawności ścieżek z wybranym kontrolerem narzędzia.
+* Od maja 2020 r. tylko frez walcowo-czołowy jest testowany w celu określenia dokładności translacji ustawień narzędzia z FreeCAD doOCL. Prosimy o przesyłanie wszelkich opinii dotyczących użycia frezów innych niż frezy walcowo-czołowe do sekcji https://forum.freecad.org/viewforum.php?f=15[CAM] na forum FreeCAD.
+
+== Właściwości
+
+*_Uwaga_*: Nie wszystkie z tych właściwości są dostępne w edytorze okna zadań. Niektóre są dostępne tylko na karcie Dane w panelu Widok właściwości dla tej operacji.
+
+.Podstawa
+Uwaga: Zaleca się, aby nie edytować właściwości Umiejscowienie operacji ścieżki. W razie potrzeby należy raczej przesunąć lub obrócić model zadania CAM.
+
+* *Umiejscowienie*: Ogólne położenie _(pozycja i obrót)_ obiektu - w odniesieniu do punktu odniesienie położenia _(lub punktu odniesienie położenia kontenera obiektu nadrzędnego)_.
+** *Kąt*: Kąt w stopniach zastosowany do obrotu obiektu wokół wartości właściwości Oś.
+** *Oś*: Oś _(jedna lub wiele)_, wokół której ma zostać obrócony obiekt, ustawiona we właściwościach podrzędnych: X, Y, Z
+*** *X*: Wartość osi X.
+*** *Y*: Wartość osi Y.
+*** *Z*: Wartość osi Z.
+** *Pozycja*: Pozycja obiektu, ustawiona we właściwościach podrzędnych: X, Y, Z - względem początku _(lub początku kontenera obiektu nadrzędnego)_.
+*** *X*: Wartość odległości X.
+*** *Y*: wartość odległości Y.
+*** *Z*: wartość odległości Z.
+* *Etykieta*: Nazwa obiektu podana przez użytkownika _(UTF-8)_.
+
+.Opcje czyszczenia
+* *Algorytm*: Biblioteka używana do generowania ścieżki.
+* *Ramka otaczająca*: Czy operacja powinna być ograniczona przez obiekt podstawowy, czy przez obwiednię obiektu podstawowego?
+* *Wyczyść ostatnią warstwę*: Ustawia czyszczenie ostatniej warstwy w operacji wieloprzebiegowej.
+* *Tryb obróbki*: Kierunek, w którym ścieżka narzędzia powinna przebiegać wokół części: Wspinanie _(zgodnie z ruchem wskazówek zegara)_ lub Konwencjonalny _(przeciwnie do ruchu wskazówek zegara)_.
+* *Wzorzec obróbki*: Wzorzec czyszczenia do użycia.
+* *Odsunięcie głębokości*:
+* *Ignoruj zewnętrzne powyżej*:
+* *Tryb warstwy*: Tryb zakończenia operacji: jedno- lub wieloprzebiegowy.
+* *Minimalny interwał próbek*: Minimalna rozdzielczość próbkowania dla algorytmu OCL Adaptive
+* *Optymalizuj liniowe ścieżki*: Usuwa zbędne współliniowe punkty z wyjściowego kodu G
+* *Krok powyżej*:
+
+.Głębokość
+* *Wysokość prześwitu*: Wysokość potrzebna do usunięcia zacisków i przeszkód.
+* *Głębokość końcowa*: Głębokość końcowa narzędzia - najniższa wartość w Z.
+* *Wysokość bezpieczna*: Wysokość, powyżej której dozwolone są szybkie ruchy.
+* *Głębokość początkowa*: Głębokość początkowa narzędzia - pierwsza głębokość cięcia w Z.
+* *Krok w dół*: Przyrostowy krok w dół narzędzia.
+
+.Ścieżka
+* *Aktywny*: Ustaw wartość `false`, aby zapobiec generowaniu kodu przez operację.
+* *Baza*: Geometria bazowa dla tej operacji.
+* *Komentarz*: Opcjonalny komentarz dla tej operacji.
+* *Tryb chłodzenia*:
+* *Czas cyklu*:
+* *Kontroler narzędzi*: Określa kontroler narzędzia używany w operacji.
+* *Etykieta użytkownika*: Etykieta przypisana przez użytkownika.
+
+.Punkt początkowy
+* *Punkt początkowy*: Niestandardowy punkt początkowy dla ścieżki tej operacji.
+** *X*: wartość odległości X.
+** *Y*: wartość odległości Y.
+** *Z*: wartość odległości Z.
+* *Użyj punktu początkowego*: Ustaw wartość `true`, jeśli określono punkt początkowy.
+
+== Układ edytora w oknie zadań
+
+_Opisy ustawień znajdują się na powyższej liście właściwości_.
+
+Ta sekcja jest po prostu mapą układu ustawień w edytorze okien dla operacji.
+
+=== Lokalizacja bazowa
+
+* *Dodaj*: Dodaje wybrane elementy, które powinny być bazą dla ścieżek.
+* *Usuń*: Usuwa wybrane elementy z listy Lokalizacja bazowa.
+* *Edytuj*: Czyści wszystkie elementy na liście Lokalizacja bazowa.
+
+=== Głębokości
+
+* *Głębokość początkowa*
+* *Głębokość końcowa*
+* *Krok w dół*
+
+=== Wysokości
+
+* *Wysokość bezpieczna*
+* *Wysokość prześwitu*
+
+=== Operacja
+
+* *Kontroler narzędzi*.
+* *Tryb chłodzenia*
+* *Algorytm*
+* *Ramka otaczająca*
+* *Tryb warstwy*
+* *Wzór obróbki*~.
+* *Regulacja granic*~.
+* *Odstęp między próbkami*~.
+* *Minimalny interwał próbek*~
+* *Optymalizuj liniowe ścieżki*~
+
+~Widoczność zmienia się wraz z innymi ustawieniami.
+
+== Zasoby
+
+* https://ncviewer.com/[Symulator G-kodu NCViewer]
+* https://www.camotics.org/[Symulator G-kodu CAMotics]
+* https://youtu.be/WYSjf5Omo9c[Filmik pokazujący jak korzystać z tego narzędzia]

@@ -279,7 +279,7 @@ def split_args(argstr):
     for raw in argstr.split("|"):
         if "=" in raw and not raw.lstrip().startswith("http"):
             k, _, v = raw.partition("=")
-            if re.fullmatch(r"\s*[A-Za-z][A-Za-z0-9 _-]*\s*", k):
+            if re.fullmatch(r"\s*[A-Za-z][A-Za-z0-9 _/-]*\s*", k):
                 named[k.strip()] = v
                 continue
         pos.append(raw)
@@ -629,10 +629,12 @@ def main():
         aliases.setdefault(n, [])
 
     try:
-        sync = subprocess.run(["git", "-C", os.path.dirname(src.rstrip("/")), "log", "-1", "--format=%ad", "--date=short"],
+        toplevel = subprocess.run(["git", "-C", src, "rev-parse", "--show-toplevel"],
+                                  capture_output=True, text=True).stdout.strip()
+        sync = subprocess.run(["git", "-C", toplevel, "log", "-1", "--format=%ad", "--date=short"],
                               capture_output=True, text=True).stdout.strip()
     except Exception:
-        sync = "unknown"
+        toplevel, sync = "", "unknown"
 
     if args.lang:
         args.out = os.path.join(ROOT, "l10n", args.lang, "modules", "ROOT")
@@ -647,11 +649,14 @@ def main():
             continue
         with open(os.path.join(src, name + ".wikitext"), encoding="utf-8") as fh:
             wikitext = fh.read()
-        try:
-            rev = subprocess.run(["git", "-C", os.path.dirname(src.rstrip("/")), "log", "-1", "--format=%h %ad", "--date=short",
-                                  "--", os.path.join("wiki", name + ".wikitext")], capture_output=True, text=True).stdout.strip()
-        except Exception:
-            rev = ""
+        rev = ""
+        if toplevel:
+            try:
+                relpath = os.path.relpath(os.path.join(src, name + ".wikitext"), toplevel)
+                rev = subprocess.run(["git", "-C", toplevel, "log", "-1", "--format=%h %ad", "--date=short",
+                                      "--", relpath], capture_output=True, text=True, timeout=30).stdout.strip()
+            except Exception:
+                rev = ""
         ctx = PageCtx(name, lang=args.lang)
         pre = pre_pass(wikitext, ctx, page_map, images)
         if ctx.infobox_icon:

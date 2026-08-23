@@ -1,0 +1,39 @@
+= CAM Copier
+:page-origin: https://wiki.freecad.org/CAM_Copy/fr
+:page-command: CAM_Copy
+:page-icon: CAM_Copy.svg
+:page-menu: CAM → Modification du parcours → Copier une opération
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Copy.svg[CAM Copier,32] *CAM Copier*
+
+Menu location:: menu:CAM[Modification du parcours > Copier une opération]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+La commande image:CAM_Copy.svg[width=24] xref:modify/copy.adoc[Copier] crée une copie du parcours sélectionné.
+
+== Utilisation
+
+. Sélectionnez un objet de l'image:Workbench_CAM.svg[width=16] xref:index.adoc[atelier CAM]
+. Il y a plusieurs façons de lancer la commande :
+* Appuyez sur le bouton image:CAM_Copy.svg[width=16] xref:modify/copy.adoc[Copier une opération] dans la barre d'outils CAM
+* Utilisez le raccourci clavier kbd:[P] puis kbd:[Y]
+* Utilisez l'entrée menu:CAM[Modification du parcours > Copier une opération] depuis le menu CAM
+
+== Propriétés
+
+* *Base* : parcours de base devant être copié
+
+== Options
+
+La copie reste liée au parcours original. Si l'original change, la copie aussi.

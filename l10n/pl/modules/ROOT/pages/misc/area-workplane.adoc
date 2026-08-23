@@ -1,0 +1,56 @@
+= CAM: Obszar płaszczyzny roboczej
+:page-origin: https://wiki.freecad.org/CAM_Area_Workplane/pl
+:page-command: CAM_Area_Workplane
+:page-icon: CAM_Area_Workplane.svg
+:page-menu: CAM → Obszar płaszczyzny roboczej
+:page-workbench: CAM
+:page-imported: true
+
+WARNING: Jest to nieukończona funkcja eksperymentalna. xref:reference/experimental.adoc[Włącz funkcje eksperymentalne]
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Area_Workplane.svg[CAM: Obszar płaszczyzny roboczej,32] *CAM: Obszar płaszczyzny roboczej*
+
+Menu location:: menu:CAM[Obszar płaszczyzny roboczej]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Pusto
+
+== Użycie
+
+Pusto
+
+== Opcje
+
+Pusto
+
+== Właściwości
+
+=== Dane
+
+Pusto
+
+=== Widok
+
+Pusto
+
+== Tworzenie skryptów
+
+_Zobacz również:_ https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD podstawy tworzenia skryptów].
+
+Przykład:
+
+[source,python]
+----
+#Place code example here.
+----

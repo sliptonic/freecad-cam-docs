@@ -1,0 +1,90 @@
+= CAM: Grawer
+:page-origin: https://wiki.freecad.org/CAM_Engrave/pl
+:page-origin-revision: b5dca1e4a1 2026-07-08
+:page-command: CAM_Engrave
+:page-icon: CAM_Engrave.svg
+:page-menu: CAM → Grawer
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Engrave.svg[CAM: Grawer,32] *CAM: Grawer*
+
+Menu location:: menu:CAM[Grawer]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Polecenie image:CAM_Engrave.svg[width=24] xref:operations/engrave.adoc[Grawer] służy głównie do grawerowania obiektów image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Rysunek Roboczy: Kształt z tekstu] na częściach. Może być również używane z inną płaską geometrią 2D, na przykład kształtami zaimportowanymi z plików SVG.
+
+== Użycie
+
+. Istnieje kilka sposobów wywołania polecenia:
+* Naciśnij przycisk image:CAM_Engrave.svg[width=16] xref:operations/engrave.adoc[Grawer].
+* Wybierz opcję menu:CAM[Grawer] z menu.
+. W sekcji menu:Geometria bazowa[] wybierz geometrię do grawerowania.
+* Można użyć image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Kształtu z tekstu].
+* Można również użyć innej płaskiej geometrii 2D, takiej jak kształty zaimportowane z plików SVG.
+* Jeśli to możliwe, wybierz cały płaski kształt zamiast zaznaczać wiele pojedynczych krawędzi w https://wiki.freecad.org/3D_View[Widoku 3D].
+. W sekcji menu:Głębokości[] sprawdź i w razie potrzeby dostosuj ustawienia głębokości.
+. Zatwierdź operację.
+
+== Opcje
+
+* *Baza*: Geometria do grawerowania.
+* *Czyść*: Czyści bieżące zaznaczenie geometrii.
+
+== Właściwości
+
+=== Dane
+
+.Podstawa
+* *Placement*:
+* *Label*: Dostosowywalna nazwa obiektu (UTF-8)
+
+.Głębokość
+* *Clearance Height*: Wysokość potrzebna do ominięcia zacisków i przeszkód
+* *Final Depth*: Ostateczna głębokość narzędzia - najniższa wartość w osi Z
+* *Safe Height*: Wysokość, powyżej której dozwolone są ruchy szybkie
+* *Start Depth*: Początkowa głębokość narzędzia - pierwsza głębokość cięcia w osi Z
+* *Step Down*: Przyrostowa głębokość narzędzia
+
+.Ścieżka
+* *Active*: Ustaw na Fałsz, aby zapobiec generowaniu kodu dla tej operacji
+* *Base*: Geometria bazowa dla tej operacji
+* *Comment*: Opcjonalny komentarz do tej operacji
+* *Coolant Mode*: Tryb chłodzenia dla tej operacji
+* *Cycle Time*: Szacowany czas cyklu dla tej operacji
+* *Start Vertex*: Indeks wierzchołka, od którego zaczyna się ścieżka
+* *Tool Controller*: Kontroler narzędziowy, który będzie używany do obliczenia ścieżki
+* *User Label*: Etykieta przypisana przez użytkownika
+
+.Ukryte
+* *Base Object*:
+* *Base Shapes*:
+* *Expression Engine*:
+* *Label2*:
+* *Path*:
+* *Proxy*:
+* *Visibility*:
+
+=== Widok
+
+Pusto
+
+== Tworzenie skryptów
+
+_Zobacz również:_ https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD podstawy tworzenia skryptów].
+
+Przykład:
+
+[source,python]
+----
+#Place code example here.
+----

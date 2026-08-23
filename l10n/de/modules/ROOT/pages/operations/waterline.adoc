@@ -1,0 +1,191 @@
+= CAM Wasserlinie
+:page-origin: https://wiki.freecad.org/CAM_Waterline/de
+:page-origin-revision: 46c45f3d46 2026-06-08
+:page-command: CAM_Waterline
+:page-icon: CAM_Waterline.svg
+:page-menu: CAM → Wasserlinie
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+WARNING: Dies ist eine unvollendete experimentelle Funktion. Siehe xref:reference/experimental.adoc[Enable Experimental Features].
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Waterline.svg[CAM Wasserlinie,32] *CAM Wasserlinie*
+
+Menu location:: menu:CAM[Wasserlinie]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Waterline.svg[width=24] xref:operations/waterline.adoc[CAM Wasserlinie] erzeugt eine neue Wasserlinien-Operation. Ab Version 0.19++_++pre wird der gesamte Modellbereich bearbeitet, um den G-Code für den Auftrag zu generieren. Derzeit gibt es in den Einstellungen des Vorgangs keine Funktion, um bestimmte Bereiche, Flächen oder Regionen des Modells auszuwählen.
+
+Die Wasserlinien-Bearbeitung verfügt über drei Algorithmen: OCL Drop Cutter, OCL Adaptive und Experimental.
+
+* Die OCL Drop Cutter-und OCL Adaptive-Algorithmen sind mit OCL.pyd verbunden, einem Open-Source-Modul eines Drittanbieters namens xref:reference/opencamlib.adoc[OpenCamLib], das Werkzeugpfade aus einem 3D-Modell generiert. OpenCamLib ist nicht direkt in FreeCAD integriert.
+* [.since]#introduced in 26.3#: Der OCL-Adaptive-Algorithmus ist verfügbar. Er kann bei geeigneten Modellen schneller glattere Pfade erzeugen. Er unterliegt keinen Einschränkungen durch Wasserlinienbegrenzungen; bei Bedarf einen xref:dressups/path-boundary.adoc[ Aufbereitungs-Begrenzungspfad] verwenden.
+* Der Experimental-Algorithmus nutzt die integrierte Klasse Path.Area().
+
+*_Hinweis_*: Um die Wasserlinie-Funktion nutzen zu können, muss man:
+
+. xref:reference/opencamlib.adoc[OpenCamLib] ordnungsgemäß installieren.
+. xref:reference/experimental.adoc[Experimentelle Funktionen] für den Arbeitsbereich CAM aktivieren.
+. menu:Bearbeiten[Einstellungen > CAM > Erweitert > OCL-abhängige Funktionen aktivieren] aktivieren.
+
+== Anwendung
+
+Hier findet man Anwendungshinweise für verschiedene Varianten der xref:operations/waterline.adoc[Wasserlinien]-Bearbeitungen.
+
+=== Grundlegende Bearbeitungen
+
+. Auf das Symbol image:CAM_Waterline.svg[width=24] xref:operations/waterline.adoc[Wasserlinie] klicken oder das Werkzeug xref:operations/waterline.adoc[Wasserlinie] aus dem Menü *CAM* wählen.
+. Die Werkzeugsteuerung für den Vorgang aus dem Popup-Fenster Werkzeugsteuerung auswählen.
+. Die Bearbeitungstiefen nach Bedarf auf der Registerkarte Tiefen anpassen: Starttiefe, Endtiefe, Absenkung.
+. Bei Bedarf Anpassungen auf der Registerkarte Höhen vornehmen.
+. Die Einstellungen auf der Registerkarte Bearbeitungen entsprechend dem ausgewählten Algorithmus konfigurieren:
+.. OCL Dropcutter
+... Die Begrenzungsbox: Stock oder BaseBoundBox wählen.
+... Den Ebenen-Modus festlegen: Single-Pass oder Multi-Pass.
+... Das für den OCL-Scan verwendete Abtastintervall festlegen.
+.. OCL-Adaptiv
+... Den Ebenenmodus festlegen: Einmaliger Durchlauf oder Mehrfachdurchlauf.
+... Das Abtastintervall und das minimale Abtastintervall für den adaptiven OCL-Scan festlegen.
+... Optional die Option Lineare Pfade optimieren aktivieren.
+.. Experimentell
+... Die Begrenzungsbox: Stock oder BaseBoundBox wählen.
+... Den Ebenen-Modus festlegen: Single-Pass oder Multi-Pass.
+... Das Schnittmuster festlegen, wenn jede Ebene gelöscht werden soll.
+... Die Begrenzungsanpassung (Materialzugabe) festlegen.
+. Wenn das Ergebnis vor dem Übernehmen der Einstellungen in der Vorschau anzeigen werden soll, klickt mann auf Übernehmen.
+. Auf die Schaltfläche *OK* klicken, um zu bestätigen und Pfade zu generieren.
+
+Um andere oder komplexere Effekte zu erzielen, zusätzliche Bearbeitungseigenschaften auf der Registerkarte Daten der Eigenschaftenansicht für die Bearbeitung anpassen.
+
+==== Hinweise zum experimentellen Algorithmus
+
+* Überstände werden nicht korrekt verarbeitet.
+* Es werden nur Pfade für einen Schaftfräser (Werkzeugbit) zurückgegeben.
+* Möglicherweise werden nicht alle Innenmerkmale korrekt erfasst.
+* Es handelt sich lediglich um eine experimentelle Version, die noch nicht für die allgemeine Integration bereit ist. Bitte die Pfade mit dem integrierten image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[CAM Simulator] oder anderen G-Code-Prüftools von Drittanbietern überprüfen, bevor mit der Maschine geschnitten wird.
+
+==== Verfügbare Werkzeugformen (Fräser)
+
+Bei Verwendung des Algorithmus *OCL Dropcutter* extrahiert die Bearbeitung Wasserlinie mithilfe von xref:reference/opencamlib.adoc[ OpenCamLib OCL] Pfade aus der Teilebasis. Daher ist eine Werkzeugübersetzung zwischen der FreeCAD-Werkzeugsteuerung und OCL erforderlich, um den Scan mit der gewählten Werkzeugform (Fräser) abzuschließen. Diese Werkzeugformen werden (sollten) vom OCL Dropcutter berücksichtigt und sind verfügbar, solange die integrierten Werkzeugformen verwendet werden, unabhängig davon, ob es sich um veraltete oder Werkzeugbit-Werkzeuge handelt:
+
+* Schaftfräser
+* Kugelfräser
+* Rundfräser
+* Fasenfräser
+* Gravurfräser
+
+==== Weitere Anmerkungen
+
+* Wenn man sich dafür entscheidet, den Pfadsimulator image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[CAM-Simulator] im Arbeitsbereich CAM auszuführen, wird möglicherweise keine werkzeugspezifische Materialabtragung angezeigt. Seien Sie vorsichtig. Es wird empfohlen, einen kleinen Testauftrag mit Schaumstoff oder einem anderen sehr porösen Material durchzuführen, um zu überprüfen, ob die Pfade mit der ausgewählten Werkzeugsteuerung korrekt sind.
+* Seit Mai 2020 gibt es nur für den Schaftfräser Tests, um die Genauigkeit der Übersetzung der FreeCAD-zu-OCL-Werkzeugeinstellungen zu bestimmen. Bitte die Rückmeldung zur Verwendung anderer Werkzeuge als Schaftfräser unter https://forum.freecad.org/viewforum.php?f=15[CAM]-Abschnitt in den FreeCAD-Foren teilen.
+
+== Eigenschaften
+
+*_Hinweis_*: Nicht alle diese Eigenschaften sind im Aufgaben-Fenster-Editor verfügbar. Einige sind nur auf der Registerkarte Daten des Eigenschaftenfensters für diese Bearbeitung zugänglich.
+
+.Base
+Hinweis: Es wird empfohlen, die Eigenschaft Placement von Pfadbearbeitungen nicht zu bearbeiten. Stattdessen verschiebt oder dreht man das CAM-Auftragsmodell nach Bedarf.
+
+* *Placement*: Gesamtpositionierung ++[++Position und Drehung++]++ des Objekts – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+** *Angle*: Winkel in Grad, der auf die Drehung des Objekts um den Achsenwert angewendet wird
+** *Axis*: Achse (eine oder mehrere), um die das Objekt gedreht werden soll, festgelegt in den Untereigenschaften: X, Y, Z
+*** *X*: X-Achsenwert
+*** *Y*: Y-Achsenwert
+*** *Z*: Z-Achsenwert
+** *Position*: Position des Objekts, festgelegt in Untereigenschaften: X, Y, Z – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+*** *X*: X-Abstandswert
+*** *Y*: Y-Abstandswert
+*** *Z*: Z-Abstandswert
+* *Label*: Vom Benutzer angegebener Name des Objekts (UTF-8)
+
+.Clearing Options
+* *Algorithm*: Die Bibliothek, die zum Generieren des Pfads verwendet werden soll
+* *BoundBox*: Sollte die Bearbeitung durch das Material-Objekt oder durch die Begrenzungsbox des Basisobjekts eingeschränkt werden?
+* *Clear Last Layer*: Letzte Ebene in ++`++Multi-Pass++`++-Vorgang löschen.
+* *Cut Mode*: Die Richtung, in der der Werkzeugpfad um das Teil verlaufen soll: Aufwärts (im Uhrzeigersinn) oder konventionell (gegen den Uhrzeigersinn)
+* *Cut Pattern*: Zu verwendendes Räumen-Muster
+* *Depth Offset*:
+* *Ignore Outer Above*:
+* *Layer Mode*: Der Abschlussmodus für den Vorgang: Einzel- oder Mehrfachdurchlauf
+* *Min Sample Interval*: Mindestabtastauflösung für den OCL-Adaptive-Algorithmus
+* *Optimize Linear Paths*: Entferne überflüssige kolineare Punkte aus der G-Code-Ausgabe
+* *Step Over*:
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden
+* *Final Depth*: Endtiefe des Werkzeugs – niedrigster Wert in Z
+* *Safe Height*: Die oben genannten schnellen Bewegungen sind erlaubt
+* *Start Depth*: Starttiefe des Werkzeugs – erste Schnitttiefe in Z
+* *Step Down*: Inkrementelle Absenkung des Werkzeugs
+
+.Path
+* *Active*: Falsch setzen, um zu verhindern, dass der Vorgang Code generiert
+* *Base*: Die Basisgeometrie für diese Bearbeitung
+* *Comment*: Ein optionaler Kommentar zu dieser Bearbeitung
+* *Coolant Mode*: Der Kühlmittelmodus für diese Bearbeitung
+* *Cycle Time*: Die Zykluszeitabschätzung für diese Bearbeitung
+* *Tool Controller*: Definiert die in der Bearbeitung verwendete Werkzeugsteuerung
+* *User Label*: Vom Benutzer zugewiesene Bezeichnung
+
+.Start Point
+* *Start Point*: Der benutzerdefinierte Startpunkt für den Pfad dieser Bearbeitung.
+** *X*: X-Abstandswert
+** *Y*: Y-Abstandswert
+** *Z*: Z-Abstandswert
+* *Use Start Point*: Auf True setzen, wenn ein Startpunkt angegeben wird
+
+== Layout des Aufgaben-Fenster-Editors
+
+_Beschreibungen zu den Einstellungen findet man in der Eigenschaften-Liste oben._
+
+Dieser Abschnitt ist lediglich eine Übersichtskarte der Einstellungen im Fenster-Editor für die Bearbeitungen.
+
+=== Basisposition
+
+* *Hinzufügen*: Fügt ausgewählte Elemente hinzu, die als Basis für die Pfade dienen sollen
+* *Entfernen*: Entfernt die ausgewählten Elemente aus der Liste Basisgeometrie
+* *Löschen*: Alle Elemente in der Liste Basisgeometrie löschen
+
+=== Tiefen
+
+* *Start Depth*
+* *Final Depth*
+* *Step Down*
+
+=== Höhen
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Bearbeitung
+
+* *Tool Controller*
+* *Coolant Mode*
+* *Algorithm*
+* *BoundBox*
+* *Layer Mode*
+* *Cut Pattern*~
+* *Boundary Adjustment*~
+* *Sample Interval*~
+* *Min Sample Interval*~
+* *Optimize Linear Paths*~
+
+~Die Sichtbarkeit ändert sich mit anderen Einstellungen.
+
+== Ressourcen
+
+* https://ncviewer.com/[G-Code-(Pfad-)Simulator NCViewer]
+* https://www.camotics.org/[G-Code-(Pfad-)Simulator CAMotics]
+* https://youtu.be/WYSjf5Omo9c[Ein Video&#44; das die Verwendung dieses Werkzeugs beschreibt]

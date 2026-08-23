@@ -1,0 +1,58 @@
+= CAM ExportVorlage
+:page-origin: https://wiki.freecad.org/CAM_ExportTemplate/de
+:page-origin-revision: 395a95f685 2026-07-09
+:page-command: CAM_ExportTemplate
+:page-icon: CAM_ExportTemplate.svg
+:page-menu: CAM → Vorlage exportieren
+:page-workbench: CAM
+:page-see-also: CAM Einrichtungsblatt
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ExportTemplate.svg[CAM ExportVorlage,32] *CAM ExportVorlage*
+
+Menu location:: menu:CAM[Vorlage exportieren]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:job/setup-sheet.adoc[CAM Einrichtungsblatt]
+--
+
+== Beschreibung
+
+Das Werkzeug image:CAM_ExportTemplate.svg[width=24] xref:job/export-template.adoc[CAM VorlageExportieren] enthält einen bequemen Mechanismus zum Speichern häufig verwendeter Auftragsdefinitionen aus einem bestehenden Auftrag heraus. Dies erleichtert die Einrichtung zukünftiger Aufträge, die weitgehend ähnlich sind, indem der Import von Auftragsvorlagen während des Prozesses der Auftragserstellung ermöglicht wird.
+
+Der menu:Bearbeiten[Voreinstellungen > CAM > Auftragseinstellungen > Standardwerte > Vorlage] legt die Standardvorlage fest.
+
+== Anwendung
+
+. Die Option menu:CAM[Vorlage exportieren] aus dem Menü wählen.
+. Im Konfigurationsdialogfeld menu:Vorlage exportieren[] die Elemente auswählen, die man einfügen möchte.
+. Die Vorlage muss im Makroverzeichnis oder im CAM-Verzeichnis gespeichert werden, wie in den xref:reference/preferences.adoc[CAM-Einstellungen] konfiguriert.
+. Der Name der Vorlage muss dem Muster `job_<Vorlagenname>.json` entsprechen. Bei der Anzeige in der Auswahl-Combobox werden das Präfix `job_` und die Erweiterung weggelassen.
+. Auf die Schaltfläche btn:[OK] klicken und die Vorlage speichern.
+
+== Optionen
+
+== Nachbearbeitung
+
+* Postprozessor-Auswahl
+* Postprozessor-Argumente
+* Ausgabedateiname
+
+== Lagerbestand
+
+* Umfang: Lagergröße
+* Platzierung: Lagerort
+
+== Einrichtungsblatt
+
+* Bearbeitungshöhen
+* Bearbeitungstiefen
+* Werkzeug-Schnelllaufdrehzahlen
+
+== Werkzeugsteuerungen
+
+* Ausgewählte Werkzeugsteuerungen.

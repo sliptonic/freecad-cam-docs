@@ -1,0 +1,178 @@
+= CAM Nut
+:page-origin: https://wiki.freecad.org/CAM_Slot/de
+:page-origin-revision: 99bcf20b81 2026-05-24
+:page-command: CAM_Slot
+:page-icon: CAM_Slot.svg
+:page-menu: CAM → Nut
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Slot.svg[CAM Nut,32] *CAM Nut*
+
+Menu location:: menu:CAM[Nut]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Slot.svg[width=24] xref:operations/slot.adoc[CAM Nut] erzeugt einen einfachen Nut-Bearbeitung unter Verwendung verschiedener Eingabemethoden.
+
+Zu den Eingaben gehören:
+
+* Auswahl einer oder mehrerer Flächen oder Kanten.
+* Auswahl von zwei Eckpunkten.
+* Eingabe von zwei benutzerdefinierten Punkten.
+
+Das CAM Slot-Objekt ist dazu gemacht, Teil eines image:CAM_Job.svg[width=24] xref:job/job.adoc[CAM-Auftrags] zu sein.
+
+== Anwendung
+
+. Die Referenzgeometrie im Modell auswählen:
+* Eine oder mehrere Flächen oder Kanten.
+* Zwei Knoten.
+* *_Nichts_* um zwei benutzerdefinierte Punkte zu verwenden, die in der https://wiki.freecad.org/Property_View[Eigenschaften-Ansicht] der Registerkarte Daten eingegeben wurden: Custom Point1 und Custom Point2.
+. Den Befehl Nut mit verschiedenen Methoden aufrufen:
+* Die Schaltfläche image:CAM_Slot.svg[width=24] xref:operations/slot.adoc[Nut] in der Symbolleiste drücken.
+
+.* Den Eintrag kbd:[CAM] → image:CAM_Slot.svg[width=24] xref:operations/slot.adoc[Nut] aus dem oberen Menü verwenden.
+
+. Die gewünschten Eigenschaften anpassen. Beschreibungen der verfügbaren Eigenschaften findet man weiter unten.
+
+=== Anwendungshinweise
+
+* Alle Nuten:
+** Sowohl der Anfang als auch das Ende eines Nutpfads können verlängert oder verkürzt werden. Dazu die Eigenschaften *Extend Path Start* (Pfadbeginn verlängern) und *Extend Path End* (Pfadende verlängern) benutzen.
+** Die Eigenschaft *Layer Mode* (Ebenenmodus), um den Schlitz im Modus *Single-pass* (Einzeldurchlauf) in der endgültigen Tiefe oder im Modus *Multi-pass* (Mehrfachdurchlauf) unter Verwendung der verfügbaren Eigenschaft *Step Down* (Abwärts schreiten) zu schneiden benutzen.
+** Die Eigenschaft *Reverse Direction* (Richtung umkehren) umschalten, um die Richtung des Schnittpfads umzukehren.
+
+* Lineare Nuten:
+** Derzeit gibt es keine Möglichkeit, lineare Nuten seitlich (parallel zur Verfahrbahn) zu versetzen. *_Beispiel:_* Angenommen, man hat einen Werkzeugdurchmesser, der kleiner ist als die Breite des zu räumenden Nutbereichs. Derzeit werden bei diesem Vorgang mehrere Bahnen auf einer Ebene entlang der Mittellinie der angegebenen Nut erstellt, was dazu führt, dass das Nutvolumen nicht vollständig geräumt wird. Einige Benutzer möchten, dass der Vorgang mehrere seitlich versetzte Bahnen erstellt, um den gesamten Nutbereich zu räumen. Dies ist nicht direkt möglich, kann jedoch mithilfe von "Benutzerdefinierten Punkten" erreicht werden, siehe "Vertikales Planfräsen" weiter unten. Alternativ kann man für eine solche Räumung den Vorgang Tasche verwenden.
+** Eine benutzerdefinierte lineare Nut mit den Eigenschaften *Custom Point1* (Benutzerdefinierter Punkt 1) und *Custom Point2* (Benutzerdefinierter Punkt 2) ohne Geometrieauswahl erstellen. *_Beispiel:_* Eine Nutbearbeitung in der GUI starten und auf *OK* klicken, um zu speichern. Man sucht und bearbeitet nun die Eigenschaften *Custom Point1* und *Custom Point2* auf der Registerkarte Daten der neu erstellten Nutbearbeitung. Die Bearbeitung neu berechnen, um den Pfad zu aktualisieren.
+
+* Vertikales Planfräsen:
+** Die meisten CAM-Werkzeuge können keinen Pfad auf einer einzelnen vertikalen Ebene erstellen, da die Projektion auf die horizontale Ebene eine Fläche von Null hat (eine interne Einschränkung). Die Nutbearbeitung macht dies möglich, indem "Benutzerdefinierte Punkte" ausgewählt werden, die eine zur vertikalen Ebene parallele Linie und geeignete Tiefenparameter definieren.
+
+* Bogen-/Kreisschnuten:
+** Erstellen von Bogen-/Kreisschnuten
+. Einen unteren Bogen der Nut auswählen. Dadurch wird ein Pfad direkt auf der ausgewählten Bogenkante erstellt.
+. Anschließend muss man die Eigenschaft _Extend Radius_ (Radius erweitern) auf der Registerkarte Daten der Bearbeitung bearbeiten. Sie mithilfe des Ausdruckseditors je nach Bedarf auf _OpToolDiameter / 2.0_ oder die negative Version _OpToolDiameter / -2.0_ einstellen, je nachdem, ob man den inneren oder äußeren Bogen der Nut ausgewählt hat.
+. Die Operation neu berechnen.
+. Es ist zu beachten, dass der Pfad *_nicht_* an der richtigen Stelle liegt, wenn der Werkzeugdurchmesser nicht der Nutbreite entspricht. In diesem Fall den Wert in der oben genannten Eigenschaft _Extend Radius_ anpassen.
+** Derzeit können Benutzer keinen benutzerdefinierten Bogen-/Kreispfad erstellen. Es muss eine dritte Eigenschaft _Custom Center_ hinzugefügt werden, zusammen mit zusätzlichen Änderungen an der Codebasis.
+
+== Eigenschaften
+
+*_Hinweis_*: Nicht alle diese Eigenschaften sind im Aufgaben-Fenster-Editor verfügbar. Einige sind nur auf der Registerkarte Daten des Eigenschaftenfensters für diese Bearbeitung zugänglich.
+
+.Base
+Hinweis: Es wird empfohlen, die Eigenschaft Placement von Pfadbearbeitungen nicht zu bearbeiten. Stattdessen verschiebt oder dreht man das CAM-Auftragsmodell nach Bedarf.
+
+* *Placement*: Gesamtpositionierung ++[++Position und Drehung++]++ des Objekts – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+** *Angle*: Winkel in Grad, der auf die Drehung des Objekts um den Achsenwert angewendet wird
+** *Axis*: Achse (eine oder mehrere), um die das Objekt gedreht werden soll, festgelegt in den Untereigenschaften: X, Y, Z
+*** *X*: X-Achswert
+*** *Y*: Y-Achswert
+*** *Z*: Z-Achswert
+** *Position*: Position des Objekts, festgelegt in Untereigenschaften: X, Y, Z – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+*** *X*: X-Abstandswert
+*** *Y*: Y-Abstandswert
+*** *Z*: Z-Abstandswert
+* *Label*: Vom Benutzer angegebener Name des Objekts (UTF-8)
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden
+* *Final Depth*: Endtiefe des Werkzeugs – niedrigster Wert in Z
+* *Finish Depth*: Maximale Materialabtragung beim letzten Durchgang
+* *Safe Height*: Die oben genannten schnellen Bewegungen sind erlaubt
+* *Start Depth*: Starttiefe des Werkzeugs – erste Schnitttiefe in Z
+* *Step Down*: Inkrementelle Absenkung des Werkzeugs
+
+image::Path-DepthsAndHeights.gif[width=500]
+
+ 
+[.caption]
+Visuelle Referenz für Tiefeneigenschaften (Einstellungen)
+
+.Path
+* *Active*: Falsch setzen, um zu verhindern, dass der Vorgang Code generiert
+* *Base*: Die Basisgeometrie für diese Bearbeitung
+* *Comment*: Ein optionaler Kommentar zu dieser Bearbeitung
+* *Coolant Mode*: Der Kühlmittelmodus für diese Bearbeitung
+* *Cycle Time*: Die Zykluszeitabschätzung für diese Bearbeitung
+* *Tool Controller*: Definiert die in der Bearbeitung verwendete Werkzeugsteuerung
+* *User Label*: Vom Benutzer zugewiesene Bezeichnung
+
+.Slot
+* *Custom Point1*: Einen benutzerdefinierten Startpunkt für den Nut-Pfad eingeben.
+* *Custom Point2*: Einen benutzerdefinierten Endpunkt für den Nut-Pfad eingeben.
+* *Cut Pattern*: Das geometrische Räummuster festlegen, das für die Bearbeitung verwendet werden soll.
+* *Extend Path End*: Positiv verlängert das Ende des Pfades, negativ verkürzt es.
+* *Extend Path Start*: Positiv verlängert den Anfang des Pfades, negativ verkürzt ihn.
+* *Extend Radius*: Bei Bögen/kreisförmigen Kanten den Radius für den Pfad versetzen.
+* *Layer Mode*: Den Vorgang in einem einzigen Durchgang in der gewünschten Tiefe oder in mehreren Durchgängen bis zur endgültigen Tiefe durchführen.
+* *Path Orientation*: Die Pfadausrichtung in Bezug auf die ausgewählten Elemente wählen.
+* *Reference1*: Auswählen, welcher Punkt für das erste ausgewählte Formelement verwendet werden soll.
+* *Reference2*: Auswählen, welcher Punkt für das zweite ausgewählte Formelement verwendet werden soll.
+* *Reverse Direction*: Ermöglicht die Umkehrung der Schnittrichtung des Nutpfads.
+
+.Start Point
+* *Start Point*: Der benutzerdefinierte Startpunkt für den Pfad dieser Bearbeitung.
+** *X*: X-Abstandswert
+** *Y*: Y-Abstandswert
+** *Z*: Z-Abstandswert
+* *Use Start Point*: Diese Option auf True setzen, wenn man einen Startpunkt manuell festlegen möchte. Den Startpunkt im Feld Startpunkt der Eigenschaftsdaten festlegen.
+
+== Layout des Aufgaben-Fenster-Editors
+
+_Beschreibungen zu den Einstellungen findet man in der Eigenschaften-Liste oben._
+
+Dieser Abschnitt ist lediglich eine Übersichtskarte der Einstellungen im Fenster-Editor für die Bearbeitungen.
+
+=== Basisgeometrie
+
+* *Hinzufügen*: Fügt ausgewählte Elemente hinzu, die als Basis für die Pfade dienen sollen
+* *Entfernen*: Entfernt die ausgewählten Elemente aus der Liste Basisgeometrie
+* *Löschen*: Alle Elemente in der Liste Basisgeometrie löschen
+
+=== Tiefen
+
+* *Start Depth*
+* *Final Depth*
+* *Step Down*
+
+=== Höhen
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Bearbeitung
+
+* *Tool Controller*: Das Werkzeug und seine Einstellungen, die für diese Bearbeitung verwendet werden sollen.
+* *Coolant Mode*: Kühlmittelmodus für diese Bearbeitung.
+* *Start Reference ***: Auswählen, welcher Punkt für das erste ausgewählte Formelement verwendet werden soll.
+* *End Reference ***: Auswählen, welcher Punkt für das erste ausgewählte Formelement verwendet werden soll.
+* *Extend Path End*: Positiv verlängert das Ende des Pfades, negativ verkürzt es.
+* *Extend Path Start*: Positiv verlängert den Anfang des Pfades, negativ verkürzt es.
+* *Layer Mode*: Den Vorgang in einem einzigen Durchgang in der gewünschten Tiefe oder in mehreren Durchgängen bis zur endgültigen Tiefe durchführen.
+* *Path Orientation ***: Die Pfadausrichtung in Bezug auf die ausgewählten Elemente auswählen.
+* *Reverse Direction*: Ermöglicht die Umkehrung der Schnittrichtung des Nutpfads.
+
+*++**++* Die Sichtbarkeit ändert sich je nach ausgewählter Basisgeometrie.
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+#Place code example here.
+----

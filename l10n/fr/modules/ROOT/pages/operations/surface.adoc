@@ -1,0 +1,292 @@
+= CAM Surfaçage 3D
+:page-origin: https://wiki.freecad.org/CAM_Surface/fr
+:page-origin-revision: cc97e52103 2026-05-23
+:page-command: CAM_Surface
+:page-icon: CAM_Surface.svg
+:page-menu: CAM → Surfacer 3D
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+WARNING: Il s'agit d'une fonction expérimentale inachevée. Voir xref:reference/experimental.adoc[CAM Fonctions expérimentales]
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Surface.svg[CAM Surfaçage 3D,32] *CAM Surfaçage 3D*
+
+Menu location:: menu:CAM[Surfacer 3D]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Description
+
+La commande image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[Surfaçage 3D] crée une nouvelle opération de surfaçage 3D, capable de générer le G-code de parcours pour l'entière surface supérieure d'un modèle 3D (ou capable de travailler avec des faces sélectionnées) et permet d'éviter des faces. Cette opération offre plusieurs motifs de coupe : ligne, zigzag, circulaire, circulaire en zigzag, décalage et spirale (similaire à un motif adaptatif). Depuis la version 0.19, cette opération propose de nombreuses personnalisations pour permettre une plus grande productivité.
+
+La commande Surfaçage 3D permet également de générer des parcours basiques de surfaçage 3D rotationnelles. Les capacités rotationnelles sont limitées à l'ensemble du modèle et ne permettent pas d'isoler des faces ou des régions spécifiques. Les parcours rotationnels sont également limités à des motifs de coupe linéaire.
+
+La commande s'interface avec OCL.pyd, un module open source tiers intitulé xref:reference/opencamlib.adoc[OpenCamLib] qui génère des parcours d'outil à partir d'un modèle 3D. OpenCamLib n'est pas directement intégré à FreeCAD.
+
+*Remarque :* pour utiliser l'opération Surfaçage 3D, vous devez :
+
+. Installer correctement xref:reference/opencamlib.adoc[OpenCamLib].
+. Activer les xref:reference/experimental.adoc[fonctions expérimentales] de l'atelier CAM.
+. Vérifier menu:Édition[Préférences > CAM > Avancé > Activer les fonctions dépendantes d'openCAMlib].
+
+== Utilisation
+
+Les instructions d'utilisation pour plusieurs variantes de xref:operations/surface.adoc[Surfaçage 3D] sont présentées ici.
+
+=== Opération de base
+
+. Appuyez sur l'icône image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[Surfacer 3D] ou sélectionnez menu:CAM[Surfacer 3D] du menu déroulant.
+. Sélectionnez le contrôleur d'outil pour l'opération dans la fenêtre contextuelle de la fenêtre de dialogue Contrôleur d'outil, le cas échéant.
+. Dans l'onglet Géométrie de base, sélectionnez les faces spécifiques sur lesquelles vous souhaitez vous concentrer et/ou éviter pour l'opération.
+. Ajustez les profondeurs d'opération selon vos besoins dans l'onglet Profondeurs : Profondeur de départ, Profondeur de finition, Descente.
+. Faites des ajustements dans l'onglet Hauteurs si nécessaire.
+. Configurez les paramètres dans l'onglet Opérations si nécessaire:
+* Choisissez votre mode de refroidissement.
+* Choisissez la boîte de délimitation : Brut ou Boîte englobante de base
+* Définissez le type de balayage pour l'opération: Plan ou Rotationnel
+* Sélectionnez le mode de calque pour l'opération: Passe unique ou Passes multiples
+.. Une passe unique est pour une passe finale.
+.. Les passes multiples peuvent être utilisées pour l'ébauchage en combinaison avec l'utilisation du décalage de profondeur pour laisser une couche de surface mince pour une passe de finition
+* Ajoutez un décalage supplémentaire à la boîte englobante en X et Y comme vous le souhaitez (_Balayages rotationnels uniquement_)
+* Réglez la direction de la fraise : X ou Y. Il s'agit de la direction linéaire dans laquelle la fraise (broche) se déplacera. (_Balayages rotationnels uniquement_)
+* Ajoutez une valeur de décalage de profondeur si vous souhaitez laisser une épaisseur de matériau spécifiée sur la surface, par exemple une passe de finition finale
+* Définissez l'intervalle d'échantillonnage utilisé pour le balayage d'OCL.
+* Définissez la valeur Pas d'avance en pourcentage du diamètre de l'outil.
+* Cochez la case Utiliser le point de départ si vous souhaitez fournir un point de départ pour l'opération dans la vue des propriétés de l'onglet de données de l'opération.
+* L'application des limites est activée par défaut. Cela force l'outil de coupe à rester à l'intérieur des limites de la géométrie de l'entité pour l'opération, comme une opération d'empoquetage. Désactivez cette option pour permettre au couteau de s'étendre vers l'extérieur de la géométrie de l'entité. La propriété Ajustement des limites remplace cette propriété.
+* L'optimisation des parcours linéaires est activée par défaut. La désactivation donnera un résultat G-code plus long et augmentera probablement le temps de découpe.
+. Si vous souhaitez prévisualiser le résultat avant d'accepter les paramètres, cliquez sur btn:[Appliquer]
+. Cliquez sur le bouton btn:[OK] pour confirmer et générer des chemins.
+
+Pour obtenir des effets différents ou plus complexes, définissez des propriétés d'opération supplémentaires dans l'onglet Données de l'https://wiki.freecad.org/Property_View[éditeur de propriétés] pour l'opération.
+
+==== Balayages rotationnels (4ème axe)
+
+. Lancez une <<opc3a9ration-de-base,opération de base>> comme décrit ci-dessus et définissez le *Type de balayage* à *Rotationnel*.
+. *Remarque :* la sélection de face n'est pas disponible pour les balayages rotationnels, les modifications apportées à la géométrie de base sont donc ignorées.
+. Localisez l'onglet Données et la vue Propriétés pour la nouvelle opération de xref:operations/surface.adoc[Surfaçage 3D]. Une section *Rotation* devrait être disponible avec des propriétés supplémentaires à ajuster, listées ci-dessous. +
+
+Il est recommandé de définir toutes les propriétés de rotation souhaitées en une seule fois avant de recalculer. Pour ce faire, cliquez sur la touche ENTRÉE immédiatement après avoir modifié un paramètre de propriété. Ce processus vous permettra de modifier et d'enregistrer plusieurs propriétés avant de recalculer l'opération.
+
+. Ajustez les paramètres suivants selon vos besoins:
+* Définissez *Cutter Tilt* sur l'index de décalage (angle) ++[++0-90++]++. (Utilisé pour les fraises hémisphériques)
+* Remplacez *Drop Cutter Dir* par l'axe de déplacement de la fraise (broche).
+* Modifiez *Drop Cutter Extra Offset* pour étendre la boîte englobante dans les directions X et Y.
+* Définissez *Rotation Axis* sur l'axe souhaité.
+* Ajustez *Start Index* pour démarrer l'index (angle) ++[++0-360++]++.
+* Ajustez *Stop Index* pour arrêter l'index (angle) ++[++0-360++]++.
+. Cliquez sur l'icône image:View-refresh.svg[width=16] https://wiki.freecad.org/Std_Refresh[Recalculer] dans la barre d'outils.
+. Attendez les résultats...
+
+===== Remarques sur les balayages rotationnels
+
+* Les balayages *Rotationnels* nécessitent beaucoup plus de temps et de traitement que les balayages *Plans*. Les facteurs ayant une incidence sur le temps de traitement comprennent: l'intervalle d'échantillonnage, l'interpolation, le diamètre de l'outil et la taille du modèle. Encore une fois, les analyses en rotation peuvent prendre beaucoup de temps. Certains peuvent prendre 3, 5 ou 10 minutes ou plus.
+* Pour des raisons de temps, il est préférable de ne pas recalculer un balayage rotationnel après chaque changement de propriété. Considérez plutôt l’un des éléments suivants :
+** utilisez la technique *pour modifier tous les paramètres avec la touche ENTREE* mentionnée à l'étape 2 ci-dessus puis l'opération image:View-refresh.svg[width=16] https://wiki.freecad.org/Std_Refresh[Recalculer].
+** désactiver l'opération avec l'outil image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Activer une opération], apportez vos modifications aux propriétés de l'opération, puis cliquez sur le image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Activer une opération] à nouveau pour réactiver l'opération, ce qui déclenche un recalcul en interne.
+* La commande image:CAM_Surface.svg[width=16] xref:operations/surface.adoc[Surfaçage 3D] est toujours considérée comme une « fonction expérimentale » au 25/06/2019. En tant que tel, elle peut contenir quelques bugs qui doivent encore être clairement identifiés. Veuillez signaler les bogues et les problèmes sur le https://forum.freecad.org/viewforum.php?f=15[forum CAM].
+* Le image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[CAM Simulateur de parcours] intégré ne prend pas en charge la simulation du 4ème axe. Vous devrez utiliser un simulateur tiers pour inspecter ou vérifier visuellement les parcours. Voir la section <<ressources,Ressources>> ci-dessous pour des suggestions.
+* Vous verrez probablement des lignes de rotation rouges autour de votre modèle dans la fenêtre. C'est normal dans FreeCAD pour le moment.
+
+===== Remarques sur les balayages de modèles complexes
+
+Des temps de traitement excessivement longs (plus de 10 minutes) peuvent se produire lors du traitement de grands modèles complexes. En plus des facteurs déjà mentionnés, les étapes suivantes peuvent aider à identifier les causes et les solutions potentielles.
+
+*_Mémoire insuffisante_* +
+Vérifiez la quantité de mémoire disponible pendant l'exécution du balayage à l'aide d'un outil tel que le *Gestionnaire des tâches, onglet Mémoire* de Windows. Si plus de 90 % de la mémoire est constamment utilisée, alors un petit paramètre *Déflexion linéaire* pourrait générer un maillage trop important pour la mémoire disponible. +
+Pour confirmer cela :
+
+. Créez une nouvelle commande image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[Surfaçage 3D].
+. Passez à l'onglet Modèle et augmentez la valeur de *Linear Deflection*. Par exemple, passez de 2,5 um à 20 um.
+. Revenez à l'onglet Tâches pour terminer la configuration de l'opération.
+. Cliquez sur le bouton btn:[OK] pour confirmer et générer les parcours. +
+
+Pour faire de cette valeur la valeur par défaut pour toutes les nouvelles commandes image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[Surfaçage 3D], modifiez le paramètre *GeometryTolerance*. +
+menu:Outils[Éditer les paramètres > Preferences > Mod > CAM > GeometryTolerance]. +
+Notez qu'à partir de la version 0.19, *Linear Deflection* par défaut = GeometryTolerance / 4.
+
+*_Géométrie non valide_* +
+Si un modèle contient une géométrie invalide, le temps de numérisation peut augmenter considérablement. Un modèle peut être vérifié à l'aide de la fonction https://wiki.freecad.org/Part_CheckGeometry[Part Vérifier la géométrie] dans l'image:Workbench_Part.svg[width=24]**atelier Part**. +
+Pour exécuter l'outil :
+
+. Passez dans l'image:Workbench_Part.svg[width=24] https://wiki.freecad.org/Part_Workbench[atelier Part] et sélectionnez le modèle à vérifier.
+. Cliquez sur le bouton image:Part_CheckGeometry.svg[width=16] https://wiki.freecad.org/Part_CheckGeometry[Part Vérifier la géométrie] disponible dans la barre d'outils de l'atelier de pièce OU utilisez l'entrée menu:Part[Vérifier la géométrie] dans le menu supérieur.
+. Cliquez sur le bouton *Exécuter la vérification* et examinez les résultats.
+
+Si les résultats comprennent des éléments comme _BOPAlgo SelfIntersect_, alors la géométrie n'est pas valide et doit être corrigée en ajustant le modèle. +
+(Conseil : les opérations booléennes et les commandes Loft peuvent parfois introduire des _Self Intersections_) +
+.
+
+==== Formes d'outils disponibles
+
+Cette opération 3D Surface utilise actuellement xref:reference/opencamlib.adoc[OpenCamLib] pour extraire les parcours de la base de la pièce. En tant que tel, une traduction des paramètres de l'outil est nécessaire entre le contrôleur d'outil de FreeCAD et OCL afin de compléter le balayage avec la forme de votre outil.
+
+Ces formes d’outils sont respectées et disponibles pour cette opération 3D Surface:
+
+* Fraise à queue
+* Fraise hémisphérique
+* Fraise à tête cylindrique
+* Fraise à chanfreiner
+* Graveur
+
+Si vous choisissez d'exécuter le simulateur de parcours dans l'atelier CAM, il utilise uniquement la fraise de bout standard pour simuler des parcours. Par conséquent, vous ne verrez pas l’enlèvement de matière spécifique à une forme d’outil. L'enlèvement de matière est illustré à l'aide de la forme de la fraise.
+
+REMARQUE : à compter de mai 2019, seule la fraise en bout dispose d'un type de test permettant de déterminer l'exactitude de la traduction des paramètres de l'outil FreeCAD-OCL. Poster tout commentaire concernant une utilisation autre que l’usine finale dans la section https://forum.freecad.org/viewforum.php?f=15[CAM] des forums FreeCAD.
+
+== Propriétés : version 0.19
+
+*_Remarque_*: toutes ces propriétés ne sont pas disponibles dans l'éditeur de fenêtre de tâches. Certaines ne sont accessibles que dans l'onglet Données du panneau de l'https://wiki.freecad.org/Property_View[éditeur de propriétés] pour cette opération.
+
+.Base
+Remarque : il est conseillé de ne pas modifier la propriété *Placement* des opérations de parcours. Il convient plutôt de déplacer ou de faire pivoter le modèle de la tâche de CAM selon les besoins.
+
+* *Placement* : emplacement global ++[++position et rotation++]++ de l'objet, par rapport à l'origine (ou à l'origine du conteneur de l'objet parent).
+** *Angle* : angle en degrés appliqué à la rotation de l'objet autour de la valeur de la propriété *Axis*.
+** *Axis* : axe (un ou plusieurs) autour duquel faire pivoter l'objet, défini dans les sous-propriétés : X, Y, Z.
+*** *X* : valeur de l'axe X.
+*** *Y* : valeur de l'axe Y.
+*** *Z* : valeur de l'axe Z.
+** *Position* : position de l'objet, définie dans les sous-propriétés: X, Y, Z, par rapport à l'origine (ou à l'origine du conteneur de l'objet parent).
+*** *X* : valeur de la distance en X.
+*** *Y* : valeur de la distance en Y.
+*** *Z* : valeur de la distance en Z.
+* *Label* : nom de l'objet fourni par l'utilisateur (UTF-8).
+
+.Clearing Options
+* *Bound Box* : si l'opération est limitée par le brut ou par le boîte englobante de l'objet de base
+* *Cut Mode* : la direction dans laquelle le parcours d'outil doit aller autour de la pièce : mode En avalant (sens horaire) ou Opposition (sens anti-horaire)
+* *Cut Pattern* : motif de coupe à utiliser
+* *Cut Pattern Reversed* : inverser l'ordre de coupe des parcours des recouvrement entre les passes. Pour les motifs de coupe circulaire, commencer par l'extérieur et travailler vers le centre
+* *Depth Offset* : décalage de l'axe Z par rapport à la surface de l'objet
+* *Layer Mode* : mode de complétion de l'opération : simple ou multi-passes
+* *Pattern Center At* : choisir l'emplacement du point central pour commencer le motif de coupe
+* *Pattern Center Custom* : définit le point de départ du motif de coupe
+* *Profile Edges* : permet de profiler des arêtes de la sélection. Les options suivantes sont disponibles (les images peuvent être vues dans ce message du forum : https://forum.freecad.org/viewtopic.php?p=676452#p676452) :
+** *None* : ne pas créer de profil
+** *Only* : ne crée qu'un profil et aucun parcours interne
+** *First* : commencer par le profil et faire le reste
+** *Last* : commencer par le reste et faire le profil
+* *Sample Interval* : l'intervalle d'échantillonnage. Les petites valeurs entraînent de longs temps d'attente
+* *Step Over* : pourcentage du pas de recouvrement du parcours du couteau oscillant
+
+.Depth
+* *Clearance Height* : hauteur nécessaire pour éviter les brides et les obstructions.
+* *Final Depth* : profondeur finale de l'outil, valeur la plus basse de Z.
+* *Safe Height* : seuil supérieur duquel les mouvements rapides sont autorisés.
+* *Start Depth* : profondeur initiale de l'outil, première profondeur de coupe en Z.
+* *Step Down* : pas de descente incrémentale de l'outil.
+
+.Mesh Conversion
+* *Angular Deflection* : des valeurs plus petites donnent un maillage plus fin et plus précis. Des valeurs plus petites augmentent beaucoup le temps de traitement
+* *Linear Deflection* : des valeurs plus petites donnent un maillage plus fin et plus précis. Des valeurs plus petites n'augmentent pas beaucoup le temps de traitement mais peuvent augmenter la consommation de mémoire.
+
+.Optimization
+* *Circular Use G2 G3* : convertit les arcs coplanaires en commandes G-code G2/G3 pour les motifs de coupe « Circular » et « CircularZigZag ».
+* *Gap Sizes* : retour d'information : trois plus petits écarts identifiés dans la géométrie du parcours
+* *Gap Threshold*: les intervalles d'artefacts colinéaires et co-radiaux qui sont inférieurs à ce seuil sont fermés dans le parcours.
+* *Optimize Linear Paths* : active l'optimisation des parcours linéaires (points colinéaires). Supprime les points colinéaires inutiles de la sortie G-Code.
+* *Optimize Step Over Transitions* : permet une optimisation distincte des transitions entre chaque étape sur le parcours.
+
+.Path
+* *Active* : mettre à False pour empêcher l'opération de générer du code.
+* *Base* : géométrie de base pour cette opération.
+* *Comment* : commentaire facultatif pour cette opération.
+* *Coolant Mode* : mode de refroidissement pour cette opération.
+* *Cycle Time* : estimation du temps de cycle pour cette opération.
+* *Tool Controller* : définit le contrôleur d'outil utilisé dans l'opération.
+* *User Label* : étiquette attribuée par l'utilisateur.
+
+.Rotation
+* *Cutter Tilt* : définit l'angle d'inclinaison de la fraise (broche).
+* *Drop Cutter Dir* : direction selon laquelle les lignes du couteau oscillant sont créées
+* *Drop Cutter Extra Offset* : décalage supplémentaire par rapport au cadre de sélection sélectionné - utilisez des sous-propriétés pour définir les valeurs
+** *X* : valeur de la distance en X
+** *Y* : valeur de la distance en Y
+** *Z* : valeur de la distance en Z
+* *Rotation Axis* : définit l'axe de rotation du modèle.
+* *Start Index* : index de départ (angle) pour la rotation
+* *Stop Index* : index d'arrêt (angle) pour la rotation
+
+.Selected Geometry Settings
+* *Avoid Last X Faces* : évite de couper les « N » dernières faces dans la liste Géométrie de base des faces sélectionnées
+* *Avoid Last X Internal Features* : ne pas couper les entités internes sur les faces évitées
+* *Boundary Adjustment* : des valeurs positives poussent l'outil de coupe vers ou au-delà de la limite. Les valeurs négatives éloignent la fraise de la limite
+* *Boundary Enforcement* : si true, l'outil de découpe restera à l'intérieur des limites du modèle ou des faces sélectionnées
+* *Handle Multiple Features* : choisir comment traiter plusieurs entités de la géométrie de base
+* *Internal Features Adjustment* : les valeurs positives poussent l'outil de coupe vers ou dans l'entité. Les valeurs négatives retirent l'outil de coupe de l'entité
+* *Internal Features Cut* : coupe des zones des entités internes à l'intérieur d'une face sélectionnée plus grande
+
+.Start Point
+* *Start Point* : point de départ personnalisé pour le parcours de cette opération, défini dans les sous-propriétés : X, Y, Z
+** *X* : valeur de l'axe X
+** *Y* : valeur de l'axe Y
+** *Z* : valeur de l'axe Z
+* *Use Start Point* : mis à True, si vous spécifiez un point de départ
+
+.Surface
+* *Scan Type* : Planar : balayage surfacique plat et 3D. Rotational : balayage rotatif sur le 4ème axe.
+
+.Waste
+* *Ignore Waste* : ignore les zones situées en dessous de la profondeur spécifiée.
+* *Ignore Waste Depth* : profondeur utilisée pour identifier les zones de déchets à ignorer.
+* *Release From Waste* : coupe les déchets jusqu'à la profondeur sur le bord du modèle, ce qui libère le modèle.
+
+== Editeur de la fenêtre des tâches
+
+_Les descriptions des paramètres sont fournies dans la liste des propriétés ci-dessus._
+
+Cette section est simplement une représentation des paramètres de l’éditeur de fenêtres pour l’opération.
+
+=== Localisation de la base
+
+* *Sélection de géométrie de base à importer* : utiliser cette liste pour sélectionner la géométrie de base à importer à partir de l'opération existante sélectionnée
+* *Importer* : importe la géométrie de base de l'opération sélectionnée dans la liste des géométries de base des opérations courantes
+* *Liste des géométries de base pour l'opération en cours* : liste des géométries de base pour l'opération en cours, le cas échéant
+* *Ajouter* : ajoute le ou les éléments sélectionnés qui devraient être la (les) base(s) du (des) parcours
+* *Supprimer* : supprime les éléments sélectionnés dans la liste Base Location
+* *Effacer* : efface tous les éléments de la liste Base Location
+
+=== Profondeur
+
+* *Start Depth*
+* *Final Depth*
+* *Step Down*
+
+=== Hauteur
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Opération
+
+* *Tool Controller*
+* *Coolant Mode*
+
+* *BoundBox*
+* *Scan Type*
+* *Layer Mode*
+* *BoundBox extra offset X*
+* *BoundBox extra offset Y*
+* *Drop Cutter Direction*
+* *Depth Offset*
+* *Step Over*
+* *Sample Interval*
+* *Optimize Output Enabled*
+
+* *Use Start Point*
+* *Boundary Enforcement*
+* *Optimize Linear Paths*
+
+== Ressources
+
+* Simulateur G-code(tracé) : https://ncviewer.com/[NCViewer]
+* Simulateur G-code(tracé) : https://www.camotics.org/[CAMotics]

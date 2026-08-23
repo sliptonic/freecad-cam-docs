@@ -1,0 +1,191 @@
+= CAM Profil
+:page-origin: https://wiki.freecad.org/CAM_Profile/de
+:page-origin-revision: e19ce7a651 2026-07-09
+:page-command: CAM_Profile
+:page-icon: CAM_Profile.svg
+:page-menu: CAM → Profil
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Profile.svg[CAM Profil,32] *CAM Profil*
+
+Menu location:: menu:CAM[Profil]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Profile.svg[width=24] xref:operations/profile.adoc[CAM Profil] erstellt eine Kontur-Bearbeitung basierend auf ausgewählten Merkmalen des Modells. Das Werkzeug wurde in Version 0.19 eingeführt. Es bietet drei Bearbeitungen, die in früheren Versionen von separaten Werkzeugen ausgeführt wurden.
+
+Alle Bearbeitungen erstellen Objekte, die Teil eines image:CAM_Job.svg[width=16] xref:job/job.adoc[CAM Auftrags] sind.
+
+Dies sind die verfügbaren Bearbeitungen:
+
+=== Konturbearbeitung
+
+Eine Kontur-Bearbeitung ist die Standardeinstellung. Sie erstellt einen einfachen Außenkonturschnitt komplexer 3D-image:Workbench_Part.svg[width=24] https://wiki.freecad.org/Part_Workbench[Part]-Objekte. Das gesamte Auftragsmodell dient als Eingabe für die Bearbeitung, unabhängig davon, ob beim Aufruf des Befehls Kontur eine Körpergeometrie ausgewählt wurde.
+
+=== Profilflächenbearbeitung
+
+Eine Profilflächenbearbeitung erstellt einen einfachen Konturpfad aus einer oder mehreren ausgewählten Flächen eines Objekts.
+
+=== Profilkantenbearbeitung
+
+Eine Profilkantenbearbeitung erstellt einen einfachen Konturpfad aus ausgewählten Kanten.
+
+image::Path_profile_example.jpg[width=600]
+
+== Anwendung
+
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Taste image:CAM_Profile.svg[width=16] xref:operations/profile.adoc[Profil] drücken.
+* Die Option menu:CAM[Profil] aus dem Menü wählen.
+. Den Abschnitt Basisgeometrie aktivieren, indem man auf die entsprechende Registerkarte klickt, und Merkmale aus dem Auftragsmodell auswählt.
+* Wenn keine Merkmale ausgewählt sind, führt der Befehl standardmäßig eine menu:Kontur[]-Bearbeitung durch, bei der das gesamte Modell konturiert wird.
+* Wenn Flächen ausgewählt sind, ist das Ergebnis eine menu:Profilfläche[]-Bearbeitung.
+* Wenn Kanten ausgewählt sind, ist das Ergebnis eine menu:Profilkanten[]-Bearbeitung. +
+*HINWEIS*: Diese Bearbeitung wurde verbessert, um die Funktionalität bei einigen Auswahlen mit offenen Kanten (keine Schleifen) zu ermöglichen. Weitere Informationen zu bewährten Verfahren für die Profilierung offener Kanten findet man im Abschnitt <<usage-notes,Hinweise zur Verwendung>> weiter unten.
+. Den Abschnitt Bearbeitung aktivieren, indem man auf die entsprechende Registerkarte klickt, und die Einstellungen der Bearbeitung nach Bedarf anpassen.
+. Optional kann auf die Schaltfläche btn:[Apply] geklickt werden, um eine Vorschau der Bearbeitung mit den aktuellen Einstellungen anzuzeigen.
+. Auf die Schaltfläche btn:[OK] oder btn:[Cancel] klicken, um die Bearbeitung zu erstellen oder abzubrechen.
+
+*Wichtiger Hinweis: Das CAM-Profil berücksichtigt keine weiteren Details des Objekts. Die Eigenschaften, insbesondere die endgültige Tiefe, müssensorgfältig angepasst werden, da ein Fehler das Werkstück zerstören könnte!*
+
+Ein Startpunkt kann über die Registerkarte Bearbeitung im Aufgaben-Fenster-Editor aktiviert werden, wobei ein Ort verwendet wird, der unter menu:Eigenschaftenansicht[Daten > Startpunkt] definiert ist.
+
+Zusätzliche Anpassungen an der Bearbeitung vornehmen, indem die Eigenschaften der Bearbeitung auf der Registerkarte Daten der Eigenschaftenansicht geändert werden. Erweiterte Eigenschaften findet man hier, sofern vorhanden.
+
+== Anwendungshinweise
+
+* Die image:CAM_Profile.svg[width=16] xref:operations/profile.adoc[Profil]-Bearbeitung ist in der Lage, *offene Kanten* zu profilieren (eine oder mehrere durchgehende Kanten, die aus der _Draufsicht_ betrachtet keine Schleife bilden)
+** Am besten wählt man die oberen Kanten (höchsten Kanten) für die Auswahl aus. Anschließend muss man die endgültige Tiefe für den Vorgang manuell festlegen. Die Auswahl nur der unteren Kanten ist unvorhersehbar und führt in vielen Fällen wahrscheinlich zu unerwünschten Pfaden; in einigen Fällen werden jedoch korrekte Pfade zurückgegeben.
+** Die ausgewählten Kanten müssen _in der Draufsicht betrachtet_ eine durchgehende Kante bilden. Die ausgewählten oberen Kanten können unterschiedliche Höhen haben, solange sie an einer gemeinsamen (X, Y)-Koordinate verbunden sind – unterschiedliche Z-Höhen sind in _einigen**++**++**_ Fällen akzeptabel. +
+**++**++**In bestimmten Fällen muss der Benutzer die gerade vertikale Verbindungslinie zwischen zwei benachbarten Kanten unterschiedlicher Höhe, die eine gemeinsame (X, Y)-Koordinate haben, in seine Auswahl einbeziehen.
+** Da die oberen Kanten ausgewählt sind, muss die endgültige Tiefe für den Vorgang manuell eingestellt werden.
+** Beim Profilieren offener Kanten wird die Eigenschaft _Side_ oder _Cut Side_ intern deaktiviert, auch wenn sie wahrscheinlich im Aufgaben-Editorfenster und in der Eigenschaftenliste auf der Registerkarte Daten sichtbar ist.
+* Beim Profilieren des gesamten Modells (einer vollständigen Kontur des Modells) ist die Eigenschaft _Side_ oder _Cut Side_ standardmäßig auf _Outside_ (Außen) eingestellt. Der Benutzer kann sie je nach Konfiguration des Teils anpassen.
+
+== Eigenschaften
+
+*_Hinweis_*: Nicht alle diese Eigenschaften sind im Aufgaben-Fenster-Editor verfügbar. Einige sind nur auf der Registerkarte Daten des Eigenschaftenfensters für diese Bearbeitung zugänglich.
+
+.Base
+Hinweis: Es wird empfohlen, die Eigenschaft Placement von Pfadbearbeitungen nicht zu bearbeiten. Stattdessen verschiebt oder dreht man das CAM-Auftragsmodell nach Bedarf.
+
+* *Placement*: Gesamtpositionierung ++[++Position und Drehung++]++ des Objekts – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+** *Angle*: Winkel in Grad, der auf die Drehung des Objekts um den Achsenwert angewendet wird
+** *Axis*: Achse (eine oder mehrere), um die das Objekt gedreht werden soll, festgelegt in den Untereigenschaften: X, Y, Z
+*** *X*: X-Achswert
+*** *Y*: Y-Achswert
+*** *Z*: Z-Achswert
+** *Position*: Position des Objekts, festgelegt in Untereigenschaften: X, Y, Z – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+*** *X*: X-Abstandswert
+*** *Y*: Y-Abstandswert
+*** *Z*: Z-Abstandswert
+* *Label*: Vom Benutzer angegebene Bezeichnung des Objekts (UTF-8)
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden
+* *Final Depth*: Endtiefe des Werkzeugs – niedrigster Wert in Z
+* *Finish Depth*: Maximale Materialabtragung beim letzten Durchgang
+* *Safe Height*: Die oben genannten schnellen Bewegungen sind erlaubt
+* *Start Depth*: Starttiefe des Werkzeugs – erste Schnitttiefe in Z
+* *Step Down*: Inkrementelle Absenkung des Werkzeugs
+
+image::Path-DepthsAndHeights.gif[width=600]
+
+ 
+[.caption]
+Visuelle Referenz für Tiefeneigenschaften (Einstellungen)
+
+.Path
+* *Active*: Falsch setzen, um zu verhindern, dass der Vorgang Code generiert
+* *Base*: Die Basisgeometrie für diese Bearbeitung
+* *Comment*: Ein optionaler Kommentar zu dieser Bearbeitung
+* *Coolant Mode*: Der Kühlmittelmodus für diese Bearbeitung
+* *Cycle Time*: Die Zykluszeitabschätzung für diese Bearbeitung
+* *Tool Controller*: Definiert die in der Bearbeitung verwendete Werkzeugsteuerung
+* *User Label*: Vom Benutzer zugewiesene Bezeichnung
+
+.Profile
+* *Direction*: Die Richtung, in der der Werkzeugpfad um das Teil verlaufen soll: im Uhrzeigersinn ++[++CW++]++ oder gegen den Uhrzeigersinn ++[++CCW++]++
+* *Expand Profile*: Die Profilbereinigung über den zusätzlichen Versatz hinaus erweitern.
+* *Expand Profile Step Over*: Den Überspringen-Prozentsatz basierend auf dem Werkzeugdurchmesser einstellen.
+* *Handle Multiple Features*: Auswählen, wie mehrere Basisgeometrie-Formelemente verarbeitet werden sollen. `Individually` verarbeitet jedes Merkmal separat. `Collectively` kombiniert kompatible Funktionen, bevor der Profilpfad generiert wird. [.since]#introduced in 26.3#: `Collectively` unterstützt zudem die Auswahl von Profilkanten und die Erstellung von Umrissprofilen für das gesamte Modell.
+* *OffsetExtra*: Zusätzlicher Wert, um vom endgültigen Profil fernzubleiben – gut für Schruppwerkzeugwege
+* *Process Circles*: Überprüfen, ob diese Profilbearbeitung auch auf zylindrische Bohrungen angewendet werden soll, _die normalerweise gebohrt werden_.
+* *Process Holes*: Überprüfen, ob diese Profilbearbeitung auch Löcher in der Basisgeometrie verarbeiten soll. Dabei beachten, dass dies keine zylindrischen Löcher umfasst.
+* *Process Perimeter*: Überprüfen, ob diese Profilbearbeitung auch den Außenumfang der Basisgeometrieformen verarbeiten soll.
+* *Retract Threshold*: Abstand, unterhalb dessen der Antrieb bei Repositionierungsbewegungen unten bleiben kann. Der Wert `0` deaktiviert dieses Verhalten.
+* *Side*: (Schnittseite) Seite der Kante, die das Werkzeug schneiden soll. Dies ist nur relevant, wenn _Kompensation verwenden_ auf True (aktiviert) gesetzt ist.
+* *Use Compensation*: Wenn diese Option aktiviert ist, wird die Profilbearbeitung um den Werkzeugradius versetzt. Die Versatzrichtung wird durch die Schnittseite bestimmt.
+* *SortingMode*: Legt fest, wie mehrere ausgewählte Elemente angeordnet werden. `Automatic` verwendet die Standard-Pfadsortierung. `Manual` folgt der Reihenfolge, in der die Elemente ausgewählt wurden.
+
+.Rotation
+* *Attempt Inverse Angle*: Automatisch den inversen Winkel versuchen, wenn die anfängliche Drehung falsch ist.
+* *Enable Rotation*: Die Drehung aktivieren, um Zugang zu Löchern zu erhalten, die nicht senkrecht zur Z-Achse stehen.
+* *Inverse Angle*: Den Drehwinkel umkehren. _*Beispiel:* Eine Drehung von -22,5 auf 22,5 Grad ändern._
+* *Limit Depth To Face*: Die Z-Tiefe der ausgewählten Fläche wird als niedrigster Wert für die endgültige Tiefe erzwungen. Höhere Benutzerwerte für die endgültige Tiefe werden berücksichtigt.
+* *Reverse Direction*: Umkehrung der Ausrichtung der Bearbeitung um 180 Grad.
+
+.Start Point
+* *Start Point*: Der benutzerdefinierte Startpunkt für den Pfad dieser Bearbeitung.
+** *X*: X-Entfernungswert
+** *Y*: Y-Entfernungswert
+** *Z*: Z-Entfernungswert
+* *Use Start Point*: Diese Option auf True setzen, wenn man einen Startpunkt manuell festlegen möchte. Den Startpunkt im Datenfeld Start Point der Eigenschaftsdaten festlegen.
+
+== Layout des Aufgaben-Fenster-Editors
+
+_Beschreibungen zu den Einstellungen findet man in der Liste Eigenschaften oben._ Dieser Abschnitt ist lediglich eine Übersichtskarte der Einstellungen im Fenster-Editor für die Bearbeitungen.
+
+=== Basisgeometrie
+
+* *Hinzufügen*: Fügt ausgewählte Elemente hinzu, die als Basis für die Pfade dienen sollen
+* *Entfernen*: Entfernt die ausgewählten Elemente aus der Liste Basisgeometrie
+* *Löschen*: Alle Elemente in der Liste Basisgeometrie löschen
+
+=== Tiefen
+
+* *Start Depth*
+* *Final Depth*
+* *Step Down*
+
+=== Höhen
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Bearbeitung
+
+* *Tool Controller*
+* *Coolant Mode*
+* *Cut Side ***
+* *Direction*
+* *Extra Offset*
+* *Enable Rotation*
+* *Use Start Point*
+* *Use Compensation*
+* *Process Holes ***
+* *Process Circles ***
+* *Process Perimeter ***
+
+*++**++* Die Verfügbarkeit ändert sich je nach Auswahl im Abschnitt Basisgeometrie.
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+#Place code example here.
+----

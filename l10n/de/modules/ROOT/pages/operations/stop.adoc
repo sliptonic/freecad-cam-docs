@@ -1,0 +1,33 @@
+= CAM Halt
+:page-origin: https://wiki.freecad.org/CAM_Stop/de
+:page-command: CAM_Stop
+:page-icon: CAM_Stop.svg
+:page-menu: CAM → Zusätzliche Befehle → Halt
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Stop.svg[CAM Halt,32] *CAM Halt*
+
+Menu location:: menu:CAM[Zusätzliche Befehle > Halt]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+The image:CAM_Stop.svg[width=24] xref:operations/stop.adoc[CAM Stop] command inserts a Stop command (M1). This command will Pause a running program on the CNC controller, waiting for user interaction to continue.
+
+*Note: this does not stop the spindle.*
+
+== Anwendung
+
+. Die Schaltfläche image:CAM_Stop.svg[width=16] xref:operations/stop.adoc[Halt] drücken
+
+== Eigenschaften
+
+* *Stop*: Defines if the Stop is optional or mandatory.

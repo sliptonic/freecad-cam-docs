@@ -1,0 +1,170 @@
+= CAM Walkthrough for the Impatient
+:page-origin: https://wiki.freecad.org/CAM_Walkthrough_for_the_Impatient/pl
+:page-imported: true
+
+[.tutorialinfo]
+Topic:: środowisko pracy CAM
+Level:: początkujący / średnio zaawansowany
+Time:: 15 minut
+Author:: Chrisb
+Fcversion:: 0.19
+Files:: brak
+
+== Przeznaczenie
+
+Demonstracja tworzenia *Zadania* środowiska pracy image:Workbench_CAM.svg[width=32] xref:index.adoc[CAM] na podstawie modelu 3D. Następnie generowanie poprawnego dialektycznie G-Code dla docelowej frezarki CNC.
+
+== Model 3D
+
+{empty}1. Projekt rozpoczyna się od prostego modelu FreeCAD zaprojektowanego w środowisku pracy image:Workbench_PartDesign.svg[width=32] https://wiki.freecad.org/PartDesign_Workbench[Projekt Części] prostopadłościanu z kieszenią w kształcie prostokąta,
+
+::
+  image:Path-SquarePocketModel.png[]
+
+::
+  
+[.caption]
+Powyżej: Prostopadłościan z kieszenią utworzony w środowisku pracy image:Workbench_PartDesign.svg[width=24] https://wiki.freecad.org/PartDesign_Workbench[Projekt Części] obejmujący Zawartość, na podstawie szkicu zorientowanego w image:View-top.svg[width=16] płaszczyźnie XY.
+
+{empty}2. Po ukończeniu modelu 3D przełącz się na środowisko image:Workbench_CAM.svg[width=32] xref:index.adoc[CAM] poprzez _(menu rozwijane)_ https://wiki.freecad.org/Std_Workbench[wyboru środowiska pracy]
+
+== Zadanie
+
+{empty}3. Teraz tworzymy xref:job/job.adoc[Zadanie] za pomocą jednej z następujących metod:
+
+* Naciskamy przycisk image:CAM_Job.svg[width=24] xref:job/job.adoc[Zadanie] z paska narzędzi.
+* Używając skrótu klawiaturowego kbd:[P], a następnie kbd:[J].
+* Używając polecenia z menu głównego menu:CAM[Zadanie].
+
+image:Path-JobCreationDialog.png[]
+
+::
+  ;;
+    
+[.caption]
+Powyżej: Okienko dialogowe xref:job/job.adoc[Utwórz zadanie]
+
+{empty}4. Zostanie otwarte okno dialogowe edycja zadania. W tym oknie dialogowym kliknij btn:[OK], aby zaakceptować Zawartość jako model podstawowy, bez szablonu.
+
+=== Konfiguracja
+
+{empty}5. Okno Edycja zadania zostanie otwarte w oknie zadań, a w oknie widoku modelu zostanie wyświetlony element materiału jako prostopadłościan szkieletu otaczający podstawową Zawartość. Zostanie wybrana karta *Konfiguracja*.
+
+=== Wyjście zadania
+
+{empty}6. Zakładka Wyjście definiuje ścieżkę pliku wyjściowego, nazwę, rozszerzenie i postprocesor. Zaawansowani użytkownicy mogą dostosować Argumenty postprocesora _(wskazanie kursorem myszki powoduje wyświetlenie podpowiedzi typowych argumentów)_.
+
+::
+  image:Path-JobOutput.png[]
+  +
+  
+[.caption]
+Powyżej: Okienko dialogowe Edycja xref:job/job.adoc[zadania] z wybraną zakładką '''Wyjście'''
+
+=== Narzędzia
+
+::
+  image:Path-JobTools.png[]
+  +
+  
+[.caption]
+Powyżej: Okienko dialogowe Edycja xref:job/job.adoc[zadania] z wybraną zakładką '''Narzędzia'''
+
+{empty}7. Zmodyfikuj domyślne narzędzie, zaznaczając je i klikając przycisk btn:[Edycja]. Spowoduje to otwarcie okna *Edytor kontrolera narzędzi*.
+
+::
+  image:Path-ToolConfig.gif[]
+  +
+  
+[.caption]
+Powyżej: Okienko dialogowe Edycja xref:job/job.adoc[zadania] Kontrolera narzędzi
+
+{empty}8. Nazwa nadana narzędziu i numer narzędzia odpowiadają numerowi narzędzia maszyny. W oknie dialogowym (patrz wyżej) jest to narzędzie nr 4. Sterownik narzędzia jest skonfigurowany dla posuwu poziomego i pionowego `2mm/s` i prędkości wrzeciona `2000 rpm`.
+
+{empty}9. Wybierz zakładkę *Narzędzia* w Kontrolerze narzędzi. Ustaw średnicę _(a jeśli chcesz użyć narzędzia image:CAM_Simulator.svg[width=24] xref:inspect/simulator-legacy.adoc[Symulator] później: dodaj kąt krawędzi tnącej i wysokość krawędzi tnącej)_.
+
+::
+  image:Path-ToolAdd.gif[]
+  +
+  
+[.caption]
+Powyżej: Okienko dialogowe Edycja xref:job/job.adoc[zadania] Kontrolera narzędzi i zakładka '''Narzędzia'''
+
+{empty}10. Wartości są potwierdzane przyciskiem btn:[OK].
+
+Uwaga: Aby ułatwić dostęp, wszystkie narzędzia można wstępnie zdefiniować i wybrać z image:CAM_ToolLibraryEdit.svg[width=24] xref:tools/library-manager.adoc[Menadżera narzędzi].
+
+=== Plan pracy
+
+Zakładka *Plan pracy* jest początkowo wyświetlana jako pusta. Następnie jest wypełniana sekwencją operacji zadania, częściowych poleceń CAM i elementów wykończenia CAM. Kolejność tych elementów jest tutaj uporządkowana.
+
+To drzewo jest wyświetlane po konfiguracji zadania, po rozwinięciu zadania CAM:
+
+::
+  image:Path-TreeWithJob.png[]
+
+== Operacje ścieżki
+
+{empty}11. Dwie operacje zostaną dodane w celu wygenerowania ścieżek frezowania dla tego zadania ścieżki. Operacja xref:operations/profile.adoc[Kontur] tworzy ścieżkę wokół prostopadłościanu, a operacja xref:operations/pocket.adoc[Kształt kieszeni] tworzy ścieżkę dla wewnętrznej kieszeni.
+
+{empty}12. Na razie zachowamy prostotę. Przycisk image:CAM_Profile.svg[width=32] xref:operations/profile.adoc[Kontur] otwiera panel Kontur. Po potwierdzeniu przyciskiem btn:[OK] przy użyciu domyślnych wartości, widoczna jest zielona ścieżka wokół obiektu.
+
+{empty}13. Wybranie spodu kieszeni, a następnie przycisku image:CAM_Pocket_Shape.svg[width=32] xref:operations/pocket.adoc[Kształt kieszeni] otwiera okno Kształt kieszeni. Używane są domyślne wartości Geometrii bazowej, Głębokości i Wysokości, wybrana jest zakładka Operacja, a wartość procentowa Kroku nad jest ustawiona na wartość 50.
+
+::
+  image:Path-PocketOperation.gif[]
+  +
+  
+[.caption]
+Powyżej: Okno dialogowe Kształt kieszeni z wybranym panelem Operacja
+
+{empty}14. Wzór zostanie zmieniony na "Odsunięcie", a zadanie dla konfiguracji kieszeni zostanie potwierdzone przyciskiem btn:[OK].
+
+Rezultatem jest model z dwiema ścieżkami:
+
+::
+  image:Path-WalkThroughResult.gif[]
+  +
+  
+[.caption]
+Powyżej: wynik dla modelu z dwiema ścieżkami
+
+== Sprawdzanie ścieżek
+
+Istnieją dwa sposoby weryfikacji utworzonych ścieżek. Można sprawdzić G-code, w tym podświetlić odpowiednie segmenty ścieżki. Proces frezowania zadania CAM może być również symulowany w celu zademonstrowania wyidealizowanych ścieżek narzędzia, wymaganych dla geometrii narzędzia do frezowania materiału.
+
+Aby sprawdzić G-Code użyj narzędzia image:CAM_Inspect.svg[width=32] xref:inspect/inspect.adoc[Przeglądaj polecenia CAM]. Wybranie odpowiednich linii G-code w oknie G-code podświetla poszczególne segmenty ścieżki.
+
+::
+  image:Path-InspectWindow.gif[]
+  +
+  
+[.caption]
+Powyżej: Narzędzie xref:inspect/inspect.adoc[Przeglądaj polecenia ścieżki] otwiera okno dialogowe G-code
+
+Aby rozpocząć symulację, użyj narzędzia image:CAM_Simulator.svg[width=32] xref:inspect/simulator-legacy.adoc[Symulator CAM].
+
+Dostosuj prędkość i dokładność i rozpocznij symulację za pomocą przycisku image:CAM_BPlay.svg[width=24] _(Play)_.
+
+::
+  image:Path-Simulation.gif[]
+  +
+  
+[.caption]
+Powyżej: xref:inspect/simulator-legacy.adoc[Symulacja CAM] w toku
+
+Jeśli chcesz zakończyć symulację, kliknij przycisk btn:[Anuluj], co spowoduje usunięcie półproduktu utworzonego na potrzeby symulacji. Jeśli klikniesz przycisk btn:[OK], obiekt ten zostanie zachowany w zadaniu.
+
+== Przetwarzanie końcowe zadania
+
+Ostatnim krokiem do wygenerowania G-code dla docelowej frezarki jest postprocessing zadania. Powoduje to przesłanie G-code do pliku, który można przesłać do docelowego sterownika maszyny CNC. Aby wywołać postprocesor:
+
+* Wybierz obiekt Zadanie w oknie https://wiki.freecad.org/Tree_view[Widoku drzewa].
+* Wybierz narzędzie image:CAM_Post.svg[width=32] xref:output/post-process.adoc[Przetwarzanie końcowe] do przetwarzania pliku. Spowoduje to otwarcie okna G-code umożliwiającego sprawdzenie końcowego pliku wyjściowego przed jego zapisaniem.
+
+::
+  image:Path-PostOutput.gif[]
+  +
+  
+[.caption]
+Powyżej: Okno G-code umożliwiające przeglądanie końcowego pliku wyjściowego

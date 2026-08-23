@@ -1,0 +1,129 @@
+= CAM Tools
+:page-origin: https://wiki.freecad.org/CAM_Tools/de
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+== Beschreibung
+
+Diese Seite beschreibt die Werkzeugbit-Architektur, die im xref:index.adoc[Arbeitsbereich CAM] verwendet wird, die in FreeCAD V0.19 zum Standard wurde. Werkzeuge im Arbeitsbereich CAM werden anders gehandhabt als in anderen https://en.wikipedia.org/wiki/Computer-aided_manufacturing[CAM]-Paketen.
+
+Es gibt mehrere Konzepte, die der Benutzer verstehen muss:
+
+* xref:tools/tool-shape.adoc[CAM Werkzeugformen]: sind Vorlagen zum Erstellen von Werkzeugbits. Werkzeugformen sind FreeCAD-Dokumente, die das Werkzeug anhand benannter Beschränkungen modellieren. Die Werkzeugformen ist eine _abstrakte_ Werkzeugvorlage, aus der Werkzeuginstanzen (sogenannte Werkzeugbits) erstellt werden. Beispielsweise verwenden alle Schaftfräser dieselbe Werkzeugform-Datei.
+
+* xref:tools/toolbit.adoc[CAM Werkzeugbit]s: sind Instanzen einer Werkzeugform. Ein Werkzeugbit hat für jede der benannten Einschränkungen in der Werkzeugform _spezifische_ Werte. Ein Werkzeugbit wird in einem CAM-Auftrag über eine Werkzeugsteuerung (TC) verwendet. Dasselbe Werkzeugbit kann in mehreren Bibliotheken vorhanden sein.
+
+* xref:tools/toolbit-library.adoc[CAM Werkzeugbit-Bibliothek]: enthält eine beliebige Sammlung von Werkzeugbits. Die Auswahl der Werkzeuge in einer Bibliothek liegt vollständig beim Benutzer. Mögliche Anwendungsfälle für Bibliotheken:
+** Ein Hobbyanwender verfügt möglicherweise nur über eine Bibliothek für alle Werkzeuge, die er besitzt.
+** Eine Bibliothek kann alle Werkzeuge enthalten, die für ein bestimmtes Material wie Aluminium oder Holz verwendet werden.
+** Eine Bibliothek kann Werkzeugbits für die Bearbeitung bestimmter Materialien enthalten.
+** Eine Bibliothek kann Werkzeugbits eines bestimmten Lieferanten enthalten.
+** Eine Bibliothek kann einem automatischen Werkzeugwechsler-Layout entsprechen.
+
+Eine xref:tools/tool-controller.adoc[Werkzeugsteuerung] steuert, wie ein Werkzeug in einem CAM-Auftrag verwendet wird. Eine Steuerung kombiniert das Werkzeug mit Eigenschaften für Spindeldrehzahl, Richtung und horizontale/vertikale Vorschubgeschwindigkeiten.
+
+== Dialoge
+
+Der Benutzer interagiert über das CAM-Menü mit dem Werkzeugverwaltungssystem in zwei verschiedenen Arbeitsabläufen. Jeder Arbeitsablauf verfügt über spezielle GUI-Elemente.
+
+* image:CAM_ToolBitLibraryOpen.svg[width=24] xref:tools/add-toolbit.adoc[Werkzeugbit-Ablage] Ansicht oben im Feld als _Werkzeugauswahl_ bezeichnet, zur Verwendung von Werkzeugen in einem CAM-Auftrag durch Erstellen von Werkzeugsteuerungen.
+* image:CAM_ToolBitDock.svg[width=24] xref:tools/library-manager.adoc[Werkzeugbit-Bibliothek-Manager] zum Verwalten der Werkzeugbit-Sammlung des Benutzers mit den Schaltflächen _Werkzeugbit erstellen_, „Bestehenden hinzufügen__und__Entfernen.
+
+== Organisation
+
+Bei der Installation von FreeCAD wird eine Beispielhierarchie von Werkzeugbibliotheken und Werkzeugbits im Installationsverzeichnis unter folgendem Pfad erstellt:
+
+* Unter Linux ist es in der Regel `/usr/lib64/FreeCAD/Mod/CAM/Tools`
+* Unter Windows ist es in der Regel `C:\Program Files\FreeCAD\Mod\CAM\Tools`
+* Unter macOS ist es in der Regel `/Applications/FreeCAD.app/Contents/Resources/Mod/CAM/Tools`
+
+....
+Tools
+  + Bit
+  + Library
+  + Shape
+....
+
+Es wird immer empfohlen, die neu erstellten Werkzeugbits und Bibliotheken an einem sicheren Ort zu speichern, um zu vermeiden, dass sie bei einem Programm-Upgrade überschrieben werden. Selbst benutzerdefinierte Werkzeugformen können an beliebigen Orten gespeichert werden, an denen sie gesichert werden können. Dem Benutzer wird jedoch empfohlen, eine vergleichbare logische Struktur wie oben gezeigt zu verwenden, um Werkzeugbits und Bibliotheken gut zu organisieren.
+
+Wenn der Werkzeug-Bibliotheks-Manager geöffnet wird, überprüft CAM den Speicherort des Arbeitsverzeichnisses. Wenn der Speicherort nicht beschreibbar ist oder mit dem Beispiel-/Standardverzeichnis übereinstimmt, fordert CAM den Benutzer auf, ein neues Arbeitsverzeichnis auszuwählen oder zu erstellen, das standardmäßig Ihrem Benutzer-Makroverzeichnis entspricht.
+
+Kopien der Standard-Werkzeugbits und -Bibliothek werden in dieses Verzeichnis kopiert. Man kann nun die Werkzeuge verwalten, z. B. Werkzeugformen, Werkzeugbits und Bibliotheken kopieren, bearbeiten und erstellen, wobei Ihre Änderungen gespeichert werden. Es muss beachtet werden, dass Werkzeugformen nicht kopiert werden, da Duplikate zu Problemen führen können. Siehe issue https://github.com/FreeCAD/FreeCAD/issues/15275[CAM: Werkzeugformen werden nicht durch "Setup ToolBit working directory" kopiert ++#++15275].
+
+== Optionen
+
+Verweise auf Werkzeugbits und deren Formen können entweder mit einem absoluten Pfad oder mit einem relativen Pfad zum Suchpfad gespeichert werden. Im Allgemeinen wird aufgrund ihrer Flexibilität und Robustheit gegenüber Layoutänderungen die Verwendung relativer Pfade empfohlen. Sollten mehrere Werkzeuge oder Werkzeugformen mit demselben Namen in verschiedenen Verzeichnissen vorhanden sein, kann die Verwendung absoluter Pfade erforderlich sein.
+
+Siehe xref:reference/preferences.adoc[CAM-Einstellungen], um auszuwählen, ob absolute oder relative Pfade verwendet werden sollen.
+
+== Migration von veralteten Werkzeugen
+
+Wenn man den FreeCAD-Arbeitsbreich CAM bereits seit einiger Zeit verwendet, muss man möglicherweise die Einstellungen anpassen, bevor man das Werkzeugbit-System verwenden kann. Wenn beim Klicken auf die Schaltfläche Werkzeug-Bibliothke in der Symbolleiste das alte Dialogfeld angezeigt wird, geht man zur folgenden Seite in xref:reference/preferences.adoc[CAM-Einstellungen] und deaktiviert die alten Werkzeuge. FreeCAD neu starten, damit die Änderung wirksam werden.
+
+image::Preferences.png[Veraltete Werkzeuge deaktivieren]
+
+== Erste Schritte mit Werkzeugen in FreeCAD 0.19
+
+Lesen Sie den Abschnitt <<migrating-from-legacy-tools,Migration von veralteten Werkzeugen>> oben. Die folgenden Schritte führen durch den Prozess der Integration eines Werkzeugbits in dem speziellen image:CAM_Job.svg[width=16] xref:job/job.adoc[CAM-Auftrag].
+
+Kurz gesagt beginnt der Prozess mit einer Werkzeugformdatei (Profil), die nur eine FreeCAD-Skizze der Hälfte der physischen Form (Profil) des Werkzeugs enthält. Diese Werkzeugformdatei wird dann als Grundlage für die Erstellung einer Werkzeugbit-Datei verwendet, die die 3D-Darstellung des Werkzeugbits oder Fräsers enthält. Ein oder mehrere Werkzeugbits werden je nach Bedarf des Benutzers einer beliebigen Anzahl von Werkzeugbibliotheken zugewiesen. Diese Struktur und dieser Arbeitsablauf ermöglichen die gemeinsame Nutzung von Werkzeugformen, Werkzeugbits und ganzen Werkzeugbibliotheken – ein großer Fortschritt gegenüber dem alten Werkzeugverwaltungssystem, das vor Version 0.19 verwendet wurde.
+
+=== Werkzeugform überprüfen oder erstellen
+
+Um einen Fräser oder ein Werkzeug in einen CAM-Auftrag zur Verwendung in Bearbeitungsvorgängen einzufügen, beginnt man mit einer xref:tools/tool-shape.adoc[Werkzeugform]. Dieser Schritt der Überprüfung oder Erstellung einer Werkzeugform ist nicht erforderlich, wenn man bereits über ein vorhandenes Werkzeugbit verfügt.
+
+==== Überprüfen, ob die gewünschte Werkzeugform vorhanden ist
+
+* FreeCAD enthält in jeder Distribution eine Reihe gängiger Werkzeugformen. Auf der Seite xref:tools/tool-shape.adoc[Werkzeugformen] findet man eine Liste der enthaltenen gängigen Werkzeugformen.
+* Möglicherweise verfügt man in den persönlichen Dateien über zusätzliche Werkzeugformdateien.
+* Die oben erwähnte übergeordnete xref:tools/index.adoc#organization[Organisation] des Werkzeugbit-Systems ist zu beachten.
+
+==== Neue Werkzeugform erstellen
+
+::
+  Die Anweisungen im Abschnitt xref:tools/tool-shape.adoc#usage[Verwendung] der Seite xref:tools/tool-shape.adoc[Werkzeugform] befolgen, um eine benutzerdefinierte Werkzeugform zu erstellen.
+
+=== Werkzeugbit laden oder erstellen
+
+Sobald die gewünschte Werkzeugform (Profil) vorhanden ist, muss unter Verwendung der Werkzeugform (Profil) ein xref:tools/toolbit.adoc[Werkzeugbit] erstellt werden.
+
+. In der Menüleiste des image:Workbench_CAM.svg[width=24] xref:index.adoc[Arbeitsbereichs CAM] zu menu:CAM[Werkzeug erstellen] navigieren.
+. Im daraufhin angezeigten Aufgaben-Fenster zur Erstellung von xref:tools/toolbit.adoc[Werkzeugschneiden] dem neuen Werkzeug einen Namen geben und die entsprechende Werkzeugformdatei als Grundlage für diese neue Werkzeugschneide auswählen.
+. Eine Miniaturansicht der ausgewählten Werkzeugform sollte zusammen mit einer Liste von Parametern angezeigt werden.
+. Die Bit-Parameter wie gewünscht einstellen.
+. Auf kbd:[OK] klicken, um den neuen Werkzeugbit zu speichern.
+. Der neue Werkzeugbit wird im FreeCAD-Objektbaum angezeigt.
+
+=== Den neuen Werkzeugbit speichern
+
+. Das neue Werkzeugbit im Objektbaum im Hauptfenster von FreeCAD ausSuchen und auswählen.
+. In der Menüleiste des image:Workbench_CAM.svg[width=24] xref:index.adoc[Arbeitsbereichs CAM] zu menu:CAM[Werkzeug speichern als...] navigieren und diese Option auswählen.
+. Es erscheint ein Popup-Fenster.
+. Zu dem Ordner navigieren, in dem die neue Werkzeugdatei gespeichert werden soll.
+. Einen Dateinamen für das Werkzeug eingeben.
+. Auf die Schaltfläche kbd:[Speichern] klicken.
+
+=== Den Werkzeugbit in einer Werkzeug-Bibliothek registrieren
+
+. In der Menüleiste image:Workbench_CAM.svg[width=24] xref:index.adoc[CAM Workbench] zu menu:CAM[Werkzeugbit-Bibliothek-Editor öffnen] navigieren.
+. Das Fenster xref:tools/library-manager.adoc[Werkzeugbit-Bibliothek-Manager] wird geöffnet.
+. Oben in diesem Fenster den Pfad zu dem Ordner festlegen, oder überprüfen, ob er die vorhandene Werkzeugbibliotheken enthält, oder den Speicherort, an dem die Werkzeugbibliotheken gespeichert werden sollen.
+. Unterhalb der Pfadeingabe befindet sich links der Bereich mit der Liste der Werkzeugbibliotheken. Auf eine vorhandene Werkzeugbibliothek klicken, die man als Ziel für das neue Werkzeugbit verwenden möchte, oder auf das grüne Plus-Symbol klicken, um eine neue Werkzeugbibliothek in dem oben angegebenen Ordner zu erstellen.
+. Auf der rechten Seite des Werkzeugbibliothek-Editorfensters befindet sich die Werkzeugbit-Liste und die Aktionsschaltflächen für die aktuell ausgewählte Werkzeugbibliothek. Auf das Symbol kbd:[Werkzeugbit hinzufügen] klicken.
+. Im sich öffnenden Datei-Navigationsfenster zu dem neuen Werkzeugbit navigieren, es auswählen und auf die Schaltfläche kbd:[Öffnen] klicken. Das neue Werkzeugbit wird zur aktiven Werkzeug-Bibliothek hinzugefügt.
+. Unbedingt auf die Schaltfläche kbd:[Tabelle speichern] am unteren Rand des Fensters Werkzeug-Bibliothek klicken, um die Änderungen zu speichern.
+. Dieses Fenster Werkzeugbit-Bibliothek für den nächsten Schritt geöffnet lassen.
+. Sobald die Werkzeugbits erstellt und in einer Werkzeugbit-Bibliothek gespeichert sind, können sie wiederverwendet werden.
+
+=== Ein Werkzeugbit zu einem Auftrag hinzufügen
+
+. Im geöffneten Fenster Werkzeugbibliothek die gewünschte Werkzeugbibliothek lokalisieren und sie aktivieren.
+. Die gewünschten Werkzeugbits auswählen, die man dem Auftrag hinzufügen möchte. Um mehrere auszuwählen, hält man bei der Auswahl die STRG-Taste gedrückt.
+. Auf die Schaltfläche kbd:[Werkzeugsteuerung zum Auftrag hinzufügen] klicken.
+. Die Werkzeugbit-Bibliothek schließen.
+
+== Verwandtes
+
+* xref:tools/toolbit.adoc[CAM Werkzeugbit]
+* xref:tools/library-manager.adoc[CAM WerkzeugbitBibliothekÖffnen]

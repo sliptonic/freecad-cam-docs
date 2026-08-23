@@ -1,0 +1,39 @@
+= CAM Kopie
+:page-origin: https://wiki.freecad.org/CAM_Copy/de
+:page-command: CAM_Copy
+:page-icon: CAM_Copy.svg
+:page-menu: CAM → Pfadänderung → Bearbeitung kopieren
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Copy.svg[CAM Kopie,32] *CAM Kopie*
+
+Menu location:: menu:CAM[Pfadänderung > Bearbeitung kopieren]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Das Werkzeug image:CAM_Copy.svg[width=24] xref:modify/copy.adoc[Kopie] erzeugt eine Kopie des ausgewählten Pfades.
+
+== Anwendung
+
+. Ein image:Workbench_CAM.svg[width=16] xref:index.adoc[CAM]-Objekt auswählen
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_Copy.svg[width=16] xref:modify/copy.adoc[Bearbeitung kopieren] in der CAM-Werkzeugleiste drücken
+* Die Tastaturküzel kbd:[P] dann kbd:[Y] benutzen
+* Im CAM-Menü menu:CAM[Pfadbearbeitung > Bearbeitung kopieren] benutzen
+
+== Eigenschaften
+
+* *Base*: Der zu kopierende Basispfad
+
+== Optionen
+
+Die Kopie bleibt mit dem Original-Pfad verknüpft. Wenn sich das Original ändert, ändert sich auch die Kopie.

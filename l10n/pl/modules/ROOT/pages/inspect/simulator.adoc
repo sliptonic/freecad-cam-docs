@@ -1,0 +1,53 @@
+= CAM: Nowy symulator
+:page-origin: https://wiki.freecad.org/CAM_SimulatorGL/pl
+:page-origin-revision: d2a86f0ce3 2026-07-08
+:page-command: CAM_SimulatorGL
+:page-icon: CAM_SimulatorGL.svg
+:page-menu: CAM → Nowy symulator
+:page-workbench: CAM
+:page-shortcut: P N
+:page-since: 1.0
+:page-see-also: Symulator
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SimulatorGL.svg[CAM: Nowy symulator,32] *CAM: Nowy symulator*
+
+Menu location:: menu:CAM[Nowy symulator]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[N]]
+Introduced in version:: 1.0
+See also:: xref:inspect/simulator-legacy.adoc[Symulator]
+--
+
+== Opis
+
+Narzędzie image:CAM_SimulatorGL.svg[width=24] xref:inspect/simulator.adoc[Nowy symulator] to nowa alternatywa dla xref:inspect/simulator-legacy.adoc[Symulatora]. Jest oparty o funkcje OpenGL niskiego poziomu. Aby wyeliminować konflikty z oknem 3D programu FreeCAD, nowy symulator działa w osobnym oknie z oddzielnym kontekstem OpenGL. Z założenia jest szybszy i bardziej precyzyjny niż stary symulator.
+
+image::CAM_new_simulator.PNG[width=600]
+
+== Użycie
+
+. Istnieje kilka sposobów na wywołanie tego polecenia:
+* Naciśnij przycisk image:CAM_SimulatorGL.svg[width=16] xref:inspect/simulator.adoc[Nowy symulator].
+* Wybierz opcję menu:CAM[Nowy symulator] z menu.
+* Użyj skrótu klawiaturowego: kbd:[P] a następnie kbd:[N].
+. Odznacz wszystkie menu:Operacje[], które nie mają być symulowane.
+. Dostosuj ustawienie menu:Dokładność[].
+. Wybierz menu:Zadanie[] do symulacji z menu rozwijanego.
+. Naciśnij przycisk image:CAM_BPlay.svg[width=24] (Aktywuj / wznów symulację).
+* Otworzy się oddzielne okno z symulatorem.
+* Używaj przycisków po lewej stronie: Odtwórz, Pojedynczy krok, Zwolnij/Przyspiesz oraz suwaka do kontrolowania animacji.
+* Używaj przycisków po prawej stronie: Resetuj kamerę, Pokaż/ukryj nakładkę modelu bazowego, Obrót modelu, Wyświetlenie ścieżki i Włącz/wyłącz Ambient Occlusion.
+* Steruj widokiem 3D za pomocą następującej nawigacji myszą:
+** Przybliżenie/oddalenie: używaj kółka myszy lub przytrzymaj kbd:[Ctrl] i kbd:[Shift] i ruszaj kursorem aby przybliżać i oddalać widok
+** Przesunięcie: przytrzymaj środkowy przycisk myszy lub klawisz kbd:[Shift] i ruszaj kursorem
+** Obrót: przytrzymaj środkowy przycisk myszy a następnie wciśnij i przytrzymaj lewy przycisk myszy i ruszaj kursorem lub przytrzymaj kbd:[Alt] i ruszaj kursorem
+
+== Właściwości
+
+* *Dokładność*: Dokładność symulacji wyrażona jako procent wskazujący rozbieżność symulacji od zadania obróbki. W przypadku interaktywnych symulacji, redukcja dokładności do 0.3 działa znacznie szybciej.
+* *Zadanie*: Zadanie obróbki używane jako podstawa symulacji
+* *Lista operacji*: Lista operacji wybranych do uwzględnienia w symulacji.

@@ -1,0 +1,154 @@
+= CAM: Wycięcie V
+:page-origin: https://wiki.freecad.org/CAM_Vcarve/pl
+:page-origin-revision: e657f25581 2026-06-08
+:page-command: CAM_Vcarve
+:page-icon: CAM_Vcarve.svg
+:page-menu: CAM → Wycięcie V
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Vcarve.svg[CAM: Wycięcie V,32] *CAM: Wycięcie V*
+
+Menu location:: menu:CAM[Wycięcie V]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_Vcarve.svg[width=24] *Wycięcie V* służy przede wszystkim do grawerowania w linii środkowej image:Draft_ShapeString.svg[width=24] https://wiki.freecad.org/Draft_ShapeString[Kształtu z tekstu] na części. Jednakże, może być przydatne dla innych rodzajów operacji 2D.
+
+W przeciwieństwie do grawerowania, które podąża za liniami w obrysie, Wycięcie V wykorzystuje frez w kształcie litery V i próbuje oczyścić obszar, przesuwając frez w dół środka obszaru i zmieniając głębokość cięcia. Ponieważ promień frezu w kształcie litery V zmienia się wraz z głębokością, zmienia się również szerokość cięcia. Rezultatem jest bardziej naturalnie wyglądające cięcie, szczególnie w przypadku czcionek szeryfowych.
+
+image::Engravepath.png[]
+
+ 
+
+image::Vcarvepath.png[Example Vcarving Path]
+
+ 
+
+image::Vcarved.png[]
+
+ 
+
+image::Scrolltest.png[]
+
+Algorytm Wycięcie V oblicza ścieżkę wzdłuż linii środkowej regionu przy użyciu diagramu Woronoja. Ta linia środkowa jest ścieżką, którą narzędzie będzie podążać w płaszczyźnie XY. Następnie oblicza "maksymalny wpisany okrąg" wzdłuż ścieżki. Jest to największy okrąg, jaki można narysować w tym punkcie i pozostać całkowicie wewnątrz obszaru oczyszczania. Korzystając z promienia okręgu i kąta wierzchołkowego frezu, obliczana jest głębokość cięcia.
+
+[.since]#introduced in 26.3#: Frezowanie może używać wirtualnego cofania po krawędziach. Jeśli następny punkt rozpoczęcia skrawania jest osiągalny przez już wyfrezowaną ścieżkę lub przez krawędź, która będzie frezowana jako następna, operacja może podążać tą krawędzią zamiast wykonywać wycofanie, szybki przejazd i zagłębianie narzędzia.
+
+== Użycie
+
+=== Przygotowanie kształtów do grawerowania
+
+* image:Draft_ShapeString.svg[width=24] https://wiki.freecad.org/Draft_ShapeString[Kształt z tekstu] są użyteczne od razu.
+* Pliki SVG wymagają pewnego dopracowania, zarówno w edytorze, jak i w środowisku pracy image:Workbench_Draft.svg[width=24] https://wiki.freecad.org/Draft_Workbench[Rysunek Roboczy]:
+** W edytorze _(np. https://www.inkscape.org[Inkscape])_: upewnij się, że plik zawiera tylko ścieżki i że ścieżki są niezgrupowane. Upewnij się, że nie ma przecinających się ścieżek, _(w Inkscape)_ użyj Ścieżka → Uprość i połącz, aby połączyć ścieżki, które się nakładają.
+** Przełącz się na image:Workbench_Draft.svg[width=24] https://wiki.freecad.org/Draft_Workbench[Rysunek Roboczy] w selektorze https://wiki.freecad.org/Std_Workbench[środowisk pracy].
+** Zaimportuj SVG używając menu:Plik[Import > wybierz "SVG jako geometria"].
+** Wynik powinien wyglądać podobnie do tego:
++
+::
+  image:Svgimport.png[bez ramki]
+  +
+  
+[.caption]
+Powyżej: Wyniki importu "SVG jako geometria"
+
+::
+  ;;
+    Ścieżki z dziurami _(litery, winorośl na powyższym obrazku)_ są importowane jako dwie oddzielne ścieżki (nazwane zgodnie z `Path905` i `Path905001` w oknie https://wiki.freecad.org/Tree_view[Widoku drzewa]), jedna z nich to dziura, a druga to kontur;. Zajmiemy się tym w następnym kroku
+
+* {blank}
+** Aby uzyskać ściany 2D, *Wycięcie V* potrzebuje:
+*** Dla ścieżek bez otworów:
+. Wybierz ścieżkę
+. Wybierz menu:Modyfikacja[]
+. Następnie menu:Modyfikacja[]
+*** Dla ścieżek z dziurami:
+. Wybierz ścieżkę zewnętrzną, a następnie wewnętrzną
+. Wybierz menu:Modyfikacja[] *dwa razy*
++
+::
+  Niektóre ścieżki będą zachowywać się inaczej, więc może być konieczne pobawienie się image:Draft_Upgrade.svg[width=16] Ulepsz kształt i image:Draft_Downgrade.svg[width=16] Rozbij kształt, aż otrzymasz coś o nazwie: `Face<numer>`.
+  +
+  Wynik końcowy powinien wyglądać następująco:
+  +
+  image:Svgfaces.png[bez ramki]
+
+=== Tworzenie operacji Wycięcie V
+
+* Przełącz się na środowisko pracy image:Workbench_CAM.svg[width=16] xref:index.adoc[Część] w https://wiki.freecad.org/Std_Workbench[selektorze środowisk pracy].
+* Dodaj zadanie, użyj obiektów o nazwie `Face<numer>` _(lub Kształt z tekstu)_ jako podstawy, dodać kontroler narzędzia v-bit, ustawić posuwy, prędkości itp.
+* Operacja obsługuje tylko jeden obiekt (albo pojedynczy obiekt ściany, albo Kształtu z tekstu), więc dla każdego obiektu:
+** Wybierz menu:Ścieżka[Wycięcie V] z menu głównego. Spowoduje to otwarcie panelu konfiguracji.
+** Otwórz zakładkę btn:[Geometria bazowa] i dodaj wszystkie ściany Kształtu z tekstu lub ściany pojedynczego obiektu ściany uzyskanego powyżej
+** Naciśnij btn:[Zastosuj] i sprawdź wygenerowaną ścieżkę; w razie potrzeby dostosuj parametry operacji (w większości sytuacji można ustawić wyższy próg).
+** Naciśnij btn:[OK], aby zakończyć
+
+== Opcje
+
+Pusto
+
+== Właściwości
+
+=== Dane
+
+.Podstawa
+* *Umiejscowienie*: -
+* *Etykieta*: -
+
+.Głębokość
+* *WysokośćPrześwitu*: -
+* *GłębokośćKońcowa*: -
+* *WysokośćBezpieczna*: -
+* *GłębokośćStartowa*: -
+* *KrokWDół*: -
+
+.Wartości operacyjne
+* *OpGłębokośćKOńcowa*: -
+* *OpGłębokośćStartowa*: -
+* *OpZMaxPrzygotówki*: -
+* *OpZMinPrzygotówki*: -
+* *OpŚrednicaNarzędzia*: -
+
+.Ścieżka
+* *Aktywna*: -
+* *Komentarz*: -
+* *TrybChłodzenia*: -
+* *WierzchołekStartowy*: -
+* *KontrolerNarzędzia*: -
+* *EtykietaUżytkownika*: -
+
+==== Ukryte
+
+* *Baza*: -
+* *ObjektBazowy*: -
+* *KształtBazowy*: -
+* *SilnikWyrażeń*: -
+* *Etykieta2*: -
+* *Ścieżka*: -
+* *Proxy*: -
+* *Widoczność*: -
+
+=== Widok
+
+Pusto
+
+== Tworzenie skryptów
+
+_Zobacz również:_ https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD podstawy tworzenia skryptów].
+
+Przykład:
+
+[source,python]
+----
+#Place code example here.
+----

@@ -1,0 +1,88 @@
+= CAM: Zadanie
+:page-origin: https://wiki.freecad.org/CAM_Job/pl
+:page-origin-revision: e1a9f0bcc4 2026-07-08
+:page-command: CAM_Job
+:page-icon: CAM_Job.svg
+:page-menu: CAM → Zadanie
+:page-workbench: CAM
+:page-shortcut: P J
+:page-see-also: Przetwarzanie końcowe, Dostosowywanie przetwarzania końcowego
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Job.svg[CAM: Zadanie,32] *CAM: Zadanie*
+
+Menu location:: menu:CAM[Zadanie]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[J]]
+Introduced in version:: -
+See also:: xref:output/post-process.adoc[Przetwarzanie końcowe], xref:output/postprocessor-customization.adoc[Dostosowywanie przetwarzania końcowego]
+--
+
+== Opis
+
+Polecenie image:CAM_Job.svg[width=24] xref:job/job.adoc[Zadanie CAM] tworzy nowy obiekt Zadanie w aktywnym dokumencie. Obiekt Zadanie zawiera następujące informacje:
+
+. Lista definicji kontrolera narzędzi, określających geometrię, posuwy i prędkości dla narzędzi operacji CAM.
+. Sekwencyjną listę operacji CAM.
+. Obiekt bazowy - klon używany do odsunięcia.
+. Materiał obrabiany, reprezentujący materiał, który będzie podlegał obróbce w środowisku pracy CAM.
+. Arkusz ustawień, zawierający dane wejściowe używane przez operacje CAM, wliczając wartości statyczne i formuły.
+. Parametry konfiguracyjne określające ścieżkę docelową dla wyjściowego G-Code, nazwę pliku i rozszerzenie oraz xref:output/post-process.adoc[postprocessor] _(używany do generowania odpowiedniego języka dla docelowego kontrolera CNC i dostosowanych jednostek, zmian narzędzi, zatrzymań itd.)_.
+
+== Użycie
+
+. Jest kilka sposobów na wywołanie tego polecenia:
+* Wciśnij przycisk image:CAM_Job.svg[width=16] xref:job/job.adoc[Zadanie].
+* Wybierz opcję menu:CAM[Zadanie] z menu.
+* Użyj skrótu klawiszowego: kbd:[P] a następnie kbd:[J].
+
+Okno dialogowe Zadania ma sześć pionowo ułożonych zakładek: menu:Ogólne[], menu:Wyjście[], menu:Konfiguracja[], menu:Narzędzia[] oraz menu:Plan pracy[] i menu:Wartości domyślne operacji[]. Użytkownik może w każdej chwili skorzystać z przycisków btn:[OK] lub btn:[Anuluj] w obrębie okna dialogowego.
+
+== Ogólne
+
+image:Job_1.jpg[]
+
+* *Etykieta*: Etykieta Zadania wyświetlana w widoku drzewa.
+* *Model*: Obiekt bazowy, który swoim kształtem definiuje ścieżki zadania. Jeśli jest to obiekt środowiska pracy Projekt Części to jest to zwykle Zawartość, która była tam wybrana. Jeśli masz element zaznaczony w drzewie _przed_ kliknięciem przycisku "Dodaj zadanie" to ten element zostaje od razu dodany. Możesz go zmienić wybierając inny element z listy rozwijanej.
+* *Opis*: Możesz tu dodać jakieś notatki do zadania. Notatki są tylko dla Twojej informacji i nie mają żadnego wpływu na ścieżkę.
+
+== Wyjście
+
+image:Job_2.jpg[]
+
+* *Plik wyjściowy*: Ustaw nazwę, rozszerzenie i ścieżkę pliku wyjściowego instrukcji G-Code. Możesz skorzystać z następujących symboli zastępczych:
+** *%D* ścieżka aktywnego dokumentu,
+** *%d* nazwa aktywnego dokumentu _(bez rozszerzenia)_,
+** *%M* ścieżka makr użytkownika,
+** *%j* nazwa zadania.
+
+* *Procesor*: Wybierz xref:output/post-process.adoc[postprocesor] dla swojej maszyny.
+* *Parametry*: Dodaj parametry dla xref:output/post-process.adoc[postprocesora] jeśli potrzeba.
+* *Maszyna*: Opcjonalnie wybierz konfigurację maszyny. Gdy wybrana jest maszyna, definiuje ona postprocessor i powiązane ustawienia danych wyjściowych dla zadania.
+
+== Konfiguracja
+
+image:Job_3.jpg[]
+
+* *Przygotówka*: ustaw rozmiar i kształt materiału do obróbki.
+* *Orientacja*: Wybrana ściana lub krawędź jest używana do zorientowania odpowiednio bazy lub półwyrobu.
+* *Wyrównanie*: wybierz wierzchołek aby ustawić początek lub przesunąć bazę lub półwyrób
+
+== Narzędzia
+
+image:Job_4.jpg[]
+
+Dodaj narzędzia z Twojego xref:tools/library-manager.adoc[zestawu narzędzi], które potrzebujesz do operacji w ramach tego zadania.
+
+Po dodaniu narzędzia możesz ustawić / zmodyfikować prędkość posuwu i prędkość wrzeciona jeśli potrzebujesz innej prędkości posuwu w tym zadaniu. Zmiana tutaj nie zmienia parametrów przechowywanych w zestawie narzędzi.
+
+Domyślne narzędzie, które możesz usunąć jeśli masz dodane własne narzędzie.
+
+== Plan pracy
+
+image:Job_5.jpg[]
+
+Jeśli masz zadanie, które zawiera więcej niż jedną operację, możesz określić w jakiej kolejności operacje mają być wykonane. Aby zmienić kolejność, wybierz operację i wciśnij przycisk przesunięcia w górę lub w dół.

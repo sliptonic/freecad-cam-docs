@@ -1,0 +1,82 @@
+= CAM Wendel
+:page-origin: https://wiki.freecad.org/CAM_Helix/de
+:page-origin-revision: d1ceef5ae0 2026-07-09
+:page-command: CAM_Helix
+:page-icon: CAM_Helix.svg
+:page-menu: CAM → Wendel
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Helix.svg[CAM Wendel,32] *CAM Wendel*
+
+Menu location:: menu:CAM[Wendel]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Helix.svg[width=24] xref:operations/helix.adoc[CAM Wendel] fügt dem Auftrag eine spiralförmige Ausräumoperation hinzu. Im Uhrzeigersinn werden (G2) G-Code-Befehle ausgegeben. Gegen den Uhrzeigersinn werden (G3) G-Code-Befehle ausgegeben. Der Überspringen-Prozentsatz (Step Over percentage) gibt den konzentrischen Übersprung als Prozentsatz des Werkzeugdurchmessers an. Es werden eine oder mehrere spiralförmige Bahnen mit zunehmend unterschiedlichen Durchmessern erstellt, um das Loch auszuräumen.
+
+== Anwendung
+
+* Den Schaltfläche image:Workbench_CAM.svg[width=16] xref:index.adoc[Arbeitsbereich CAM] wählen.
+* Das Symbol image:CAM_Helix.svg[width=24] oder kbd:[CAM] → image:CAM_Helix.svg[width=24] Helix aus dem oberen Menü wählen. Dadurch wird das Konfigurationsfenster image:CAM_Helix.svg[width=24] Wendel geöffnet.
+* In einem Popup-Fenster *Werkzeugsteuerung auswählen* wird man aufgefordert, eine Werkzeugsteuerung auszuwählen. In älteren Versionen wählt man auf der Registerkarte image:CAM_Helix.svg[width=24] Operation eine Werkzeugsteuerung aus und bestätigt es mit btn:[Anwenden].
+* Die Registerkarte "Basisgeometrie" öffnen. Alle verfügbaren Bohrungen, die mit dem Wendel-Werkzeug im Auftragsmodell kompatibel sind, können für die Bearbeitung ausgewählt werden. In der https://wiki.freecad.org/3D_View[3D-Ansicht] die Bohrungen anhand ihrer Kante oder Wandfläche auswählen und sie mit der Schaltfläche btn:[Hinzufügen] hinzufügen. Überprüfen, ob sie in der Liste angezeigt werden. Sich vergewissern, dass die Liste mit den Bohrungen übereinstimmt, die bearbeitet werden sollen.
+* Um Löcher zu entfernen, wählt man sie in der Liste aus und klickt auf die Schaltfläche btn:[Entfernen].
+* Sicherstellen, dass die Starttiefe, die Endtiefe sowie die Steigungs- und Rampenbegrenzungen korrekt sind, und diese gegebenenfalls anpassen.
+* Sicherstellen, dass die Sicherheits- und Freiraumhöhen korrekt sind.
+* Auf der Registerkarte Bearbeitungen die Startfläche der Wendel (außen/innen), die Schnittrichtung (aufwärts/konventionell) und den Überlappungs-Prozentsatz festlegen.
+* Auf btn:[Anwenden] klicken, um den Pfad zu erstellen oder zu aktualisieren, auf btn:[OK], um ihn anzuwenden und das Fenster zu schließen, oder auf btn:[Cancel], um den Vorgang abzubrechen und das Fenster zu schließen.
+
+== Optionen
+
+*Extra-Versatz* fügt einen Materialrand hinzu, der unbearbeitet bleibt. Dies dient in der Regel dazu, einen leichten Endbearbeitungsdurchgang als separaten Bearbeitung zu ermöglichen.
+
+[.since]#introduced in 26.3#: *Max Pitch* ersetzt _Pitch_ der Wendel und begrenzt die maximale Steigung der Wendel, wenn der Wert ungleich Null ist.
+
+Helix *Max Ramp Angle* begrenzt den Rampeneintrittswinkel, wenn er ungleich Null ist. Die Steigung wird für jeden Wendelradius berechnet.
+
+*Start-Radius* ist nicht verfügbar im Aufgaben-Fenster _Wendel_, kann aber direkt in der https://wiki.freecad.org/Property_View[Eigenschaften-Ansicht] bearbeitet werden.
+
+Dies ist der Radius des in der Mitte verbleibenden Materials. Standardmäßig ist dieser Wert Null, sodass der Werkzeugpfad genau die Achse der Bohrung berührt. Dadurch entsteht ein zentraler Werkzeugpfad, der ein Loch mit der doppelten Größe des Werkzeugdurchmessers schneidet.
+
+Wenn dieser Parameter auf einen negativen Wert gesetzt ist, kann ein kleinerer Wendelradius zulässig sein. Ein negativer Radius, der dem Werkzeugradius entspricht, erzeugt beispielsweise eine Wendel mit einem Radius von Null: auch bekannt als Einstechfräsen mit dem Schaftfräser, sofern das Werkzeug dafür geeignet ist. Dies funktioniert als erster Schnitt in einer Mehrfach-Bearbeitung, aber der Versuch, einen Wendelpfad mit einem Werkzeug zu erstellen, das dieselbe Größe wie das Loch im Modell hat, wird abgelehnt.
+
+== Kommentare
+
+* Die Begrenzung der Steigung der Wendel wird nicht exakt eingehalten. Er wird immer gerundet, um eine vollständige Anzahl von Umdrehungen von der Starttiefe bis zur Endtiefe zu erhalten.
+* Ebenso wird Schritt überspringen nicht exakt eingehalten. Es wird immer gerundet, um eine gleiche Anzahl von Schritten zu erhalten.
+
+Der Vorschubparameter ist über alle Schnitte hinweg konstant und basiert auf der Position der Werkzeugachse, sodass der tatsächliche Vorschub der Schneide des Werkzeugs zwischen dem innersten Schnitt und der Außenfläche erheblich variieren kann. Wenn die Auftragsabmessungen einen Pfaddurchmesser ergeben, der kleiner als der Werkzeugdurchmesser ist, kann dies zu wesentlich höheren Schnittgeschwindigkeiten führen als die für das Werkzeug in der Werkzeugsteuerung angegebene Vorschubgeschwindigkeit. Dies muss möglicherweise bei der Auswahl von "Vorschub und Geschwindigkeiten" in der xref:tools/tool-controller.adoc[Werkzeugsteuerung] für den Auftrag berücksichtigt werden.
+
+Außerdem verwendet die aktuelle Implementierung nur die horizontale Werkzeuggeschwindigkeit für Wendelpfade, selbst wenn eine enge Spirale fast einen vertikalen Schnitt darstellt.
+
+== Eigenschaften
+
+=== Daten
+
+Leer
+
+=== Ansicht
+
+Leer
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+#Place code example here.
+----

@@ -1,0 +1,240 @@
+= CAM Workbench
+:page-origin: https://wiki.freecad.org/CAM_Workbench/fr
+:page-origin-revision: ce216e6387 2026-07-08
+:page-imported: true
+
+image::Workbench_CAM.svg[Icône de l'atelier CAM,128]
+
+== Introduction
+
+L'image:Workbench_CAM.svg[width=24] xref:index.adoc[atelier CAM] est utilisé pour produire les instructions machine pour les link:https://fr.wikipedia.org/wiki/Programmation_de_commande_numérique[machines à commande numérique (CNC)] à partir d'un modèle 3D FreeCAD. Celui-ci produit des objets 3D réels sur des machines CNC telles que des fraiseuses, des tours, des découpeuses laser ou similaires. Généralement, les instructions sont en langage https://fr.wikipedia.org/wiki/Programmation_de_commande_num%C3%A9rique#Fonctions_pr%C3%A9paratoires_G[G-code]. Un https://www.ange-softs.com/SIMULCNCHTML/index.html[exemple général de simulation de séquence de parcours d'outils CNC] est présenté ici.
+
+image::Pathwb.png[width=600]
+
+Le flux de travail de l'atelier CAM de FreeCAD crée ces instructions machine comme suit :
+
+* Un modèle 3D est l'objet de base, généralement créé à l'aide d'un ou plusieurs des ateliers image:Workbench_PartDesign.svg[width=24] https://wiki.freecad.org/PartDesign_Workbench[PartDesign], image:Workbench_Part.svg[width=24] https://wiki.freecad.org/Part_Workbench[Part] ou image:Workbench_Draft.svg[width=24] https://wiki.freecad.org/Draft_Workbench[Draft].
+* Une xref:job/job.adoc[CAM Tâche] est créée dans l'atelier CAM. Celle-ci contient toutes les informations nécessaires pour générer le G-code nécessaire pour traiter l'usinage sur une fraiseuse CNC : il y a le brut de matière (ou stock), le xref:tools/library-manager.adoc[gestionnaire d'outils] et elle suit certaines commandes contrôlant la vitesse et les mouvements (généralement en G-code).
+* Les xref:tools/index.adoc[CAM Outils] sont sélectionnés comme requis par les opérations d'usinage.
+* Les parcours de l'outil de fraisage sont créés en utilisant par ex. des opérations de xref:operations/profile.adoc[Profilage] et xref:operations/pocket-3d.adoc[Évidement 3D]. Ces objets CAM utilisent le langage G-code interne à FreeCAD, indépendant de la machine CNC.
+* Le travail est exporté en G-code, correspondant à votre machine. Cette étape s'appelle _post-traitement_. Il y a différents post-processeurs disponibles.
+
+== Concepts généraux
+
+L'atelier CAM génère un G-Code définissant les parcours pour usiner le projet représenté par le modèle 3D sur la fraiseuse cible au xref:reference/scripting.adoc#le-format-g-code-interne-de-freecad[format G-code interne de FreeCAD], qui est ensuite traduit dans le langage approprié pour le contrôleur CNC cible en sélectionnant le post-processeur approprié.
+
+Le G-code est généré à partir des directives et des opérations contenues dans une tâche de CAM. Le flux des tâches les répertorie dans l'ordre desquelles elles seront exécutées. La liste est complétée en ajoutant des opérations, des habillages des parcours, des commandes supplémentaires et des modifications à partir du menu CAM ou par les boutons de l'interface graphique.
+
+L'atelier CAM fournit un gestionnaire d'outils (bibliothèque, table d'outils), un outil d'inspection du G-code et de simulation. Il relie le post-processeur et permet d'importer et d'exporter des modèles de tâches.
+
+L'atelier CAM possède des dépendances externes, notamment :
+
+. Les unités du modèle 3D FreeCAD sont définies dans les paramètres menu:Édition[Préférences > Général > Système d'unités par défaut]. La configuration du post-processeur définit les unités G-code finales.
+. Le chemin d'accès du fichier des macro et des tolérances géométriques sont définis dans l'onglet menu:Édition[Préférences > CAM > Préférences des tâches].
+. Les couleurs sont définies dans l'onglet menu:Édition[Préférences > CAM > Interface graphique].
+. Les paramètres des éléments de maintien sont définis dans l'onglet menu:Édition[Préférences > CAM > Finitions].
+. Pour que la qualité du modèle 3D de base respecte les exigences de l'atelier CAM, utilisez https://wiki.freecad.org/Part_CheckGeometry[Vérifier la géométrie].
+
+== Limitations
+
+Voici quelques limites actuelles dont vous devez tenir compte :
+
+* La plupart des outils de CAM ne sont pas de véritables outils 3D, mais ne prennent en charge que la 2.5D. Cela signifie qu'ils utilisent une forme 2D fixe et peuvent la découper jusqu'à une profondeur donnée. Cependant, deux outils permettent de générer de véritables parcours 3D : image:CAM_3DPocket.svg[width=24] xref:operations/pocket-3d.adoc[Évidement 3D] et image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[Surfaçage 3D].
+* La plupart des fonctions de l'atelier CAM sont conçues pour une fraiseuse/routeur CNC simple et standard à 3 axes (XYZ), mais les outils de tournage sont pris en charge via le module complémentaire https://wiki.freecad.org/CAM_Turning[Tournage].
+* La plupart des opérations de l'atelier CAM renvoient des parcours basées uniquement sur une fraise standard, quel que soit le type attribué de fraise dans un contrôleur d'outils donné. [.since]#introduced in 26.3# : les opérations image:CAM_Engrave.svg[width=24] xref:operations/engrave.adoc[Gravure] et image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[Surfaçage 3D] et d'autres prennent désormais en charge la reconnaissance de la forme de l'outil.
+* Les opérations de l'atelier CAM ne tiennent pas compte des mécanismes de serrage utilisés pour fixer le modèle à votre machine. Par conséquent, vérifiez et simulez les parcours que vous générez avant d'envoyer le code à votre machine. Si nécessaire, modélisez vos mécanismes de serrage dans FreeCAD afin de mieux inspecter les parcours générées. Recherchez les collisions possibles avec les brides ou d'autres obstacles le long des parcours.
+
+== Unités
+
+La gestion des unités dans CAM peut prêter à confusion. Il y a plusieurs points à comprendre :
+
+. Les unités de base FreeCAD pour la longueur et le temps sont respectivement « mm » et « s ». La vélocité est donc « mm/s ». C'est ce que FreeCAD stocke en interne indépendamment de toute autre chose
+. Le système d'unités par défaut utilise les unités par défaut. Si vous utilisez le système d'unités par défaut et que vous entrez un taux d'avance sans unité, il sera saisi sous la forme « mm/s ».
+. La plupart des machines à commande numérique attendent un débit d'alimentation sous forme de « mm/min » ou « in/min ». La plupart des post-processeurs convertissent automatiquement l'unité lors de la génération de gcode.
+
+Systèmes :
+
+. Changer le système dans les préférences change l'unité par défaut pour les champs d'entrée. Si vous êtes un utilisateur de CAM et que vous préférez concevoir en métrique, il est fortement recommandé d'utiliser le système « Métrique, petites pièces & CNC (mm, mm/min) ». Si vous concevez en unités états-uniennes, Système impérial et Construction états-uniennes fonctionneront.
+. Changer votre système d'unités par défaut n'aura aucune incidence sur le résultat, mais vous aidera à éviter les erreurs de saisie.
+
+Résultat :
+
+. C'est au post-processeur qu'il incombe de générer l'unité de mesure correcte dans la sortie, et cette opération n'est effectuée qu'à ce moment-là.
+. L'unité de sortie de la machine n'a aucun rapport avec le système d'unités que vous avez choisi.
+. Les post-processeurs produisent une sortie métrique (G21), une sortie impériale (G20) ou sont configurables.
+. Les post-processeurs configurables produisent par défaut une sortie métrique (G21).
+. Si vous souhaitez que votre post-processeur configurable produise du G-code impérial (G20), définissez l'argument correct dans la configuration de sortie de votre tâche (par exemple, inches pour linuxcnc). Ceci peut être stocké dans un modèle de tâche et défini comme modèle par défaut pour le rendre automatique pour tous les tâches futures.
+
+CAM Inspection :
+
+. Si vous utilisez l'outil CAM Inspection pour inspecter le G-code, vous le verrez en "mm/s" car il n'est pas post-traité.
+
+== Hauteurs et profondeurs
+
+De nombreuses commandes ont différentes hauteurs et profondeurs :
+
+image::Path-DepthsAndHeights.gif[width=500]
+
+ 
+[.caption]
+Référence visuelle pour les propriétés de profondeur (paramètres)
+
+== Commandes
+
+Certaines commandes sont expérimentales et ne sont pas disponibles par défaut. Pour les activer, voir xref:reference/experimental.adoc[CAM Fonctions expérimentales].
+
+=== Commandes du projet
+
+* image:CAM_Job.svg[width=32] xref:job/job.adoc[Tâche] : crée une nouvelle tâche CNC.
+
+* image:CAM_Sanity.svg[width=32] xref:job/sanity-check.adoc[Chercher des erreurs] : vérifie les valeurs manquantes dans la tâche sélectionnée.
+
+* image:CAM_Post.svg[width=32] xref:output/post-process.adoc[Post-traitement] : exporte un projet en G-code.
+
+* image:CAM_PostSelected.svg[width=32] https://wiki.freecad.org/CAM_PostSelected[Post-traitement sélectionné] : à faire. [.since]#introduced in 26.3#
+
+* image:CAM_ExportTemplate.svg[width=32] xref:job/export-template.adoc[Exporter un modèle] : exporte la tâche en cours en tant que modèle.
+
+=== Commandes d'outils
+
+* image:CAM_SimulatorGL.svg[width=32] xref:inspect/simulator.adoc[Simulateur GL de parcours] : active le nouveau simulateur amélioré de CAM. [.since]#introduced in 1.0#
+
+* image:CAM_Simulator.svg[width=32] xref:inspect/simulator-legacy.adoc[Simulateur de parcours] : montre l'opération d'usinage comme le ferait la machine.
+
+* image:CAM_Inspect.svg[width=32] xref:inspect/inspect.adoc[Inspecter des commandes] : affiche le G-code pour vérification.
+
+* image:CAM_SelectLoop.svg[width=32] xref:inspect/select-loop.adoc[Sélectionner une boucle] : permet de sélectionner une boucle d'arêtes.
+
+* image:CAM_OpActiveToggle.svg[width=32] xref:inspect/op-active-toggle.adoc[Activer une opération] : utilisé pour activer ou désactiver une opération d'usinage.
+
+* image:CAM_ToolBitLibraryOpen.svg[width=32] xref:tools/library-manager.adoc[Gestionnaire des outils coupants] : ouvre un éditeur pour gérer les bibliothèques des outils coupants.
+
+* image:CAM_ToolBitDock.svg[width=32] xref:tools/add-toolbit.adoc[Sélecteur d'outils coupants] : ouvre la fenêtre de sélection des outils.
+
+=== Opérations de base
+
+* image:CAM_Profile.svg[width=32] xref:operations/profile.adoc[Profilage] : crée une opération de profilage de l'ensemble du modèle ou à partir d'une ou plusieurs faces ou arêtes sélectionnées.
+
+* image:CAM_Pocket_Shape.svg[width=32] xref:operations/pocket.adoc[Poche] : crée une opération de poche à partir d'une ou de plusieurs poches sélectionnées.
+
+* image:CAM_MillFacing.svg[width=32] https://wiki.freecad.org/CAM_MillFacing[Surfaçage] : crée un parcours de surfaçage.
+
+* image:CAM_Helix.svg[width=32] xref:operations/helix.adoc[Parcours hélicoïdal] : crée un parcours hélicoïdal.
+
+* image:CAM_Adaptive.svg[width=32] xref:operations/adaptive.adoc[Adaptatif] : crée une opération adaptative d'ébauchage et de contournage.
+
+* image:CAM_Slot.svg[width=32] xref:operations/slot.adoc[Rainure] : crée une opération de rainurage à partir d'entités sélectionnées ou de points personnalisés.
+
+* image:CAM_Drilling.svg[width=32] xref:operations/drilling.adoc[Perçage] : effectue un cycle de perçage.
+
+* image:CAM_ThreadMilling.svg[width=32] xref:operations/thread-milling.adoc[Fraisage de filets]: crée une opération de fraisage de filets à partir des fonctions d'un objet de base.
+
+* image:CAM_Engrave.svg[width=32] xref:operations/engrave.adoc[Gravure] : crée un parcours de gravure.
+
+* image:CAM_Deburr.svg[width=32] xref:operations/deburr.adoc[Ebavurage] : crée un parcours d'ébavurage.
+
+* image:CAM_Vcarve.svg[width=32] xref:operations/vcarve.adoc[Gravure en V] : crée un parcours d'usinage en utilisant une forme d'outil en V.
+
+=== Opérations 3D
+
+* image:CAM_Pocket3D.svg[width=32] xref:operations/pocket-3d.adoc[Évidement 3D] : crée un parcours d'usinage pour une poche 3D.
+
+* image:CAM_Surface.svg[width=32] xref:operations/surface.adoc[Surfaçage 3D] : crée un parcours d'usinage pour une surface 3D. xref:reference/experimental.adoc[_Fonctions expérimentales_].
+
+* image:CAM_Waterline.svg[width=32] xref:operations/waterline.adoc[Contour par lignes de niveau] : crée un tracé défini par lignes de niveau pour une surface 3D. xref:reference/experimental.adoc[_Fonctions expérimentales_].
+
+=== Finitions du parcours
+
+* image:CAM_DressupArray.svg[width=32] https://wiki.freecad.org/CAM_DressupArray[Réseau] : à faire. [.since]#introduced in 1.1#
+
+* image:CAM_DressupAxisMap.svg[width=32] xref:dressups/axis-map.adoc[Assigner un axe]: assigne un axe par un autre.
+
+* image:CAM_DressupPathBoundary.svg[width=32] xref:dressups/path-boundary.adoc[Limitation d'une zone] : ajoute une limite à un parcours d'usinage sélectionné.
+
+* image:CAM_DressupDogbone.svg[width=32] xref:dressups/dogbone.adoc[Dégagement des angles] : ajoute une finition pour l'usinage des coins à un parcours d'usinage sélectionné.
+
+* image:CAM_DressupDragKnife.svg[width=32] xref:dressups/drag-knife.adoc[Lame rotative] : ajoute une finition pour lame rotative à un parcours d'usinage sélectionné.
+
+* image:CAM_DressupLeadInOut.svg[width=32] xref:dressups/lead-in-out.adoc[Entrée/sortie] : ajoute un point d'entrée et/ou de sortie à un parcours d'usinage sélectionné.
+
+* image:CAM_DressupMirror.svg[width=32] https://wiki.freecad.org/CAM_DressupMirror[Symétrie] : à faire. [.since]#introduced in 26.3#
+
+* image:CAM_DressupRampEntry.svg[width=32] xref:dressups/ramp-entry.adoc[Rampe d'entrée] : ajoute une finition de rampe d'entrée d'usinage à un parcours d'usinage sélectionné.
+
+* image:CAM_DressupTag.svg[width=32] xref:dressups/tag.adoc[Attache] : ajoute une modification à la finition de l'attache de maintien d'un parcours sélectionné.
+
+* image:CAM_DressupZCorrect.svg[width=32] xref:dressups/zcorrect.adoc[Correction en Z]: corrige la profondeur en Z à l'aide d'une sonde.
+
+=== Commandes supplémentaires
+
+* image:CAM_Comment.svg[width=32] xref:operations/comment.adoc[Commentaire] : insère un commentaire dans le G-code d'un parcours d'outil.
+
+* image:CAM_Stop.svg[width=32] xref:operations/stop.adoc[Arrêter] : insère un arrêt complet de la machine.
+
+* image:CAM_Custom.svg[width=32] xref:operations/custom.adoc[Personnaliser] : insère un G-code personnalisé.
+
+* image:CAM_Probe.svg[width=32] xref:operations/probe.adoc[Sonde] : crée une grille de sondage à partir d'un brut.
+
+* image:CAM_Shape.svg[width=32] xref:operations/path-from-shape-tc.adoc[Parcours à partir de formes] : crée un objet parcours d'usinage à partir d'un objet Part sélectionné. xref:reference/experimental.adoc[_Fonctions expérimentales_]. [.since]#introduced in 0.19#
+
+=== Modifications du parcours
+
+* image:CAM_Copy.svg[width=32] xref:modify/copy.adoc[Copie opération] : crée une copie paramétrique d'un objet parcours sélectionné.
+
+* image:CAM_Array.svg[width=32] xref:modify/array.adoc[Réseau] : crée une copie en réseau en dupliquant un parcours sélectionné.
+
+* image:CAM_SimpleCopy.svg[width=32] xref:modify/simple-copy.adoc[Copie simple] : crée une copie non paramétrique d'un objet parcours sélectionné.
+
+=== Divers
+
+* image:CAM_Area.svg[width=32] xref:misc/area.adoc[Surface] : crée une zone d'usinage à partir d'objets sélectionnés. xref:reference/experimental.adoc[_Fonctions expérimentales_].
+
+* image:CAM_Area_Workplane.svg[width=32] xref:misc/area-workplane.adoc[Zone du plan de travail] : crée une zone plane d'usinage. xref:reference/experimental.adoc[_Fonctions expérimentales_].
+
+=== Commandes obsolètes
+
+* image:CAM_Fixture.svg[width=32] xref:job/fixture.adoc[Décaler l'origine] : change la position de l'origine. Non disponible dans [.since]#1.1 and later#.
+
+* image:CAM_MillFace.svg[width=32] xref:operations/mill-face.adoc[Surfaçage] : crée un parcours de surfaçage. Non disponible dans la [.since]#26.3 and later#.
+
+* image:CAM_Tapping.svg[width=32] https://wiki.freecad.org/CAM_Tapping[Taraudage] : non disponible dans la [.since]#26.3 and later#.
+
+== Architecture des outils coupants
+
+Gestion des outils, des forets et de la bibliothèque d'outils. Basé sur l'architecture des outils coupants.
+
+* xref:tools/index.adoc[CAM Outils]
+* xref:tools/tool-shape.adoc[CAM Forme de l'outil]
+* xref:tools/toolbit.adoc[CAM Outil coupant]
+* xref:tools/toolbit-library.adoc[CAM Bibliothèque des outils coupants]
+* xref:tools/tool-controller.adoc[CAM Contrôleur d'outil]
+
+== Autre
+
+* xref:reference/faq.adoc[CAM FAQ] : l'atelier CAM partage de nombreux concepts avec d'autres logiciels de FAO mais possède ses propres particularités. Si quelque chose ne va pas, c'est un bon point de départ.
+* xref:job/setup-sheet.adoc[CAM Feuille de configuration] : vous pouvez utiliser une Feuille de configuration pour personnaliser la façon dont les diverses valeurs de propriété pour les opérations sont calculées.
+* xref:output/postprocessor-customization.adoc[CAM Personnaliser le post-processeur] : si vous avez une machine spéciale qui ne peut pas utiliser l'un des post-processeurs disponibles, vous pouvez avoir besoin d'écrire votre propre post-processeur.
+* xref:reference/fourth-axis.adoc[CAM Quatrième axe] : fraisage expérimental sur quatre axes.
+
+== Préférences
+
+* image:Preferences-path.svg[width=32] xref:reference/preferences.adoc[Préférences...] : préférences disponibles dans l'atelier CAM.
+
+== Script
+
+Voir la page xref:reference/scripting.adoc[CAM Ecrire un script].
+
+== Tutoriels
+
+* xref:tutorials/walkthrough-for-the-impatient.adoc[Tutoriel CAM, pas à pas pour l'impatient] : un tutoriel rapide pour se familiariser avec CAM.
+
+== Vidéos
+
+* https://www.youtube.com/playlist?list=PLEuOia-QxyFKgzAeTyH62GKqWKVURiWJL[FreeCAD Path : Custom paths with Python - Part 1 - 5] : une playlist avec une série de 5 vidéos en anglais par sliptonic. Cette série montre comment travailler avec l'xref:index.adoc[atelier Path].
+* https://www.youtube.com/playlist?list=PLUrr_kHPp4vhGdLlj6IemtF-OPUlRvSTC[FreeCAD CAM Path Workbench] : une playlist avec une série de 7 vidéos en anglais par CAD CAM Lessons.
+* https://www.youtube.com/playlist?list=PLUrr_kHPp4vh2n6DcIlegK4dEKIFjmISJ[FreeCAD CAM CNC] : une playlist avec une série de 8 vidéos en anglais par CAD CAM Lessons.
+* Voir aussi la section https://wiki.freecad.org/Video_tutorials#Fabrication_assistée_par_ordinateur_(FAO)[Fabrication assistée par ordinateur (FAO)] de la page wiki https://wiki.freecad.org/Video_tutorials[Tutoriels vidéo].
+
+== Feuille de route
+
+* xref:contributing/development-roadmap.adoc[CAM Plan de développement] : lisez ceci si vous êtes un développeur et que vous souhaitez contribuer à CAM.

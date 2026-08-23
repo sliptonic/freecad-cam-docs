@@ -1,0 +1,154 @@
+= CAM V-Schnitt
+:page-origin: https://wiki.freecad.org/CAM_Vcarve/de
+:page-origin-revision: c146a542d6 2026-06-08
+:page-command: CAM_Vcarve
+:page-icon: CAM_Vcarve.svg
+:page-menu: CAM → V-Schnitt
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Vcarve.svg[CAM V-Schnitt,32] *CAM V-Schnitt*
+
+Menu location:: menu:CAM[V-Schnitt]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Vcarve.svg[width=24] xref:operations/vcarve.adoc[CAM V-Schnitt] dient in erster Linie zum Gravieren einer Mittellinie einer image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft Textform] auf ein Teil. Es kann jedoch für andere Arten von 2D-Gravuren nützlich sein.
+
+Im Gegensatz zum Gravieren, bei dem den Linien in der Textform gefolgt wird, wird beim V-Schnitt ein V-förmiger Fräser verwendet, mit dem der Bereich durch Bewegen des Fräsers entlang der Mitte des Bereichs und Variieren der Schnitttiefe freigelegt wird. Da der Radius eines V-Fräsers mit der Tiefe variiert, variiert auch die Schnittbreite. Das Ergebnis ist ein natürlicher aussehender Schnitt, insbesondere bei Serifenschriften.
+
+image::Engravepath.png[]
+
+ 
+
+image::Vcarvepath.png[Example Vcarving Path]
+
+ 
+
+image::Vcarved.png[]
+
+ 
+
+image::Scrolltest.png[]
+
+Der V-Schnitt-Algorithmus berechnet anhand eines Voronoi-Diagramms einen Pfad entlang der Mittellinie eines Bereichs. Diese Mittellinie ist der Pfad, dem das Werkzeug in der XY-Ebene folgt. Als Nächstes berechnet er einen 'maximalen eingeschriebenen Kreis' entlang des Pfads. Dies ist der größte Kreis, der an dieser Stelle gezeichnet werden kann und vollständig innerhalb des Freiraums bleibt. Anhand des Kreisradius und des Spitzenwinkels des Fräsers wird die Schnitttiefe berechnet.
+
+[.since]#introduced in 26.3#: Bei der Routenplanung kann auf virtuelles Kanten-Backtracking zurückgegriffen werden. Ist der nächste Schnittstartpunkt über einen bereits gefrästen Pfad oder über eine Kante erreichbar, die als Nächstes gefräst wird, kann der Arbeitsgang dieser Kante folgen, anstatt einen Rückzug, eine Eilgangbewegung und einen Einstich auszuführen.
+
+== Anwendung
+
+=== Vorbereiten der Formen zum Gravieren
+
+* image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft Textformen] sind sofort einsatzbereit
+* SVG-Dateien müssen sowohl im Editor als auch im image:Workbench_Draft.svg[width=16] https://wiki.freecad.org/Draft_Workbench[Draft Arbeitsbereich] etwas bearbeitet werden:
+** Im Editor (z. B. https://www.inkscape.org[Inkscape]): Sicherstellen, dass die Datei nur Pfade enthält und dass die Pfade nicht gruppiert sind. Sicherstellen, dass es keine sich selbst überschneidenden Pfade gibt. In Inkscape Pfad → Vereinfachen und vereinigen verwenden, um sich überschneidende Pfade zu verbinden.
+** Zum image:Workbench_Draft.svg[width=16] https://wiki.freecad.org/Draft_Workbench[Arbeitsbereich Draft] in der https://wiki.freecad.org/Std_Workbench[Arbeitsbereich-Dropdown-Liste] wechseln
+** Die SVG-Datei mit menu:Datei[Importieren > "SVG als Geometrie" auswählen] importieren.
+** Das Ergebnis sollte in etwa so aussehen:
++
+::
+  image:Svgimport.png[frameless]
+  +
+  
+[.caption]
+Oben: Ergebnis von 'SVG als Geometrie' importieren
+
+::
+  ;;
+    Pfade mit Löchern (Buchstaben, die Ranke im Bild oben) werden als zwei separate Pfade importiert (benannt nach dem Muster `Path905` und `Path905001` in der https://wiki.freecad.org/Tree_View[Baumansicht]), einer davon ist das Loch und der andere ist der Umriss; wir werden uns damit im nächsten Schritt befassen.
+
+* {blank}
+** Um die 2D-Flächen zu erhalten, benötigt xref:operations/vcarve.adoc[CAM V-Schnitt]:
+*** Für Pfade ohne Löcher:
+. Den Pfad wählen
+. menu:Bearbeitung[] wählen
+. Gefolgt von menu:Bearbeitung[]
+*** Für Pfade mit Löchern:
+. Den äußeren Pfad und dann den inneren Pfad auswählen.
+. menu:Bearbeitung[] *zweimal* wählen
++
+::
+  Einige Pfade verhalten sich anders, daher muss man möglicherweise mit image:Draft_Upgrade.svg[width=16] Hochstufen und image:Draft_Downgrade.svg[width=16] Herabstufen experimentieren, bis man etwas mit dem Namen `Face<number>` erhält.
+  +
+  Das Endergebnis sollte so aussehen:
+  +
+  image:Svgfaces.png[rahmenlos]
+
+=== Erzeugen der V-Schnitt-Bearbeitung
+
+* Im https://wiki.freecad.org/Std_Workbench[Dropdown-Menü Arbeitsbereich] zum image:Workbench_CAM.svg[width=16] xref:index.adoc[Arbeitsbereich CAM] wechseln.
+* Einen Auftrag hinzufügen, die Objekte mit dem Namen `Face<number>` (oder den ShapeString) als Basis verwenden, eine V-Bit-Werkzeugsteuerung hinzufügen, Vorschübe, Geschwindigkeiten usw. festlegen.
+* Der Vorgang unterstützt nur ein Objekt (entweder ein einzelnes Flächen-Objekt oder eine Textform), daher für jedes Objekt:
+** menu:CAM[V-Schnitt] aus dem oberen Menü wählen. Dadurch wird das Konfigurationsfenster geöffnet.
+** Die Registerkarte kbd:[Basisgeometrie] öffnen und alle Flächen der Textform oder die Fläche eines einzelnen Flächen-Objekts hinzufügen, das man oben erhalten hat.
+** btn:[Anwenden] drücken und den generierten Pfad überprüfen. Gegebenenfalls die Betriebsparameter anpassen (der Schwellenwert kann in den meisten Fällen höher eingestellt werden).
+** btn:[OK] drücken, um den Vorgang abzuschließen.
+
+== Optionen
+
+Leer
+
+== Eigenschaften
+
+=== Daten
+
+.Base
+* *Placement*: -
+* *Label*: -
+
+.Depth
+* *ClearanceHeight*: -
+* *FinalDepth*: -
+* *SafeHeight*: -
+* *StartDepth*: -
+* *StepDown*: -
+
+.Op Values
+* *OpFinalDepth*: -
+* *OpStartDepth*: -
+* *OpStockZMax*: -
+* *OpStockZMin*: -
+* *OpToolDiameter*: -
+
+.Path
+* *Active*: -
+* *Comment*: -
+* *CoolantMode*: -
+* *StartVertex*: -
+* *ToolController*: -
+* *UserLabel*: -
+
+==== Versteckt
+
+* *Base*: -
+* *BaseObject*: -
+* *BaseShapes*: -
+* *ExpressionEngine*: -
+* *Label2*: -
+* *Path*: -
+* *Proxy*: -
+* *Visibility*: -
+
+=== Ansicht
+
+Leer
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+#Place code example here.
+----
