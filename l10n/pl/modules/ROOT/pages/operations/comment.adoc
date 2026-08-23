@@ -1,0 +1,43 @@
+= CAM: Komentarz
+:page-origin: https://wiki.freecad.org/CAM_Comment/pl
+:page-command: CAM_Comment
+:page-icon: CAM_Comment.svg
+:page-menu: CAM → Polecenia dodatkowe → Komentarz
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Comment.svg[CAM: Komentarz,32] *CAM: Komentarz*
+
+Menu location:: menu:CAM[Polecenia dodatkowe > Komentarz]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_Comment.svg[width=24] xref:operations/comment.adoc[Komentarz] wstawia komentarz. Podczas eksportu projektu do G-code, komentarze są wstawiane w programie G-code i mogą być odczytane przez osoby czytające plik. Niektóre kontrolery obrabiarek również wyświetlają komentarze na swoich monitorach.
+
+== Użycie
+
+. Wciśnij przycisk image:CAM_Comment.svg[width=16] xref:operations/comment.adoc[Komentarz] lub użyj skrótu klawiszowego kbd:[P] a następnie kbd:[C].
+. Wprowadź swój komentarz we właściwości *Comment*
+
+== Właściwości
+
+* *Comment*: Treść komentarza
+
+== Tworzenie skryptów
+
+_Zobacz również:_ https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD podstawy tworzenia skryptów].
+
+Przykład:
+
+[source,python]
+----
+#Place code example here.
+----

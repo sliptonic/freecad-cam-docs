@@ -1,0 +1,54 @@
+= CAM Simulateur de parcours
+:page-origin: https://wiki.freecad.org/CAM_Simulator/fr
+:page-origin-revision: 63991a84c8 2026-07-08
+:page-command: CAM_Simulator
+:page-icon: CAM_Simulator.svg
+:page-menu: CAM → Simuler le parcours (historique)
+:page-workbench: CAM
+:page-shortcut: P M
+:page-see-also: CAM Inspecter des commandes, CAM Simulateur GL de parcours
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Simulator.svg[CAM Simulateur de parcours,32] *CAM Simulateur de parcours*
+
+Menu location:: menu:CAM[Simuler le parcours (historique)]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[M]]
+Introduced in version:: -
+See also:: xref:inspect/inspect.adoc[CAM Inspecter des commandes], xref:inspect/simulator.adoc[CAM Simulateur GL de parcours]
+--
+
+== Description
+
+La commande image:CAM_Simulator.svg[width=24] xref:inspect/simulator-legacy.adoc[Simulateur de parcours] permet de simuler la tâche de CAM en balayant les modèles 3D des outils utilisés pour chaque opération, en parcourant le G-code, en soustrayant le matériau du brut, là où le brut et l'outil se chevauchent, ce qui permet de visualiser la tâche. Cela permet de détecter et d'isoler les erreurs avant d'exécuter la tâche à la fraiseuse.
+
+image:Path-Simulation.gif[]
+
+== Utilisation
+
+. Il existe plusieurs façons de lancer la commande :
+* Appuyez sur le bouton image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[Simuler le parcours (historique)].
+* Sélectionnez l'option menu:CAM[Simuler le parcours (historique)] du menu.
+* Utilisez le raccourci clavier : kbd:[P] puis kbd:[M].
+. Désélectionnez toutes les menu:Opérations[] qui ne doivent pas être simulées.
+. Réglez les paramètres de menu:Vitesse[] et menu:Précision[].
+. Sélectionnez la tâche menu:Tâche[] à simuler dans le menu déroulant.
+. Utilisez la barre d'outils menu:Simulateur de parcours[] pour lancer les différentes actions :
+* Appuyez sur le bouton image:CAM_BPlay.svg[width=24] pour lire ou reproduire une animation des opérations.
+* Appuyez sur le bouton image:CAM_BFastForward.svg[width=24] pour augmenter sensiblement la vitesse (afin de revoir rapidement des chemins compliqués).
+* Appuyez sur le bouton image:CAM_BPause.svg[width=24] pour mettre l'animation en pause à des fins de dépannage.
+* Appuyez sur le bouton image:CAM_BStep.svg[width=24] pour ralentir l'animation, cette fonctionnalité permet de dépanner et de résoudre des coupes et/ou des mouvements spécifiques.
+* Appuyez sur le bouton image:CAM_BStop.svg[width=24] pour arrêter l'animation.
+* Appuyez sur le bouton btn:[Annuler] pour supprimer le brut créé pour la simulation. Si vous appuyez sur btn:[OK], cet objet sera conservé dans votre tâche.
+
+== Propriétés
+
+* *Playback Speed* : vitesse de lecture de la simulation, en lignes G-code/seconde.
+* *Accuracy* : précision de la simulation exprimée en pourcentage indiquant l'écart des simulations par rapport à la taĉhe. Pour la simulation interactive, réduire la précision à 0.3 fonctionne beaucoup plus rapidement.
+* *Job* : taĉhe utilisée comme base de la simulation.
+* *Operation List* : liste des opérations sélectionnées à inclure dans la simulation.

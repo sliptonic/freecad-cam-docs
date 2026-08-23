@@ -1,0 +1,41 @@
+= CAM experimental
+:page-origin: https://wiki.freecad.org/CAM_experimental/pl
+:page-origin-revision: 0500c8476d 2026-07-08
+:page-imported: true
+
+== Opis
+
+Środowisko pracy CAM zawiera zestaw ukrytych poleceń. Są one domyślnie ukryte, ponieważ są eksperymentalne. Polecenie może być uznane za eksperymentalne z jednego z następujących powodów:
+
+* Jest niekompletne.
+* Jest pełne błędów.
+* Jest niestabilne.
+* Nie tworzy poprawnych, stabilnych, bezpiecznych ścieżek.
+* Nie jest standardowym, regularnie używanym poleceniem w tradycyjnym obiegu CAM.
+* Jest dojrzałe, ale nie zostało jeszcze przeniesione na listę narzędzi standardowych.
+* ... inne powody.
+
+== Wyłączenie poleceń eksperymentalnych
+
+Aby uzyskać dostęp do ukrytych poleceń eksperymentalnych środowiska pracy CAM, użytkownik musi je włączyć.
+
+=== Włączanie poleceń xref:operations/surface.adoc[Powierzchnia 3D] oraz xref:operations/waterline.adoc[Linia poziomu]
+
+. Otwórz https://wiki.freecad.org/Preferences_Editor[Edytor preferencji] poprzez menu:Edycja[Preferencje].
+. Przejdź do strony menu:CAM[Zaawansowane].
+. Zaznacz pole menu:Włącz funkcje zależne od OpenCamLib[].
+. Zrestartuj FreeCAD.
+
+=== Włączanie innych eksperymentalnych poleceń
+
+. Otwórz https://wiki.freecad.org/Std_DlgParameter[Edytor parametrów] poprzez menu:Narzędzia[Edycja parametrów].
+. W edytorze ścieżka to menu:BaseApp[Preferences > Mod > CAM].
+. Kliknij prawym przyciskiem myszy w obszarze listy parametrów i wybierz menu:Nowy[Nowy obiekt logiczny] z menu kontekstowego.
+. Nazwij nowy parametr: `EnableExperimentalFeatures` (uwzględnia wielkość liter).
+. Ustaw go na: `True`.
+. Zapisz ustawienia.
+. Zrestartuj FreeCAD.
+
+== Informacje dodatkowe
+
+Więcej informacji o konkretnych poleceniach eksperymentalnych można znaleźć na stronach https://wiki.freecad.org/Special:WhatLinksHere/CAM_experimental[Wiki powiązanych z tematem].

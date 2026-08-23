@@ -1,0 +1,31 @@
+= CAM AufbereitungAchsenZuordnung
+:page-origin: https://wiki.freecad.org/CAM_DressupAxisMap/de
+:page-command: CAM_DressupAxisMap
+:page-icon: CAM_DressupAxisMap.svg
+:page-menu: CAM → Bahnbearbeitung → Achsenzuordnung
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupAxisMap.svg[CAM AufbereitungAchsenZuordnung,32] *CAM AufbereitungAchsenZuordnung*
+
+Menu location:: menu:CAM[Bahnbearbeitung > Achsenzuordnung]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+== Anwendung
+
+== Optionen
+
+== Eigenschaften
+
+== Skripten

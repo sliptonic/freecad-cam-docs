@@ -1,0 +1,37 @@
+= CAM AufbereitungSchleppmesser
+:page-origin: https://wiki.freecad.org/CAM_DressupDragKnife/de
+:page-command: CAM_DressupDragKnife
+:page-icon: CAM_DressupDragKnife.svg
+:page-menu: CAM → Bahnbearbeitung → Schleppmesser
+:page-workbench: CAM
+:page-see-also: CAM Haltepunkt, CAM Eingangsrampe, CAM Hundeknochen
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupDragKnife.svg[CAM AufbereitungSchleppmesser,32] *CAM AufbereitungSchleppmesser*
+
+Menu location:: menu:CAM[Bahnbearbeitung > Schleppmesser]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/tag.adoc[CAM Haltepunkt], xref:dressups/ramp-entry.adoc[CAM Eingangsrampe], xref:dressups/dogbone.adoc[CAM Hundeknochen]
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_DressupDragKnife.svg[width=24] xref:dressups/drag-knife.adoc[CAM AufbereitungSchleppmesser] verwendet eine Schneide an einem Drehpunkt, um Plattenmaterialien wie Vinyl, Pappe und Leder zu schneiden. Der Schneidepunkt ist nicht auf die Mitte der Spindel ausgerichtet, sondern folgt dieser, wenn sich die Spindel bewegt. Da der Schneidepunkt versetzt ist, muss der Schnittweg so geändert werden, dass er über den Endpunkt jedes Segments hinausgeht. Außerdem ist das Schleppmesser nicht in der Lage, extrem enge Kurven zu schneiden. Um dies auszugleichen, wird eine Drehpunkt-'Eckenaktion' eingefügt, die die Klinge kurzzeitig leicht anhebt und dann in die neue Position dreht.
+
+Dieses Werkzeug bereitet einen bestehenden Pfad auf, indem es Eckaktionen und Kantenverlängerungen für das Schneiden mit einem Schleppmesser hinzufügt.
+
+== Anwendung
+
+. Ein Kontur- oder Profilpfadobjekt auswählen.
+. Die Option menu:CAM[Bearbeitungspfad > Schleppmesser] aus dem Menü wählen.
+
+== Optionen
+
+* *Filter Angle* : Legt fest, wie spitz ein Winkel sein muss, bevor eine Eckaktion eingefügt wird.
+* *Offset* : Eingeben, um wie viel die Messerspitze von der Spindelachse versetzt ist.
+* *Pivot Height* : Legt fest, wie hoch das Schneidmesser bei einer Eckbewegung angehoben werden soll. Dies ist materialabhängig und sollte bei dickeren Materialien höher sein. Idealerweise sollte die Spitze leicht im Material verbleiben.

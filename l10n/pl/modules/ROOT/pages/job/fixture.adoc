@@ -1,0 +1,49 @@
+= CAM: Mocowanie
+:page-origin: https://wiki.freecad.org/CAM_Fixture/pl
+:page-command: CAM_Fixture
+:page-icon: CAM_Fixture.svg
+:page-menu: CAM → Polecenia dodatkowe → Uchwyt
+:page-workbench: CAM
+:page-imported: true
+
+WARNING: TO POLECENIE JEST PRZESTARZAŁE Nie jest dostępne w [.since]#1.1 and later#.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Fixture.svg[CAM: Mocowanie,32] *CAM: Mocowanie*
+
+Menu location:: menu:CAM[Polecenia dodatkowe > Uchwyt]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_Fixture.svg[width=24] xref:job/fixture.adoc[Uchwyt] ustawia mocowanie odsuniętego układu współrzędnych roboczych kontrolera CNC obrabiarki.
+
+Docelowe współrzędne odsunięcia współrzędnych roboczych zwykle zawierają: mocowania G53 do G59. Kod G-code to po prostu mocowanie (G53, G54, etc...). Mocowania odsuniętego układu współrzędnych przedstawiają:
+
+* G53 → Układ współrzędnych obrabiarki.
+* G54 → Układ współrzędnych brudnopisu.
+* G55 to G59.9 → Mocowania współrzędnych pozwalające na odsunięcia robocze, względne do przełączników naprowadzających zlokalizowanych na obrabiarce CNC jakie mają być użyte.
+
+Mocowanie G59 jest używane do rozszerzenia dostępnych mocowań. Zaimplementowany stopień rozszerzalności zależy od obrabiarki CNC a to polecenie pozwala na G59.1 do G59.9.
+
+== Użycie
+
+. Wciśnij przycisk image:CAM_Fixture.svg[width=16] xref:job/fixture.adoc[Uchwyt] lub użyj skrótu klawiszowego kbd:[P] a następnie kbd:[F].
+. Wybierz żądane mocowanie odsunięcia roboczego z listy rozwijanej.
+
+== Właściwości
+
+* *Fixture*: Ustawia aktualny punkt mocowania
+* *Active*: Definiuje czy to polecenie jest aktywne czy nie podczas wstawiania do złożenia
+
+== Uwagi
+
+== Ograniczenia
+
+== Tworzenie skryptów

@@ -1,0 +1,55 @@
+= CAM Réseau
+:page-origin: https://wiki.freecad.org/CAM_Array/fr
+:page-origin-revision: 64d07e17c0 2026-06-08
+:page-command: CAM_Array
+:page-icon: CAM_Array.svg
+:page-menu: CAM → Modification du parcours → Réseau
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Array.svg[CAM Réseau,32] *CAM Réseau*
+
+Menu location:: menu:CAM[Modification du parcours > Réseau]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+La commande image:CAM_Array.svg[width=24] xref:modify/array.adoc[Réseau] crée un nouveau parcours en dupliquant un autre parcours plusieurs fois à une certaine distance d'intervalle.
+
+== Utilisation
+
+. Sélectionnez l'opération que vous souhaitez répéter
+. Pressez le bouton image:CAM_Array.svg[width=16] xref:modify/array.adoc[Réseau]
+. Pressez btn:[Appliquer]
+. Ajustez les propriétés souhaitées dans la fenêtre de dialogue des données
+
+== Propriétés
+
+* *Type* : type de réseau : `Linear1D`, `Linear2D` ou `Polar`
+* *Offset* : espace entre les copies du réseau pour chaque direction
+* *Copies* : nombre de copies (sans compter l'original) pour chaque direction
+
+[.since]#introduced in 26.3# : le contrôle du jitter basé sur un pourcentage utilisé auparavant a été remplacé par *UseJitter*. Le jitter peut être appliqué aux réseaux polaires, et le jitter de rotation aléatoire est disponible pour tous les types de réseaux.
+
+* *UseJitter* : active les décalages et rotations aléatoires pour les copies générées de réseaux
+* *JitterMagnitude* : translation aléatoire maximale dans chaque direction
+* *JitterAngle* : angle de rotation aléatoire maximal
+* *JitterSeed* : valeur de départ permettant de reproduire le jitter
+
+== Script
+
+_Voir aussi :_ https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Script de base].
+
+Exemple :
+
+[source,python]
+----
+#Place code example here.
+----

@@ -1,0 +1,38 @@
+= CAM Lame rotative
+:page-origin: https://wiki.freecad.org/CAM_DressupDragKnife/fr
+:page-origin-revision: e3145ec290 2026-05-21
+:page-command: CAM_DressupDragKnife
+:page-icon: CAM_DressupDragKnife.svg
+:page-menu: CAM → Finition du parcours → Lame rotative
+:page-workbench: CAM
+:page-see-also: CAM Attaches, CAM Rampe d'entrée, CAM Dégagement d'angles
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupDragKnife.svg[CAM Lame rotative,32] *CAM Lame rotative*
+
+Menu location:: menu:CAM[Finition du parcours > Lame rotative]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/tag.adoc[CAM Attaches], xref:dressups/ramp-entry.adoc[CAM Rampe d'entrée], xref:dressups/dogbone.adoc[CAM Dégagement d'angles]
+--
+
+== Description
+
+La commande image:CAM_DressupDragKnife.svg[width=24] xref:dressups/drag-knife.adoc[Lame rotative] utilise une lame sur pivot pour couper un matériau en feuille comme le vinyle, le carton et le cuir. Le point de coupe n'est pas aligné avec le centre de la broche mais suit le mouvement de la broche. Parce que le point de coupe est décalé, le parcours doit être modifié pour dépasser le point d'extrémité de chaque segment. En outre, la lame rotative est incapable de faire des virages extrêmement serrés. Pour compenser, une "action de coin" de pivot est insérée et soulève légèrement la lame puis pivote dans la nouvelle position.
+
+Cet outil ajoute au tracé existant des actions de coin et des extensions de bord pour définir le tracé de la lame.
+
+== Utilisation
+
+. Sélectionnez un objet de contour ou un objet _profile path_.
+. Sélectionnez l'option menu:CAM[Finition du parcours > Lame rotative] du menu.
+
+== Options
+
+* *Précision de l'angle* : détermine le degré de précision d'un angle avant l'insertion d'une action dans un coin.
+* *Décalage* : décalage du point de la lame par rapport au centre de la broche.
+* *Hauteur du pivot* : détermine à quelle hauteur soulever la lame pendant une action dans un coin. Cela dépend du matériau et devrait être plus élevé pour les matériaux plus épais. Idéalement, le point doit rester légèrement dans le matériau.

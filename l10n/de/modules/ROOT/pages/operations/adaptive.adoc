@@ -1,0 +1,147 @@
+= CAM Adaptiv
+:page-origin: https://wiki.freecad.org/CAM_Adaptive/de
+:page-command: CAM_Adaptive
+:page-icon: CAM_Adaptive.svg
+:page-menu: CAM → Adaptiv
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Adaptive.svg[CAM Adaptiv,32] *CAM Adaptiv*
+
+Menu location:: menu:CAM[Adaptiv]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Adaptive.svg[width=24] xref:operations/adaptive.adoc[CAM Adaptiv] erzeugt Fräs- und Profilierungspfade. Der Vorgang variiert den Fräser-Einsatz, sodass der Materialabtrag niemals einen Maximalwert überschreitet.
+
+== Anwendung
+
+Die Gebrauchsanweisung für die xref:operations/adaptive.adoc[Adaptiv]-Bearbeitungen werden hier vorgestellt.
+
+=== Grundlegende Bearbeitungen
+
+. Auf das Symbol image:CAM_Adaptive.svg[width=16] xref:operations/adaptive.adoc[Adaptiv] drücken oder kbd:[CAM] → image:CAM_Adaptive.svg[width=24] xref:operations/adaptive.adoc[Adaptiv] aus dem oberen Menü wählen.
+. Die Werkzeugsteuerung für den Vorgang aus dem Popup-Fenster Werkzeugsteuerung auswählen, wenn man dazu aufgefordert wird.
+. Die Arbeitstiefen nach Bedarf auf der Registerkarte Tiefen anpassen: Starttiefe, Endtiefe, Absenkung.
+. Bei Bedarf Anpassungen auf der Registerkarte Höhen vornehmen.
+. Die Einstellungen auf der Registerkarte Operationen konfigurieren:
+.. (*Siehe Abschnitt <<properties,Eigenschaften>> → Adaptiv weiter unten.*)
+.. Den Wert für Überlappung als Prozentsatz des Werkzeugdurchmessers festlegen.
+. Wenn man eine Vorschau des Ergebnisses anzeigen möchte, bevor man die Einstellungen übernimmt, klickt man auf btn:[Übernehmen].
+. Auf die Schaltfläche btn:[OK] klicken, um die Einstellungen zu bestätigen und die Pfade zu generieren.
+
+=== Einleitende Bemerkungen zur adaptiven Räumung
+
+* Je nach Größe und Komplexität des Bereichs für die Bearbeitung ist es möglicherweise besser, die Bearbeitung nicht nach jeder Eigenschaftsänderung neu zu berechnen, sondern Folgendes in Betracht zu ziehen:
+** Die Operation mit dem Umschaltwerkzeug image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Aktiv]-Umschaltwerkzeug deaktivieren, die Änderungen an den Eigenschaften der Operation vornehmen und dann erneut auf das Symbol image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Aktiv] klicken, um die Operation wieder zu aktivieren – wodurch intern eine Neuberechnung ausgelöst wird.
+* Die Bearbeitung image:CAM_Adaptive.svg[width=16] xref:operations/adaptive.adoc[Adaptiv] enthält möglicherweise noch einige Fehler, die noch nicht eindeutig identifiziert wurden. Bitte Fehler und Probleme im https://forum.freecad.org/viewforum.php?f=15[FreeCAD-Path/CAM-Forum] melden.
+* Möglicherweise werden bei diesem Vorgang nicht alle Werkzeugformen berücksichtigt. Weitere Informationen findet man im FreeCAD-Forum.
+* Wenn der Pfadsimulator im Arbeitsbereich CAM ausgeführt wird, wird zur Simulation der Pfade nur der Standard-Schaftfräser verwendet. Daher sieht man keine werkzeugformspezifische Materialabtragung. Die Materialabtragung wird anhand der Form des Schaftfräsers angezeigt.
+
+== Eigenschaften
+
+*_Hinweis_*: Die Namen einiger Eigenschaften in dieser Liste unterscheiden sich geringfügig von den gleichen Einstellungen, die im Aufgaben-Fenster-Editor verwendet werden.
+
+.Adaptive
+* *Force Inside-Out*: Kraft, die in das Material eindringt und sich zu den Rändern hin ausbreitet
+* *Helix Angle*: Wendel-Rampeneintrittswinkel (Grad)
+* *Helix Cone Angle*: Winkel (Grad) der konischen Wendel
+* *Helix Diameter Limit*: Den Wendel-Eintrittsdurchmesser begrenzen. Wenn die Begrenzung größer als der Werkzeugdurchmesser oder 0 ist, wird der Werkzeugdurchmesser verwendet
+* *Keep Tool Down Ratio*: Maximale Länge des Werkzeugpfades im Vergleich zur direkten Entfernung zwischen den Punkten
+* *Lift Distance*: Hubweg für schnelle Bewegungen
+* *Operation Type*: Art des adaptiven Vorgangs: Bereinigung oder Profilerstellung
+* *Side*: Seite der ausgewählten Flächen, die das Werkzeug schneiden soll: Innen oder Außen
+* *Step Over*: Prozentualer Anteil des Fräserdurchmessers, der bei jedem Durchgang übersprungen werden soll
+* *Stock to Leave*: Wie viel Material soll übrig bleiben (z. B. für einen separaten Endbearbeitungsvorgang)?
+* *Tolerance*: Beeinflusst Genauigkeit und Leistung
+* *Use Helix Arcs*: Verwende Bögen (G2) für die Wendelrampe
+
+.Base
+Hinweis: Es wird empfohlen, die Eigenschaft Placement von Pfadbearbeitungen nicht zu bearbeiten. Stattdessen verschiebt oder dreht man das CAM-Auftragsmodell nach Bedarf.
+
+* *Placement*: Gesamtpositionierung ++[++Position und Drehung++]++ des Objekts – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+** *Angle*: Winkel in Grad, der auf die Drehung des Objekts um den Achsenwert angewendet wird
+** *Axis*: Achse (eine oder mehrere), um die das Objekt gedreht werden soll, festgelegt in den Untereigenschaften: X, Y, Z
+*** *X*: X-Achsenwert
+*** *Y*: Y-Achsenwert
+*** *Z*: Z-Achsenwert
+** *Position*: Position des Objekts, festgelegt in Untereigenschaften: X, Y, Z – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+*** *X*: X-Abstandswert
+*** *Y*: Y-Abstandswert
+*** *Z*: Z-Abstandswert
+* *Label*: Vom Benutzer angegebener Name des Objekts (UTF-8)
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden
+* *Final Depth*: Endtiefe des Werkzeugs – niedrigster Wert in Z
+* *Finish Depth*: Maximale Materialabtragung beim letzten Durchgang
+* *Safe Height*: Die oben genannten schnellen Bewegungen sind erlaubt
+* *Start Depth*: Starttiefe des Werkzeugs – erste Schnitttiefe in Z
+* *Step Down*: Inkrementelle Absenkung des Werkzeugs
+
+.Path
+* *Active*: Falsch machen, um zu verhindern, dass der Vorgang Code generiert
+* *Comment*: Ein optionaler Kommentar für diese Bearbeitung
+* *User Label*: Benutzerdefinierte Beschriftung
+* *Tool Controller*: Definiert die in der Bearbeitung verwendete Werkzeugsteuerung
+
+== Layout des Aufgaben-Fenster-Editors
+
+_Beschreibungen zu diesen Einstellungen findet man in der Eigenschaften-Liste oben._
+
+Dieser Abschnitt ist lediglich eine Übersichtskarte der Einstellungen im Fenster-Editor für die Bearbeitungen.
+
+=== Basisgeometrie
+
+* *Hinzufügen*: Fügt ausgewählte Elemente hinzu, die als Basis für die Pfade dienen sollen
+* *Entfernen*: Entfernt die ausgewählten Elemente aus der Liste Basisgeometrie
+* *Löschen*: Alle Elemente in der Liste Basisgeometrie löschen
+
+=== Tiefen
+
+* *Start Depth*
+* *Final Depth*
+* *Finish Depth*
+* *Step Down*
+
+=== Höhen
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Bearbeitung
+
+* *Tool Controller*
+* *Cut Region* (Side)
+* *Operation Type*
+* *Step Over Percent*
+* *Accuracy vs Performance* (Toleranz)
+* *Helix Ramp Angle*
+* *Helix Cone Angle*
+* *Helix Max Diameter* (Helix-Durchmessergrenze)
+* *Lift Distance*
+* *Keep Tool Down Ratio*
+* *Stock to Leave*
+* *Force Clearing Inside-Out*
+* *Stop*
+
+== Bekannte Probleme
+
+Falls CAM Adaptive unerwünschte Pfade erzeugt, versucht man es mit einem Wert für *Stock to Leave* von `0.001 mm` oder mehr. Man kann den Durchmesser des Werkzeugs um das Doppelte dieses Wertes reduzieren, um die Pfade exakt zu halten.
+
+Eine vorgeschlagene Fehlerkorrektur ist verfügbar (aber niemand arbeitet daran, sie zu integrieren):
+
+https://github.com/FreeCAD/FreeCAD/pull/5276
+
+== Ressourcen
+
+* GitHub-Seite des Autors für das ursprüngliche Projekt: https://github.com/kreso-t/FreeCAD_Mod_Adaptive_Path[kreso-t/FreeCAD++_++Mod++_++Adaptive++_++Path]
+* Aktives Thema in den FreeCAD-Foren zu Path Adaptive operation: https://forum.freecad.org/viewtopic.php?f=15&t=30127[Adaptive Path/CAM Operation]

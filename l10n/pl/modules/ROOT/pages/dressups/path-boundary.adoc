@@ -1,0 +1,40 @@
+= CAM: Ulepszenie ściezki konturu
+:page-origin: https://wiki.freecad.org/CAM_DressupPathBoundary/pl
+:page-command: CAM_DressupPathBoundary
+:page-icon: CAM_DressupPathBoundary.svg
+:page-menu: CAM → Operacje wykańczające ścieżki → Kontur
+:page-workbench: CAM
+:page-see-also: CAM: Ulepszenie - znacznik, CAM: Ulepszenie - parkowanie narzędzia
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupPathBoundary.svg[CAM: Ulepszenie ściezki konturu,32] *CAM: Ulepszenie ściezki konturu*
+
+Menu location:: menu:CAM[Operacje wykańczające ścieżki > Kontur]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/tag.adoc[CAM: Ulepszenie - znacznik], xref:dressups/ramp-entry.adoc[CAM: Ulepszenie - parkowanie narzędzia]
+--
+
+== Opis
+
+Polecenie image:CAM_DressupPathBoundary.svg[width=24] xref:dressups/path-boundary.adoc[Ulepszenie ścieżki konturu] pozwala ograniczyć zakres ścieżki do mniejszej części obiektu. Np. ograniczyć profil ścieżki do tylko jednej ściany lub części modelu.
+
+== Użycie
+
+. Wybierz ścieżkę taką jak kontur, profil lub operację kieszeni.
+. Wybierz opcję the menu:CAM[Operacje wykańczające ścieżki > Kontur] z menu.
+
+== Opcje
+
+* *Utwórz prostopadłościan*
+* *Utwórz walec*
+* *Rozszerz prostopadłościan obejmujący model*: Bardzo wygodną możliwością ograniczenia ścieżki jest wybranie tej opcji i użycie ujemnych wartości.
+* *Użyj istniejącej bryły*
+
+== Ograniczenia
+
+* Opcja _Utwórz prostopadłościan_ ustawia tylko wymiary prostopadłościanu, nie jego początek. Aby go zmienić, należy dostosować jego właściwość _Umiejscowienie_ w https://wiki.freecad.org/Tree_view[widoku drzewa].

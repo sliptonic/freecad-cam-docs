@@ -1,0 +1,42 @@
+= CAM Dégagement des angles
+:page-origin: https://wiki.freecad.org/CAM_DressupDogbone/fr
+:page-origin-revision: 9f26210e84 2026-06-08
+:page-command: CAM_DressupDogbone
+:page-icon: CAM_DressupDogbone.svg
+:page-menu: CAM → Finition du parcours → Dégager des angles
+:page-workbench: CAM
+:page-see-also: CAM Attaches, CAM Rampe d'entrée, CAM Lame rotative
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupDogbone.svg[CAM Dégagement des angles,32] *CAM Dégagement des angles*
+
+Menu location:: menu:CAM[Finition du parcours > Dégager des angles]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/tag.adoc[CAM Attaches], xref:dressups/ramp-entry.adoc[CAM Rampe d'entrée], xref:dressups/drag-knife.adoc[CAM Lame rotative]
+--
+
+== Description
+
+La commande image:CAM_DressupDogbone.svg[width=24] xref:dressups/dogbone.adoc[Dégagement des angles] ajoute une finition à un parcours existant en surcoupant les angles intérieurs d'un profil ou d'un contour. Une fraise cylindrique ne peut pas couper entièrement un angle aigu sans entrer en collision avec le modèle. Dans certains cas, il peut être préférable de violer le modèle et de s'assurer que la matière au niveau de l'angle est enlevée. Cela est particulièrement nécessaire si les pièces doivent se croiser ou s'imbriquer les unes dans les autres.
+
+== Utilisation
+
+. Sélectionnez un contour ou des objets _profile path_ de xref:index.adoc[CAM].
+. Sélectionnez l'option menu:CAM[Finition du parcours > Dégager des angles] du menu.
+
+== Options
+
+* *Côté* : côté du parcours où la modification sera ajoutée.
+* *Style* : style de surcoupe (Dégagement, Dégagement horizontal, Dégagement vertical, Dégagement long, Dégagement court).
+* *Incision* : algorithme à utiliser pour calculer la longueur de la surcoupe.
+* *Personnalisé* : si *Incision* est défini sur `Personnalisé`, cette valeur détermine la longueur de surcoupe.
+* Pour le type d'incision adaptative, une valeur *Personnalisé* différente de zéro peut également être utilisée pour limiter la longueur maximale de l'incision. [.since]#introduced in 26.3#
+
+== Limitations
+
+Le dégagement des angles nécessite un segment de parcours droit (G1) avant et après le coin où le dégagement doit être mis.

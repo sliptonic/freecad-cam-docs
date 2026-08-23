@@ -1,0 +1,53 @@
+= CAM ToolBitDock
+:page-origin: https://wiki.freecad.org/CAM_ToolBitDock/pl
+:page-command: CAM_ToolBitDock
+:page-icon: CAM_ToolBitDock.svg
+:page-menu: CAM → Dodaj końcówkę narzędzia…
+:page-workbench: CAM
+:page-shortcut: P T
+:page-since: 0.19
+:page-see-also: CAM: Edytor biblioteki narzędzi, CAM: Narzędzia, CAM: Końcówki narzędzi
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ToolBitDock.svg[CAM ToolBitDock,32] *CAM ToolBitDock*
+
+Menu location:: menu:CAM[Dodaj końcówkę narzędzia…]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[T]]
+Introduced in version:: 0.19
+See also:: xref:tools/library-manager.adoc[CAM: Edytor biblioteki narzędzi], xref:tools/index.adoc[CAM: Narzędzia], xref:tools/toolbit.adoc[CAM: Końcówki narzędzi]
+--
+
+== Opis
+
+Polecenie image:CAM_ToolBitDock.svg[width=24] xref:tools/add-toolbit.adoc[Tabela narzędzi] otwiera Selektor końcówek narzędzi.
+
+Celem selektora jest wyświetlanie obecnie wybranej biblioteki i umożliwianie użytkownikowi szybkiego dodania kontrolerów narzędzi do zadań środowiska CAM.
+
+Dwukrotne kliknięcie na narzędziu utworzy pojedynczy kontroler dla narzędzia. Wybranie wielu narzędzi i wciśnięcie przycisku btn:[Dodaj do zadania] utworzy kontrolery dla wszystkich narzędzi w bibliotece.
+
+Użytkownik może też wybrać wiele narzędzi i użyć przycisku btn:[dodaj...] na dole aby dodać kontrolery narzędzi do zaznaczenia.
+
+[cols=",",]
+|===
+|image:Toolbit_Dock.png[width=200] |W górnej części panelu wyświetlana jest nazwa bieżącej biblioteki _(1)_. Wszystkie biblioteki narzędzi z tej lokalizacji są skanowane i wyświetlane w selektorze. Selektor zapamięta ostatni wybór między użyciami. Przycisk menedżera w prawym górnym rogu _(4)_ umożliwia użytkownikowi uruchomienie menedżera bibliotek. Menedżer biblioteki może być używany do utrzymywania zestawów narzędzi i wybierania innej biblioteki.
+|===
+
+== Użycie
+
+=== Utwórz kontrolery narzędzi
+
+. Jest kilka sposobów na otwarcie selektora narzędzi:
+* Wciśnij przycisk image:CAM_ToolBitDock.svg[width=16] xref:tools/add-toolbit.adoc[Dodaj końcówkę narzędzia…].
+* Wybierz opcję menu:CAM[Dodaj końcówkę narzędzia…] z menu.
+* Użyj skrótu klawiszowego: kbd:[P] a następnie kbd:[T].
+. Użyj selektora, aby dodać kontrolery narzędzi do zadania środowiska CAM
+* Dwukrotnie kliknij na węźle narzędzia *(2)* aby utworzyć kontroler narzędzia dla niego.
+* Wybierz jedno lub więcej narzędzi i wciśnij przycisk "dodaj do zadania ..." *(3)*.
+
+== Opcje

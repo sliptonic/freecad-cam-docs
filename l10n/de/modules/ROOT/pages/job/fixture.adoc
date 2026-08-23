@@ -1,0 +1,50 @@
+= CAM Fixture
+:page-origin: https://wiki.freecad.org/CAM_Fixture/de
+:page-origin-revision: 29d95fb055 2026-07-08
+:page-command: CAM_Fixture
+:page-icon: CAM_Fixture.svg
+:page-menu: CAM → Zusätzliche Befehle → Fixture
+:page-workbench: CAM
+:page-imported: true
+
+WARNING: DIESER BEFEHL IST VERALTET Er ist in [.since]#1.1 and later# nicht mehr enthalten.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Fixture.svg[CAM Fixture,32] *CAM Fixture*
+
+Menu location:: menu:CAM[Zusätzliche Befehle > Fixture]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Das Werkzeug image:CAM_Fixture.svg[width=24] xref:job/fixture.adoc[Fixture] stellt die Arbeitsversatz-Koordinatenfixierung der CNC-Steuerung der Maschine ein.
+
+Ziel-Arbeitsversatzkoordinaten umfassen in der Regel: Vorrichtungen G53 bis G59. Der G-Code ist einfach die Vorrichtung (G53, G54 usw.). Die Koordinatenversatzvorrichtungen stehen für:
+
+* G53 → Maschinenkoordinatensystem.
+* G54 → Scratchpad-Koordinatensystem.
+* G55 bis G59.9 → Koordinatenvorrichtungen, die die Verwendung von Arbeitsversätzen relativ zu den auf der CNC-Maschine befindlichen Referenzschaltern ermöglichen.
+
+Die G59-Fixierung wird verwendet, um die verfügbaren Fixierungen zu erweitern. Der Grad der implementierten Erweiterung ist CNC-maschinenspezifisch, und dieser Befehl ermöglicht G59.1 bis G59.9.
+
+== Anwendung
+
+. Die Schaltfläche image:CAM_Fixture.svg[width=16] xref:job/fixture.adoc[Fixture] drücken oder die Tastenkombination kbd:[P] dann kbd:[F] drücken.
+. Die gewünschte Werkstück-Versatz-Vorrichtung aus dem Dropdown-Menü auswählen.
+
+== Eigenschaften
+
+* *Fixture*: Legt den aktuellen Befestigungspunkt fest
+* *Active*: Legt fest, ob dieser Befehl aktiv ist oder nicht, wenn er in eine Verbindung eingefügt wird.
+
+== Hinweise
+
+== Einschränkungen
+
+== Skripten

@@ -1,0 +1,49 @@
+= CAM: Ulepszenie - parkowanie narzędzia
+:page-origin: https://wiki.freecad.org/CAM_DressupRampEntry/pl
+:page-command: CAM_DressupRampEntry
+:page-icon: CAM_DressupRampEntry.svg
+:page-menu: CAM → Operacje wykańczające ścieżki → Parkowanie narzędzia
+:page-workbench: CAM
+:page-see-also: CAM: Ulepszenie - znacznik, CAM: Ulepszenie - nadcięcie w narożnikach, CAM: Ulepszenie - Rylec
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupRampEntry.svg[CAM: Ulepszenie - parkowanie narzędzia,32] *CAM: Ulepszenie - parkowanie narzędzia*
+
+Menu location:: menu:CAM[Operacje wykańczające ścieżki > Parkowanie narzędzia]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/tag.adoc[CAM: Ulepszenie - znacznik], xref:dressups/dogbone.adoc[CAM: Ulepszenie - nadcięcie w narożnikach], xref:dressups/drag-knife.adoc[CAM: Ulepszenie - Rylec]
+--
+
+== Opis
+
+Narzędzie image:CAM_DressupRampEntry.svg[width=24] xref:dressups/ramp-entry.adoc[Parkowanie narzędzia] wykańcza istniejącą ścieżkę aby dodać parkowanie narzędzia.
+
+== Użycie
+
+. Wybierz obiekty konturu lub ścieżki profilu.
+. Wybierz opcję menu:CAM[Operacje wykańczające ścieżki > RampEntry] z menu.
+
+== Właściwości
+
+* *Ramp Feed Rate* : Może być bieżącą prędkością posuwu pionowego lub poziomego, albo jakąś inną wartością niestandardową.
+* *Angle* : Kąt rampy względem osi pionowej. Mniejsza wartość sprawia, że rampa jest bardziej stroma.
+* *Method* : Używana do wyboru różnych trybów parkowania:
+** _RampMethod1_: schodzi w dół pod kątem rampy, a następnie przesuwa się poziomo do punktu docelowego
+** _RampMethod2_: najpierw przesuwa się poziomo, a potem schodzi w dół pod kątem rampy do punktu docelowego
+** _RampMethod3_: schodzi w dół zygzakiem
+** _Helix_: schodzi spiralnie
+* *Dressup Start Depth* : Odległość powyżej poziomu docelowego, gdzie zaczyna się parkowanie
+* *Use Start Depth* : Oznacza, że parkowanie nie rozpoczyna się powyżej poziomu zapasu. Jeśli nie zostanie ustawiona na prawda, pierwsza rampa może być bardziej stroma niż oczekiwano.
+
+image:Ramp_method_1.png[x250px] image:Ramp_method_2.png[x250px] image:Ramp_method_3.png[x250px] 
+[.caption]
+Od lewej do prawej: metody rampowania 1, 2 i 3
+
+image:Ramp_method_Helix.png[x250px] 
+[.caption]
+Metoda rampowania Helisa

@@ -1,0 +1,32 @@
+= CAM GewindeFräsen
+:page-origin: https://wiki.freecad.org/CAM_ThreadMilling/de
+:page-origin-revision: cde217ed5e 2026-07-09
+:page-command: CAM_ThreadMilling
+:page-icon: CAM_ThreadMilling.svg
+:page-menu: CAM → Spezialoperationen → Gewinde Fräsen
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ThreadMilling.svg[CAM GewindeFräsen,32] *CAM GewindeFräsen*
+
+Menu location:: menu:CAM[Spezialoperationen > Gewinde Fräsen]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+== Anwendung
+
+== Optionen
+
+== Eigenschaften
+
+== Skripten

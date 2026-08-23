@@ -1,0 +1,38 @@
+= CAM EinfacheKopie
+:page-origin: https://wiki.freecad.org/CAM_SimpleCopy/de
+:page-origin-revision: 428fd41408 2026-07-09
+:page-command: CAM_SimpleCopy
+:page-icon: CAM_SimpleCopy.svg
+:page-menu: CAM → Pfadänderung → Einfache Kopie
+:page-workbench: CAM
+:page-see-also: CAM Kopie
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SimpleCopy.svg[CAM EinfacheKopie,32] *CAM EinfacheKopie*
+
+Menu location:: menu:CAM[Pfadänderung > Einfache Kopie]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:modify/copy.adoc[CAM Kopie]
+--
+
+== Beschreibung
+
+Das Werkzeug image:CAM_SimpleCopy.svg[width=24] xref:modify/simple-copy.adoc[CAM EinfacheKopie] erstellt eine nicht-parametrische Kopie eines bestimmten Pfades.
+
+[.since]#introduced in 26.3#: Mit diesem Befehl lassen sich mehrere ausgewählte Vorgänge zu einem einzigen Kopiervorgang zusammenfassen.
+
+== Anwendung
+
+. Ein oder mehrere xref:index.adoc[CAM]-Objekte auswählen
+. Die Schaltfläche image:CAM_SimpleCopy.svg[width=16] xref:modify/simple-copy.adoc[Einfache Kopie] drücken
+
+== Optionen
+
+* Die einfache Kopie ist nicht mehr an den Pfad gebunden, der zum Erstellen der Kopie verwendet wurde, und ist nicht parametrisch. Daher bleiben bei der Bearbeitung mit dem Werkzeug xref:inspect/inspect.adoc[CAM Untersuchen] alle Änderungen am G-Code erhalten.
+* Mehrere ausgewählte Bearbeitungsvorgänge müssen denselben *Kühlmittelmodus* und denselben *Werkzeugregler* verwenden.
+* [.since]#introduced in 26.3#: SimpleCopy kann auch Bearbeitungsvorgänge kopieren, die Befehle enthalten, ohne die Standard-Basisklasse für CAM-Bearbeitungsvorgänge zu verwenden.

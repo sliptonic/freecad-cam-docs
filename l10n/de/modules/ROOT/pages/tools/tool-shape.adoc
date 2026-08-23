@@ -1,0 +1,86 @@
+= CAM ToolShape
+:page-origin: https://wiki.freecad.org/CAM_ToolShape/de
+:page-imported: true
+
+== Beschreibung
+
+Werkzeugformen sind ein zentraler Bestandteil des xref:tools/index.adoc[CAM Werkzeug]-Systems. Werkzeugformen sind die Vorlagen, aus denen Werkzeugbits erstellt werden. Sie repräsentieren die spezifische physikalische Form eines Werkzeugs. Ein Werkzeugform beschreibt das Bit nicht vollständig – dafür sind einige zusätzliche Parameter erforderlich, die hinzugefügt werden, wenn ein tatsächliches Bit aus der Vorlage parametrisiert wird.
+
+Anfangs sind Werkzeugformen lediglich FreeCAD-Dokumente mit einem einzigen Körper, die aus dem image:Workbench_PartDesign.svg[width=24] https://wiki.freecad.org/PartDesign_Workbench[Arbeitsbereich Part Design] erstellt wurden.
+
+Das Erstellen neuer Werkzeugformen ist ein fortgeschrittenes Thema. Die am häufigsten benötigten Werkzeugformen sind bereits vorhanden und werden mit der FreeCAD-Installation unter folgendem Pfad bereitgestellt:
+
+* Unter Linux ist es in der Regel `/usr/lib64/FreeCAD/Mod/CAM/Tools/Shape`
+* Unter Windows ist es in der Regel `C:\Program Files\FreeCAD\Mod\CAM\Tools\Shape`
+* Unter macOS ist es in der Regel `/Applications/FreeCAD.app/Contents/Resources/Mod/CAM/Tools/Shape`
+
+Es sind:
+
+::
+  `ballend.fcstd`
+  +
+  `bullnose.fcstd`
+  +
+  `chamfer.fcstd`
+  +
+  `drill.fcstd`
+  +
+  `endmill.fcstd`
+  +
+  `probe.fcstd`
+  +
+  `slittingsaw.fcstd`
+  +
+  `thread-mill.fcstd`
+  +
+  `v-bit.fcstd`
+
+Diese befinden sich im Unterverzeichnis `Mod/CAM/Tools/Shape/`, in dem FreeCAD installiert wurde.
+
+== Anwendung
+
+. Ein neues FreeCAD-Dokument erstellen.
+. Die image:Workbench_PartDesign.svg[width=16] https://wiki.freecad.org/PartDesign_Workbench[Arbeitsbereich PartDesign] öffnen.
+. Einen https://wiki.freecad.org/PartDesign_Body[Körper] erstellen und ihm einen Namen geben, der bei der Auswahl der Fräser angezeigt werden soll.
+. Eine image:PartDesign_NewSketch.svg[width=16] https://wiki.freecad.org/PartDesign_NewSketch[Skizze] auf der XZ-Ebene erstellen und die Hälfte des Profils des Bits zeichnen.
+. Die unterste Mitte des Bits auf den Ursprung `(0,0)` beschränken. Dies ist der Mittelpunkt der Achse, um die der G-Code das Bit drehen wird.
+* Hinweis: Zu diesem Zeitpunkt noch keine Maßbeschränkungen hinzufügen.
+. Die Skizze schließen.
+. image:PartDesign_Revolution.svg[width=16] Die Skizze um die vertikale Skizzenachse https://wiki.freecad.org/PartDesign_Revolution[drehen].
+. Den image:Workbench_CAM.svg[width=16] xref:index.adoc[Arbeitsbereich CAM] öffnen.
+. Die Skizze in der https://wiki.freecad.org/Tree_View[Baumansicht] auswählen. Dadurch wird sichergestellt, dass die im nächsten Schritt erstellte Eigenschaftssammlung im Körper verschachtelt wird.
+. Die Option menu:CAM[Werkzeuge > Eigenschaftssammlung] aus dem Menü wählen.
+. Es wird eine Eigenschaftssammlung mit dem Namen `Attributes` erstellt. Diese Eigenschaftssammlung wird zur Steuerung der Abmessungen in der Skizze verwendet.
+. In der https://wiki.freecad.org/Tree_View[Baumansicht] auf _PropertyBag_ doppelklicken.
+. Das Aufgaben-Fenster menu:Property Bag[] wird geöffnet.
+. Auf die Schaltfläche btn:[Hinzufügen...] klicken.
+. Das Dialogfeld menu:Eigenschaft erstellen[] wird geöffnet.
+. Eine Eigenschaft mit dem Namen `Diameter` erstellen. Diese Eigenschaft ist für Werkzeugbits obligatorisch. Bei Eigenschaftsnamen wird zwischen Groß- und Kleinschreibung unterschieden, und sie dürfen keine Leerzeichen enthalten.
+. `Form` aus der Dropdown-Liste menu:Gruppe[] auswählen.
+. Den entsprechenden menu:Type[] auswählen.
+. Optional einen menu:Hinweistext[] angeben.
+. Auf die Schaltfläche btn:[OK] klicken.
+. Im Aufgaben-Fenster menu:Property Bag[] einen Wert für die Eigenschaft *Diameter* eingeben.
+. Auf ähnliche Weise alle anderen erforderlichen Eigenschaften hinzufügen.
+. Anschließend im Aufgaben-Fenster menu:Eigenschaftssammlung[] auf die Schaltfläche btn:[OK].
+. Doppelklicken Sie auf die Skizze in der https://wiki.freecad.org/Tree_View[Baumansicht].
+. Fügen Sie Maßbeschränkungen hinzu und wenden Sie die Eigenschaften aus der erstellten Eigenschaftssammlung an. So wendet man beispielsweise die Eigenschaft *Diameter* an:
+.. Auf ein Maß doppelklicken.
+.. Auf das Symbol image:Bound-expression.svg[width=16] klicken.
+.. `<<Attributes>>.Diameter` in den menu:Formel-Editor[] eingeben.
+.. Zweimal auf die Schaltfläche btn:[OK] klicken.
+. Diesen Vorgang wiederholen, bis die Skizze vollständig eingeschränkt ist.
+. Die Datei `FCStd` dort speichern, wo FreeCAD Werkzeugbit-Dateien erwartet. Siehe <<description,Beschreibung>> oben.
+
+* Hinweis 1: Wenn der Zugriff auf den Ordner unter Windows verweigert wird, FreeCAD im ADMINISTRATOR-Modus starten.
+* Note 2. Der Körper des Werkzeugbits muss das erste Objekt in der https://wiki.freecad.org/Tree_View[Baumansicht] sein. Diese Anweisungen stellen sicher, dass dies der Fall ist.
+
+== Werkzeug-Miniaturbilder
+
+Werkzeugbits werden in der https://wiki.freecad.org/Tree_view[Baumansicht] mit einem kleinen Symbolbild des Werkzeugs angezeigt, wenn die Datei mit aktivierten Miniaturansichten gespeichert wird.
+
+Wichtige Hinweise:
+
+* Bevor man das Dokument speichert, stellt man sicher, dass man in den Einstellungen von FreeCAD die Option Miniaturansicht speichern ausgewählt und die Option Programmlogo hinzufügen deaktiviert haben.
+* Außerdem sicherstellen, dass man zur Vorderansicht wechselt und den Inhalt an den Bildschirm anpasst
+* Was man beim Speichern des Dokuments sieht, wird letztendlich die visuelle Darstellung der Vorlage sein

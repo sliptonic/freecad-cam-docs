@@ -1,0 +1,59 @@
+= CAM Activer une opération
+:page-origin: https://wiki.freecad.org/CAM_OpActiveToggle/fr
+:page-origin-revision: 9c2f24cb95 2026-04-09
+:page-command: CAM_OpActiveToggle
+:page-icon: CAM_OpActiveToggle.svg
+:page-menu: CAM → Activer/désactiver une opération
+:page-workbench: CAM
+:page-shortcut: P X
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_OpActiveToggle.svg[CAM Activer une opération,32] *CAM Activer une opération*
+
+Menu location:: menu:CAM[Activer/désactiver une opération]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[X]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+La commande image:CAM_OpActiveToggle.svg[width=24] xref:inspect/op-active-toggle.adoc[Activer une opération] active ou désactive la propriété *Active* d'une opération CAM sélectionnée.
+
+Si cette propriété est définie sur `false`, l'opération est considérée comme inactive. Son parcours n'apparaît pas dans la https://wiki.freecad.org/3D_View[vue 3D], et elle est ignorée par des commandes telles que image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[CAM Inspecter des commandes] et image:CAM_Post.svg[width=16] xref:output/post-process.adoc[CAM Post-traitement].
+
+== Utilisation
+
+. Sélectionnez une opération dans le groupe menu:Opérations[] appartenant à une tâche. Une opération désactivée est reconnaissable à son étiquette et à son icône grisées.
+. Il existe plusieurs façons de lancer la commande :
+* Appuyez sur le bouton image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Activer/désactiver une opération].
+* Sélectionnez le bouton menu:CAM[Activer/désactiver une opération] du menu.
+* Utilisez le raccourci clavier : kbd:[P] puis kbd:[X].
+. Le résultat dépend de l'opération sélectionnée :
+* Si vous avez sélectionné une opération active, la commande la désactive :
+** L'icône de l'opération est remplacée par l'icône de la commande : image:CAM_OpActiveToggle.svg[width=16].
+** L'icône de l'opération et le libellé sont grisés.
+** Les chemins générés par l'opération disparaissent de la https://wiki.freecad.org/3D_View[vue 3D].
+** Lorsque vous utilisez l'outil image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[CAM Inspecter des commandes] ou de la commande image:CAM_Post.svg[width=16] xref:output/post-process.adoc[CAM Post-traitement], le code G de l'opération n'est pas fourni.
+* Si vous avez sélectionné une opération désactivée, la commande l'active :
+** L'icône de l'opération est remplacée par celle appartenant à l'opération.
+** L'icône et le libellé de l'opération ne sont plus grisés.
+** Les trajectoires générées par l'opération sont recalculées et affichées dans la https://wiki.freecad.org/3D_View[vue 3D].
+** Lorsque vous utilisez l'outil image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[CAM Inspecter des commandes] ou de la commande image:CAM_Post.svg[width=16] xref:output/post-process.adoc[CAM Post-traitement], le G-code de l'opération est fourni de nouveau.
+
+== Script
+
+_Voir aussi:_ https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Script de base].
+
+Exemple :
+
+[source,python]
+----
+# Place code example here.
+----

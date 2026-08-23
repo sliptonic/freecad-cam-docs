@@ -1,0 +1,34 @@
+= CAM Arrêter
+:page-origin: https://wiki.freecad.org/CAM_Stop/fr
+:page-origin-revision: 4b784fd49f 2026-05-21
+:page-command: CAM_Stop
+:page-icon: CAM_Stop.svg
+:page-menu: CAM → Autres commandes → Arrêter
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Stop.svg[CAM Arrêter,32] *CAM Arrêter*
+
+Menu location:: menu:CAM[Autres commandes > Arrêter]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+La commande image:CAM_Stop.svg[width=24] xref:operations/stop.adoc[Arrêter] insère une commande d'arrêt (M1). Cette commande suspendra le programme en cours d'exécution sur le contrôleur CNC dans l'attente d'une nouvelle action de l'utilisateur.
+
+*Remarque : cela n'arrête pas la broche.*
+
+== Utilisation
+
+. Pressez le bouton image:CAM_Stop.svg[width=16] xref:operations/stop.adoc[Arrêter]
+
+== Propriétés
+
+* *Stop* : définit si l'arrêt est facultatif ou obligatoire.

@@ -1,0 +1,87 @@
+= CAM Auftrag
+:page-origin: https://wiki.freecad.org/CAM_Job/de
+:page-origin-revision: 343d16ae74 2026-07-08
+:page-command: CAM_Job
+:page-icon: CAM_Job.svg
+:page-menu: CAM → Neuer Auftrag
+:page-workbench: CAM
+:page-shortcut: P J
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Job.svg[CAM Auftrag,32] *CAM Auftrag*
+
+Menu location:: menu:CAM[Neuer Auftrag]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[J]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Job.svg[width=24] xref:job/job.adoc[CAM Auftrag] erstellt ein neuen Auftrag (Job-Objekt) im aktiven Dokument; er enthält die folgenden Informationen:
+
+. Eine Liste mit Definitionen zur Werkzeugsteuerung, in der die Geometrie, Vorschübe und Geschwindigkeiten für die Pfadbearbeitungswerkzeuge angegeben sind.
+. Eine schrittweise Arbeitsablaufliste von Pfadbearbeitungen.
+. Ein Basiskörper - ein Klon, der für den Versatz verwendet wird.
+. Ein Schaft, der das Rohmaterial darstellt, das im Arbeitsbereich CAM gefräst wird.
+. Ein Einrichtungsblatt, das die von den Pfadbearbeitungen verwendeten Eingaben, einschließlich statischer Werte und Formeln, enthält.
+. Konfigurationsparameter, die den Zielpfad des ausgegebenen G-Code Auftrags, den Dateinamen und die Dateierweiterung sowie den xref:output/post-process.adoc[Postprozessor] angeben (der zur Erzeugung des entsprechenden Dialekts für die Ziel-CNC-Steuerung und zur Anpassung von Einheiten, Werkzeugänderungen, Parken usw. verwendet wird).
+
+== Anwendung
+
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen
+* Die Schaltfläche image:CAM_Job.svg[width=16] xref:job/job.adoc[Auftrag] drücken.
+* Den Menüeintrag menu:CAM[Auftrag] auswählen.
+* Das Tastaturkürzel kbd:[P] dann kbd:[J].
+
+Der GUI-Dialog Auftrag bearbeiten hat fünf horizontal ausgerichtete Reiter: menu:Allgemein[], menu:Ausgabe[], menu:Einrichtung[], menu:Werkzeuge[], und menu:Arbeitsplan[]. Der Benutzer kann jederzeit die Optionen btn:[OK] oder btn:[Abbrechen] innerhalb des Dialogs verwenden.
+
+== Allgemein
+
+image:Job_1.jpg[]
+
+* *Bezeichnung*: Der Name des Auftragsobjekts wie er in der Baumansicht angezeigt wird.
+* *Modell*: Das Basisobjekt, das durch seine Form die Pfade des Jobs definiert. Wenn es sich um ein PartDesign-Objekt handelt, ist es normalerweise der Body, den Du hier auswählst. Wenn du ein Element in der Baumstruktur _vorher_ ausgewählt hast, klicke auf das Symbol "Auftrag hinzufügen", das Element ist hier bereits eingetragen. Du kannst es ändern, indem du ein anderes Element aus dem Ausklappmenü auswählst.
+* *Beschreibung*: Du kannst hier einige Notizen zu dem Auftrag hinzufügen. Die Notizen dienen nur zu deiner Information und haben keine Auswirkung auf den Pfad.
+
+== Ausgabe
+
+image:Job_2.jpg[]
+
+* *Ausgabedatei*: Lege den Namen, die Erweiterung und den Dateipfad der G-Code-Ausgabe fest. Du kannst die folgenden Platzhalter verwenden:
+** *%D* Verzeichnis des aktiven Dokuments
+** *%d* Name des aktiven Dokuments (ohne Erweiterung)
+** *%M* Makro-Verzeichnis des Benutzers
+** *%j* Name des Auftrags
+
+* *Prozessor*: Den xref:output/post-process.adoc[Postprozessor] für die Maschine auswählen.
+* *Argumente*: Bei Bedarf Argumente für den xref:output/post-process.adoc[Postprozessor] hinzufügen.
+* *Maschine*: Optional eine Maschinenkonfiguration auswählen. Wenn eine Maschine ausgewählt wird, werden dadurch der Postprozessor und die zugehörigen Ausgabeeinstellungen für den Auftrag festgelegt.
+
+== Einrichtung
+
+image:Job_3.jpg[]
+
+* *Bestand*: Lege die Größe und Form des Rohmaterials fest.
+* *Orientierung*: Ausgewählte Kante oder Fläche wird verwendet, um die Basis oder den Schaft entsprechend zu orientieren.
+* *Ausrichtung*: Wähle einen Knotenpunkt aus, um den Ursprung festzulegen oder die Basis oder das Lager zu verschieben.
+
+== Werkzeuge
+
+image:Job_4.jpg[]
+
+Füge das/die Werkzeug(e) aus deiner xref:tools/library-manager.adoc[Werkzeugtabelle] hinzu, welche du für die Arbeitsgänge bei diesem Auftrag benötigst.
+
+Nachdem ein Werkzeug hinzugefügt wurde, kannst du den Vorschub und die Spindeldrehzahl einstellen/ändern, wenn du bei diesem Auftrag einen anderen Vorschub benötigst. Eine Änderung hier ändert nicht die in der Werkzeugtabelle gespeicherten Parameter.
+
+Das Standardwerkzeug kannst du löschen, wenn du ein eigenes Werkzeug hinzugefügt hast.
+
+== Arbeitsplan
+
+image:Job_5.jpg[]
+
+Wenn du einen Auftrag hast, der mehr als eine Pfadoperation umfasst, kannst du festlegen, in welcher Reihenfolge die Arbeitsgänge ausgeführt werden sollen. Um die Reihenfolge zu ändern, wähle einen Vorgang aus und drücke die Auf- oder Abwärtstaste.

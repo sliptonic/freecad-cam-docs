@@ -1,0 +1,31 @@
+= CAM Correction en Z
+:page-origin: https://wiki.freecad.org/CAM_DressupZCorrect/fr
+:page-command: CAM_DressupZCorrect
+:page-icon: CAM_DressupZCorrect.svg
+:page-menu: CAM → Finition du parcours → Correction de la profondeur en Z
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupZCorrect.svg[CAM Correction en Z,32] *CAM Correction en Z*
+
+Menu location:: menu:CAM[Finition du parcours > Correction de la profondeur en Z]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+== Utilisation
+
+== Options
+
+== Propriétés
+
+== Script

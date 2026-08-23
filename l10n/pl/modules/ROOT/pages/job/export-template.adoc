@@ -1,0 +1,58 @@
+= CAM: Eksportuj szablon
+:page-origin: https://wiki.freecad.org/CAM_ExportTemplate/pl
+:page-origin-revision: d56d8636f6 2026-07-08
+:page-command: CAM_ExportTemplate
+:page-icon: CAM_ExportTemplate.svg
+:page-menu: CAM → Eksportuj szablon
+:page-workbench: CAM
+:page-see-also: Karta konfiguracji
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ExportTemplate.svg[CAM: Eksportuj szablon,32] *CAM: Eksportuj szablon*
+
+Menu location:: menu:CAM[Eksportuj szablon]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:job/setup-sheet.adoc[Karta konfiguracji]
+--
+
+== Opis
+
+Narzędzie image:CAM_ExportTemplate.svg[width=24] xref:job/export-template.adoc[Eksportuj szablon] zapewnia wygodny mechanizm do zapisania powszechnie używanych definicji zadań z poziomu istniejącego zadania. Ułatwia to przygotowanie konfiguracji przyszłych zadań, które są w dużej mierze podobne, pozwalając na import szablonów zadań, podczas tworzenia zadania.
+
+Opcja menu:Edycja[Preferencje ... > CAM > Ustawienia dla zadania > Ustawienia domyślne > Szablon] ustawia domyślny szablon.
+
+== Użycie
+
+. Wybierz opcję menu:CAM[Eksportuj szablon] z menu.
+. Zaznacz elementy do uwzględnienia z okna konfiguracyjnego polecenia menu:Eksportuj szablon[].
+. Szablon musi być zapisany w katalogu makr lub katalogu środowiska CAM, zgodnie z ustawieniami w xref:reference/preferences.adoc[Preferencjach środowiska CAM].
+. Nazwa szablonu musi być zgodna ze wzorem `job_<nazwa szablonu>.json`. W polu zaznaczenia przedrostek `job_` i rozszerzenie są pomijane.
+. Wciśnij przycisk btn:[OK] i zapisz szablon.
+
+== Opcje
+
+== Post Processing
+
+* Zaznaczenia postprocessora
+* Argumenty postprocessora
+* Nazwa pliku wyjściowego
+
+== Półprodukt
+
+* Zakres: rozmiar półproduktu
+* Umiejscowienie: lokalizacja półproduktu
+
+== Arkusz konfiguracji
+
+* Wysokości operacji
+* Głębokości operacji
+* Prędkość posuwu szybkiego narzędzia
+
+== Kontrolery narzędzi
+
+* Wybrane kontrolery narzędzi

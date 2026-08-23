@@ -1,0 +1,47 @@
+= CAM SetupSheet
+:page-origin: https://wiki.freecad.org/CAM_SetupSheet/de
+:page-imported: true
+
+== Beschreibung
+
+Mit einem *Einrichtungsblatt* kann der Benutzer anpassen, wie die verschiedenen Eigenschaftswerte für Bearbeitungen berechnet werden. Der Benutzer hat jederzeit die Möglichkeit, die Werte des Einrichtungsblatts durch einen expliziten Wert zu überschreiben oder die Berechnungsweise der Einrichtungsblatt-Werte zu ändern.
+
+Da Einrichtungsblätter Teil des CAM-Auftrags sind, ändern die Werte nicht das Standardverhalten von CAM. Vielmehr ändern sie nur das Verhalten im Kontext des aktuellen Auftrags.
+
+Einrichtungsblätter sind besonders nützlich, wenn sie mit einer xref:job/export-template.adoc[Auftragsvorlage] gespeichert werden.
+
+== Eigenschaften
+
+* *VertRapid*: Legt die vertikale Eilganggeschwindigkeit in neuen Werkzeugsteuerungen fest. (Wird in Postprozessoren verwendet, die anpassbare Eilganggeschwindigkeiten unterstützen)
+* *HorizRapid*: Legt die horizontale Eilganggeschwindigkeit in neuen Werkzeugsteuerungen fest. (Wird in Postprozessoren verwendet, die anpassbare Eilganggeschwindigkeiten unterstützen)
+* *SafeHeightOffset*: Die Verwendung dieses Feldes hängt von SafeHeightExpression ab (siehe unten)
+* *SafeHeightExpression*: Das Ergebnis dieses Ausdrucks wird verwendet, um die sichere Höhe von Bearbeitungen festzulegen.
+* *ClearanceHeightOffset*: Die Verwendung dieses Feldes hängt von ClearanceHeightExpression ab (siehe unten).
+* *ClearanceHeightExpression*: Das Ergebnis dieses Ausdrucks wird verwendet, um die Freihöhe von Bearbeitungen festzulegen.
+* *StartDepthExpression*: Das Ergebnis dieses Ausdrucks wird verwendet, um die StartDepth-Eigenschaft von Bearbeitungen festzulegen.
+* *FinalDepthExpression*: Das Ergebnis dieses Ausdrucks wird verwendet, um die FinalDepth-Eigenschaft von Bearbeitungen festzulegen.
+* *StepDownExpression*: Das Ergebnis dieses Ausdrucks wird verwendet, um die StepDown-Eigenschaft von Bearbeitungen festzulegen.
+
+== Bearbeitungs-Parameter
+
+Die folgenden Informationen stammen aus:
+
+* OpFinalDepth - Der Wert der FinalDepth-Eigenschaft
+* OpStartDepth - Der Wert der FinalDepth-Eigenschaft
+* OpToolDiameter - Der Wert der Eigenschaft ToolDiameter der Werkzeugsteuerung, auf den sich der Vorgang bezieht.
+
+== Einrichtungsblatt-Werte
+
+Andere Werte im Einrichtungsblatt können direkt referenziert werden:
+
+* SetupSheet.ClearanceHeightOffset
+* SetupSheet.SafeHeightOffset
+
+* StartDepth
+* SafeHeightOffset
+* SafeHeightExpression
+* ClearanceHeightOffset
+* ClearanceHeightExpression
+* StartDepthExpression
+* FinalDepthExpression
+* StepDownExpression

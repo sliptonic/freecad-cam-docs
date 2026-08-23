@@ -1,0 +1,57 @@
+= CAM Zone du plan de travail
+:page-origin: https://wiki.freecad.org/CAM_Area_Workplane/fr
+:page-origin-revision: 954b20ed9b 2026-05-21
+:page-command: CAM_Area_Workplane
+:page-icon: CAM_Area_Workplane.svg
+:page-menu: CAM → Zone du plan de travail
+:page-workbench: CAM
+:page-imported: true
+
+WARNING: Il s'agit d'une fonction expérimentale inachevée. Voir xref:reference/experimental.adoc[CAM Fonctions expérimentales]
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Area_Workplane.svg[CAM Zone du plan de travail,32] *CAM Zone du plan de travail*
+
+Menu location:: menu:CAM[Zone du plan de travail]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+Vide
+
+== Utilisation
+
+Vide
+
+== Options
+
+Vide
+
+== Propriétés
+
+=== Données
+
+Vide
+
+=== Vue
+
+Vide
+
+== Script
+
+Voir aussi : https://wiki.freecad.org/FreeCAD_Scripting_Basics[Débuter avec les scripts FreeCAD].
+
+Exemple :
+
+[source,python]
+----
+#Place code example here.
+----

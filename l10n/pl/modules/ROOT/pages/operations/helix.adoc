@@ -1,0 +1,82 @@
+= CAM: Helisa
+:page-origin: https://wiki.freecad.org/CAM_Helix/pl
+:page-origin-revision: 24df63855f 2026-07-08
+:page-command: CAM_Helix
+:page-icon: CAM_Helix.svg
+:page-menu: CAM → Helisa
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Helix.svg[CAM: Helisa,32] *CAM: Helisa*
+
+Menu location:: menu:CAM[Helisa]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_Helix.svg[width=24] xref:operations/helix.adoc[CAM: Helisa] dodaje operację spiralnego czyszczenia do zadania. Spiralny ruch zgodnie z ruchem wskazówek zegara generuje komendy G-code (G2), natomiast przeciwny ruch generuje komendy (G3). Procent naddatku określa koncentryczne nadkładanie jako procent średnicy narzędzia. Zostaną utworzone jedne lub więcej ścieżek spiralnych o różnych średnicach, aby oczyścić otwór.
+
+== Użycie
+
+* Wybierz image:Workbench_CAM.svg[width=16] xref:index.adoc[środowisko pracy CAM].
+* Wybierz ikonę image:CAM_Helix.svg[width=24] lub kbd:[CAM] → image:CAM_Helix.svg[width=24] Helisa z górnego menu. Otworzy się panel konfiguracji image:CAM_Helix.svg[width=24] Helisy.
+* Wykoczy okno *Wybierz kontroler narzędzia*, aby wybrać kontroler narzędzia. W starszych wersjach, w zakładce image:CAM_Helix.svg[width=24] Operacja, wybierz kontroler narzędzia i potwierdź, klikając btn:[Zastosuj].
+* Otwórz zakładkę Geometria podstawowa. Wszystkie dostępne otwory zgodne z narzędziem Helisa w modelu zadania będą możliwe do wybrania do obróbki. W https://wiki.freecad.org/3D_View[Widoku 3D] wybierz otwory po ich krawędzi lub ścianie i dodaj je przyciskiem btn:[Dodaj]. Upewnij się, że pojawiają się na liście. Sprawdź, czy lista zgadza się z otworami przeznaczonymi do obróbki.
+* Aby usunąć otwory, wybierz je na liście i naciśnij przycisk btn:[Usuń].
+* Upewnij się, że parametry Głębokość początkowa, Głębokość końcowa oraz skok helisy i limity rampowania są poprawne i dostosuj je, jeśli to konieczne.
+* Upewnij się, że parametry Wysokość bezpieczna i Odstęp bezpieczeństwa są poprawne.
+* W zakładce Operacja określ powierzchnię początkową helisy (zewnętrzna/wewnętrzna), kierunek cięcia (wspinanie/konwencjonalny) oraz procent nadkładania.
+* Kliknij btn:[Zastosuj], aby utworzyć lub zaktualizować ścieżkę, btn:[OK], aby zastosować i zamknąć panel, lub btn:[Anuluj], aby przerwać i zamknąć panel.
+
+== Opcje
+
+*Dodatkowe Odsunięcie* dodaje margines materiału do pozostawienia bez obróbki. Zwykle ma to na celu umożliwienie lekkiego przejścia wykańczającego jako odrębnej operacji.
+
+[.since]#introduced in 26.3#: Właściwość *Max Pitch* zastępuje _Pitch_ Helisy i ogranicza maksymalny skok helisy gdy jest niezerowa.
+
+Właściwość *Max Ramp Angle* Helisy ogranicza kąt wejścia po rampie gdy jest niezerowa. Skok jest obliczany dla każdego promienia helisy.
+
+*Promień początkowy* nie jest dostępny w panelu zadań _Helisa_, ale może być edytowany bezpośrednio w https://wiki.freecad.org/Property_editor[Edytorze właściwości].
+
+Jest to promień materiału pozostałego w środku. Domyślnie jest zerowy, dając ścieżkę gdzie narzędzie tylko dotyka osi otworu. To tworzy centralną ścieżkę wycinającą otwór dwukrotnie większy od średnicy narzędzia.
+
+Jeśli ten parametr jest ustawiony na ujemną wartość, może pozwalać na mniejszy promień helisy. Przykładowo, ujemny promień równy promieniowi narzędzi utworzy helisę o zerowym promieniu - cięcie wgłębne frezem jeśli narzędzie jest odpowiednie. To zadziała jako pierwsze cięcie w operacji z wieloma przejściami, ale próba utworzenia ścieżki helisy narzędziem o tym samym rozmiarze co otwór w modelu jest odrzucana.
+
+== Komentarze
+
+* Limit skoku helisy nie jest przestrzegany dokładnie. Zawsze podlega zaokrągleniu aby uzyskać pełną liczbę obrotów od Głębokości początkowej do końcowej.
+* Podobnie Naddatek nie jest przestrzegany dokładnie. Zawsze podlega zaokrągleniu aby uzyskać liczbę równych kroków.
+
+Parametr prędkości posuwu jest stały dla wszystkich cięć i opiera się na położeniu osi narzędzia, co oznacza, że rzeczywista prędkość skrawania krawędzi narzędzia może się znacznie różnić pomiędzy wewnętrznym cięciem a powierzchnią zewnętrzną. Jeśli wymiary zadania generują średnicę ścieżki mniejszą niż średnica narzędzia, może to prowadzić do znacznie większych prędkości skrawania niż prędkość posuwu podana dla narzędzia w kontrolerze narzędzi. Może to wymagać uwzględnienia podczas dobierania „prędkości i posuwów” w xref:tools/tool-controller.adoc[kontrolerze narzędzia] dla danego zadania.
+
+Ponadto, obecna implementacja używa tylko prędkości poziomej narzędzia dla ścieżek helisy, nawet w przypadku gdy ciasna spirala może być prawie pionowym cięciem.
+
+== Właściwości
+
+=== Dane
+
+Pusto
+
+=== Widok
+
+Pusto
+
+== Tworzenie skryptów
+
+_Zobacz również:_ https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD podstawy tworzenia skryptów].
+
+Przykład:
+
+[source,python]
+----
+#Place code example here.
+----

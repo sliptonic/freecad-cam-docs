@@ -1,0 +1,99 @@
+= CAM Plausibilitätsprüfung
+:page-origin: https://wiki.freecad.org/CAM_Sanity/de
+:page-origin-revision: e4f10185ae 2026-07-09
+:page-command: CAM_Sanity
+:page-icon: CAM_Sanity.svg
+:page-menu: CAM → Plausibilitätsprüfung
+:page-workbench: CAM
+:page-shortcut: P S
+:page-since: 0.19
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Sanity.svg[CAM Plausibilitätsprüfung,32] *CAM Plausibilitätsprüfung*
+
+Menu location:: menu:CAM[Plausibilitätsprüfung]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[S]]
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Beschreibung
+
+Viele CAM-Benutzer sind Hobbyisten oder Heimwerker. Daher verwenden sie ihre CNC-Maschinen, um selbst konfigurierten und generierten G-Code auszuführen. Bei den meisten professionellen und kommerziellen Anwendern ist dies nicht der Fall. In professionellen Werkstätten sind verschiedene Personen für die Erstellung des G-Codes und für dessen Ausführung auf den Maschinen zuständig.
+
+Hobbyisten führen den G-Code in der Regel kurz nach der Nachbearbeitung aus, wahrscheinlich nur ein- oder zweimal. In einem professionellen Betrieb kann ein bewährter G-Code über einen langen Zeitraum ausgeführt werden.
+
+Ein Problem bei diesem Arbeitsablauf besteht darin, dass viele Annahmen des Programmierers nicht durch den G-Code selbst vermittelt werden. So kann der G-Code beispielsweise das Werkzeug `T3` vorsehen, doch geht aus der Datei nicht unbedingt hervor, um welches Werkzeug es sich handelt, wie das Werkstück ausgerichtet ist oder welche Einstellungen erwartet werden. Ähnliche Annahmen können für die Maschineneinrichtung, die Werkzeugausstattung, das Material, die Ausrichtung des Werkstücks, das Kühlmittel und die Werkstückspannung gelten.
+
+Selbst wenn der G-Code an sich korrekt ist, können Abweichungen zwischen der programmierten und der tatsächlichen Maschineneinstellung dennoch zu Fehlern führen. Kommerzielle Betriebe lösen dieses Problem häufig, indem sie einen Einrichtungsbericht oder ein Einrichtungsbuch für den Maschinenbediener erstellen.
+
+Der Befehl image:CAM_Sanity.svg[width=24] xref:job/sanity-check.adoc[CAM Plausibilitätsprüfung] dient dazu, diese Art von konfigurationsbezogenen Informationen zu generieren. Die Ausgabe ist ein eigenständiger HTML-Bericht mit eingebetteten Bildern, der in einem Webbrowser geöffnet werden kann.
+
+image::Sanity.jpg[width=600]
+
+[.caption]
+Oben: Beispiel eines mit der CAM Plausibilitätsprüfung erzeugten Berichts
+
+== Über den Bericht
+
+Der Inhalt ist so weit wie möglich FreeCAD-unabhängig. Da der Maschinenbediener FreeCAD möglicherweise gar nicht verwendet, sollte FreeCAD- und CAM-spezifische Terminologie auf ein Minimum beschränkt werden. Der Bericht ist in einzelne Abschnitte unterteilt, damit die Einrichtungsinformationen leichter zu überprüfen sind.
+
+=== Information zum Teil
+
+Dieser Abschnitt gibt einen Überblick darüber, was erstellt wird. Idealerweise sollte das Bild das Basisobjekt oder die Basisobjekte zeigen, die vom Job verwendet werden. Wenn es mehrere Basisobjekte gibt, sollte das Bild zeigen, wie diese in der Job-Konfiguration zueinander in Beziehung stehen.
+
+=== Lauf-Zusammenfassung
+
+Dieser Abschnitt bietet einen kurzen Überblick über den Auftrag, einschließlich wichtiger Angaben zur Höhe und geschätzter Laufzeiten.
+
+=== Rohmaterial
+
+In diesem Abschnitt wird das Rohmaterial-Objekt aus der Bearbeitung angezeigt, einschließlich seiner Größe und seiner Position relativ zum Modell.
+
+=== Werkzeugdaten
+
+Dieser Abschnitt enthält einen Unterabschnitt für jede im Auftrag verwendete Werkzeugnummer. Er fasst die Informationen zu den Werkzeugen und Werkzeugsteuerungen zusammen, die bei den ausgewählten Bearbeitungsschritten zum Einsatz kommen. Je nach den verfügbaren Werkzeuginformationen können dies die Werkzeugbeschreibung, der Durchmesser, Angaben zum Vorschub, die Spindeldrehzahl sowie die Bearbeitungsschritte sein, bei denen das Werkzeug verwendet wird.
+
+=== Ausgabe
+
+Dieser Abschnitt enthält Einzelheiten zur konfigurierten Ausgabedatei und zum Nachbearbeitungskontext. Außerdem wird hier angezeigt, ob der Auftrag optionale oder obligatorische Stopps enthält, sodass der Bediener weiß, ob der Maschinenlauf während der Ausführung überwacht werden muss.
+
+=== Kühlmittel
+
+In diesem Abschnitt werden die Anforderungen an das Kühlmittel aufgeführt, die sich aus den Arbeitsschritten des Auftrags ergeben.
+
+=== Vorrichtungen und Werkstückspannung
+
+Dieser Abschnitt zeigt das Teil im Kontext der Rohteilhülle und verdeutlicht die vorgesehene Einbaulage sowie die Referenzposition.
+
+=== Krächzen
+
+In diesem Abschnitt werden Warnungen und Fehler aufgeführt, die von xref:job/sanity-check.adoc[CAM Plausibilitätsprüfung] erkannt wurden. Diese Punkte stellen nicht unbedingt tatsächliche Probleme dar, sollten jedoch vor der Nachbearbeitung oder der Ausführung des Auftrags überprüft werden. Beispiele hierfür sind doppelte Werkzeugnummern, inkonsistente Werkzeuginformationen, fehlende Vorschub- oder Spindeleinstellungen sowie ungenutzte Werkzeugsteuerungen.
+
+== Anwendung
+
+. Einen image:CAM_Job.svg[width=16] xref:job/job.adoc[CAM Auftrag] in der https://wiki.freecad.org/Tree_View[Baumansicht] auswählen.
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_Sanity.svg[width=16] xref:job/sanity-check.adoc[Plausibilitätsprüfung] drücken.
+* Die Option menu:CAM[Plausibilitätsprüfung] aus dem Menü wählen.
+* Die Tastenkombination nutzen: kbd:[P] dann kbd:[S].
+. Falls erforderlich, vor der Ausführung des Befehls die Eigenschaft *OutputFile* des Jobs festlegen.
+. FreeCAD erstellt einen eigenständigen HTML-Bericht für den ausgewählten Job.
+. Der Bericht wird am selben Speicherort wie die konfigurierte Job-Ausgabedatei gespeichert.
+. Der erstellte Bericht wird im Standard-Webbrowser des Systems geöffnet.
+
+== Hinweise
+
+* Der Bericht wird direkt von FreeCAD als HTML-Datei erstellt. Eine separate Installation von AsciiDoc oder Asciidoctor ist nicht erforderlich.
+* Die erstellte HTML-Datei ist so konzipiert, dass sie zusammen mit den Bearbeitungs-Ergebnissen leicht überprüft, archiviert oder weitergegeben werden kann.
+* Bilder für den Bericht können direkt in die erstellte HTML-Datei eingebettet werden.
+
+* Gegebenenfalls werden die Werte im Bericht entsprechend der aktuellen Einheitenformatierung dargestellt.
+* Werkzeugdurchmesser und Vorschubwerte werden für die Anzeige formatiert, und die Spindeldrehzahl wird mit dem Suffix `rpm` angezeigt.
+* Der Bericht dient als Hilfsmittel zur Überprüfung. Er ersetzt weder die visuelle Überprüfung der Werkzeugwege noch die Simulation oder die maschinenspezifische Einrichtungsdokumentation.

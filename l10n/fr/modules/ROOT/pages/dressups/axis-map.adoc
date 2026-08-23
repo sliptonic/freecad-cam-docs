@@ -1,0 +1,31 @@
+= CAM Assigner un axe
+:page-origin: https://wiki.freecad.org/CAM_DressupAxisMap/fr
+:page-command: CAM_DressupAxisMap
+:page-icon: CAM_DressupAxisMap.svg
+:page-menu: CAM → Finition du parcours → Assigner un axe
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupAxisMap.svg[CAM Assigner un axe,32] *CAM Assigner un axe*
+
+Menu location:: menu:CAM[Finition du parcours > Assigner un axe]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+== Utilisation
+
+== Options
+
+== Propriétés
+
+== Script

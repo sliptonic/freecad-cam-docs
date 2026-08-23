@@ -1,0 +1,42 @@
+= CAM Attache
+:page-origin: https://wiki.freecad.org/CAM_DressupTag/fr
+:page-origin-revision: ea226c0de1 2026-05-22
+:page-command: CAM_DressupTag
+:page-icon: CAM_DressupTag.svg
+:page-menu: CAM → Finition du parcours → Attache
+:page-workbench: CAM
+:page-see-also: CAM Rampe d'entrée, CAM Dégagement d'angles , CAM Lame rotative
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupTag.svg[CAM Attache,32] *CAM Attache*
+
+Menu location:: menu:CAM[Finition du parcours > Attache]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/ramp-entry.adoc[CAM Rampe d'entrée], xref:dressups/dogbone.adoc[CAM Dégagement d'angles] , xref:dressups/drag-knife.adoc[CAM Lame rotative]
+--
+
+== Description
+
+La commande image:CAM_DressupTag.svg[width=24] xref:dressups/tag.adoc[Attache] ajoute au parcours existant (généralement un parcours de découpe de contour 2D) un certains nombres d'attaches qui maintiennent la pièce en place. Sans elles, une partie (qui n'est pas fixée à la base) risque de s'envoler de manière incontrôlable lors de la coupe finale. Les attaches sont destinées à être cassées à la main (ou à l’aide d’un ciseau) puis ébarbées à la lime.
+
+Une vidéo expliquant cette fonction est disponible à l'adresse suivante : https://www.youtube.com/watch?v=JZ4prlR6sps
+
+== Utilisation
+
+. Sélectionnez un contour ou des objets _profile path_.
+. Sélectionnez l'option menu:CAM[Finition du parcours > Attache] du menu.
+
+== Options
+
+* *Angle* : contrôle l'angle de plongée et de remontée lors de la création d'une attache.
+* *Hauteur* : contrôle la hauteur du haut de l'attache par rapport au bas de la coupe du profil.
+* *Rayon* : rayon du congé de l'attache.
+* *Facteur de segmentation* : nombre de segments pour obtenir une attache arrondie.
+* *Largeur* : largeur totale de l'attache.
+
+Les attaches sont automatiquement générées à intervalles réguliers le long du contour, en commençant par le bord le plus grand. Vous avez la possibilité de supprimer celles que vous n'aimez pas ou de modifier leur emplacement afin qu'elles apparaissent sur les parties convexes du travail où il sera plus facile de limer la matière en excès.

@@ -1,0 +1,38 @@
+= CAM SchleifeAuswählen
+:page-origin: https://wiki.freecad.org/CAM_SelectLoop/de
+:page-origin-revision: 1a80e69c19 2026-07-09
+:page-command: CAM_SelectLoop
+:page-icon: CAM_SelectLoop.svg
+:page-menu: CAM → Auswahl der Schleife abschließen
+:page-workbench: CAM
+:page-shortcut: P L
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SelectLoop.svg[CAM SchleifeAuswählen,32] *CAM SchleifeAuswählen*
+
+Menu location:: menu:CAM[Auswahl der Schleife abschließen]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[L]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Das Werkzeug image:CAM_SelectLoop.svg[width=16] xref:inspect/select-loop.adoc[CAM SchleifeAuswählen] vervollständigt eine Auswahl von Kanten, die eine Schleife bilden.
+
+== Anwendung
+
+. Eine Kante auswählen.
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_SelectLoop.svg[width=16] xref:inspect/select-loop.adoc[Auswahl der Schleife abschließen] drücken.
+* Die Option menu:CAM[Auswahl der Schleife abschließen] aus dem Menü wählen.
+* Die Tastenkombination: kbd:[P] dann kbd:[L] drücken.
+. Die verbleibenden Kanten der Schleife werden zur Auswahl hinzugefügt.
+
+== Hinweise
+
+* Dieser Befehl kann auch in anderen Arbeitsbereichen sehr nützlich sein.

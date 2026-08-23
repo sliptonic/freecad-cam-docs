@@ -1,0 +1,33 @@
+= CAM: Stop
+:page-origin: https://wiki.freecad.org/CAM_Stop/pl
+:page-command: CAM_Stop
+:page-icon: CAM_Stop.svg
+:page-menu: CAM → Dodatkowe polecenia → Stop
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Stop.svg[CAM: Stop,32] *CAM: Stop*
+
+Menu location:: menu:CAM[Dodatkowe polecenia > Stop]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_Stop.svg[width=24] xref:operations/stop.adoc[Stop] wprowadza polecenie Stop (M1). To polecenie zatrzyma uruchomiony program na kontrolerze CNC, czekając na interakcję użytkownika żeby kontynuować.
+
+*Uwaga: to nie zatrzymuje wrzeciona.*
+
+== Użycie
+
+. Wciśnij przycisk image:CAM_Stop.svg[width=16] xref:operations/stop.adoc[Stop]
+
+== Właściwości
+
+* *Stop*: Definiuje czy Stop jest opcjonalny czy obowiązkowy.

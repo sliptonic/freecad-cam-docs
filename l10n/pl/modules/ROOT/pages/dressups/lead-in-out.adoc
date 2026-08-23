@@ -1,0 +1,53 @@
+= CAM: Ulepszenie wprowadzenia / wyprowadzenia
+:page-origin: https://wiki.freecad.org/CAM_DressupLeadInOut/pl
+:page-origin-revision: 842d3b5628 2026-06-08
+:page-command: CAM_DressupLeadInOut
+:page-icon: CAM_DressupLeadInOut.svg
+:page-menu: CAM → Operacje wykańczające ścieżki → Ulepszenie wprowadzenia / wyprowadzenia
+:page-workbench: CAM
+:page-see-also: CAM: Ulepszenie - nadcięcie w narożnikach, CAM: Ulepszenie - znacznik, CAM: Ulepszenie - parkowanie narzędzia, CAM: Ulepszenie - Rylec
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupLeadInOut.svg[CAM: Ulepszenie wprowadzenia / wyprowadzenia,32] *CAM: Ulepszenie wprowadzenia / wyprowadzenia*
+
+Menu location:: menu:CAM[Operacje wykańczające ścieżki > Ulepszenie wprowadzenia / wyprowadzenia]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/dogbone.adoc[CAM: Ulepszenie - nadcięcie w narożnikach], xref:dressups/tag.adoc[CAM: Ulepszenie - znacznik], xref:dressups/ramp-entry.adoc[CAM: Ulepszenie - parkowanie narzędzia], xref:dressups/drag-knife.adoc[CAM: Ulepszenie - Rylec]
+--
+
+== Opis
+
+Polecenie image:CAM_DressupLeadInOut.svg[width=24] xref:dressups/lead-in-out.adoc[Ulepszenie wprowadzenia / wyprowadzenia] modyfikuje istniejącą ścieżkę, dodając ruchy najazdu (lead-in) i wyjazdu (lead-out) na początku i na końcu ścieżki narzędzia.
+
+== Użycie
+
+. Wybierz istniejący obiekt ścieżki.
+. Istnieje kilka sposobów wywołania polecenia:
+* Naciśnij przycisk image:CAM_DressupLeadInOut.svg[width=16] xref:dressups/lead-in-out.adoc[Ulepszenie wprowadzenia / wyprowadzenia].
+* Wybierz opcję menu:CAM[Operacje wykańczające ścieżki > Ulepszenie wprowadzenia / wyprowadzenia] z menu.
+. Dostosuj ustawienia najazdu (lead-in) i wyjazdu (lead-out) w panelu zadania.
+. Zatwierdź modyfikację.
+
+== Opcje
+
+* *Lead in*: Steruje ruchem wejścia dodawanym przed główną ścieżką skrawania.
+* *Lead out*: Steruje ruchem wyjścia dodawanym po głównej ścieżce skrawania.
+* *Feed rate*: [.since]#introduced in 26.3# Odpowiadające ruchy najazdu (lead-in) i wyjazdu (lead-out) wykorzystują posuwy zdefiniowane dla tych ruchów w kontrolerze narzędzia. Domyślnie odpowiadają one poziomemu posuwowi.
+
+== Ograniczenia
+
+* Ta modyfikacja zmienia początek i koniec istniejącej ścieżki.
+* Dokładny efekt zależy od wybranej ścieżki oraz ustawień najazdu (lead-in) i wyjazdu (lead-out).
+* [.since]#introduced in 26.3# image:CAM_DressupRampEntry.svg[width=16] xref:dressups/ramp-entry.adoc[Ulepszenie - parkowanie narzędzia] można również zastosować do ścieżki, która już ma zastosowaną modyfikację Lead In/Out.
+
+== Tworzenie skryptów
+
+[source,python]
+----
+Add python code here
+----

@@ -1,0 +1,60 @@
+= CAM: Przecz aktywne stadium operacji
+:page-origin: https://wiki.freecad.org/CAM_OpActiveToggle/pl
+:page-origin-revision: 29a611f0d9 2026-04-09
+:page-command: CAM_OpActiveToggle
+:page-icon: CAM_OpActiveToggle.svg
+:page-menu: CAM → Przełącz aktywne stadium operacji
+:page-workbench: CAM
+:page-shortcut: P X
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_OpActiveToggle.svg[CAM: Przecz aktywne stadium operacji,32] *CAM: Przecz aktywne stadium operacji*
+
+Menu location:: menu:CAM[Przełącz aktywne stadium operacji]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[X]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_OpActiveToggle.svg[width=24] xref:inspect/op-active-toggle.adoc[Przełącz aktywne stadium operacji] przełącza właściwość *Active* wybranej operacji CAM.
+
+Jeśli ta właściwość jest ustawiona na `false`, operacja jest traktowana jako nieaktywna. Jej ścieżka nie jest pokazywana w https://wiki.freecad.org/3D_View[Widoku 3D] i jest ignorowana przez polecenia takie jak image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[Sprawdź ścieżkę narzędzia] czy image:CAM_Post.svg[width=16] xref:output/post-process.adoc[Przetwarzanie końcowe].
+
+== Użycie
+
+. Zaznacz operację w grupie menu:Operations[] należącej do zadania obróbki. Dezaktywowaną operację można rozpoznać po jej wyszarzonej etykiecie i ikonie.
+. Istnieje kilka sposobów wywołania tej komendy:
+* Wciśnij przycisk image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Przełącz aktywne stadium operacji].
+* Wybierz opcję menu:CAM[Przełącz aktywne stadium operacji] z menu.
+* Użyj skrótu klawiszowego: kbd:[P] a następnie kbd:[X].
+. Rezultat zależy od wybranej operacji:
+* Jeśli wybrałeś aktywną operację, to polecenie ją dezaktywuje:
+** Ikona operacji jest zastępowana ikoną tego narzędzia: image:CAM_OpActiveToggle.svg[width=16].
+** Ikona i etykieta operacji zostają wyszarzone.
+** Ścieżki generowane z operacji znikają z https://wiki.freecad.org/3D_View[Widoku 3D].
+** Podczas używania komendy image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[Sprawdź ścieżkę narzędzia] lub image:CAM_Post.svg[width=16] xref:output/post-process.adoc[Przetwarzanie końcowe], G-code operacji nie jest zapewniany.
+** Jeśli operacja ma wykończenia, są one również pokazywane w stanie nieaktywnym w https://wiki.freecad.org/Tree_View[Widoku drzewa].
+* Jeśli wybrałeś dezaktywowaną operację, to polecenie ją aktywuje:
+** Ikona operacji jest zastępowaną tą należącą do operacji.
+** Ikona i etykieta operacji nie są już wyszarzone.
+** Ścieżki wygenerowane przez operację są przeliczane i wyświetlane w https://wiki.freecad.org/3D_View[Widoku 3D].
+** Podczas używania komendy image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[Sprawdź ścieżkę narzędzia] lub image:CAM_Post.svg[width=16] xref:output/post-process.adoc[Przetwarzanie końcowe], G-code operacji jest ponownie zapewniany.
+
+== Tworzenie skryptów
+
+_Zobacz również:_ https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD podstawy tworzenia skryptów].
+
+Przykład:
+
+[source,python]
+----
+# Place code example here.
+----

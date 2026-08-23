@@ -1,0 +1,42 @@
+= CAM: Ulepszenie - nadcięcie w narożnikach
+:page-origin: https://wiki.freecad.org/CAM_DressupDogbone/pl
+:page-origin-revision: 99b4315f29 2026-06-08
+:page-command: CAM_DressupDogbone
+:page-icon: CAM_DressupDogbone.svg
+:page-menu: CAM → Operacje wykańczające ścieżki → Nadcięcie w narożnikach
+:page-workbench: CAM
+:page-see-also: CAM: Ulepszenie - znacznik, CAM: Ulepszenie - parkowanie narzędzia, CAM: Ulepszenie - Rylec
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupDogbone.svg[CAM: Ulepszenie - nadcięcie w narożnikach,32] *CAM: Ulepszenie - nadcięcie w narożnikach*
+
+Menu location:: menu:CAM[Operacje wykańczające ścieżki > Nadcięcie w narożnikach]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/tag.adoc[CAM: Ulepszenie - znacznik], xref:dressups/ramp-entry.adoc[CAM: Ulepszenie - parkowanie narzędzia], xref:dressups/drag-knife.adoc[CAM: Ulepszenie - Rylec]
+--
+
+== Opis
+
+Narzędzie image:CAM_DressupDogbone.svg[width=24] xref:dressups/dogbone.adoc[Nadcięcie w narożnikach] wykańcza istniejącą ścieżkę aby nadciąć narożniki w wewnętrznych kątach operacji profilu lub konturu. Cylindryczny nóż nie może ciąć całkowicie w narożnik o ostrym kącie bez kolizji z modelem. W pewnych przypadkach może być preferowane naruszenie modelu i upewnienie się, że materiał w narożniku jest usuwany. Jest to szczególnie konieczne gdy części będą się przecinać/zakleszczać.
+
+== Użycie
+
+. Wybierz obiekty konturu lub ścieżki profilu xref:index.adoc[CAM].
+. Wybierz opcję menu:CAM[Operacje wykańczające ścieżki > Nadcięcie w narożnikach] z menu.
+
+== Opcje
+
+* *Strona*: Która strona ścieżki będzie modyfikowana.
+* *Styl*: Styl nadcięcia (Dogbone, T-Bone Poziomy, T-Bone Pionowy, T-Bone Długa Krawędź, T-Bone Krótka Krawędź).
+* *Nacięcie*: Algorytm używany do obliczania długości nacięcia.
+* *Własne*: Jeśli *Nacięcie* jest ustawione na `Własne`, ta wartość definiuje długość nadcięcia.
+* [.since]#introduced in 26.3# Dla nacięcia typu adaptacyjnego niezerowa *Własna* wartość również może być użyta do ograniczenia maksymalnej długości nacięcia.
+
+== Ograniczenia
+
+Nadcięcie w narożnikach wymaga prostego segmentu ścieżki (G1) przed i po narożniku, w którym nadcięcie ma być wstawione.

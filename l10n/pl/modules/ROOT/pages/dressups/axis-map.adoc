@@ -1,0 +1,31 @@
+= CAM: Odwzorowanie osi
+:page-origin: https://wiki.freecad.org/CAM_DressupAxisMap/pl
+:page-command: CAM_DressupAxisMap
+:page-icon: CAM_DressupAxisMap.svg
+:page-menu: CAM → Ulepszenie ścieżki → Odwzorowanie osi
+:page-workbench: CAM
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupAxisMap.svg[CAM: Odwzorowanie osi,32] *CAM: Odwzorowanie osi*
+
+Menu location:: menu:CAM[Ulepszenie ścieżki > Odwzorowanie osi]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+== Użycie
+
+== Opcje
+
+== Właściwości
+
+== Tworzenie skryptów

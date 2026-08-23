@@ -1,0 +1,50 @@
+= CAM Décaler l'origine
+:page-origin: https://wiki.freecad.org/CAM_Fixture/fr
+:page-origin-revision: 41f81904bc 2026-03-04
+:page-command: CAM_Fixture
+:page-icon: CAM_Fixture.svg
+:page-menu: CAM → Autres commandes → Décaler l'origine
+:page-workbench: CAM
+:page-imported: true
+
+WARNING: Cette commande est obsolète et n'est pas disponible dans la [.since]#1.1 and later#.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Fixture.svg[CAM Décaler l'origine,32] *CAM Décaler l'origine*
+
+Menu location:: menu:CAM[Autres commandes > Décaler l'origine]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Description
+
+L'outil image:CAM_Fixture.svg[width=24] xref:job/fixture.adoc[Décaler l'origine] définit la position décalée du système de coordonnées de travail du contrôleur CNC de la machine-outil.
+
+Les coordonnées de décalage du travail cible incluent généralement : les codes G53 à G59. Le G-code est simplement l'indication du code (G53, G54, etc ...). Les systèmes de décalage de l'origine sont :
+
+* G53 → système de coordonnées absolues de la machine.
+* G54 → système de coordonnées de l'origine de la pièce.
+* G55 à G59.9 → dispositifs de coordonnées permettant d'effectuer des décalages de travail, par rapport aux capteurs de position d'origine situés sur la machine CNC, à utiliser.
+
+La commande G59 de décalage d'origine est utilisée pour étendre les décalages disponibles. Le degré d'extension mis en œuvre est spécifique à la machine CNC, et cette commande permet de réaliser des extensions de G59.1 à G59.9.
+
+== Utilisation
+
+. Pressez le bouton image:CAM_Fixture.svg[width=16] xref:job/fixture.adoc[Décaler l'origine] ou utilisez le raccourci clavier kbd:[P] puis kbd:[F].
+. Sélectionnez le dispositif de décalage de travail souhaité dans le menu déroulant.
+
+== Propriétés
+
+* *Fixture* : définit le point de décalage courant.
+* *Active* : définit si cette commande est active ou non lors de l'ajout dans un composé.
+
+== Remarques
+
+== Limitations
+
+== Script

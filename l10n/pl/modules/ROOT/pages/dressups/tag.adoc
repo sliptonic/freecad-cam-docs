@@ -1,0 +1,42 @@
+= CAM: Ulepszenie - znacznik
+:page-origin: https://wiki.freecad.org/CAM_DressupTag/pl
+:page-origin-revision: be516ff6cc 2026-05-21
+:page-command: CAM_DressupTag
+:page-icon: CAM_DressupTag.svg
+:page-menu: CAM → Operacje wykańczające dla ścieżki → Znacznik
+:page-workbench: CAM
+:page-see-also: CAM: Ulepszenie - parkowanie narzędzia, CAM: Ulepszenie - nadcięcie w narożnikach, CAM: Ulepszenie - Rylec
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupTag.svg[CAM: Ulepszenie - znacznik,32] *CAM: Ulepszenie - znacznik*
+
+Menu location:: menu:CAM[Operacje wykańczające dla ścieżki > Znacznik]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/ramp-entry.adoc[CAM: Ulepszenie - parkowanie narzędzia], xref:dressups/dogbone.adoc[CAM: Ulepszenie - nadcięcie w narożnikach], xref:dressups/drag-knife.adoc[CAM: Ulepszenie - Rylec]
+--
+
+== Opis
+
+Narzędzie image:CAM_DressupTag.svg[width=24] *Ulepszenie - pola mocujące* koryguje istniejącą ścieżkę _(zazwyczaj ścieżkę skrawania konturu 2D)_, aby pozostawić znaczniki, które utrzymują część w miejscu. Bez nich część _(która nie jest przymocowana do podstawy)_ może w sposób niekontrolowany zostać wyrwana z maszyny podczas końcowego skrawania. Znaczniki są przeznaczone do odłamania ręcznie _(lub za pomocą dłuta)_, a następnie spiłowania na płasko w celu wykończenia części.
+
+Objaśnienie działania tego narzędzia jest dostępne w formie wideo pod tym linkiem: https://www.youtube.com/watch?v=JZ4prlR6sps
+
+== Użycie
+
+. Wybierz kontur lub obiekty ścieżki profilu.
+. Wybierz opcję menu:CAM[Operacje wykańczające dla ścieżki > Znacznik] z menu.
+
+== Opcje
+
+* *Kąt* : Kontroluje kąt zagłębienia i wynurzenia, gdy znacznik jest tworzony.
+* *Wysokość* : Kontroluje wysokość szczytu znacznika od spodu cięcia profilu.
+* *Promień* : Promień zaokrąglenia dla znacznika.
+* *Współczynnik segmentacji* : Liczba segmentów do aproksymacji zaokrąglonego znacznika.
+* *Szerokość* : Całkowita szerokość znacznika.
+
+Znaczniki są automatycznie generowane jako równomiernie rozłożone wzdłuż konturu, zaczynając od największej krawędzi. Masz możliwość usunięcia dowolnych z nich lub zmiany ich położenia, tak że pojawiają się na wypukłych częściach zadania, gdzie łatwiej będzie spiłować nadmiarowy materiał.

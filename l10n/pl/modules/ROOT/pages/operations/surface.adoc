@@ -1,0 +1,289 @@
+= Path: Powierzchnia 3D
+:page-origin: https://wiki.freecad.org/CAM_Surface/pl
+:page-origin-revision: 460d0c879a 2026-05-22
+:page-command: CAM_Surface
+:page-icon: CAM_Surface.svg
+:page-menu: CAM → Powierzchnia 3D
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+WARNING: Jest to nieukończona funkcja eksperymentalna. xref:reference/experimental.adoc[Włącz funkcje eksperymentalne]
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Surface.svg[Path: Powierzchnia 3D,32] *Path: Powierzchnia 3D*
+
+Menu location:: menu:CAM[Powierzchnia 3D]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie to tworzy nową operację image:CAM_Surface.svg[width=24] *Powierzchnia 3D* , która jest w stanie wygenerować ścieżki G-code dla całej górnej powierzchni modelu 3D (lub jest w stanie pracować z wybranymi ścianami) i pozwala na omijanie ścian. Operacja ta oferuje wiele wzorców skrawania: Line, Zygzak, Okrągły, Okrągły Zygzak, Przesunięcie i Spirala (podobny do wzorca adaptacyjnego). Od wersji 0.19 operacja ta oferuje wiele dostosowań umożliwiających zwiększenie wydajności.
+
+Operacja image:CAM_Surface.svg[width=24] *Powierzchnia 3D* jest zdolna również do generowania podstawowych obrotowych ścieżek powierzchni 3D. Możliwości rotacyjne są ograniczone do całego modelu i nie pozwalają na izolowanie konkretnych ścian lub regionów. Ścieżki obrotowe są również ograniczone do wzorów skrawania liniowego.
+
+Narzędzie powierzchni 3D jest połączone z OCL.pyd, zewnętrznym modułem Open Source o nazwie xref:reference/opencamlib.adoc[OpenCamLib], który generuje ścieżki narzędzia z modelu 3D. Biblioteka OpenCamLib nie jest zintegrowana bezpośrednio z programem FreeCAD.
+
+*Note:* Aby używać operacji Powierzchnia 3D, musisz:
+
+. Prawidłowo zainstalować xref:reference/opencamlib.adoc[OpenCamLib].
+. Włączyć xref:reference/experimental.adoc[Funkcje eksperymentalne] dla środowiska pracy CAM.
+. Sprawdzić menu:Edycja[Preferencje... > CAM > Zaawansowane > Włącz funkcje zależne od OpenCamLib].
+
+== Użycie
+
+Poniżej przedstawiono instrukcje użytkowania dla wielu wariantów operacji xref:operations/surface.adoc[Powierzchnia 3D].
+
+=== Operacja podstawowa
+
+. Wciśnij ikonę image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[Powierzchnia 3D] lub wybierz opcję menu:CAM[Powierzchnia 3D] z menu rozwijanego.
+. Wybierz kontroler narzędzia dla operacji z okna dialogowego kontrolera narzędzia, jeśli się pojawi.
+. W zakładce Geometria podstawowa wybierz konkretne powierzchnie, na których chcesz się skupić i/lub których chcesz uniknąć podczas operacji.
+. Dostosuj głębokości operacji w zakładce Głębokość: Głębokość początkowa, Głębokość końcowa, Krok w dół.
+. W razie potrzeby zmień ustawienia w zakładce Wysokości.
+. Skonfiguruj ustawienia w zakładce Operacja według potrzeb:
+* Wybierz tryb chłodziwa.
+* Wybierz Ramkę otaczającą: Półfabrykat lub Punkt bazowy obiektu Ramki otaczającej.
+* Ustaw Metodę skanowania dla operacji: Płaski lub Obrotowy.
+* Wybierz Tryb warstw dla operacji: Pojedyncze przejście lub Wielokrotne przejście.
+.. Pojedyncze przejście jest używane do przejścia wykończeniowego.
+.. Wielokrotne przejście może być używane do usuwania materiału w połączeniu z użyciem Głębokości przesunięcia, aby pozostawić cienką warstwę materiału do wykończenia.
+* Dodaj Dodatkowe odsunięcie X, Y obiektu Ramki otaczającej, jeśli to konieczne (_Tylko skanowanie obrotowe_).
+* Ustaw Kierunek spuszczania freza: X lub Y. Jest to liniowy kierunek, w którym narzędzie (wrzeciono) będzie się poruszać. (_Tylko skanowanie obrotowe_).
+* Dodaj wartość Głębokości przesunięcia, jeśli chcesz pozostawić określoną grubość materiału na powierzchni, na przykład do ostatniego przejazdu wykończeniowego.
+* Ustaw Ostęp między próbkami używany do skanowania OCL.
+* Ustaw wartość Szerokość skrawania jako procent średnicy narzędzia.
+* Zaznacz pole wyboru Użyj punktu początkowego, jeśli chcesz podać punkt startowy dla operacji w widoku właściwości zakładki danych dla operacji.
+* Ograniczenie dla brzegów jest włączone domyślnie. Wymusza to pozostanie narzędzia wewnątrz granic geometrii funkcji operacji, jak w operacji kieszeni. Wyłącz, aby pozwolić narzędziu na rozszerzenie poza granice geometrii funkcji. Właściwość Boundary Adjustment ma pierwszeństwo przed tą właściwością.
+* Optymalizacja ścieżek liniowych jest włączona domyślnie. Wyłączenie spowoduje dłuższy wynik kodu G-code i prawdopodobnie zwiększy czas cięcia.
+. Jeśli chcesz podglądnąć wynik przed zaakceptowaniem ustawień, kliknij btn:[Zastosuj].
+. Kliknij przycisk btn:[OK], aby potwierdzić i wygenerować ścieżki.
+
+Aby uzyskać inne lub bardziej złożone efekty, dostosuj dodatkowe właściwości operacji w zakładce Dane https://wiki.freecad.org/Property_View[Widoku właściwości] dla tej operacji.
+
+==== Skanowanie obrotowe (czwarta oś)
+
+. Rozpocznij <<basic-operationpl,Podstawową operację>> zgodnie z opisem powyżej i ustaw *Metodę skanowania* na *Obrotowy*.
+. *Uwaga:* Wybór powierzchni jest niedostępny dla skanów obrotowych, więc zmiany w Geometrii podstawowej są ignorowane.
+. Znajdź zakładkę Dane i Widok właściwości dla nowej operacji xref:operations/surface.adoc[Powierzchnia 3D]. Powinna być dostępna sekcja *Rotation* z dodatkowymi właściwościami do dostosowania, wymienionymi poniżej. +
+Zaleca się ustawienie pożądanych właściwości obrotu jednocześnie przed przeliczeniem. Można to zrobić, naciskając klawisz ENTER bezpośrednio po zmianie ustawienia właściwości. Proces ten pozwala na zmianę i zapisanie wielu właściwości przed przeliczeniem operacji.
+. Dostosuj następujące ustawienia według potrzeb:
+* Ustaw *Cutter Tilt* na indeks (kąt) odsunięcia ++[++0-90++]++. (Używane dla narzędzi kulowych)
+* Zmień *Drop Cutter Dir* na oś ruchu dla narzędzia (wrzeciona).
+* Zmień *Drop Cutter Extra Offset* na rozszerzenie ramki otaczającej w kierunkach X i Y.
+* Ustaw *Rotation Axis* na żądaną oś.
+* Dostosuj *Start Index* na indeks startowy (kąt) ++[++0-360++]++.
+* Dostosuj *Stop Index* na indeks końcowy (kąt) ++[++0-360++]++.
+. Kliknij ikonę image:View-refresh.svg[width=16] https://wiki.freecad.org/Std_Refresh[Odśwież] na pasku narzędzi.
+. Poczekaj na wyniki...
+
+===== Uwagi na temat skanów obrotowych
+
+* *Skanowanie obrotowe* wymaga znacznie więcej czasu i przetwarzania niż *płaskie*. Czynniki wpływające na czas przetwarzania to: Odstęp między próbkami, Głębokość przesunięcia, średnica narzędzia i rozmiar modelu. Ponownie, skanowanie obrotowe może zająć dużo czasu. Niektóre skany tego typu mogą trwać 3, 5 lub 10 minut lub dłużej.
+* Dla oszczędności czasu lepiej nie przeliczać skanowania obrotowego po każdej zmianie właściwości; zamiast tego rozważ jedno z poniższych rozwiązań:
+** użyj techniki ' _zmiana wszystkich ustawień za pomocą klawisza ENTER_ ' wspomnianej w Kroku 2 powyżej, a następnie image:View-refresh.svg[width=16] https://wiki.freecad.org/Std_Refresh[Odśwież] operację.
+** dezaktywuj operację za pomocą narzędzia image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Aktywny], wprowadź zmiany w właściwościach operacji, a następnie kliknij ikonę image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Aktywny] ponownie, aby ponownie aktywować operację - co wywoła wewnętrzne przeliczenie.
+* Polecenie image:CAM_Surface.svg[width=16] xref:operations/surface.adoc[Powierzchnia 3D] jest nadal uznawane za _funkcję eksperymentalną_ na dzień 25.06.2019. Może zawierać kilka błędów, które nie zostały jeszcze jednoznacznie zidentyfikowane. Prosimy zgłaszać błędy i problemy na https://forum.freecad.org/viewforum.php?f=15[forum FreeCAD CAM].
+* Wbudowany image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[Symulator CAM] NIE obsługuje symulacji 4-osiowej. Będziesz musiał użyć symulatora zewnętrznego, aby wizualnie sprawdzić lub zweryfikować ścieżki. Zobacz sekcję <<zasoby,Zasoby>> poniżej dla sugestii.
+* Prawdopodobnie zobaczysz czerwone linie obrotowe wokół swojego modelu w widoku. To normalne we FreeCAD w tym momencie.
+
+===== Uwagi na temat skanów złożonych modeli
+
+Nadmiernie długie czasy przetwarzania (dłuższe niż 10 minut) mogą wystąpić przy przetwarzaniu dużych, złożonych modeli. Oprócz wcześniej wspomnianych czynników, poniższe kroki mogą pomóc w identyfikacji potencjalnych przyczyn i rozwiązań.
+
+*_Niska pamięć_* +
+Sprawdź, ile pamięci jest dostępne podczas uruchamiania skanowania, używając narzędzia takiego jak *Menedżer zadań systemu Windows, zakładka Pamięć*. Jeśli ponad 90% pamięci jest stale używane, to mała wartość parametru *Linear Deflection* może generować siatkę, która jest zbyt duża dla dostępnej pamięci. +
+Aby to potwierdzić:
+
+. Utwórz nowe polecenie image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[Powierzchnia 3D].
+. Przełącz się na zakładkę Model i zwiększ wartość *Linear Deflection*. Na przykład zmień z 2,5 μm na 20 μm.
+. Przełącz się z powrotem na zakładkę Zadania, aby dokończyć konfigurację operacji.
+. Kliknij przycisk btn:[OK], aby potwierdzić i wygenerować ścieżki. +
+
+Aby ustawić tę wartość jako domyślną dla wszystkich nowych poleceń image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[Powierzchnia 3D], zmień parametr *GeometryTolerance*. +
+menu:Narzędzia[Edytuj parametry > Preferences > Mod > CAM > GeometryTolerance]. +
+Uwaga: od wersji 0.19 domyślna wartość *Linear Deflection* = GeometryTolerance / 4
+
+*_Nieprawidłowa geometria_* +
+Jeśli model zawiera nieprawidłową geometrię, czas skanowania może znacznie wzrosnąć. Model można sprawdzić, używając funkcji https://wiki.freecad.org/Part_CheckGeometry[Część: Sprawdź geometrię] w image:Workbench_Part.svg[width=24] https://wiki.freecad.org/Part_Workbench[środowisku pracy Część]. +
+Aby uruchomić narzędzie:
+
+. Przełącz się na image:Workbench_Part.svg[width=24]**Środowisko pracy Część** i wybierz model do sprawdzenia.
+. Kliknij przycisk image:Part_CheckGeometry.svg[width=16] https://wiki.freecad.org/Part_CheckGeometry[Część: Sprawdź geometrię] dostępny na pasku narzędzi Środowiska pracy Części lub użyj opcji menu:Część[Sprawdź geometrię] z górnego menu.
+. Kliknij przycisk *Uruchom sprawdzanie* i obejrzyj wyniki.
+
+Jeśli wyniki zawierają elementy takie jak _BOPAlgo SelfIntersect_, geometria jest nieprawidłowa i należy ją poprawić, dostosowując model. +
+(Wskazówka: Operacje logiczne i polecenia wyciągnięcia po profilach mogą czasami wprowadzać _Self Intersections_) +
+
+==== Dostępne kształty narzędzi
+
+Operacja Powierzchnia 3D aktualnie używa xref:reference/opencamlib.adoc[OpenCamLib] do wyciągania ścieżek z podstawy części. W związku z tym, wymagana jest translacja ustawień narzędzia między kontrolerem narzędzi FreeCAD a OCL, aby zakończyć skanowanie z wybranym kształtem narzędzia (frezu).
+
+Te kształty narzędzi są wspierane i dostępne dla tej operacji Powierzchni 3D:
+
+* Frez trzpieniowy
+* Frez kulowy
+* frez walcowo-czołowy
+* Końcówka fazująca
+* Grawer
+
+Jeśli zdecydujesz się uruchomić symulator ścieżek w środowisku pracy CAM, używa on tylko standardowego frezu końcowego do symulacji ścieżek. W związku z tym, nie zobaczysz usuwania materiału specyficznego dla kształtu narzędzia. Usuwanie materiału będzie pokazywane za pomocą kształtu frezu końcowego.
+
+UWAGA: Na maj 2019 roku tylko frez końcowy ma jakiekolwiek testy do określenia dokładności translacji ustawień narzędzia FreeCAD do OCL. Prosimy przesłać wszelkie uwagi dotyczące użycia innych narzędzi do sekcji https://forum.freecad.org/viewforum.php?f=15[CAM] na forum FreeCAD.
+
+== Właściwości: wersja 0.19
+
+*_Uwaga_*: Nie wszystkie z tych właściwości są dostępne w edytorze okna zadań. Niektóre są dostępne tylko na karcie Dane w panelu https://wiki.freecad.org/Property_View[Widoku właściwości] dla tej operacji.
+
+.Podstawa
+Uwaga: Zaleca się, aby nie edytować właściwości Umiejscowienie operacji ścieżki. W razie potrzeby należy raczej przesunąć lub obrócić model zadania CAM.
+
+* *Placement*: Ogólne umiejscowienie ++[++pozycja i rotacja++]++ obiektu - względem początku (lub początku kontenera obiektów nadrzędnych)
+** *Angle*: Kąt w stopniach zastosowany do rotacji obiektu wokół wartości Axis
+** *Axis*: Oś (jedna lub wiele), wokół której obraca się obiekt, ustawiana w pod-właściwościach: X, Y, Z
+*** *X*: Wartość osi X
+*** *Y*: Wartość osi Y
+*** *Z*: Wartość osi Z
+** *Position*: Pozycja obiektu, ustawiana w pod-właściwościach: X, Y, Z - względem początku (lub początku kontenera obiektów nadrzędnych)
+*** *X*: Wartość odległości X
+*** *Y*: Wartość odległości Y
+*** *Z*: Wartość odległości Z
+* *Label*: Nazwa obiektu podana przez użytkownika (UTF-8)
+
+.Opcje czyszczenia
+* *Bound Box*: Czy operacja powinna być ograniczona przez obiekt materiału czy przez ramkę otaczającą obiektu bazowego
+* *Cut Mode*: Kierunek, w jakim ścieżka narzędzia powinna obejść część: Climb (zgodnie z ruchem wskazówek zegara - CW) lub Conventional (przeciwnie do ruchu wskazówek zegara - CCW)
+* *Cut Pattern*: Wzór usuwania
+* *Cut Pattern Reversed*: Odwróć kolejność cięcia ścieżek przejścia. Dla wzorów cięcia okrężnego, zacznij od zewnątrz i pracuj w kierunku środka
+* *Depth Offset*: Odsunięcie osi Z od powierzchni obiektu
+* *Layer Mode*: Tryb zakończenia operacji: pojedynczy lub wielokrotny
+* *Pattern Center At*: Wybierz lokalizację punktu centralnego dla rozpoczęcia wzoru cięcia
+* *Pattern Center Custom*: Ustaw punkt początkowy dla wzoru cięcia
+* *Profile Edges*: Profiluj krawędzie wyboru. Dostępne są następujące opcje (screeny można zobaczyć w tym poście na forum: https://forum.freecad.org/viewtopic.php?p=676452#p676452):
+** *None*: Nie twórz profilu
+** *Only*: Twórz tylko profil i brak ścieżek wewnętrznych
+** *First*: Rozpocznij od profilu, a następnie wykonaj resztę
+** *Last*: Rozpocznij od reszty, a następnie wykonaj profil
+* *Sample Interval*: Odstęp między próbkami. Małe wartości powodują długie czasy oczekiwania
+* *Step Over*: Procent przejścia ścieżki narzędzia
+
+.Głębokość
+* *Clearance Height*: Wysokość potrzebna do usunięcia zacisków i przeszkód
+* *Final Depth*: Ostateczna głębokość narzędzia – najniższa wartość w osi Z
+* *Safe Height*: Wysokość, powyżej której dozwolone są szybkie ruchy
+* *Start Depth*: Głębokość początkowa narzędzia – pierwsza głębokość cięcia w osi Z
+* *Step Down*: Stopniowe zagłębianie narzędzia
+
+.Mesh Conversion
+* *Angular Deflection*: Mniejsze wartości dają drobniejszą, dokładniejszą siatkę. Mniejsze wartości znacząco wydłużają czas przetwarzania
+* *Linear Deflection*: Mniejsze wartości dają drobniejszą, dokładniejszą siatkę. Mniejsze wartości nie wydłużają znacząco czasu przetwarzania, ale mogą zwiększać zużycie pamięci
+
+.Optymalizacja
+* *Circular Use G2 G3*: Konwertuj współpłaszczyznowe łuki na polecenia G2/G3 w kodzie G dla wzorców cięcia 'Circular' i 'CircularZigZag'
+* *Gap Sizes*: Informacja zwrotna: trzy najmniejsze przerwy zidentyfikowane w geometrii ścieżki
+* *Gap Threshold*: Współliniowe i współosiowe artefakty mniejsze niż ten próg są zamykane w ścieżce
+* *Optimize Linear Paths*: Włącz optymalizację ścieżek liniowych (współliniowych punktów). Usuwa niepotrzebne współliniowe punkty z wygenerowanego kodu G-code
+* *Optimize Step Over Transitions*: Włącz oddzielną optymalizację przejść pomiędzy i przerw w każdej ścieżce skoku
+
+.Ścieżka
+* *Active*: Ustaw na False, aby zapobiec generowaniu kodu przez operację
+* *Base*: Podstawowa geometria dla tej operacji
+* *Comment*: Opcjonalny komentarz do tej operacji
+* *Coolant Mode*: Tryb chłodziwa dla tej operacji
+* *Cycle Time*: Szacowany czas cyklu operacji
+* *Tool Controller*: Definiuje kontroler narzędzia używany w operacji
+* *User Label*: Etykieta nadana przez użytkownika
+
+.Obrót
+* *Cutter Tilt*: Ustaw kąt pochylenia wrzeciona (narzędzia).
+* *Drop Cutter Dir*: Kierunek, w którym tworzone są linie narzędzia dropcutter.
+* *Drop Cutter Extra Offset*: Dodatkowe odsunięcie do wybranej ramki otaczającej - użyj podwłaściwości, aby ustawić wartości.
+** *X*: Wartość przesunięcia w osi X.
+** *Y*: Wartość przesunięcia w osi Y.
+** *Z*: Wartość przesunięcia w osi Z.
+* *Rotation Axis*: Ustaw oś dla rotacji modelu.
+* *Start Index*: Kąt początkowy rotacji (index).
+* *Stop Index*: Kąt końcowy rotacji (index).
+
+.Wybrane ustawienia geometrii
+* *Avoid Last X Faces*: Unikaj obróbki ostatnich 'N' powierzchni z listy wybranych powierzchni w geometrii podstawowej.
+* *Avoid Last X Internal Features*: Nie obrabiaj wewnętrznych cech na unikanych powierzchniach.
+* *Boundary Adjustment*: Dodatnie wartości przesuwają narzędzie w stronę lub poza granicę. Ujemne wartości cofają narzędzie od granicy.
+* *Boundary Enforcement*: Jeśli wartość to prawda, narzędzie pozostanie wewnątrz granic modelu lub wybranych powierzchni.
+* *Handle Multiple Features*: Wybierz sposób przetwarzania wielu cech geometrii bazowej.
+* *Internal Features Adjustment*: Dodatnie wartości przesuwają narzędzie w stronę lub do wnętrza cechy. Ujemne wartości cofają narzędzie od cechy.
+* *Internal Features Cut*: Obrabiaj obszary wewnętrznych cech w większej wybranej powierzchni.
+
+.Punkt startowy
+* *Start Point*: Własny punkt początkowy ścieżki dla tej operacji, ustawiony w podwłaściwościach: X, Y, Z.
+** *X*: Wartość osi X.
+** *Y*: Wartość osi Y.
+** *Z*: Wartość osi Z.
+* *Use Start Point*: Ustaw na "True", jeśli określasz punkt początkowy.
+
+.Powierzchnia
+* *Scan Type*: Płaski: płaski skan powierzchni 3D. Obrotowy: obrotowy skan w czwartej osi.
+
+.Odpady
+* *Ignore Waste*: Ignoruj obszary, które przekraczają określoną głębokość.
+* *Ignore Waste Depth*: Głębokość używana do identyfikacji obszarów odpadów do zignorowania.
+* *Release From Waste*: Przetnij przez odpady do głębokości na krawędzi modelu, uwalniając model.
+
+== Układ edytora w oknie zadań
+
+_Opisy ustawień znajdują się na powyższej liście właściwości_.
+
+Ta sekcja jest po prostu mapą układu ustawień w edytorze okien dla operacji.
+
+=== Lokalizacja podstawowa
+
+* *Base Geometry import selection*: Użyj tej listy, aby wybrać geometrię podstawową do importu z wybranej, istniejącej operacji.
+* *Import*: Importuje geometrię podstawową wybranej operacji do listy geometrii bazowej bieżącej operacji.
+* *Base Geometry list for current operation*: Lista geometrii podstawowej dla bieżącej operacji, jeśli jakieś elementy zostały wybrane.
+* *Add*: Dodaje wybrany(e) element(y), które mają stanowić bazę dla ścieżki/ścieżek.
+* *Remove*: Usuwa wybrany(e) element(y) z listy lokalizacji bazy.
+* *Clear*: Czyści wszystkie elementy z listy lokalizacji bazy.
+
+=== Głębokość
+
+* *Start Depth*
+* *Final Depth*
+* *Step Down*
+
+=== Wysokość
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Operacja
+
+* *Tool Controller*
+* *Coolant Mode*
+
+* *BoundBox*
+* *Scan Type*
+* *Layer Mode*
+* *BoundBox extra offset X*
+* *BoundBox extra offset Y*
+* *Drop Cutter Direction*
+* *Depth Offset*
+* *Step Over*
+* *Sample Interval*
+* *Optimize Output Enabled*
+
+* *Use Start Point*
+* *Boundary Enforcement*
+* *Optimize Linear Paths*
+
+== Źródła
+
+* Symulator G-Code _(ścieżka)_: https://ncviewer.com/[NCViewer]
+* Symulator G-code _(ścieżka)_: https://www.camotics.org/[CAMotics]

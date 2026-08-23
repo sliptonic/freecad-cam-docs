@@ -1,0 +1,191 @@
+= CAM Lignes de niveau
+:page-origin: https://wiki.freecad.org/CAM_Waterline/fr
+:page-origin-revision: 343417f950 2026-06-08
+:page-command: CAM_Waterline
+:page-icon: CAM_Waterline.svg
+:page-menu: CAM → Lignes de niveau
+:page-workbench: CAM
+:page-since: 0.19
+:page-imported: true
+
+WARNING: Il s'agit d'une fonction expérimentale inachevée. Voir xref:reference/experimental.adoc[CAM Fonctions expérimentales]
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Waterline.svg[CAM Lignes de niveau,32] *CAM Lignes de niveau*
+
+Menu location:: menu:CAM[Lignes de niveau]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: _None_
+--
+
+== Description
+
+La commande image:CAM_Waterline.svg[width=24] xref:operations/waterline.adoc[Lignes de niveau] crée une nouvelle opération de lignes de niveau. A partir de 0.19++_++pre, l'opération fonctionne sur l'ensemble du modèle pour générer le G-code de la tâche. Actuellement, dans les paramètres de l'opération, il n'y a pas de fonctionnalité pour sélectionner des zones, des faces ou des régions spécifiques du modèle.
+
+L'opération Lignes de niveau dispose de trois algorithmes : OCL Dropcutter, OCL Adaptive et Experimental.
+
+* Les algorithmes OCL Dropcutter et OCL Adaptive s'interfacent avec OCL.pyd, un module open source tiers appelé xref:reference/opencamlib.adoc[OpenCamLib], qui génère des parcours d'outils à partir d'un modèle 3D. OpenCamLib n'est pas intégré directement à FreeCAD.
+* L'algorithme OCL Adaptive est disponible. Il permet de générer plus rapidement des parcours plus fluides pour les modèles adaptés. Il n'est pas limité par les limites de Lignes de niveau. Utilisez une xref:dressups/path-boundary.adoc[finition de parcours] si nécessaire. [.since]#introduced in 1.2#
+* L'algorithme Experimental utilise la classe intégrée Path.Area().
+
+*Remarque :* pour utiliser les Lignes de niveau, vous devez :
+
+. Installer correctement xref:reference/opencamlib.adoc[OpenCamLib].
+. Activer les xref:reference/experimental.adoc[Fonctions expérimentales] de l'atelier CAM.
+. Vérifier menu:Édition[Préférences > CAM > Avancé > Activer les fonctions dépendantes d'openCAMlib].
+
+== Utilisation
+
+Les instructions d'utilisation pour plusieurs variantes de l'opération xref:operations/waterline.adoc[Lignes de niveau] sont présentées ici.
+
+=== Opération de base
+
+. Appuyez sur l'icône image:CAM_Waterline.svg[width=24] xref:operations/waterline.adoc[Lignes de niveau] ou sélectionnez l'outil xref:operations/waterline.adoc[Lignes de niveau] du menu *CAM*.
+. Sélectionnez le contrôleur d'outil pour l'opération dans la fenêtre de dialogue du contrôleur d'outil.
+. Ajustez les profondeurs d'opération selon les besoins dans l'onglet Depths : Profondeur de départ, Profondeur de fin, Pas de descente.
+. Effectuez des ajustements dans l'onglet Hauteurs si nécessaire.
+. Configurez les paramètres dans l'onglet Opérations en fonction de l'algorithme sélectionné :
+.. OCL Dropcutter
+... Choisissez la boîte englobante : Brut ou Boîte englobante de base.
+... Définissez le mode des passes : Passe unique ou Passes multiples.
+... Définissez l'intervalle d'échantillonnage utilisé pour l'analyse OCL.
+.. OCL Adaptive
+... Définissez le mode des passes : Passe unique ou Passes multiples.
+... Définissez l'intervalle d'échantillonnage et l'intervalle d'échantillonnage minimum pour le balayage adaptatif d'OCL.
+... Vous pouvez activer l'option _Optimiser les parcours linéaires_.
+.. Expérimental
+... Choisissez la boîte englobante : Brut ou Boîte englobante de base.
+... Définissez le mode des passes : Passe unique ou Passes multiples.
+... Définissez le motif de passe si vous souhaitez ébaucher à chaque passe.
+... Définissez l'ajustement des limites (allocation de matière).
+. Si vous voulez prévisualiser le résultat avant d'accepter les paramètres, cliquez sur Appliquer
+. Cliquez sur le bouton *OK* pour confirmer et générer des parcours.
+
+Pour obtenir des effets différents ou plus complexes, définissez des propriétés d'opération supplémentaires dans l'onglet Data de l'éditeur de propriétés pour l'opération.
+
+==== Remarques sur l'algorithme expérimental
+
+* Il ne gère pas correctement les surplombs.
+* Il ne renvoie que les chemins pour une fraise de type fraise en bout (outil).
+* Il peut ne pas capturer correctement toutes les caractéristiques intérieures.
+* C'est juste ça, expérimental, et pas prêt pour l'intégration grand public. Inspectez les parcours avec le image:Path_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[CAM Simulateur de parcours] ou d'autres outils d'inspection G-code tiers, avant de couper avec votre machine.
+
+==== Formes d'outils disponibles
+
+Lorsque vous utilisez l'algorithme *_OCL Dropcutter_*, l'opération Lignes de niveau utilise xref:reference/opencamlib.adoc[OpenCamLib OCL] pour extraire les parcours de la base de la pièce. En tant que tel, une traduction d'outil est nécessaire entre le contrôleur d'outil de FreeCAD et d'OCL afin de terminer l'analyse avec la forme d'outil (cutter) choisie. Ces formes d'outils sont (doivent être) respectées et disponibles pour le Dropcutter OCL tant que les formes d'outils intégrées sont utilisées, qu'il s'agisse d'outils hérités ou d'outils coupants :
+
+* Fraise en bout
+* Fraise à boule
+* Fraise en bout de nez
+* Chanfrein
+* Graveur
+
+==== Remarques additionnelles
+
+* Si vous choisissez d'exécuter le simulateur de parcours, image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[CAM Simulateur de parcours] dans l'atelier CAM, vous pourriez ne pas voir d'enlèvement de matière spécifique à la forme de l'outil. Prudence donc. Un petit travail d'essai utilisant de la mousse ou un autre matériau très peu dense est recommandé pour vérifier que les parcours sont corrects avec le contrôleur d'outil sélectionné.
+* À compter de mai 2020, seule la fraise en bout dispose de tout type de test pour déterminer l'exactitude de la traduction des paramètres de l'outil FreeCAD vers OCL. Poster tout commentaire concernant une utilisation non-finale dans la section https://forum.freecad.org/viewforum.php?f=15[CAM] des forums de FreeCAD.
+
+== Propriétés
+
+*_Remarque_*: toutes ces propriétés ne sont pas disponibles dans l'éditeur de fenêtre de tâches. Certaines ne sont accessibles que dans l'onglet Données du panneau Vue de propriétés pour cette opération.
+
+.Base
+Remarque : il est conseillé de ne pas modifier la propriété *Placement* des opérations de parcours. Il convient plutôt de déplacer ou de faire pivoter le modèle de la tâche de CAM selon les besoins.
+
+* *Placement* : placement global ++[++position et rotation++]++ de l'objet, par rapport à l'origine (ou à l'origine du conteneur d'objet parent)
+** *Angle* : angle en degrés appliqué à la rotation de l'objet autour de la valeur de la propriété *Axis*
+** *Axis* : axe (un ou plusieurs) autour duquel faire pivoter l'objet, défini dans les sous-propriétés : X, Y, Z.
+*** *X* : valeur de l'axe X.
+*** *Y* : valeur de l'axe Y.
+*** *Z* : valeur de l'axe Z.
+** *Position* : position de l'objet, définie dans les sous-propriétés : X, Y, Z, par rapport à l'origine (ou à l'origine du conteneur de l'objet parent).
+*** *X* : valeur de la distance en X.
+*** *Y* : valeur de la distance en Y.
+*** *Z* : valeur de la distance en Z.
+* *Label* : nom de l'objet fourni par l'utilisateur (UTF-8).
+
+.Clearing Options
+* *Algorithm* : bibliothèque à utiliser pour générer le parcours
+* *BoundBox* : détermine si l'opération doit être limitée à l'objet brut ou à la boîte englobante de l'objet de base
+* *Clear Last Layer* : active l'ébauchage de la dernière passe lors d'une opération « Passes multiples ».
+* *Cut Mode* : direction dans laquelle le parcours d'outil doit aller autour de la pièce : usinage en avalant (sens horaire) ou usinage en opposition (sens anti-horaire)
+* *Cut Pattern* : motif d'ébauchage à utiliser
+* *Depth Offset* :
+* *Ignorer Outer Above* :
+* *Layer Mode* : mode d'exécution de l'opération : une seul passe ou passes multiples.
+* *Min Sample Interval* : résolution de l'échantillonnage minimum pour l'algorithme OCL Adaptive
+* *Optimize Linear Paths* : suppression des points colinéaires superflus de la génération du G-code
+* *Step Over* :
+
+.Depth
+* *Clearance Height* : hauteur nécessaire pour éviter les brides et les obstructions.
+* *Final Depth* : profondeur finale de l'outil, valeur la plus basse de Z.
+* *Safe Height* : seuil supérieur duquel les mouvements rapides sont autorisés.
+* *Start Depth* : profondeur initiale de l'outil, première profondeur de coupe en Z.
+* *Step Down* : pas de descente incrémentale de l'outil.
+
+.Path
+* *Active* : mettre à False pour empêcher l'opération de générer du code.
+* *Base* : géométrie de base pour cette opération.
+* *Comment* : commentaire facultatif pour cette opération.
+* *Coolant Mode* :
+* *Cycle Time* :
+* *Tool Controller* : définit le contrôleur d'outil utilisé dans l'opération.
+* *User Label* : étiquette attribuée par l'utilisateur.
+
+.Start Point
+* *Start Point* : point de départ personnalisé pour le chemin de cette opération.
+** *X* : valeur de la distance en X.
+** *Y* : valeur de la distance en Y.
+** *Z* : valeur de la distance en Z.
+* *Use Start Point* : mis à True, si vous spécifiez manuellement un point de départ.
+
+== Disposition de l'éditeur de la fenêtre des tâches
+
+_Les descriptions des paramètres sont fournies dans la liste des propriétés ci-dessus._
+
+Cette section est simplement une représentation des paramètres de l’éditeur de fenêtres pour l’opération.
+
+=== Localisation de la base
+
+* *Ajouter* : ajoute le(s) élément(s) sélectionné(s) qui doit(vent) être la(les) base(s) pour le(s) parcours.
+* *Supprimer* : supprime le ou les éléments sélectionnés dans la liste de la géométrie de base.
+* *Réinitialiser* : réinitialise tous les éléments de la liste de la géométrie de base.
+
+=== Profondeurs
+
+* *Start Depth*
+* *Final Depth*
+* *Step Down*
+
+=== Hauteurs
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Opération
+
+* *Tool Controller*
+* *Coolant Mode*
+* *Algorithm*
+* *BoundBox*
+* *Layer Mode*
+* *Cut Pattern*~
+* *Boundary Adjustment*~
+* *Sample Interval*~
+* *Min Sample Interval*~
+* *Optimize Linear Paths*~
+
+~ La visibilité change avec d'autres paramètres.
+
+== Ressources
+
+* https://ncviewer.com/[Simulateur de G-code NCViewer]
+* https://www.camotics.org/[Simulateur de G-code CAMotics]
+* https://youtu.be/WYSjf5Omo9c[Vidéo expliquant comment utiliser cet outil]

@@ -1,0 +1,40 @@
+= CAM AufbereitungBegrenzungsPfad
+:page-origin: https://wiki.freecad.org/CAM_DressupPathBoundary/de
+:page-command: CAM_DressupPathBoundary
+:page-icon: CAM_DressupPathBoundary.svg
+:page-menu: CAM → Bahnbearbeitung → Begrenzung
+:page-workbench: CAM
+:page-see-also: CAM Haltesteg, CAM Eingangsrampe
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupPathBoundary.svg[CAM AufbereitungBegrenzungsPfad,32] *CAM AufbereitungBegrenzungsPfad*
+
+Menu location:: menu:CAM[Bahnbearbeitung > Begrenzung]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/tag.adoc[CAM Haltesteg], xref:dressups/ramp-entry.adoc[CAM Eingangsrampe]
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_DressupPathBoundary.svg[width=24] xref:dressups/path-boundary.adoc[CAM AufbereitungBegrenzungsPfad] ermöglicht es, den Umfang eines Pfades auf einen kleineren Teil des Objekts zu beschränken. Beispielsweise kann ein Profilpfad auf nur eine Fläche oder einen Teil des Modells beschränkt werden.
+
+== Anwendung
+
+. Einen Pfad wie Kontur, Profil oder Taschenbearbeitung auswählen.
+. Aus dem Menü die Option menu:CAM[Bearbeitungspfad > Begrenzung] auswählen.
+
+== Optionen
+
+* *Box Erzeugen*
+* *Zylinder Erzeugen*
+* *Begrenzungsbox des Modells erweitern*: Eine sehr bequeme Möglichkeit, einen Pfad zu begrenzen, besteht darin, diese Option auszuwählen und negative Werte zu verwenden.
+* *Bestehenden Volumenkörper verwenden*
+
+== Einschränkungen
+
+* Die Option__Box Erzeugen__ legt nur die Abmessungen der Box fest, nicht ihren Ursprung. Um ihre Herkunft zu ändern, muss man ihre _Positionierung_ in der https://wiki.freecad.org/Tree_View[Baumansicht] anpassen.

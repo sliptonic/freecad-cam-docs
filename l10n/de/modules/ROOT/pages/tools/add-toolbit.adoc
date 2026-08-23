@@ -1,0 +1,54 @@
+= CAM WerkzeugbitAblage
+:page-origin: https://wiki.freecad.org/CAM_ToolBitDock/de
+:page-origin-revision: 4be266b92b 2026-07-09
+:page-command: CAM_ToolBitDock
+:page-icon: CAM_ToolBitDock.svg
+:page-menu: CAM → Werkzeugbit hinzufügen …
+:page-workbench: CAM
+:page-shortcut: P T
+:page-since: 0.19
+:page-see-also: CAM WerkzeugbitBibliothekÖffnen, CAM Werkzeuge, CAM Werkzeugbit
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ToolBitDock.svg[CAM WerkzeugbitAblage,32] *CAM WerkzeugbitAblage*
+
+Menu location:: menu:CAM[Werkzeugbit hinzufügen …]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[T]]
+Introduced in version:: 0.19
+See also:: xref:tools/library-manager.adoc[CAM WerkzeugbitBibliothekÖffnen], xref:tools/index.adoc[CAM Werkzeuge], xref:tools/toolbit.adoc[CAM Werkzeugbit]
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_ToolBitDock.svg[width=24] xref:tools/add-toolbit.adoc[CAM WerkzeugbitAblage] öffnet die Werkzeugbit-Auswahl.
+
+Der Selektor dient dazu, die aktuell ausgewählte Bibliothek anzuzeigen und dem Benutzer zu ermöglichen, schnell Werkzeugsteuerungen zu den CAM-Aufträgen hinzuzufügen.
+
+Durch Doppelklicken auf ein Werkzeugbit wird eine einzelne Werkzeugsteuerung für dieses Werkzeugbit erstellt. Durch Mehrfachauswahl von Werkzeugbits und Klicken auf die Schaltfläche 'Zum Auftrag hinzufügen' werden Werkzeugsteuerungen für alle Werkzeugbits in der Bibliothek erstellt.
+
+Der Benutzer kann auch mehrere Werkzeuge auswählen und über die Schaltfläche „Hinzufügen ...“ unten Werkzeugsteuerungen für die Auswahl hinzufügen.
+
+[cols=",",]
+|===
+|image:Toolbit_Dock.png[width=200] |Oben im Fenster wird der Name der aktuellen Bibliothek *(1)'' angezeigt. Alle Werkzeugbibliotheken an diesem Speicherort werden gescannt und im Auswahlfeld angezeigt. Das Auswahlfeld speichert die letzte Auswahl zwischen den einzelnen Verwendungen. Über die Schaltfläche Manager oben rechts*(4)''' kann der Benutzer den Bibliotheksmanager starten. Der Bibliotheksmanager kann zur Verwaltung der Werkzeugbits und zur Auswahl einer anderen Bibliothek verwendet werden.
+|===
+
+== Anwendung
+
+=== Werkzeugsteuerungen erstellen
+
+. Es gibt mehrere Möglichkeiten, den Werkzeugauswahl-Dialog zu öffnen:
+* Die Schaltfläche image:CAM_ToolBitDock.svg[width=16] xref:tools/add-toolbit.adoc[Werkzeug hinzufügen…] drücken.
+* Die Option menu:CAM[Werkzeugbit hinzufügen…] aus dem Menü wählen.
+* Die Tastenkombination: kbd:[P] und dann kbd:[T] verwenden.
+. Die Auswahl verwenden, um Werkzeugsteuerungen zu einem CAM-Auftrag hinzuzufügen.
+* Auf einen Werkzeugknoten *(2)* doppelklicken, um eine Werkzeugsteuerung für dieses Werkzeug zu erstellen.
+* Ein oder mehrere Werkzeuge auswählen und die Schaltfläche 'Zum Auftrag hinzufügen…' *(3)* drücken.
+
+== Optionen

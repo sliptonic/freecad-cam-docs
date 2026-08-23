@@ -1,0 +1,38 @@
+= CAM: Szybka kopia
+:page-origin: https://wiki.freecad.org/CAM_SimpleCopy/pl
+:page-origin-revision: fda95dc398 2026-07-08
+:page-command: CAM_SimpleCopy
+:page-icon: CAM_SimpleCopy.svg
+:page-menu: CAM → Modyfikacja ścieżki → Szybka kopia
+:page-workbench: CAM
+:page-see-also: CAM: Kopia
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SimpleCopy.svg[CAM: Szybka kopia,32] *CAM: Szybka kopia*
+
+Menu location:: menu:CAM[Modyfikacja ścieżki > Szybka kopia]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:modify/copy.adoc[CAM: Kopia]
+--
+
+== Opis
+
+Narzędzie image:CAM_SimpleCopy.svg[width=24] xref:modify/simple-copy.adoc[Szybka kopia] tworzy nieparametryczną kopię danej ścieżki.
+
+[.since]#introduced in 26.3#: To polecenie może połączyć wiele wybranych operacji w jedną prostą kopię.
+
+== Użycie
+
+. Wybierz jeden lub więcej obiektów xref:index.adoc[środowiska pracy CAM].
+. Wciśnij przycisk image:CAM_SimpleCopy.svg[width=16] xref:modify/simple-copy.adoc[Prosta kopia]
+
+== Opcje
+
+* Szybka kopia nie jest już powiązana ze ścieżką, z której była utworzona i nie jest parametryczna. Więc każda zmiana do jej kodu G-code podczas edycji opcją xref:inspect/inspect.adoc[Sprawdź ścieżkę narzędzia] zostanie zachowana.
+* Wiele wybranych operacji musi używać tego samego *Coolant Mode* i *Tool Controller*.
+* [.since]#introduced in 26.3#: Szybka kopia może również kopiować operacje zawierające polecenia bez użycia standardowej klasy bazowej operacji CAM.

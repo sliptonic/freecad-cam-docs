@@ -1,0 +1,55 @@
+= CAM Anordnung
+:page-origin: https://wiki.freecad.org/CAM_Array/de
+:page-origin-revision: 055d80eab9 2026-05-20
+:page-command: CAM_Array
+:page-icon: CAM_Array.svg
+:page-menu: CAM → Pfadänderung → Anordnung
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Array.svg[CAM Anordnung,32] *CAM Anordnung*
+
+Menu location:: menu:CAM[Pfadänderung > Anordnung]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Das Befehl image:CAM_Array.svg[width=24] xref:modify/array.adoc[Anordnung] erstellt einen neuen Pfad durch mehrfaches Duplizieren eines anderen Pfades mit einem bestimmten Abstandsintervall.
+
+== Anwendung
+
+. Die Bearbeitung auswählen, die man wiederholen möchte
+. Die Schaltfläche image:CAM_Array.svg[width=16] xref:modify/array.adoc[Anordnung] drücken
+. btn:[Anwenden] drücken
+. Die gewünschten Eigenschaften im Datenfeld anpassen
+
+== Eigenschaften
+
+* *Type*: Die Art der Anordnung `Linear1D`, `Linear2D` oder `Polar`
+* *Offset*: Der Abstand zwischen den Kopien in einer Anordnung für jede Richtung
+* *Copies*: Die Anzahl der Kopien (das Original nicht mitgezählt) für jede Richtung
+
+[.since]#introduced in 1.2#: Die bisherige prozentuale Jitter-Steuerung wurde durch *UseJitter* ersetzt. Jitter kann auf polare Anordnungen angewendet werden, und zufälliger Rotations-Jitter ist für alle Anordnungs-Typen verfügbar.
+
+* *UseJitter*: Aktiviert zufällige Versätze und Drehungen für generierte Anordnungs-Kopien
+* *JitterMagnitude*: Die maximale zufällige Verschiebung in jede Richtung
+* *JitterAngle*: Der maximale zufällige Drehwinkel
+* *JitterSeed*: Der Startwert für den wiederholbaren Jitter
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+#Place code example here.
+----

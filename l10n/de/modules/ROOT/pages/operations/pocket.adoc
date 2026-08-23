@@ -1,0 +1,155 @@
+= CAM Taschenform
+:page-origin: https://wiki.freecad.org/CAM_Pocket_Shape/de
+:page-origin-revision: 87764fc51f 2026-07-09
+:page-command: CAM_Pocket_Shape
+:page-icon: CAM_Pocket_Shape.svg
+:page-menu: CAM → Taschenform
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Pocket_Shape.svg[CAM Taschenform,32] *CAM Taschenform*
+
+Menu location:: menu:CAM[Taschenform]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Pocket_Shape.svg[width=24] xref:operations/pocket.adoc[CAM Taschenform] erzeugt eine Taschenbearbeitung von ausgewählten Bodenflächen oder Wänden einer oder mehrerer Taschen des Basisobjekts Auftrags.
+
+Das CAM Pocket Shape-Objekt ist dazu gemacht, Teil eines image:CAM_Job.svg[width=24] xref:job/job.adoc[CAM-Auftrags] zu sein.
+
+image::Path_Pocket_Shape_example.png[width=600]
+
+== Anwendung
+
+. Den Boden oder die Wände einer Tasche auswählen. Normalerweise ist es einfacher, den Boden auszuwählen, aber wenn eine Tasche durch alle Ebenen verläuft, müssen die Wände ausgewählt werden.
+. [.since]#introduced in 26.3#: Es können auch horizontale Kanten ausgewählt werden. Kanten werden zu Kantenzügen zusammengefasst und ein geschlossener horizontaler Kantenzug wird in eine Vertiefungsfläche konvertiert.
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_Pocket_Shape.svg[width=16] xref:operations/pocket.adoc[Taschenform] drücken.
+* Den Menüeintrag menu:CAM[Taschenform] auswählen.
+. Die gewünschten Eigenschaften anpassen.
+
+== Eigenschaften
+
+*_Hinweis_*: Nicht alle diese Eigenschaften sind im Aufgaben-Fenster-Editor verfügbar. Einige sind nur auf der Registerkarte Daten des Eigenschaftenfensters für diese Bearbeitung zugänglich.
+
+.Base
+Hinweis: Es wird empfohlen, die Eigenschaft *Placement* von Pfadbearbeitungen nicht zu bearbeiten. Stattdessen verschiebt oder dreht man das CAM-Auftragsmodell nach Bedarf.
+
+* *Placement*: Gesamtpositionierung ++[++Position und Drehung++]++ des Objekts – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+** *Angle*: Winkel in Grad, der auf die Drehung des Objekts um den Achsenwert angewendet wird
+** *Axis*: Achse (eine oder mehrere), um die das Objekt gedreht werden soll, festgelegt in den Untereigenschaften: X, Y, Z
+*** *X*: X-Achswert
+*** *Y*: Y-Achswert
+*** *Z*: Z-Achswert
+** *Position*: Position des Objekts, festgelegt in Untereigenschaften: X, Y, Z – in Bezug auf den Ursprung (oder Ursprung des übergeordneten Objektcontainers)
+*** *X*: X-Abstandswert
+*** *Y*: Y-Abstandswert
+*** *Z*: Z-Abstandswert
+* *Label*: Vom Benutzer angegebener Name des Objekts (UTF-8)
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden
+* *Final Depth*: Endtiefe des Werkzeugs – niedrigster Wert in Z
+* *Finish Depth*: Maximale Materialabtragung beim letzten Durchgang
+* *Safe Height*: Die oben genannten schnellen Bewegungen sind erlaubt
+* *Start Depth*: Starttiefe des Werkzeugs – erste Schnitttiefe in Z
+* *Step Down*: Inkrementelle Absenkung des Werkzeugs
+
+image::Path-DepthsAndHeights.gif[width=500]
+
+ 
+[.caption]
+Visuelle Referenz für Tiefeneigenschaften (Einstellungen)
+
+.Extension
+* *Extension Corners*: Wenn aktiviert, werden verbundene Verlängerungskanten zu Linienzügen zusammengefasst.
+* *Extension Length Default*: Standardlänge der Verlängerungen.
+
+.Face
+* *Offset Pattern*: Zu verwendendes Räumen-Muster. (Man wählt aus, auf welche Weise die horizontalen Bewegungen ausgeführt werden sollen.)
+
+.Path
+* *Active*: Falsch machen, um zu verhindern, dass der Vorgang Code generiert
+* *Comment*: Ein optionaler Kommentar für diese Bearbeitung
+* *User Label*: Benutzerdefinierte Beschriftung
+* *Tool Controller*: Definiert die in der Bearbeitung verwendete Werkzeugsteuerung
+
+.Pocket
+* *Cut Mode*: Legt eine Bewegung im Uhrzeigersinn oder gegen den Uhrzeigersinn für den Schnitt fest
+* *Extra Offset*: Zusätzlicher Versatz, der auf den Vorgang angewendet wird. Die Richtung ist vom Vorgang abhängig. (Zusätzlicher Wert, um vom endgültigen Profil _gut für Schruppwerkzeugbahn_ entfernt zu bleiben)
+* *Min Travel*: Die 3D-Sortierung von Pfaden verwenden (wenn mehrere Basisgeometrien verwendet werden).
+* *Retract Threshold*: Abstand, unterhalb dessen die Funktion bei Neupositionierungsvorgängen unten bleiben kann. Der Wert `0` deaktiviert dieses Verhalten. [.since]#introduced in 26.3#: Dies ersetzt *Keep Tool Down*.
+* *Start At*: Mit dem Einstecken in der Mitte oder an der Grenze beginnen.
+* *Step Over*: Den horizontalen Schritt (*Prozent* des Werkzeugdurchmessers: 100 % = Werkzeugdurchmesser) wählen.
+* *Use Outline*: Verwendet den Umriss der Basisgeometrie.
+* *Angle*: Winkel des Ausdünnungsmusters relativ zur X-Achse. Diese Eigenschaft hieß früher *Zig Zag Angle*. Sie wird ausgeblendet, wenn *Offset Pattern* auf `Offset` gesetzt ist.
+* *SortingMode*: Legt fest, wie mehrere ausgewählte Basisgeometrien angeordnet werden. `Automatic` verwendet die automatische Sortierung. `Manual` folgt der Reihenfolge der Auswahl.
+
+.Rotation
+* *Attempt Inverse Angle*: Automatisch den inversen Winkel versuchen, wenn die anfängliche Drehung falsch ist.
+* *B_Axis Error Override*: B(y)-Drehungen visuell am Modell ausrichten (Fehler im FreeCAD-Rendering).
+* *Enable Rotation*: Die Drehung aktivieren, um Zugang zu Löchern zu erhalten, die nicht senkrecht zur Z-Achse stehen.
+* *Inverse Angle*: Den Drehwinkel umkehren. _*Beispiel:* Eine Drehung von -22,5 auf 22,5 Grad ändern._
+* *Reverse Direction*: Umkehrung der Ausrichtung der Bearbeitung um 180 Grad.
+
+.Start Point
+* *Start Point*: Der Startpunkt dieses Pfades.
+* *Use Start Point*: True setzen, wenn ein Startpunkt manuell festgelegt werden soll, und dann die Startpunkte in das Feld Start Points der Eigenschaftsdaten eingeben.
+
+== Layout des Aufgaben-Fenster-Editors
+
+_Beschreibungen zu den Einstellungen findet man in der Eigenschaften-Liste oben._
+
+Dieser Abschnitt ist lediglich eine Übersichtskarte der Einstellungen im Fenster-Editor für die Bearbeitungen.
+
+=== Basisgeometrie
+
+* *Hinzufügen*: Fügt ausgewählte Elemente hinzu, die als Basis für die Pfade dienen sollen
+* *Entfernen*: Entfernt die ausgewählten Elemente aus der Liste Basisgeometrie
+* *Löschen*: Alle Elemente in der Liste Basisgeometrie löschen
+
+=== Erweiterungen
+
+* *Show All*: Wenn diese Option ausgewählt ist, werden alle potenziellen Erweiterungen angezeigt. Aktivierte Erweiterungen werden in Lila, deaktivierte Erweiterungen in Gelb dargestellt.
+* *Extension Corners*
+* *Extension Length Default*
+* *Aktivieren*
+* *Deaktivieren*
+* *Löschen*
+
+=== Tiefen
+
+* *Start Depth*
+* *Final Depth*
+* *Step Down*
+
+=== Höhen
+
+* *Safe Height*
+* *Clearance Height*
+
+=== Bearbeitungen
+
+* *Tool Controller*
+* *Cut Mode*
+* *Pattern* (Versatzmuster)
+* *Angle*
+* *Step Over Percent* (Überspringen)
+* *Pass Extension*: Der Abstand, um den sich der Ausfräsvorgang über die Begrenzungsform (Basisgeometrie) hinaus erstreckt
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+[source,python]
+----
+#Place code example here.
+----

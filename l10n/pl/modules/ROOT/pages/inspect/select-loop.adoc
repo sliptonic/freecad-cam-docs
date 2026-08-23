@@ -1,0 +1,38 @@
+= CAM: Zakończ zaznaczona pętlę
+:page-origin: https://wiki.freecad.org/CAM_SelectLoop/pl
+:page-origin-revision: b46bd48084 2026-07-08
+:page-command: CAM_SelectLoop
+:page-icon: CAM_SelectLoop.svg
+:page-menu: CAM → Zakończ zaznaczoną pętlę
+:page-workbench: CAM
+:page-shortcut: P L
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SelectLoop.svg[CAM: Zakończ zaznaczona pętlę,32] *CAM: Zakończ zaznaczona pętlę*
+
+Menu location:: menu:CAM[Zakończ zaznaczoną pętlę]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[kbd:[P] kbd:[L]]
+Introduced in version:: -
+See also:: _None_
+--
+
+== Opis
+
+Narzędzie image:CAM_SelectLoop.svg[width=16] xref:inspect/select-loop.adoc[Zakończ zaznaczoną pętle] zakańcza wybór krawędzi, które tworzą pętlę.
+
+== Użycie
+
+. Zaznacz krawędź.
+. Jest kilka sposobów na wywołanie tej komendy:
+* Wciśnij przycisk image:CAM_SelectLoop.svg[width=16] xref:inspect/select-loop.adoc[Zakończ zaznaczoną pętlę].
+* Wybierz opcję menu:CAM[Zakończ zaznaczoną pętlę] z menu.
+* Użyj skrótu klawiszowego: kbd:[P] a następnie kbd:[L].
+. Pozostałe krawędzie pętli są dodawane do zaznaczenia.
+
+== Uwagi
+
+* To polecenie może być też bardzo przydatne w innych środowiskach pracy.

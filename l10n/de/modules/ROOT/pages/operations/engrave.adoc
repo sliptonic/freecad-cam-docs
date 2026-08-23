@@ -1,0 +1,90 @@
+= CAM Gravieren
+:page-origin: https://wiki.freecad.org/CAM_Engrave/de
+:page-origin-revision: 3071ac0e48 2026-07-09
+:page-command: CAM_Engrave
+:page-icon: CAM_Engrave.svg
+:page-menu: CAM → Gravieren
+:page-workbench: CAM
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Engrave.svg[CAM Gravieren,32] *CAM Gravieren*
+
+Menu location:: menu:CAM[Gravieren]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_Engrave.svg[width=24] xref:operations/engrave.adoc[CAM Gravieren] dient in erster Linie zum Gravieren einer image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Textform] auf ein Teil. Es kann auch mit anderen flachen 2D-Geometrien verwendet werden, beispielsweise mit importierten SVG-basierten Formen.
+
+== Anwendung
+
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_Engrave.svg[width=16] xref:operations/engrave.adoc[Gravieren] drücken.
+* Aus dem Menü die Option menu:CAM[Gravieren] wählen.
+. Im Abschnitt menu:Basisgeometrie[], die zu gravierende Geometrie auswählen.
+* Eine image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft Textform] kann verwendet werden.
+* Auch andere flache 2D-Geometrien, wie beispielsweise importierte SVG-basierte Formen, können verwendet werden.
+* Nach Möglichkeit die gesamte Fläche, anstatt viele einzelne Kanten in der https://wiki.freecad.org/3D_View[3D-Ansicht] auswählen.
+. Im Abschnitt menu:Tiefen[], die Tiefeneinstellung überprüfen und falls nötig anpassen.
+. Die Bearbeitung bestätigen.
+
+== Optionen
+
+* *Base*: Die zu gravierende Geometrie.
+* *Clear*: Löscht die aktuelle Geometrieauswahl.
+
+== Eigenschaften
+
+=== Daten
+
+.Base
+* *Placement*:
+* *Label*: Benutzername des Objekts (UTF-8)
+
+.Depth
+* *Clearance Height*: Die Höhe, die erforderlich ist, um Klemmen und Hindernisse zu überwinden
+* *Final Depth*: Endtiefe des Werkzeugs – niedrigster Wert in Z
+* *Safe Height*: Die oben genannten schnellen Bewegungen sind erlaubt
+* *Start Depth*: Starttiefe des Werkzeugs – erste Schnitttiefe in Z
+* *Step Down*: Inkrementelle Absenkung des Werkzeugs
+
+.Path
+* *Active*: Auf Falsch setzen, um zu verhindern, dass der Vorgang Code generiert
+* *Base*: Die Basisgeometrie für diesen Vorgang
+* *Comment*: Ein optionaler Kommentar zu diesem Vorgang
+* *Coolant Mode*: Kühlmittelmodus für diesen Vorgang
+* *Cycle Time*: Geschätzte Zykluszeit für diesen Vorgang
+* *Start Vertex*: Der Knotenindex, an dem der Pfad beginnen soll
+* *Tool Controller*: Die Werkzeugsteuerung, die zur Berechnung des Pfades verwendet wird
+* *User Label*: Vom Benutzer zugewiesene Bezeichnung
+
+.Hidden
+* *Base Object*:
+* *Base Shapes*:
+* *Expression Engine*:
+* *Label2*:
+* *Path*:
+* *Proxy*:
+* *Visibility*:
+
+=== Ansicht
+
+Leer
+
+== Skripten
+
+Siehe auch: https://wiki.freecad.org/FreeCAD_Scripting_Basics[Grundlagen der Skripterstellung in FreeCAD].
+
+Beispiel:
+
+[source,python]
+----
+#Place code example here.
+----

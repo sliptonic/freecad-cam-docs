@@ -1,0 +1,44 @@
+= CAM Preferences
+:page-origin: https://wiki.freecad.org/CAM_Preferences/de
+:page-origin-revision: 9d9ee7ffe3 2026-08-07
+:page-imported: true
+
+== Übersicht
+
+Der Einstellungsbildschirm des Arbeitsbereichs xref:index.adoc[CAM] befindet sich im https://wiki.freecad.org/Preferences_Editor[Voreinstellungseditor], menu:Bearbeiten[Einstellungen > CAM].
+
+Es gibt fünf Seiten: <<gui,Benutzeroberfläche>>, <<assets,Assets>>, <<job-preferences,Auftragseinstellungen>>, <<dressups,Aufbereitungen>> und <<advanced,Erweitert>>.
+
+== Benutzeroberfläche
+
+image:Preference_Path_Tab_03_V020.png[]
+
+== Ressourcen
+
+in Arbeit...
+
+[.since]#introduced in 26.3#: Maschinenressourcen können über die CAM-Einstellungen verwaltet werden. Die Maschinenbibliothek und der Maschineneditor dienen zum Erstellen und Bearbeiten von Maschinenkonfigurationsdateien im Format `*.fcm`, die für die maschinenbasierte Nachbearbeitung verwendet werden.
+
+== Auftragseinstellungen
+
+Es gibt vier Abschnitte: Allgemein, Nachbearbeitungsprogramm, Einrichtung und Werkzeuge.
+
+=== Allgemein
+
+image:Preference_Path_Tab_01_01_V020.png[]
+
+=== Postprozessor
+
+image:Preference_Path_Tab_01_02_V020.png[]
+
+=== Einrichtung
+
+image:Preference_Path_Tab_01_03_V020.png[]
+
+== Aufbereitung
+
+image:Preference_Path_Tab_02_V020.png[]
+
+== Erweitert
+
+image:Preference_Path_Tab_04_V020.png[]

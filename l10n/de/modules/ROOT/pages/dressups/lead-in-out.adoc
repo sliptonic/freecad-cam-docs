@@ -1,0 +1,53 @@
+= CAM AufbereitungAnAbfahren
+:page-origin: https://wiki.freecad.org/CAM_DressupLeadInOut/de
+:page-origin-revision: 924ac8c477 2026-06-08
+:page-command: CAM_DressupLeadInOut
+:page-icon: CAM_DressupLeadInOut.svg
+:page-menu: CAM → Bahnbearbeitung → An-/Abfahren
+:page-workbench: CAM
+:page-see-also: CAM Hundeknochen, CAM Haltesteg, CAM Eingangsrampe, CAM Schleppmesser
+:page-imported: true
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupLeadInOut.svg[CAM AufbereitungAnAbfahren,32] *CAM AufbereitungAnAbfahren*
+
+Menu location:: menu:CAM[Bahnbearbeitung > An-/Abfahren]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: xref:dressups/dogbone.adoc[CAM Hundeknochen], xref:dressups/tag.adoc[CAM Haltesteg], xref:dressups/ramp-entry.adoc[CAM Eingangsrampe], xref:dressups/drag-knife.adoc[CAM Schleppmesser]
+--
+
+== Beschreibung
+
+Der Befehl image:CAM_DressupLeadInOut.svg[width=24] xref:dressups/lead-in-out.adoc[CAM AufbereitungAnAbfahren] bereitet einen bestehenden Werkzeugweg auf, indem am Anfang und am Ende des Werkzeugwegs Ein- und Auslaufbewegungen hinzugefügt werden.
+
+== Anwendung
+
+. Ein bestehendes Pfad-Objekt auswählen.
+. Es gibt mehrere Möglichkeiten, den Befehl aufzurufen:
+* Die Schaltfläche image:CAM_DressupLeadInOut.svg[width=16] xref:dressups/lead-in-out.adoc[Ein-/Ausfahren] drücken.
+* Aus dem Menü die Option menu:CAM[Pfadaufbereitung > Ein-/Ausfahren] wählen.
+. Die Einstellungen für den Ein- und Auslauf im Aufgabenbereich anpassen.
+. Die Anpassung bestätigen.
+
+== Optionen
+
+* *Lead in*: Steuert die Einfahrbewegung, die vor dem Hauptschnittweg eingefügt wurde.
+* *Lead out*: Steuert die Auslaufbewegung, die nach dem Hauptschnittweg hinzugefügt wird.
+* *Feed rate*: [.since]#introduced in 26.3# Die entsprechenden Ein- und Ausfahrbewegungen verwenden die für diese Bewegungen in der Werkzeugsteuerung definierten Vorschubgeschwindigkeiten. Standardmäßig entsprechen diese der horizontalen Vorschubgeschwindigkeit.
+
+== Einschränkungen
+
+* Dieser Aufbereitungs-Modifikator verändert den Anfang und das Ende eines bestehenden Pfades.
+* Das genaue Ergebnis hängt vom ausgewählten Pfad sowie von den gewählten Einstellungen für den Ein- und Auslauf ab.
+* [.since]#introduced in 26.3# image:CAM_DressupRampEntry.svg[width=16] xref:dressups/ramp-entry.adoc[CAM AufbereitungEingangsrampe] kann auch auf einen Pfad angewendet werden, der bereits über eine Lead In/Out-Aufbereitung verfügt.
+
+== Skripten
+
+[source,python]
+----
+Add python code here
+----

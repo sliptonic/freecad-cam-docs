@@ -1,0 +1,52 @@
+= CAM ToolBit
+:page-origin: https://wiki.freecad.org/CAM_ToolBit/de
+:page-origin-revision: 007fa79416 2026-06-08
+:page-imported: true
+
+NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+
+== Beschreibung
+
+Werkzeugbits sind die Grundlage des xref:tools/index.adoc[CAM Werkzeug]-Systems. Sie stellen ein bestimmtes Werkzeug dar, das in einem CAM-Auftrag zur Erzeugung eines Werkzeugwegs verwendet werden kann. Jedes Werkzeugbit wird als JSON-Datei gespeichert. JSON ist strukturierte Daten, die von Makros oder Python-Skripten leicht verarbeitet werden können, aber für Menschen lesbar bleiben. Die Beschreibung von Werkzeugbits mit JSON ermöglicht es, große Sammlungen präziser Werkzeugbits automatisch oder mit einem Skript zu erstellen.
+
+Das Speichern eines Werkzeugs als JSON-Datei klingt großartig, schließt jedoch die Möglichkeit einer genauen Miniaturansicht oder einer soliden Körperdarstellung aus. Würde hingegen jedes Werkzeugteil als FreeCAD-Objekt erstellt, wäre das Erhalten des soliden Körpers zwar einfach, würde jedoch für große Werkzeugsammlungen enormen Speicherplatz erfordern. Außerdem wäre das automatische Erstellen von Werkzeugteilen als FreeCAD-Objekte schwierig oder unmöglich.
+
+Stattdessen handelt es sich bei dem Werkzeugbit um einen Hybrid. Die JSON-Datei enthält den Dateipfad zur Werkzeugform-Datei und Werte für alle Parameter, die zur Erstellung des spezifischen Werkzeugbits erforderlich sind.
+
+Wenn ein Werkzeug in einem Auftrag instanziiert wird, wird ein Körper aus der Vorlage erstellt und die Einschränkungen werden gemäß den Werten aus der JSON-Datei festgelegt. Alle zusätzlichen Parameter werden als Eigenschaften des Objekts erstellt. Dadurch werden die korrekten Formen und Abmessungen bereitgestellt, die zur Erzeugung einer Punktwolke oder eines Netzes für fortgeschrittene Algorithmen (und möglicherweise Simulationen) verwendet werden können.
+
+== Anwendung
+
+Innerhalb der FreeCAD-Benutzeroberfläche bietet der CAM-Werkzeugbit-Bibliotheksmanager einen Mechanismus zum Erstellen eines neuen Werkzeugbits. Ein einzelnes Werkzeugbit kann in mehreren Werkzeugbit-Bibliotheken vorhanden sein.
+
+. Den CAM Werkzeugbit-Manager öffnen.
+. Eine Bibliothek auswählen.
+. Ein Werkzeugbit erzeugen.
+
+== JSON-Struktur
+
+[.since]#introduced in 26.3#: Ein WerkzeugBit kann einen Parameter `Units` definieren: `Metric` oder `Imperial`. Der WerkzeugBit-Editor verwendet diesen Parameter für die Anzeige in der jeweiligen Ländereinheit; die CAM-Berechnungen erfolgen intern weiterhin in metrischen Einheiten. Eine Änderung des Einheitenschemas kann zu geringfügigen Rundungsunterschieden führen.
+
+[source,python]
+----
+{
+  "version": 2,
+  "name": "T1",
+  "shape": "endmill.fcstd",
+  "attribute": {},
+  "parameter": {
+    "Units": "Metric",
+    "CuttingEdgeHeight": "30.000 mm",
+    "Diameter": "1.000 mm",
+    "Length": "50.000 mm",
+    "ShankDiameter": "3.000 mm"
+  }
+}
+----
+
+== Optionen
+
+== Verwandt
+
+* xref:tools/index.adoc[CAM Werkzeuge]
+* xref:tools/library-manager.adoc[CAM WerkzeugbitBibliothekÖffnen]
