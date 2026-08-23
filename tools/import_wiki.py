@@ -238,9 +238,13 @@ def convert_links(text, ctx, page_map, images):
     def repl(m):
         inner = m.group(1)
         target, sep, label = inner.partition("|")
+        if sep and "{{" in label:
+            label = expand_templates(label, ctx)     # e.g. [[CAM_experimental|{{Emphasis|Experimental}}]]
         if target.strip().lower().startswith(("image:", "file:")):
             return ctx.protect(convert_image(target, label if sep else None, ctx, images))
         return ctx.protect(convert_link(target, label if sep else None, ctx, page_map, images))
+    # Links whose label holds a template contain '{{…|…}}' with a pipe, which the simple
+    # partition above handles because the first pipe separates target from label.
     return LINK_RE.sub(repl, text)
 
 
