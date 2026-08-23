@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Vcarve :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/vcarve.html">
+    <link rel="prev" href="deburr.html">
+    <link rel="next" href="pocket-3d.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="vcarve.html" selected>Audit (26.3dev)</option>
+            <option value="../../DEV/operations/vcarve.html">DEV (pre-release)</option>
+            <option value="../../wiki-2026-08/operations/vcarve.html">Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="audit-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="waterline.html">Waterline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Audit (26.3dev)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../wiki-2026-08/index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../index.html">Audit (26.3dev)</a>
+        </li>
+        <li class="version">
+          <a href="../../DEV/index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../wiki-2026-08/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Basic Operations</li>
+    <li><a href="vcarve.html">Vcarve</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Audit (26.3dev)</button>
+  <div class="version-menu">
+    <a class="version is-current" href="vcarve.html">Audit (26.3dev)</a>
+    <a class="version" href="../../DEV/operations/vcarve.html">DEV (pre-release)</a>
+    <a class="version" href="../../wiki-2026-08/operations/vcarve.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/audit/modules/ROOT/pages/operations/vcarve.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Vcarve</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="openblock fcinfobox">
+<div class="content">
+<div class="paragraph fcTitle">
+<p><span class="image"><img src="../_images/CAM_Vcarve.svg" alt="CAM Vcarve" width="32"></span> <strong>CAM Vcarve</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Vcarve</b></span></p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>0.19</p>
+</dd>
+<dt class="hdlist1">See also</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <span class="image"><img src="../_images/CAM_Vcarve.svg" alt="CAM Vcarve" width="24"></span> <a href="#">CAM Vcarve</a> command is primarily for center-line engraving a <span class="image"><img src="../_images/Draft_ShapeString.svg" alt="Draft ShapeString" width="16"></span> <a href="https://wiki.freecad.org/Draft_ShapeString">Draft ShapeString</a> onto a part. However, it may be useful for other kinds of 2D.</p>
+</div>
+<div class="paragraph">
+<p>Unlike engraving which follows the lines in the shapestring, V-carving uses a V-shaped cutter and attempts to clear the area by moving the cutter down the center of the region and varying the depth of cut. Since a v-cutter radius varies with the depth, the width of cut varies as well. The result is a more natural looking cut, particularly for serif fonts.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Engravepath.png" alt="Engravepath">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Vcarvepath.png" alt="Example Vcarving Path">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Vcarved.png" alt="Vcarved">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Scrolltest.png" alt="Scrolltest">
+</div>
+</div>
+<div class="paragraph">
+<p>The V-carve algorithm calculates a path down the center-line of a region using a Voronoi diagram. This center-line is the path the tool will follow in the XY-plane. It next calculates a 'maximum inscribed circle' along the path. This is the largest circle that can be drawn at that point and remain entirely inside the clearing area. Using the circle radius and the tip angle of the cutter, the depth of cut is calculated.</p>
+</div>
+<div class="paragraph">
+<p><span class="since">introduced in 26.3</span>: Routing can use virtual edge backtracking. If the next cutting start point is reachable through an already-carved path, or through an edge that will be carved next, the operation can follow that edge instead of a retract, rapid move and plunge.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="prepare-the-shapes-to-engrave"><a class="anchor" href="#prepare-the-shapes-to-engrave"></a>Prepare the shapes to engrave</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="../_images/Draft_ShapeString.svg" alt="Draft ShapeString" width="16"></span> <a href="https://wiki.freecad.org/Draft_ShapeString">Draft ShapeStrings</a> are usable out of the box</p>
+</li>
+<li>
+<p>SVG files require some massaging, both in the editor and in the <span class="image"><img src="../_images/Workbench_Draft.svg" alt="Workbench Draft" width="16"></span> <a href="https://wiki.freecad.org/Draft_Workbench">Draft Workbench</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>In the editor (e.g. <a href="https://www.inkscape.org">Inkscape</a>): make sure the file only contains paths and that the paths are ungrouped; make sure there are no self-intersecting paths, (in Inkscape) use Path → Simplify and union to join paths that overlap.</p>
+</li>
+<li>
+<p>Switch to the <span class="image"><img src="../_images/Workbench_Draft.svg" alt="Workbench Draft" width="16"></span> <a href="https://wiki.freecad.org/Draft_Workbench">Draft Workbench</a> in <a href="https://wiki.freecad.org/Std_Workbench">workbench dropdown list</a></p>
+</li>
+<li>
+<p>Import the SVG using <span class="menuseq"><b class="menu">File</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Import</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">select "SVG as geometry"</b></span></p>
+</li>
+<li>
+<p>The result should look similar to this:</p>
+<div class="paragraph">
+<p>::
+  <span class="image"><img src="../_images/Svgimport.png" alt="frameless"></span>
+ <br></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph caption">
+<p>Above: Results of importing 'SVG as geometry'</p>
+</div>
+<div class="paragraph">
+<p>::
+  ;;
+    Paths with holes (letters, the vine in the image above) are imported as 2 separate paths (named along the lines of <code>Path905</code> and <code>Path905001</code> in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>), one of them is the hole and the other one is the outline; we&#8217;ll deal with this in the next step</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p></p>
+<div class="ulist">
+<ul>
+<li>
+<p>In order to get the 2D faces, <a href="#">CAM Vcarve</a> needs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For paths without holes:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select the path</p>
+</li>
+<li>
+<p>Choose <b class="menuref">Modification</b></p>
+</li>
+<li>
+<p>Followed by <b class="menuref">Modification</b></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>For paths with holes:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select the outer path, then the inner path</p>
+</li>
+<li>
+<p>Choose <b class="menuref">Modification</b> <strong>twice</strong></p>
+<div class="paragraph">
+<p>::
+  Some paths will behave differently, so you may need to play with <span class="image"><img src="../_images/Draft_Upgrade.svg" alt="Draft Upgrade" width="16"></span> Upgrade and <span class="image"><img src="../_images/Draft_Downgrade.svg" alt="Draft Downgrade" width="16"></span> Downgrade until you get something named: <code>Face&lt;number&gt;</code>
+ <br>
+  The end result should look like this:
+ <br>
+  <span class="image"><img src="../_images/Svgfaces.png" alt="frameless"></span></p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create-the-vcarve-operation"><a class="anchor" href="#create-the-vcarve-operation"></a>Create the Vcarve operation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Switch to the <span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="16"></span> <a href="../index.html" class="xref page">CAM Workbench</a> in the <a href="https://wiki.freecad.org/Std_Workbench">workbench dropdown menu</a></p>
+</li>
+<li>
+<p>Add a job, use the objects named <code>Face&lt;number&gt;</code> (or the ShapeString) as a base, add a v-bit tool controller, set feeds, speeds, etc.</p>
+</li>
+<li>
+<p>The operation only supports one object (either a single Face object, or a ShapeString) so for each object:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Select <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Vcarve</b></span> from the top menu. This opens the configuration panel.</p>
+</li>
+<li>
+<p>Open the <kbd>Base Geometry</kbd> tab and add all faces of the ShapeString, or the face of a single Face object obtained above</p>
+</li>
+<li>
+<p>Press <b class="button">Apply</b> and inspect the generated path; if necessary, adjust operation parameters (Threshold can be set higher in most situations)</p>
+</li>
+<li>
+<p>Press <b class="button">OK</b> to finish</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Empty</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="properties"><a class="anchor" href="#properties"></a>Properties</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="data"><a class="anchor" href="#data"></a>Data</h3>
+<div class="ulist">
+<div class="title">Base</div>
+<ul>
+<li>
+<p><strong>Placement</strong>: -</p>
+</li>
+<li>
+<p><strong>Label</strong>: -</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Depth</div>
+<ul>
+<li>
+<p><strong>ClearanceHeight</strong>: -</p>
+</li>
+<li>
+<p><strong>FinalDepth</strong>: -</p>
+</li>
+<li>
+<p><strong>SafeHeight</strong>: -</p>
+</li>
+<li>
+<p><strong>StartDepth</strong>: -</p>
+</li>
+<li>
+<p><strong>StepDown</strong>: -</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Op Values</div>
+<ul>
+<li>
+<p><strong>OpFinalDepth</strong>: -</p>
+</li>
+<li>
+<p><strong>OpStartDepth</strong>: -</p>
+</li>
+<li>
+<p><strong>OpStockZMax</strong>: -</p>
+</li>
+<li>
+<p><strong>OpStockZMin</strong>: -</p>
+</li>
+<li>
+<p><strong>OpToolDiameter</strong>: -</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Active</strong>: -</p>
+</li>
+<li>
+<p><strong>Comment</strong>: -</p>
+</li>
+<li>
+<p><strong>CoolantMode</strong>: -</p>
+</li>
+<li>
+<p><strong>StartVertex</strong>: -</p>
+</li>
+<li>
+<p><strong>ToolController</strong>: -</p>
+</li>
+<li>
+<p><strong>UserLabel</strong>: -</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="hidden"><a class="anchor" href="#hidden"></a>Hidden</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Base</strong>: -</p>
+</li>
+<li>
+<p><strong>BaseObject</strong>: -</p>
+</li>
+<li>
+<p><strong>BaseShapes</strong>: -</p>
+</li>
+<li>
+<p><strong>ExpressionEngine</strong>: -</p>
+</li>
+<li>
+<p><strong>Label2</strong>: -</p>
+</li>
+<li>
+<p><strong>Path</strong>: -</p>
+</li>
+<li>
+<p><strong>Proxy</strong>: -</p>
+</li>
+<li>
+<p><strong>Visibility</strong>: -</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="view"><a class="anchor" href="#view"></a>View</h3>
+<div class="paragraph">
+<p>Empty</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See also: <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">FreeCAD Scripting Basics</a>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="deburr.html">Deburr</a></span>
+  <span class="next"><a href="pocket-3d.html">3D Pocket</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
