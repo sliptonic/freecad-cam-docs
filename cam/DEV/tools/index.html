@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Tools :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/tools/index.html">
+    <link rel="prev" href="../misc/area-workplane.html">
+    <link rel="next" href="tool-shape.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="index.html" selected>DEV (pre-release)</option>
+            <option value="../../wiki-2026-08/tools/index.html">Wiki (Aug 2026)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="DEV">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="library-manager.html">ToolBit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="add-toolbit.html">Add toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">Waterline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">CAM Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Specialty Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="index.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tool-shape.html">ToolShape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toolbit.html">ToolBit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="toolbit-library.html">ToolBit Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tool-controller.html">ToolController</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">DEV (pre-release)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../wiki-2026-08/index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../wiki-2026-08/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>ToolBit architecture</li>
+    <li><a href="index.html">Tools</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">DEV (pre-release)</button>
+  <div class="version-menu">
+    <a class="version is-current" href="index.html">DEV (pre-release)</a>
+    <a class="version" href="../../wiki-2026-08/tools/index.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/DEV/modules/ROOT/pages/tools/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Tools</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This page is incomplete; it was marked as unfinished on the wiki.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page describes the ToolBit architecture used in the <a href="../index.html" class="xref page">CAM Workbench</a> which became the default for FreeCAD V0.19. Tools in the CAM workbench are handled differently than in other <a href="https://en.wikipedia.org/wiki/Computer-aided_manufacturing">CAM</a> packages.</p>
+</div>
+<div class="paragraph">
+<p>There are several concepts that the user needs to understand:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="tool-shape.html" class="xref page">CAM ToolShapes</a>: are templates for creating toolbits. Toolshapes are FreeCAD documents that model the tool using named constraints. The toolshape is an <em>abstract</em> tool template from which tool instances (called toolbits) are created. For example, all endmills will share the same toolshape file.</p>
+</li>
+<li>
+<p><a href="toolbit.html" class="xref page">CAM ToolBit</a>s: are instances of a toolshape. A toolbit will have <em>specific</em> values for each of the named constraints in the toolshape. A toolbit is used in a CAM Job through a Tool Controller (TC). The same toolbit can exist in multiple libraries.</p>
+</li>
+<li>
+<p><a href="toolbit-library.html" class="xref page">CAM ToolBit Library</a>: contains an arbitrary collection of toolbits. The specific tools in a library is entirely up to the user. Possible use cases for libraries:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A hobbyist user may have only one library for all of the tools they own.</p>
+</li>
+<li>
+<p>A library may contain all the tools used for a specific material like aluminum or wood.</p>
+</li>
+<li>
+<p>A library may have toolbits for working on specific material.</p>
+</li>
+<li>
+<p>A library may hold toolbits from a specific supplier.</p>
+</li>
+<li>
+<p>A library may correspond to an automatic tool changer layout.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A <a href="tool-controller.html" class="xref page">Tool Controller</a> controls how a tool is used in a CAM Job. A controller combines the toolbit with properties for spindle speed, direction and Horizontal/Vertical feed rates.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dialogs"><a class="anchor" href="#dialogs"></a>Dialogs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The user will interact via CAM menu with the tool management system in two different workflows. Each workflow has dedicated GUI elements.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="../_images/CAM_ToolBitLibraryOpen.svg" alt="CAM ToolBitLibraryOpen" width="24"></span> <a href="add-toolbit.html" class="xref page">Toolbit Dock</a> view indicated at the box top as <em>Tool selector</em>, for using tools in a CAM Job by creating Tool Controllers.</p>
+</li>
+<li>
+<p><span class="image"><img src="../_images/CAM_ToolBitDock.svg" alt="CAM ToolBitDock" width="24"></span> <a href="library-manager.html" class="xref page">Toolbit Library Manager</a> for managing the user&#8217;s Toolbit collection with <em>Create Toolbit</em>, <em>Add Existing</em> and <em>Remove</em> buttons.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="organization"><a class="anchor" href="#organization"></a>Organization</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When FreeCAD is installed an example hierarchy of tool libraries and toolbits is created in the installation directory at:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On Linux it is usually <code>/usr/lib64/FreeCAD/Mod/CAM/Tools</code></p>
+</li>
+<li>
+<p>On Windows it is usually <code>C:\Program Files\FreeCAD\Mod\CAM\Tools</code></p>
+</li>
+<li>
+<p>On macOS it is usually <code>/Applications/FreeCAD.app/Contents/Resources/Mod/CAM/Tools</code></p>
+</li>
+</ul>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Tools
+  + Bit
+  + Library
+  + Shape</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is always recommended to store the new created toolbits and libraries in a safe location to avoid them being overwritten on a program upgrade. Even custom toolshapes can be stored in arbitrary locations where they can be backed up. The user is encouraged, however, to use a comparable logical structure as shown above to keep toolbits and libraries well organized.</p>
+</div>
+<div class="paragraph">
+<p>When the Tool library Manager is opened, CAM checks the location of the working directory. If the location is not writeable or is the same as the example/default location, CAM will prompt the user to select or create a new working directory, which usually defaults to the your user macro directory.</p>
+</div>
+<div class="paragraph">
+<p>Copies of the default toolbits and library are copied to this directory. You can now manage your tools, for example copy, edit and create toolshapes, toolbits and libraries and your changes will be preserved. Note that toolshapes are not copied, as having duplicates may cause issues. See issue <a href="https://github.com/FreeCAD/FreeCAD/issues/15275">CAM: Tool shapes not copied by "Setup ToolBit working directory" #15275</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>References to Tool Bits and their shapes can either be stored with an absolute path or with a relative path to the search path. Generally it is recommended to use relative paths due to their flexibility and robustness to layout changes. Should multiple tools or tool shapes with the same name exist in different directories it can be required to use absolute paths.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="../reference/preferences.html" class="xref page">CAM Preferences</a> to choose whether absolute or relative paths are used.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="migrating-from-legacy-tools"><a class="anchor" href="#migrating-from-legacy-tools"></a>Migrating from Legacy Tools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have been using FreeCAD CAM workbench for a while, you may need to adjust your preferences before you can use the Toolbit system. If pressing the Tool Library button on the toolbar shows the legacy dialog, go to the page below in <a href="../reference/preferences.html" class="xref page">CAM Preferences</a> and disable legacy tools.<br>
+You have to restart FreeCAD to make the change valid.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/Preferences.png" alt="Disable Legacy Tools">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting-started-with-tools-in-fc-0-19"><a class="anchor" href="#getting-started-with-tools-in-fc-0-19"></a>Getting Started with Tools in FC 0.19</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Read the <a href="#migrating-from-legacy-tools">Migrating from Legacy Tools</a> section above. The steps below will walk you through the process of getting a ToolBit into your particular <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Job</a>.</p>
+</div>
+<div class="paragraph">
+<p>In short, the process begins with a Tool Shape (profile) file that contains only a FreeCAD sketch of half the tool&#8217;s physical shape (profile). This tool shape file is then used as the basis to create a ToolBit file containing the 3D representation of the ToolBit or cutter. One or more ToolBits are assigned to any number of Tool Libraries as needed by the user. This structure and workflow allows for sharing of Tool Shapes, ToolBits, and entire Tool Libraries - a giant leap forward from the Legacy tool management system in place prior to version 0.19.</p>
+</div>
+<div class="sect2">
+<h3 id="verify-or-create-a-tool-shape"><a class="anchor" href="#verify-or-create-a-tool-shape"></a>Verify or create a Tool Shape</h3>
+<div class="paragraph">
+<p>Getting a cutter or tool into a CAM Job for use in operations starts with a <a href="tool-shape.html" class="xref page">Tool Shape</a>. This step of verification or creation of a Tool Shape is not necessary if you already have an existing ToolBit available.</p>
+</div>
+<div class="sect3">
+<h4 id="verify-your-desired-tool-shape-exists"><a class="anchor" href="#verify-your-desired-tool-shape-exists"></a>Verify your desired Tool Shape exists</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>FreeCAD includes a set of common tool shapes with each distribution. Visit the <a href="tool-shape.html" class="xref page">ToolShapes</a> page to see the list of included, common tool shapes.</p>
+</li>
+<li>
+<p>You might have additional tool shape files available in your personal files.</p>
+</li>
+<li>
+<p>Be mindful of the greater ToolBit system <a href="#organization">organization</a> as mentioned above.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="create-a-new-tool-shape"><a class="anchor" href="#create-a-new-tool-shape"></a>Create a new Tool Shape</h4>
+<div class="paragraph">
+<p>::
+  Follow the instructions outlined in the <a href="tool-shape.html#usage" class="xref page">Usage</a> section of the <a href="tool-shape.html" class="xref page">Tool Shape</a> page to create a custom tool shape.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="load-or-create-a-toolbit"><a class="anchor" href="#load-or-create-a-toolbit"></a>Load or create a ToolBit</h3>
+<div class="paragraph">
+<p>Once the desired tool shape(profile) exists, you need to create a <a href="toolbit.html" class="xref page">tool bit</a> using the tool shape (profile).</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="24"></span> <a href="../index.html" class="xref page">CAM Workbench</a> menu bar, navigate to <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Create Tool</b></span>.</p>
+</li>
+<li>
+<p>In the <a href="toolbit.html" class="xref page">Tool Bit</a> creation task panel that appears, give the new tool bit a name and select the corresponding tool shape file as the basis for this new tool bit.</p>
+</li>
+<li>
+<p>A thumbnail of the selected tool shape should appear along with a list of parameters.</p>
+</li>
+<li>
+<p>Set the Bit Parameters as desired.</p>
+</li>
+<li>
+<p>Click <kbd>OK</kbd> to save the new tool bit.</p>
+</li>
+<li>
+<p>The new Tool Bit will appear in the FreeCAD object tree.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="save-the-new-toolbit"><a class="anchor" href="#save-the-new-toolbit"></a>Save the new ToolBit</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Locate and select the new tool bit in the object tree in the main FreeCAD window.</p>
+</li>
+<li>
+<p>In the <span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="24"></span> <a href="../index.html" class="xref page">CAM Workbench</a> menu bar, navigate to, and select, <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Save Tool as&#8230;&#8203;</b></span>.</p>
+</li>
+<li>
+<p>A pop-up window will appear.</p>
+</li>
+<li>
+<p>Navigate to the folder where you wish to save the new tool bit file.</p>
+</li>
+<li>
+<p>Enter a file name for the tool bit.</p>
+</li>
+<li>
+<p>Click the <kbd>Save</kbd> button.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="register-the-toolbit-in-a-tool-library"><a class="anchor" href="#register-the-toolbit-in-a-tool-library"></a>Register the ToolBit in a Tool Library</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="24"></span> <a href="../index.html" class="xref page">CAM Workbench</a> menu bar, navigate to <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Open ToolBit Library editor</b></span>.</p>
+</li>
+<li>
+<p>The <a href="library-manager.html" class="xref page">ToolBit Library Manager</a> window will open.</p>
+</li>
+<li>
+<p>At the top of this window, verify or set the path to the folder containing your existing tool libraries, or the location you want to store your tool libraries.</p>
+</li>
+<li>
+<p>Under the path entry, on the left is the Tool Libraries list area. Click on an existing tool library you wish to use as the destination for your new tool bit, or click the green plus icon to create new Tool Library in the folder identified above.</p>
+</li>
+<li>
+<p>On the right side of the Tool Library editor window is the Tool Bit list and action buttons for the currently selected tool library. Click the <kbd>Add ToolBit</kbd> icon.</p>
+</li>
+<li>
+<p>In the file navigation window that opens, navigate to your new tool bit, select it, and click the <kbd>Open</kbd> button. The new tool bit will be added to the active tool library.</p>
+</li>
+<li>
+<p>Be sure to click the <kbd>Save Table</kbd> button at the bottom of the Tool Library window in order to save the changes.</p>
+</li>
+<li>
+<p>Leave this ToolBit Library window open for the next step.</p>
+</li>
+<li>
+<p>Once your ToolBits are created and saved in a ToolBit Library, you may reuse them.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-a-toolbit-tool-controller-to-a-job"><a class="anchor" href="#add-a-toolbit-tool-controller-to-a-job"></a>Add a ToolBit Tool Controller to a Job</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the open Tool Library window, locate and activate the desired tool library.</p>
+</li>
+<li>
+<p>Select the desired tool bit(s) to be added to the Job. Select multiple by holding down the CTRL key when selecting.</p>
+</li>
+<li>
+<p>Click the <kbd>Add Tool Controller to Job</kbd> button.</p>
+</li>
+<li>
+<p>Close the ToolBit Library</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="related"><a class="anchor" href="#related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="toolbit.html" class="xref page">CAM ToolBit</a></p>
+</li>
+<li>
+<p><a href="library-manager.html" class="xref page">CAM ToolBitLibraryOpen</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../misc/area-workplane.html">Area Workplane</a></span>
+  <span class="next"><a href="tool-shape.html">ToolShape</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
