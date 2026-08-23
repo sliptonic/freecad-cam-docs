@@ -150,31 +150,40 @@ def true_false(pos, named, ctx, word):
 
 
 def gui_command(pos, named, ctx):
-    """{{GuiCommand|Name=…|MenuLocation=…|Workbenches=…|Shortcut=…|Version=…|SeeAlso=…}}"""
+    """{{GuiCommand|Name=…|MenuLocation=…|Workbenches=…|Shortcut=…|Version=…|SeeAlso=…|Icon=…}}
+
+    Rendered as the wiki's fcinfobox: an icon-and-name title line followed by the same five
+    rows the wiki template always shows, with the wiki's defaults for missing values
+    (_None_ for menu/shortcut/see-also, - for version). Floated right by supplemental-ui CSS
+    (role .fcinfobox). The wiki box also embeds the page TOC; Antora's right rail replaces it.
+    """
     g = {k.strip().lower(): _text(v) for k, v in named.items()}
     ctx.guicommand = g
-    rows = []
-    if g.get("menulocation"):
-        rows.append(("Menu location", menu_command([g["menulocation"]], {}, ctx)))
-    if g.get("workbenches"):
-        rows.append(("Workbenches", g["workbenches"]))
+    icon = g.get("icon") or (ctx.name + ".svg")
+    ctx.infobox_icon = icon
+    name = _strip_tokens(g.get("name", "")) or ctx.name.replace("_", " ")
+    rows = [
+        ("Menu location", menu_command([g["menulocation"]], {}, ctx) if g.get("menulocation") else "_None_"),
+    ]
+    rows.append(("Workbenches", g.get("workbenches", "")))
     if g.get("shortcut"):
         keys = " ".join(f"kbd:[{k.strip()}]" for k in re.split(r"\s*(?:\+|then|,)\s*", g["shortcut"]) if k.strip())
         rows.append(("Default shortcut", keys or g["shortcut"]))
-    if g.get("version"):
-        rows.append(("Introduced in version", g["version"]))
-    if g.get("seealso"):
-        rows.append(("See also", g["seealso"]))
-    if not rows:
-        return ""
+    else:
+        rows.append(("Default shortcut", "_None_"))
+    rows.append(("Introduced in version", g.get("version") or "-"))
+    rows.append(("See also", g.get("seealso") or "_None_"))
     body = "\n".join(f"{k}:: {v}" for k, v in rows)
-    return f"\n[.guicommand]\n{body}\n"
+    return (
+        "\n[.fcinfobox]\n--\n"
+        f"[.fcTitle]\nimage:{icon}[{name},32] *{name}*\n\n"
+        f"{body}\n--\n"
+    )
 
 
 def colored_text(pos, named, ctx):
     # {{ColoredText|color|text}} or {{ColoredText|text}}: keep the text, drop the color.
-    txt = _text(pos[-1]) if pos else ""
-    return txt
+    return _text(pos[-1]) if pos else ""
 
 
 def tutorial_info(pos, named, ctx):

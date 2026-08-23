@@ -30,6 +30,43 @@
   .fc-version-label { color: #aab5c0; }
   .fc-version-select { background: #1a2129; color: #e4e9ee; border-color: #2e3946; }
 }
+/* Command infobox — the wiki's fcinfobox, emitted by the importer from {{GuiCommand}}. */
+.doc .openblock.fcinfobox {
+  float: right;
+  width: 230px;
+  margin: 0 0 1rem 1.25rem;
+  border: 1px solid #c8ced4;
+  border-radius: 0.2rem;
+  background: #f6f7f9;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+.doc .openblock.fcinfobox .content { padding: 0; }
+.fcinfobox .paragraph.fcTitle {
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  font-size: 1.05rem;
+  border-bottom: 1px solid #c8ced4;
+  text-align: center;
+}
+.fcinfobox .paragraph.fcTitle img { vertical-align: middle; margin-right: 0.35rem; }
+.fcinfobox .dlist { margin: 0; }
+.fcinfobox .dlist dl { margin: 0; }
+.fcinfobox .dlist dt {
+  background: #e6eaef;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+  border-top: 1px solid #d6dce2;
+}
+.fcinfobox .dlist dd {
+  margin: 0;
+  padding: 0.25rem 0.7rem 0.4rem;
+}
+.fcinfobox .dlist dd p { margin: 0; }
+@media (max-width: 800px) {
+  .doc .openblock.fcinfobox { float: none; width: auto; margin: 0 0 1rem 0; }
+}
+
 /* Page status badge (DEV stubs) and version markers used by the importer/conventions. */
 .since {
   display: inline-block;
