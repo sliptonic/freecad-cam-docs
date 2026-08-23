@@ -1,15 +1,25 @@
 = CAM Job
 :page-origin: https://wiki.freecad.org/CAM_Job
 :page-origin-revision: 375e2bddc0 2026-07-08
+:page-command: CAM_Job
+:page-icon: CAM_Job.svg
 :page-menu: CAM → New Job
+:page-workbench: CAM
 :page-shortcut: P J
+:page-see-also: CAM Post, CAM Postprocessor Customization
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Job.svg[CAM Job,32] *CAM Job*
+
 Menu location:: menu:CAM[New Job]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[kbd:[P] kbd:[J]]
+Introduced in version:: -
 See also:: xref:output/post-process.adoc[CAM Post], xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization]
+--
 
 == Description
 

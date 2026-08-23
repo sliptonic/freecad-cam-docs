@@ -1,12 +1,23 @@
 = CAM Stop
 :page-origin: https://wiki.freecad.org/CAM_Stop
 :page-origin-revision: 53631f1535 2025-11-05
+:page-command: CAM_Stop
+:page-icon: CAM_Stop.svg
 :page-menu: CAM → Supplemental Commands → Stop
+:page-workbench: CAM
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Stop.svg[CAM Stop,32] *CAM Stop*
+
 Menu location:: menu:CAM[Supplemental Commands > Stop]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

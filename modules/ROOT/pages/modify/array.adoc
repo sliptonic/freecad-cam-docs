@@ -1,12 +1,23 @@
 = CAM Array
 :page-origin: https://wiki.freecad.org/CAM_Array
 :page-origin-revision: 0add8da15b 2026-06-08
+:page-command: CAM_Array
+:page-icon: CAM_Array.svg
 :page-menu: CAM → Path Modification → Array
+:page-workbench: CAM
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Array.svg[CAM Array,32] *CAM Array*
+
 Menu location:: menu:CAM[Path Modification > Array]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

@@ -1,14 +1,24 @@
 = CAM SelectLoop
 :page-origin: https://wiki.freecad.org/CAM_SelectLoop
 :page-origin-revision: 08f51408d8 2026-07-08
+:page-command: CAM_SelectLoop
+:page-icon: CAM_SelectLoop.svg
 :page-menu: CAM → Finish Selecting Loop
+:page-workbench: CAM
 :page-shortcut: P L
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SelectLoop.svg[CAM SelectLoop,32] *CAM SelectLoop*
+
 Menu location:: menu:CAM[Finish Selecting Loop]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[kbd:[P] kbd:[L]]
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

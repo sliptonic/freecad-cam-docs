@@ -1,17 +1,27 @@
 = CAM Simulator
 :page-origin: https://wiki.freecad.org/CAM_Simulator
 :page-origin-revision: 08054ad0f4 2026-07-08
+:page-command: CAM_Simulator
+:page-icon: CAM_Simulator.svg
 :page-menu: CAM → Legacy CAM Simulator
+:page-workbench: CAM
 :page-shortcut: P M
+:page-see-also: CAM Inspect, CAM SimulatorGL
 :page-imported: true
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Simulator.svg[CAM Simulator,32] *CAM Simulator*
+
 Menu location:: menu:CAM[Legacy CAM Simulator]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[kbd:[P] kbd:[M]]
+Introduced in version:: -
 See also:: xref:inspect/inspect.adoc[CAM Inspect], xref:inspect/simulator.adoc[CAM SimulatorGL]
+--
 
 == Description
 

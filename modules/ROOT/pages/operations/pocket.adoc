@@ -1,12 +1,23 @@
 = CAM Pocket Shape
 :page-origin: https://wiki.freecad.org/CAM_Pocket_Shape
 :page-origin-revision: 6645424a75 2026-07-08
+:page-command: CAM_Pocket_Shape
+:page-icon: CAM_Pocket_Shape.svg
 :page-menu: CAM → Pocket Shape
+:page-workbench: CAM
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Pocket_Shape.svg[CAM Pocket Shape,32] *CAM Pocket Shape*
+
 Menu location:: menu:CAM[Pocket Shape]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

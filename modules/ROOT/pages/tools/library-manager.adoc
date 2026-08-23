@@ -1,17 +1,27 @@
 = CAM ToolBitLibraryOpen
 :page-origin: https://wiki.freecad.org/CAM_ToolBitLibraryOpen
 :page-origin-revision: 6f152b79d6 2026-05-21
+:page-command: CAM_ToolBitLibraryOpen
+:page-icon: CAM_ToolBitLibraryOpen.svg
 :page-menu: CAM → ToolBit Library Manager
+:page-workbench: CAM
 :page-since: 0.19
+:page-see-also: CAM ToolBitDock, CAM Tools, CAM ToolBit
 :page-imported: true
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ToolBitLibraryOpen.svg[CAM ToolBitLibraryOpen,32] *CAM ToolBitLibraryOpen*
+
 Menu location:: menu:CAM[ToolBit Library Manager]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
 Introduced in version:: 0.19
 See also:: xref:tools/add-toolbit.adoc[CAM ToolBitDock], xref:tools/index.adoc[CAM Tools], xref:tools/toolbit.adoc[CAM ToolBit]
+--
 
 == Description
 

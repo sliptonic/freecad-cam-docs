@@ -1,14 +1,24 @@
 = CAM Inspect
 :page-origin: https://wiki.freecad.org/CAM_Inspect
 :page-origin-revision: 1fc124417a 2026-07-08
+:page-command: CAM_Inspect
+:page-icon: CAM_Inspect.svg
 :page-menu: CAM → Inspect Toolpath
+:page-workbench: CAM
 :page-shortcut: P I
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Inspect.svg[CAM Inspect,32] *CAM Inspect*
+
 Menu location:: menu:CAM[Inspect Toolpath]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[kbd:[P] kbd:[I]]
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

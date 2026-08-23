@@ -1,7 +1,10 @@
 = CAM Surface
 :page-origin: https://wiki.freecad.org/CAM_Surface
 :page-origin-revision: a8351b0dcf 2026-05-22
+:page-command: CAM_Surface
+:page-icon: CAM_Surface.svg
 :page-menu: CAM → 3D Surface
+:page-workbench: CAM
 :page-since: 0.19
 :page-imported: true
 
@@ -9,10 +12,17 @@ WARNING: This is an unfinished experimental feature. See xref:reference/experime
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Surface.svg[CAM Surface,32] *CAM Surface*
+
 Menu location:: menu:CAM[3D Surface]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
 Introduced in version:: 0.19
+See also:: _None_
+--
 
 == Description
 

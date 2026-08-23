@@ -1,15 +1,25 @@
 = CAM Fixture
 :page-origin: https://wiki.freecad.org/CAM_Fixture
 :page-origin-revision: 8d851eaa90 2025-11-07
+:page-command: CAM_Fixture
+:page-icon: CAM_Fixture.svg
 :page-menu: CAM → Supplemental Commands → Fixture
+:page-workbench: CAM
 :page-imported: true
 
-WARNING: THIS COMMAND IS OBSOLETE<br>
-It is not available in [.since]#1.1 and later#.
+WARNING: THIS COMMAND IS OBSOLETE It is not available in [.since]#1.1 and later#.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Fixture.svg[CAM Fixture,32] *CAM Fixture*
+
 Menu location:: menu:CAM[Supplemental Commands > Fixture]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

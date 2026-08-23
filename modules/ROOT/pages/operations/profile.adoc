@@ -1,14 +1,24 @@
 = CAM Profile
 :page-origin: https://wiki.freecad.org/CAM_Profile
 :page-origin-revision: 698a8a55a2 2026-07-08
+:page-command: CAM_Profile
+:page-icon: CAM_Profile.svg
 :page-menu: CAM → Profile
+:page-workbench: CAM
 :page-since: 0.19
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Profile.svg[CAM Profile,32] *CAM Profile*
+
 Menu location:: menu:CAM[Profile]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
 Introduced in version:: 0.19
+See also:: _None_
+--
 
 == Description
 

@@ -1,14 +1,24 @@
 = CAM Post
 :page-origin: https://wiki.freecad.org/CAM_Post
 :page-origin-revision: 1f3dbb3975 2026-07-08
+:page-command: CAM_Post
+:page-icon: CAM_Post.svg
 :page-menu: CAM → Post Process
+:page-workbench: CAM
 :page-shortcut: P P
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Post.svg[CAM Post,32] *CAM Post*
+
 Menu location:: menu:CAM[Post Process]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[kbd:[P] kbd:[P]]
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

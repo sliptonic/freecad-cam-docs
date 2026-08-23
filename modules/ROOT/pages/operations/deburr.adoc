@@ -1,14 +1,24 @@
 = CAM Deburr
 :page-origin: https://wiki.freecad.org/CAM_Deburr
 :page-origin-revision: 880e6ff193 2025-11-05
+:page-command: CAM_Deburr
+:page-icon: CAM_Deburr.svg
 :page-menu: CAM → Deburr
+:page-workbench: CAM
 :page-since: 0.18
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Deburr.svg[CAM Deburr,32] *CAM Deburr*
+
 Menu location:: menu:CAM[Deburr]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
 Introduced in version:: 0.18
+See also:: _None_
+--
 
 == Description
 

@@ -1,14 +1,25 @@
 = CAM Helix
 :page-origin: https://wiki.freecad.org/CAM_Helix
 :page-origin-revision: dcb2863a01 2026-07-08
+:page-command: CAM_Helix
+:page-icon: CAM_Helix.svg
 :page-menu: CAM → Helix
+:page-workbench: CAM
 :page-imported: true
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Helix.svg[CAM Helix,32] *CAM Helix*
+
 Menu location:: menu:CAM[Helix]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

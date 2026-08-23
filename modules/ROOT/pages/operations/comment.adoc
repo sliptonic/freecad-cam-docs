@@ -1,12 +1,23 @@
 = CAM Comment
 :page-origin: https://wiki.freecad.org/CAM_Comment
 :page-origin-revision: f1f4cec1fe 2025-11-05
+:page-command: CAM_Comment
+:page-icon: CAM_Comment.svg
 :page-menu: CAM → Supplemental Commands → Comment
+:page-workbench: CAM
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Comment.svg[CAM Comment,32] *CAM Comment*
+
 Menu location:: menu:CAM[Supplemental Commands > Comment]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

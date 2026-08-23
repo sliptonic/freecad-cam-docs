@@ -1,17 +1,26 @@
 = CAM SimulatorGL
 :page-origin: https://wiki.freecad.org/CAM_SimulatorGL
 :page-origin-revision: cb99fc114b 2026-07-08
+:page-command: CAM_SimulatorGL
+:page-icon: CAM_SimulatorGL.svg
 :page-menu: CAM → CAM Simulator
+:page-workbench: CAM
 :page-shortcut: P N
 :page-since: 1.0
+:page-see-also: CAM Simulator
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_SimulatorGL.svg[CAM SimulatorGL,32] *CAM SimulatorGL*
+
 Menu location:: menu:CAM[CAM Simulator]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[kbd:[P] kbd:[N]]
 Introduced in version:: 1.0
 See also:: xref:inspect/simulator-legacy.adoc[CAM Simulator]
+--
 
 == Description
 

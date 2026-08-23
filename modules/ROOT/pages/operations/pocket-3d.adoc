@@ -2,14 +2,25 @@
 :page-origin: https://wiki.freecad.org/CAM_Pocket3D
 :page-origin-revision: 3005712fb6 2026-05-21
 :page-aliases: CAM_Pocket_3D.adoc
+:page-command: CAM_Pocket3D
+:page-icon: CAM_Pocket3D.svg
 :page-menu: CAM → 3D Pocket
+:page-workbench: CAM
 :page-imported: true
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Pocket3D.svg[CAM Pocket3D,32] *CAM Pocket3D*
+
 Menu location:: menu:CAM[3D Pocket]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

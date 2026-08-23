@@ -1,13 +1,24 @@
 = CAM ExportTemplate
 :page-origin: https://wiki.freecad.org/CAM_ExportTemplate
 :page-origin-revision: f68ad90be3 2026-07-08
+:page-command: CAM_ExportTemplate
+:page-icon: CAM_ExportTemplate.svg
 :page-menu: CAM → Export Template
+:page-workbench: CAM
+:page-see-also: CAM SetupSheet
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_ExportTemplate.svg[CAM ExportTemplate,32] *CAM ExportTemplate*
+
 Menu location:: menu:CAM[Export Template]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
 See also:: xref:job/setup-sheet.adoc[CAM SetupSheet]
+--
 
 == Description
 

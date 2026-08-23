@@ -1,18 +1,27 @@
 = CAM Sanity
 :page-origin: https://wiki.freecad.org/CAM_Sanity
 :page-origin-revision: 0f0115adff 2026-07-08
+:page-command: CAM_Sanity
+:page-icon: CAM_Sanity.svg
 :page-menu: CAM → Sanity Check
+:page-workbench: CAM
 :page-shortcut: P S
 :page-since: 0.19
 :page-imported: true
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Sanity.svg[CAM Sanity,32] *CAM Sanity*
+
 Menu location:: menu:CAM[Sanity Check]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[kbd:[P] kbd:[S]]
 Introduced in version:: 0.19
+See also:: _None_
+--
 
 == Description
 

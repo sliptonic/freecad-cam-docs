@@ -2,12 +2,23 @@
 :page-origin: https://wiki.freecad.org/CAM_Copy
 :page-origin-revision: 3f5597dfb4 2026-05-17
 :page-aliases: CAM_OperationCopy.adoc
+:page-command: CAM_Copy
+:page-icon: CAM_Copy.svg
 :page-menu: CAM → Path Modification → Copy Operation
+:page-workbench: CAM
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Copy.svg[CAM Copy,32] *CAM Copy*
+
 Menu location:: menu:CAM[Path Modification > Copy Operation]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

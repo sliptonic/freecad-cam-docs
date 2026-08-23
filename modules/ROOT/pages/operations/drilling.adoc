@@ -1,12 +1,23 @@
 = CAM Drilling
 :page-origin: https://wiki.freecad.org/CAM_Drilling
 :page-origin-revision: 89c58b7918 2026-07-08
+:page-command: CAM_Drilling
+:page-icon: CAM_Drilling.svg
 :page-menu: CAM → Drilling
+:page-workbench: CAM
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Drilling.svg[CAM Drilling,32] *CAM Drilling*
+
 Menu location:: menu:CAM[Drilling]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 

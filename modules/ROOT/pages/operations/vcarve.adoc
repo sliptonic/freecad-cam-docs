@@ -1,14 +1,24 @@
 = CAM Vcarve
 :page-origin: https://wiki.freecad.org/CAM_Vcarve
 :page-origin-revision: 3653b060cb 2026-06-08
+:page-command: CAM_Vcarve
+:page-icon: CAM_Vcarve.svg
 :page-menu: CAM → Vcarve
+:page-workbench: CAM
 :page-since: 0.19
 :page-imported: true
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Vcarve.svg[CAM Vcarve,32] *CAM Vcarve*
+
 Menu location:: menu:CAM[Vcarve]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
 Introduced in version:: 0.19
+See also:: _None_
+--
 
 == Description
 

@@ -1,14 +1,25 @@
 = CAM DressupAxisMap
 :page-origin: https://wiki.freecad.org/CAM_DressupAxisMap
 :page-origin-revision: aa72859c16 2025-01-23
+:page-command: CAM_DressupAxisMap
+:page-icon: CAM_DressupAxisMap.svg
 :page-menu: CAM → Path Dressup → Axis Map
+:page-workbench: CAM
 :page-imported: true
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
-[.guicommand]
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupAxisMap.svg[CAM DressupAxisMap,32] *CAM DressupAxisMap*
+
 Menu location:: menu:CAM[Path Dressup > Axis Map]
 Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: -
+See also:: _None_
+--
 
 == Description
 
