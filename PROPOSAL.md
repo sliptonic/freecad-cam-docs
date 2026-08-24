@@ -2,22 +2,26 @@
 
 FreeCAD's user documentation is a single, rolling MediaWiki. It cannot say which FreeCAD version a
 page describes, cannot be reviewed before publication, cannot travel with a code change, and carries
-its translations as parallel copies kept in step by hand. A page-by-page audit of the CAM workbench
-documentation against FreeCAD `main` (August 2026) found 1,125 needed changes across 92 pages and 13
-pages that are linked but do not exist.
+its translations as parallel copies kept in step by hand. 
+
+A page-by-page audit of the CAM workbench documentation against FreeCAD `main` (August 2026) 
+found 1,125 needed changes across 92 pages and 13 pages that are linked but do not exist. While
+CAM has gotten a lot of work during the 26.3 development cycle, it's clear from the gap that wiki 
+documentation isn't keeping pace.
 
 This repository tries an alternative on one workbench, without touching the wiki or any FreeCAD
 repository. The design is deliberately unoriginal: it is the pipeline KiCad has run for about ten
 years (AsciiDoc sources, Asciidoctor, po4a for translation, one git branch per release, CC BY
 content), with the two parts KiCad had to hand-build or do without replaced by maintained tools —
 [Antora](https://antora.org/) assembles the versioned site, and CI publishes a preview for every
-pull request. FreeCAD's one-page-per-command model is kept.
+pull request. FreeCAD's one-page-per-command model is kept rather than adopting KiCAD's single
+document model.
 
 ## What it should demonstrate
 
 1. **Version fidelity** — the site root shows the imported wiki snapshot; `DEV` is labelled
    pre-release and documents 26.3dev behavior the snapshot does not have.
-2. **Independent evolution** — a documentation fix can land on one version without changing the
+2. **Independent evolution** — a documentation fix can be applied to one version without changing the
    other.
 3. **Information architecture** — the `DEV` navigation covers every CAM command on `main`, and the
    rewritten showcase pages are easier to navigate and understand than the imported ones.
@@ -41,3 +45,6 @@ Proposal with this repository as the reference implementation.
 CAM Workbench · Job · Tool Controller · Adaptive · Profile · Pocket · Toolbit Library Manager ·
 Post Process — each exists in both versions, and Drilling shows a real behavioral divergence between
 1.1 and 26.3dev (the Tapping operation became a `Strategy` of Drilling).
+
+The Audit version shows all the flagged content changes mechanically applied.  This is a starting point
+for more human-centric review and edit of the content in preparation for release.
