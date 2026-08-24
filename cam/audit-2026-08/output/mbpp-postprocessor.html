@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Writing a Machine-Based Post-Processor :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="prev" href="postprocessor-customization.html">
+    <link rel="next" href="../job/setup-sheet.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="mbpp-postprocessor.html" selected>Audit (26.3dev)</option>
+            <option value="../../DEV/index.html">DEV (pre-release) (page not in this version)</option>
+            <option value="../../wiki-2026-08/index.html">Wiki (Aug 2026) (page not in this version)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="audit-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="machine-configuration.html">Machine Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">Waterline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Path Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Path Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="mbpp-postprocessor.html">Writing a Machine-Based Post-Processor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Audit (26.3dev)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../wiki-2026-08/index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../index.html">Audit (26.3dev)</a>
+        </li>
+        <li class="version">
+          <a href="../../DEV/index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../wiki-2026-08/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Other pages</li>
+    <li><a href="mbpp-postprocessor.html">Writing a Machine-Based Post-Processor</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Audit (26.3dev)</button>
+  <div class="version-menu">
+    <a class="version is-current" href="mbpp-postprocessor.html">Audit (26.3dev)</a>
+    <a class="version is-missing" href="../../DEV/index.html">DEV (pre-release)</a>
+    <a class="version is-missing" href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/audit/modules/ROOT/pages/output/mbpp-postprocessor.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Writing a Machine-Based Post-Processor</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="since">Introduced in 26.3.</span> A machine-based Post-Processor (MBPP) is a Python class deriving from <code>Path.Post.Processor.PostProcessor</code>. Unlike a legacy script post, it doesn&#8217;t parse argument strings and it doesn&#8217;t format most of the output itself — the base class runs a staged pipeline driven by the <a href="machine-configuration.html" class="xref page">Machine configuration</a>, and your subclass only supplies what the configuration can&#8217;t express. Many controllers need no subclass at all.</p>
+</div>
+<div class="paragraph">
+<p>This page is the developer reference: the class contract, the property schema, where each property surfaces in the UI, the pipeline and its hooks, and testing. For configuring machines as a user, see <a href="machine-configuration.html" class="xref page">Machine Configuration</a>. The legacy script system is documented in <a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="architecture"><a class="anchor" href="#architecture"></a>Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Three layers share the work:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>The machine file</strong> (<code>.fcm</code>) — physical description plus output formatting and processing options. Pure data.</p>
+</li>
+<li>
+<p><strong>The Post-Processor class</strong> — G-code dialect behavior the configuration can&#8217;t express: command remapping, parameter renaming, custom cycles, framing bytes.</p>
+</li>
+<li>
+<p><strong>The base pipeline</strong> (<code>Processor.py</code>) — ordering, expansion, conversion, and optimization, configured by the first layer and hooked by the second.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The split matters because it moves work out of code. Comment style, modality, line numbers, precision, preambles, pre/post blocks — all configuration. A post that used to reimplement those in a 1500-line script now declares defaults and overrides a hook or two.</p>
+</div>
+<div class="paragraph">
+<p>Legacy posts keep working unchanged. A file is treated as machine-based only when it sets the module constant <code>POST_TYPE = "machine"</code>; those posts appear in the Machine Editor&#8217;s Post-Processor combo. Everything else stays a legacy post, offered in the Job&#8217;s Processor field. The migrated posts keep their legacy version alongside under a <code>_legacy_post.py</code> name.</p>
+</div>
+<div class="paragraph">
+<p>Machine-based posts shipped with FreeCAD: <code>generic</code>, <code>generic_plasma</code>, <code>centroid</code>, <code>linuxcnc</code>, <code>mach3_mach4</code>, <code>marlin</code>, <code>opensbp</code>, <code>smoothie</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="do-you-need-a-subclass-at-all"><a class="anchor" href="#do-you-need-a-subclass-at-all"></a>Do you need a subclass at all?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Work through the differences between your controller and plain G-code. If every one of them is on this list, you don&#8217;t need code — create a <code>.fcm</code> file that uses <code>generic</code> and you&#8217;re done:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>comment on/off, symbol, formatting</p>
+</li>
+<li>
+<p>modal output and duplicate suppression</p>
+</li>
+<li>
+<p>line numbering format, start, increment</p>
+</li>
+<li>
+<p>precision per value class</p>
+</li>
+<li>
+<p>preamble, postamble, safety block</p>
+</li>
+<li>
+<p>pre/post blocks around jobs, operations, tool changes, fixture changes, rotary moves</p>
+</li>
+<li>
+<p>tool length offset (G43) on or off</p>
+</li>
+<li>
+<p>arc splitting, rapid translation, drill cycle expansion</p>
+</li>
+<li>
+<p>early tool prep, XY-before-Z after tool change</p>
+</li>
+<li>
+<p>file extension and the supported-command list</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You need a subclass when the dialect itself differs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>command remapping (<code>G54</code> → <code>E01</code>)</p>
+</li>
+<li>
+<p>parameter renaming (<code>Q</code> → <code>K</code> in canned cycles)</p>
+</li>
+<li>
+<p>absolute arc centers instead of incremental I/J</p>
+</li>
+<li>
+<p>computed output (dwell scaled by RPM, tapping feed from pitch)</p>
+</li>
+<li>
+<p>framing or EOF markers around the file</p>
+</li>
+<li>
+<p>interactive pre-processing, remote posting</p>
+</li>
+<li>
+<p>controller-specific sanity checks</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="files-and-naming"><a class="anchor" href="#files-and-naming"></a>Files and naming</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The rules are load-bearing — the factory finds your code by name:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>File: <code>&lt;name&gt;_post.py</code>, lowercase suffix, in one of the post search paths (the CAM module&#8217;s <code>Path/Post/scripts/</code>, the user macro directory, the paths from <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Job preferences</b></span>, or an add-on&#8217;s declared post directory).</p>
+</li>
+<li>
+<p>Class: the title-cased file stem. <code>mymachine_post.py</code> must contain <code>class Mymachine</code>. Underscores title-case each part: <code>mach3_mach4_post.py</code> → <code>Mach3_Mach4</code>, <code>masso_g3_post.py</code> → <code>Masso_G3</code>.</p>
+</li>
+<li>
+<p>Module constant: <code>POST_TYPE = "machine"</code>.</p>
+</li>
+<li>
+<p>Machine files refer to the stem: <code>"postprocessor": {"file_name": "mymachine"}</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A <code>_post.py</code> file with no matching class is loaded as a legacy script through a wrapper; that&#8217;s the compatibility path, not an error.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="a-minimal-post"><a class="anchor" href="#a-minimal-post"></a>A minimal post</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from typing import Any, Dict
+from Path.Post.Processor import PostProcessor
+import FreeCAD
+
+translate = FreeCAD.Qt.translate
+Values = Dict[str, Any]
+
+POST_TYPE = "machine"
+
+
+class Mymachine(PostProcessor):
+
+    @classmethod
+    def get_common_property_schema(cls):
+        props = super().get_common_property_schema()
+        for p in props:
+            if p["name"] == "file_extension":
+                p["default"] = "ngc"
+            elif p["name"] == "preamble":
+                p["default"] = "G17 G54 G40 G49 G80 G90"
+            elif p["name"] == "postamble":
+                p["default"] = "M05\nG17 G90 M2"
+        return props
+
+    @classmethod
+    def get_property_schema(cls):
+        return []          # no post-specific properties yet
+
+    def __init__(self, job):
+        super().__init__(
+            job=job,
+            tooltip=translate("CAM", "My machine post processor"),
+            tooltipargs=[],
+            units="Metric",
+        )
+
+    def init_values(self, values: Values) -&gt; None:
+        super().init_values(values)
+        values["POSTPROCESSOR_FILE_NAME"] = __name__</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s a complete, working post. <code>generic_post.py</code> is the reference for this shape; <code>linuxcnc_post.py</code> shows a post with custom properties and hooks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-property-schema"><a class="anchor" href="#the-property-schema"></a>The property schema</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every configurable knob of a post is declared as a schema entry — a plain dict. The UI builds its widgets from these declarations, defaults are applied from them, and the configuration bundle validates override keys against them. Adding a property is one dict in one list; no UI code.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 66.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal key. Stored in <code>postprocessor.properties</code>, surfaced to your code as <code>values["NAME"]</code> (uppercased).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bool</code>, <code>int</code>, <code>float</code>, <code>string</code>, <code>text</code> (multi-line), or <code>choice</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>label</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UI label. Wrap in <code>translate("CAM", &#8230;&#8203;)</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>default</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value used when neither the machine file nor an override sets one.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>help</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tooltip text.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>runtime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>True</code> makes this a per-run parameter: shown on the Post Processing dialog&#8217;s Overview tab, hidden from the Machine Editor, not persisted in the <code>.fcm</code>. See <a href="#property-visibility">Where properties appear</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>min</code>, <code>max</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Range for <code>int</code> and <code>float</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>decimals</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spinbox precision for <code>float</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>choices</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For <code>choice</code>: a list of values, or of <code>(label, value)</code> tuples.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Widget mapping: <code>bool</code> → checkbox, <code>int</code>/<code>float</code> → spinbox, <code>choice</code> → combo, <code>text</code> → multi-line editor, anything else → line edit.</p>
+</div>
+<div class="paragraph">
+<p>Three classmethods carry the schema:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>get_common_property_schema()</code></dt>
+<dd>
+<p>The base class defines the properties every post shares (table below). Override it to <strong>change defaults</strong> — iterate the inherited list and edit entries in place, as in the minimal example. Don&#8217;t remove entries; the pipeline reads them.</p>
+</dd>
+<dt class="hdlist1"><code>get_property_schema()</code></dt>
+<dd>
+<p>Your post&#8217;s own properties. The base returns an empty list.</p>
+</dd>
+<dt class="hdlist1"><code>get_full_property_schema()</code></dt>
+<dd>
+<p>Common plus specific; what the Machine Editor renders. Don&#8217;t override.</p>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="common-properties"><a class="anchor" href="#common-properties"></a>Common properties</h3>
+<div class="paragraph">
+<p>Everything below is available to every machine-based post out of the box:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 22.2222%;">
+<col style="width: 11.1111%;">
+<col style="width: 22.2222%;">
+<col style="width: 44.4445%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>file_extension</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nc</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output file extension, without the dot.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>supports_tool_radius_compensation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether G41/G42 may be emitted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>supported_commands</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">the full built-in list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commands this post accepts, one per line. See <a href="#command-filtering">Command filtering and annotations</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>drill_cycles_to_translate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G73 G81 G82 G83 G85</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Canned cycles to expand into moves when drill translation runs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>preamble</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commands after the header, at program start.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>postamble</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commands at program end.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>safetyblock</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reset-to-safe-state commands (G40 G49 G80).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pre_job</code> / <code>post_job</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Around each Job.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pre_fixture_change</code> / <code>post_fixture_change</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Around fixture changes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pre_operation</code> / <code>post_operation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Around each Operation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pre_tool_change</code> / <code>post_tool_change</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Around tool changes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tool_return</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">After tool changes, for returning to position.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pre_rotary_move</code> / <code>post_rotary_move</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Around rotary-axis moves.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>show_dialog</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allow interactive dialogs during post-processing; off for automation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>parameter_order</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>XYZABCFSIJTQRPH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter output order within a line.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>output_tool_length_offset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G43 after M6.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tool_change</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unchecked suppresses M6.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>output_units</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">metric</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unit command in output.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>axis_precision</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decimals for axis words.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>feed_precision</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decimals for F.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spindle_decimals</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decimals for S.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>f_for_rapid_moves</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Emit F on G0 lines.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="adding-your-own-properties"><a class="anchor" href="#adding-your-own-properties"></a>Adding your own properties</h3>
+<div class="paragraph">
+<p>Declare them in <code>get_property_schema()</code> and read them in <code>init_values()</code>. From the plasma post:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">@classmethod
+def get_property_schema(cls):
+    return [
+        {
+            "name": "pierce_delay",
+            "type": "int",
+            "label": translate("CAM", "Pierce Delay"),
+            "default": 1000,
+            "min": 0,
+            "max": 10000,
+            "help": translate("CAM", "Milliseconds to wait after the torch "
+                                     "ignites (M3) before moving"),
+        },
+        {
+            "name": "force_rapid_feeds",
+            "type": "bool",
+            "runtime": True,
+            "label": translate("CAM", "Force Rapid Feeds"),
+            "default": False,
+            "help": translate("CAM", "Dry-run: run every move at rapid feed"),
+        },
+    ]
+
+def init_values(self, values):
+    super().init_values(values)
+    props = self._machine.postprocessor_properties if self._machine else {}
+    values["PIERCE_DELAY"] = props.get("pierce_delay", 1000)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The bundle also uppercases every property into <code>self.values</code> automatically, so <code>values["PIERCE_DELAY"]</code> is populated either way; reading it explicitly in <code>init_values()</code> keeps the default visible in code.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="property-visibility"><a class="anchor" href="#property-visibility"></a>Where properties appear</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>runtime</code> flag decides which UI owns a property. This is the whole visibility mechanism — one boolean per schema entry:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 42.8571%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Surface</th>
+<th class="tableblock halign-left valign-top"><code>runtime</code> absent or false</th>
+<th class="tableblock halign-left valign-top"><code>runtime: true</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Machine Editor, Postprocessor tab</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shown; changed values persist to the <code>.fcm</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hidden</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Post Processing dialog, Overview tab ("Postprocessor Parameters")</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hidden</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shown; value applies to this run only</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Post Processing dialog, Options tab</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not shown <sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not shown</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Use <code>runtime</code> for choices that vary run to run — a dry-run switch, blend mode, marking-only output. Use plain properties for machine facts — delays, extensions, command blocks. The dialog also lists the runtime values it collected as overrides, so they take highest priority for that export without touching the machine file or the Job.</p>
+</div>
+<div class="paragraph">
+<p>Two related switches: the common property <code>show_dialog</code> gates any interactive dialogs a post raises during processing, and the parameter <code>Mod/CAM/EnableMachinePostprocessor</code> (default true) hides the Machine Editor&#8217;s Postprocessor and Options tabs entirely when false.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-values-reach-your-code"><a class="anchor" href="#how-values-reach-your-code"></a>How values reach your code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At export time the base class builds the <strong>configuration bundle</strong> — one flat dict merged in priority order:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>machine.postprocessor_properties</code> from the <code>.fcm</code> file</p>
+</li>
+<li>
+<p>schema defaults for every key the file doesn&#8217;t set</p>
+</li>
+<li>
+<p>Job document values (<code>job_author</code>, <code>comment</code>, <code>selected_fixtures</code>)</p>
+</li>
+<li>
+<p>overrides — the Job&#8217;s <strong>PostProcessorPropertyOverrides</strong> JSON, or the dialog&#8217;s widget values when exporting from the dialog</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Override keys that don&#8217;t exist in the bundle are warned about and ignored. The result is written back onto the machine object and synced into <code>self.values</code> with uppercased keys, alongside the values <code>_merge_machine_config()</code> maps from the machine&#8217;s output options (<code>OUTPUT_COMMENTS</code>, <code>COMMENT_SYMBOL</code>, <code>AXIS_PRECISION</code>, <code>OUTPUT_LINE_NUMBERS</code>, and the rest). Explicit overrides win even over the machine model. Everything downstream — expansion, conversion, sanity checks — reads <code>self.values</code>, so there&#8217;s a single source of truth per run.</p>
+</div>
+<div class="paragraph">
+<p><code>build_configuration_bundle()</code> is a pure function of its inputs, which makes it easy to unit-test; <code>apply_configuration_bundle()</code> is the side-effecting version the pipeline calls.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-export2-pipeline"><a class="anchor" href="#the-export2-pipeline"></a>The export2 pipeline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>export2()</code> returns a list of <code>(section_name, gcode)</code> tuples — one per output file. Its stages:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Pre-processing dialog</strong> — <code>pre_processing_dialog()</code> runs unless the unified dialog already collected input.</p>
+</li>
+<li>
+<p><strong>Ordering</strong> — <code>buildPostList()</code> turns the Job into an ordered list of <strong>postables</strong> (fixtures, tool changes, operations), honoring the Job&#8217;s <strong>OrderOutputBy</strong>, <strong>SplitOutput</strong>, and <strong>Fixtures</strong> properties and the machine&#8217;s <code>early_tool_prep</code>. Then <code>_expand_postprocessor_commands(postables)</code> runs — your first hook, with the complete ordered plan and nothing yet expanded.</p>
+</li>
+<li>
+<p><strong>Command expansion</strong> — a fixed sequence of passes rewrites the postables: preamble/safety block, per-item pre blocks, drill-cycle translation, canned cycles, arc splitting, spindle wait, coolant delay, rapid translation, XY-before-Z, bCNC blocks, tool length offset, per-item post blocks, tool-change suppression, rotary wrapping. Each pass is a <code><em>expand</em>*</code> method; each reads its switch from <code>self.values</code>, so a disabled feature is a no-op.</p>
+</li>
+<li>
+<p><strong>Command conversion</strong> — each <code>Path.Command</code> becomes a G-code line: parameter ordering and precision applied, unsupported commands filtered, comments formatted.</p>
+</li>
+<li>
+<p><strong>Optimization</strong> — modal/duplicate suppression and line numbering.</p>
+</li>
+<li>
+<p><strong>Output production and remote posting.</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Section names come from the postable structure; the Post Processing dialog turns them into filenames through the Job&#8217;s output template.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hooks"><a class="anchor" href="#hooks"></a>Hooks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Override only what your dialect needs; delegate the rest with <code>super()</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Hook</th>
+<th class="tableblock halign-left valign-top">Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>init_values(values)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set or override entries in the values dict. Always call <code>super().init_values(values)</code> first, then set <code>POSTPROCESSOR_FILE_NAME</code> and read your custom properties.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_expand_postprocessor_commands(postables)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inject, remove, or rewrite commands after ordering, before expansion. The broadest hook.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>expand_prefix(postables)</code> and the other <code>_expand</em>*</code> passes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change one expansion stage. Example: LinuxCNC appends its blend command (G61/G64 P…) to the preamble here.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_convert_drill_cycle(command)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reformat canned cycles: rename parameters, inject reference planes, compute tapping feeds.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_merge_machine_config()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change how machine output options map into <code>self.values</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>export2()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wrap the finished output — EOF markers, framing. Call <code>super().export2()</code> and transform the returned sections.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pre_processing_dialog()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Collect interactive input before processing. Return <code>False</code> to cancel. Respect <code>values["SHOW_DIALOG"]</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>get_sanity_checks(job)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Controller-specific validation; see below.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tooltip</code> (property)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The description shown in the Machine Editor.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="machinestate"><a class="anchor" href="#machinestate"></a>MachineState</h3>
+<div class="paragraph">
+<p>During conversion the pipeline maintains a <code>MachineState</code> object (<code>Path.Base.MachineState</code>) tracking the abstract machine: X Y Z A B C position, F (with G0&#8217;s F held separately as <code>G0F</code>), S, T, coolant, the active work coordinate system, and the drill return mode (G98/G99). Conversion passes consult it instead of re-deriving state, and its snapshot resets per output section. If your override emits or rewrites motion the tracker didn&#8217;t see, update the state — the next pass trusts it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="command-filtering"><a class="anchor" href="#command-filtering"></a>Command filtering and annotations</h3>
+<div class="paragraph">
+<p>Conversion checks every command against the post&#8217;s <code>supported_commands</code> list (seeded from the lists in <code>Constants.py</code>: moves, drill cycles, probing, offsets, spindle and coolant M-codes, plus the non-conforming set — cutter compensation, distance mode, units, return mode — that operations shouldn&#8217;t emit but posts may). Commands outside the list are rejected rather than silently passed through.</p>
+</div>
+<div class="paragraph">
+<p>A <code>Path.Command</code> can carry annotations that alter this. <code>allow_unsupported</code> (set by the Custom operation) exempts a command from the check, so users can hand-write dialect G-code that flows through untouched. <code>NoEngagementFeed</code> marks G0 moves that rapid translation may convert to G1 at the no-engagement feed rate.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sanity-checks"><a class="anchor" href="#sanity-checks"></a>Sanity checks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Return squawks from <code>get_sanity_checks(job)</code> and they appear on the Post Processing dialog&#8217;s Warnings tab and in <a href="../job/quick-validate.html" class="xref page">Quick Validate</a>, next to the generic checks. Use <code>self._create_squawk(type, note)</code> to format them; types are <code>WARNING</code> (critical), <code>CAUTION</code>, <code>NOTE</code>, and <code>TIP</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def get_sanity_checks(self, job):
+    squawks = []
+    if self.values["PIERCE_DELAY"] &lt; 300:
+        squawks.append(self._create_squawk(
+            "WARNING", "Pierce delay may be too short to pierce the material"))
+    return squawks</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The base pipeline already validates toolpaths against machine axis limits and toolhead RPM range; write checks only for what&#8217;s specific to your controller.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Post tests live in <code>Mod/CAM/CAMTests/</code> and run with <code>FreeCADCmd -t TestCAMApp</code> (or a single module: <code>-t CAMTests.TestLinuxCNCPost</code>). Prefer the mock-based pattern — <code>PostTestMocks.create_default_job_with_operation()</code> builds a Job stand-in without a document, and you drive the pipeline directly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path
+import CAMTests.PathTestUtils as PathTestUtils
+import CAMTests.PostTestMocks as PostTestMocks
+from Path.Post.Processor import PostProcessorFactory
+from Machine.models.machine import Machine
+
+
+class TestMymachinePost(PathTestUtils.PathTestBase):
+    @classmethod
+    def setUpClass(cls):
+        cls.job, cls.op, cls.tc = PostTestMocks.create_default_job_with_operation()
+        cls.post = PostProcessorFactory.get_post_processor(cls.job, "mymachine")
+
+    def setUp(self):
+        self.post.reinitialize()
+        self.post._machine = Machine.create_3axis_config()
+        self.post._machine.output.output_header = False
+        self.post._machine.output.comments.enabled = False
+
+    def test_rapid(self):
+        self.op.Path = Path.Path([Path.Command("G0", {"X": 10.0, "Y": 5.0})])
+        gcode = self.post.export2()[0][1]
+        self.assertIn("G0 X10.000 Y5.000", gcode)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Turn header and comments off in <code>setUp</code> so assertions stay byte-stable. Test at minimum: empty path (preamble + postamble), file extension, precision, comment formatting, modal suppression, drill cycle handling, and every dialect quirk your subclass exists for. Register the module in <code>CAMTests/<em>init</em>.py</code> so the runner discovers it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="shipping-a-post"><a class="anchor" href="#shipping-a-post"></a>Shipping a post</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For your own machine, drop the file in the macro directory or a folder listed in <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Job preferences</b></span>; make sure it&#8217;s enabled under <strong>Post processors selection</strong> there. An add-on can distribute posts by declaring them in its <code>package.xml</code>, next to its machine files — the community <strong>FreeCAD/Machines</strong> add-on takes both. A post contributed to FreeCAD itself goes in <code>src/Mod/CAM/Path/Post/scripts/</code> with an entry in the CAM module&#8217;s <code>CMakeLists.txt</code>, tests, and ideally a matching <code>.fcm</code> template.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="reference-implementations"><a class="anchor" href="#reference-implementations"></a>Reference implementations</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Post</th>
+<th class="tableblock halign-left valign-top">Worth reading for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generic_post.py</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimal shape: base pipeline, no overrides.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>linuxcnc_post.py</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schema default overrides, a runtime <code>choice</code> property (blend mode), an <code>_expand_prefix</code> hook, rigid-tapping conversion.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generic_plasma_post.py</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A property-rich post: pierce/cooling/marking delays, torch Z-axis control, runtime dry-run flags.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>opensbp_post.py</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A non-G-code dialect (ShopBot OpenSBP) plus probe support.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mach3_mach4_post.py</code>, <code>marlin_post.py</code>, <code>centroid_post.py</code>, <code>smoothie_post.py</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Straightforward migrations to compare against their <code>_legacy_post.py</code> siblings.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="related"><a class="anchor" href="#related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="machine-configuration.html" class="xref page">Machine Configuration</a></p>
+</li>
+<li>
+<p><span class="image"><img src="../_images/CAM_Machine.svg" alt="CAM Machine" width="24"></span> <a href="machine.html" class="xref page">CAM Machine</a></p>
+</li>
+<li>
+<p><span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="24"></span> <a href="post-process.html" class="xref page">CAM Post</a></p>
+</li>
+<li>
+<p><a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a> — the legacy script system</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. The Options tab shows the machine&#8217;s output and processing option groups, not schema properties.
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="postprocessor-customization.html">CAM Postprocessor Customization</a></span>
+  <span class="next"><a href="../job/setup-sheet.html">CAM SetupSheet</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

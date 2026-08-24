@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM Machine :: FreeCAD CAM documentation (experiment)</title>
     <link rel="prev" href="post-process-selected.html">
-    <link rel="next" href="../job/sanity-check.html">
+    <link rel="next" href="machine-configuration.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -72,6 +72,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="machine-configuration.html">Machine Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
@@ -317,6 +320,9 @@
     <a class="nav-link" href="postprocessor-customization.html">CAM Postprocessor Customization</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mbpp-postprocessor.html">Writing a Machine-Based Post-Processor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -432,7 +438,7 @@
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><a href="../job/job.html" class="xref page">CAM Job</a>, <a href="post-process.html" class="xref page">CAM Post</a>, <a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a></p>
+<p><a href="../job/job.html" class="xref page">CAM Job</a>, <a href="post-process.html" class="xref page">CAM Post</a>, <a href="machine-configuration.html" class="xref page">Machine Configuration</a>, <a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a></p>
 </dd>
 </dl>
 </div>
@@ -444,7 +450,7 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A <strong>Machine</strong> is a definition of a CNC machine (axes, kinematics, toolheads, and the machine-based <a href="post-process.html" class="xref page">Post-Processor</a> with its output options) stored as a <code>.fcm</code> file in the CAM asset directory. Assigning a Machine to a <a href="../job/job.html" class="xref page">Job</a> switches the Job to machine-based post-processing. <span class="since">introduced in 26.3</span></p>
+<p>A <strong>Machine</strong> is a definition of a CNC machine (axes, kinematics, toolheads, and the machine-based <a href="post-process.html" class="xref page">Post-Processor</a> with its output options) stored as a <code>.fcm</code> file in the CAM asset directory. Assigning a Machine to a <a href="../job/job.html" class="xref page">Job</a> switches the Job to machine-based post-processing. <span class="since">introduced in 26.3</span> Full documentation of the editor, the file format and Job integration is on the <a href="machine-configuration.html" class="xref page">Machine Configuration</a> page; developers writing a post for this system should read <a href="mbpp-postprocessor.html" class="xref page">Writing a Machine-Based Post-Processor</a>.</p>
 </div>
 </div>
 </div>
@@ -586,7 +592,7 @@ job.Machine = 'My Router'</code></pre>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="post-process-selected.html">Post Process Selected</a></span>
-  <span class="next"><a href="../job/sanity-check.html">Sanity Check</a></span>
+  <span class="next"><a href="machine-configuration.html">Machine Configuration</a></span>
 </nav>
 </article>
   </div>

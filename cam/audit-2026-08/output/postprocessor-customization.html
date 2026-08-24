@@ -6,7 +6,7 @@
     <title>CAM Postprocessor Customization :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/output/postprocessor-customization.html">
     <link rel="prev" href="../job/fixture.html">
-    <link rel="next" href="../job/setup-sheet.html">
+    <link rel="next" href="mbpp-postprocessor.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -73,6 +73,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="machine-configuration.html">Machine Configuration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
@@ -316,6 +319,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mbpp-postprocessor.html">Writing a Machine-Based Post-Processor</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
@@ -598,6 +604,9 @@
 <p><span class="since">introduced in 26.3</span></p>
 </div>
 <div class="paragraph">
+<p>The full developer reference for this system — the property schema, UI visibility rules, the export2 pipeline and its hooks, MachineState, testing — is on the <a href="mbpp-postprocessor.html" class="xref page">Writing a Machine-Based Post-Processor</a> page; machine files are documented under <a href="machine-configuration.html" class="xref page">Machine Configuration</a>. Below is the short version.</p>
+</div>
+<div class="paragraph">
 <p>Start from <code>generic_post.py</code>. Minimal form:</p>
 </div>
 <div class="listingblock">
@@ -631,7 +640,7 @@ class Mymachine(PostProcessor):
 </div>
 </div>
 <div class="paragraph">
-<p>The common property schema covers file_extension, supports_tool_radius_compensation, supported_commands, drill_cycles_to_translate, preamble, postamble, safetyblock, pre_job, post_job, pre_fixture_change, post_fixture_change, pre_operation, post_operation, pre_tool_change, post_tool_change, tool_return, pre_rotary_move, post_rotary_move, show_dialog, parameter_order, output_tool_length_offset, translate_drill_cycles, tool_change, output_units, axis_precision, feed_precision, spindle_decimals and f_for_rapid_moves.</p>
+<p>The common property schema covers file_extension, supports_tool_radius_compensation, supported_commands, drill_cycles_to_translate, preamble, postamble, safetyblock, pre_job, post_job, pre_fixture_change, post_fixture_change, pre_operation, post_operation, pre_tool_change, post_tool_change, tool_return, pre_rotary_move, post_rotary_move, show_dialog, parameter_order, output_tool_length_offset, tool_change, output_units, axis_precision, feed_precision, spindle_decimals and f_for_rapid_moves.</p>
 </div>
 <div class="paragraph">
 <p>Schema entries have name, type (string, bool, choice, int, float), label, default, help and optionally choices, min, max, decimals and runtime (runtime properties are shown on the Overview tab of the Post Processing dialog, others on its Options tab and in the Machine Editor). Values are stored in the Machine&#8217;s <code>.fcm</code> under <code>postprocessor.properties</code> and merged with Job and dialog overrides by <code>apply_configuration_bundle()</code>.</p>
@@ -682,6 +691,12 @@ class Mymachine(PostProcessor):
 <div class="ulist">
 <ul>
 <li>
+<p><a href="mbpp-postprocessor.html" class="xref page">Writing a Machine-Based Post-Processor</a></p>
+</li>
+<li>
+<p><a href="machine-configuration.html" class="xref page">Machine Configuration</a></p>
+</li>
+<li>
 <p><span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="24"></span> <a href="post-process.html" class="xref page">CAM Post</a></p>
 </li>
 <li>
@@ -696,7 +711,7 @@ class Mymachine(PostProcessor):
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../job/fixture.html">CAM Fixture</a></span>
-  <span class="next"><a href="../job/setup-sheet.html">CAM SetupSheet</a></span>
+  <span class="next"><a href="mbpp-postprocessor.html">Writing a Machine-Based Post-Processor</a></span>
 </nav>
 </article>
   </div>

@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Machine Configuration :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="prev" href="machine.html">
+    <link rel="next" href="../job/sanity-check.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="machine-configuration.html" selected>Audit (26.3dev)</option>
+            <option value="../../DEV/index.html">DEV (pre-release) (page not in this version)</option>
+            <option value="../../wiki-2026-08/index.html">Wiki (Aug 2026) (page not in this version)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="audit-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="machine.html">Machine</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="machine-configuration.html">Machine Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">Waterline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Path Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Path Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mbpp-postprocessor.html">Writing a Machine-Based Post-Processor</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Audit (26.3dev)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../wiki-2026-08/index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../index.html">Audit (26.3dev)</a>
+        </li>
+        <li class="version">
+          <a href="../../DEV/index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../wiki-2026-08/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Project Commands</li>
+    <li><a href="machine-configuration.html">Machine Configuration</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Audit (26.3dev)</button>
+  <div class="version-menu">
+    <a class="version is-current" href="machine-configuration.html">Audit (26.3dev)</a>
+    <a class="version is-missing" href="../../DEV/index.html">DEV (pre-release)</a>
+    <a class="version is-missing" href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/audit/modules/ROOT/pages/output/machine-configuration.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Machine Configuration</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="since">Introduced in 26.3.</span> A <strong>Machine</strong> describes a real CNC machine to FreeCAD: its axes and their limits, its kinematic layout, its toolheads, which <a href="post-process.html" class="xref page">Post-Processor</a> it needs, and how its G-code should be formatted. The definition lives in one JSON file with the <code>.fcm</code> extension. Assign a Machine to a <a href="../job/job.html" class="xref page">Job</a> and post-processing runs through the machine-based pipeline; everything the old system scattered across script flags and argument strings sits in this one file.</p>
+</div>
+<div class="paragraph">
+<p>This page covers configuring machines: the editor, the file format, and how machine settings interact with the Job. To write a new Post-Processor for the machine-based system, see <a href="mbpp-postprocessor.html" class="xref page">Writing a Machine-Based Post-Processor</a>. For the command-page summary, see <a href="machine.html" class="xref page">CAM Machine</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-the-pieces-fit"><a class="anchor" href="#how-the-pieces-fit"></a>How the pieces fit</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A Job stores only the machine&#8217;s display name in its <strong>Machine</strong> property. At post time FreeCAD looks the name up (case-insensitively) among the available <code>.fcm</code> files, loads the file, and reads <code>postprocessor.file_name</code> from it to pick the Post-Processor. The machine&#8217;s output options, processing options, and post properties then configure that Post-Processor. A Job with no Machine still uses the legacy flow — its <strong>PostProcessor</strong> and <strong>PostProcessorArgs</strong> properties — so both systems coexist.</p>
+</div>
+<div class="paragraph">
+<p>Configuration reaches the Post-Processor in a fixed priority order. Later stages win:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Values stored in the machine&#8217;s <code>.fcm</code> file (<code>postprocessor.properties</code>).</p>
+</li>
+<li>
+<p>Schema defaults, for any property the file doesn&#8217;t mention.</p>
+</li>
+<li>
+<p>Job-level overrides from the Job&#8217;s <strong>PostProcessorPropertyOverrides</strong> property.</p>
+</li>
+<li>
+<p>Per-export overrides entered in the <a href="post-process.html" class="xref page">Post Processing</a> dialog.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="where-machine-files-live"><a class="anchor" href="#where-machine-files-live"></a>Where machine files live</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">User machines</dt>
+<dd>
+<p><code>.fcm</code> files in the <code>Machines</code> folder of the CAM asset directory (by default <code>&lt;user application data&gt;/CamAssets/Machines/</code>). These are the machines offered in the Job task panel and the Post Processing dialog. The file is named after the machine with spaces replaced by underscores (<code>My Router</code> → <code>My_Router.fcm</code>), but the display name always comes from the <code>machine.name</code> field inside the file.</p>
+</dd>
+<dt class="hdlist1">Add-on machines</dt>
+<dd>
+<p>Any installed add-on whose <code>package.xml</code> declares a <code>machine</code> content item contributes the <code>.fcm</code> files of the declared subdirectory as read-only templates, grouped under the add-on&#8217;s name (the <strong>FreeCAD/Machines</strong> add-on in the Addon Manager is the community collection). Subdirectories nest to any depth in the template picker. Selecting a template copies its settings into your own machine, so an add-on update never silently changes your configuration. An add-on can be hidden with an <code>ADDON_DISABLED</code> file in its folder; <code>ALL_ADDONS_DISABLED</code> in the <code>Mod</code> folder hides them all.</p>
+</dd>
+<dt class="hdlist1">Built-in templates</dt>
+<dd>
+<p>The editor&#8217;s <strong>Type</strong> presets (below) generate standard 2- to 5-axis configurations without any file. A <code>Machine/machines</code> folder inside the CAM module is also scanned for shipped <code>.fcm</code> templates.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-machine-editor"><a class="anchor" href="#the-machine-editor"></a>The Machine Editor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Open the editor from <b class="button">New Machine</b> on the General tab of the <a href="../job/job.html" class="xref page">Job</a> task panel, or from <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Assets</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Machines</b></span> with <b class="button">Add</b> and <b class="button">Edit</b>. It has three tabs. The <strong>Postprocessor</strong> and <strong>Options</strong> tabs are hidden if the boolean parameter <code>Mod/CAM/EnableMachinePostprocessor</code> is set to false (it defaults to true).</p>
+</div>
+<div class="sect2">
+<h3 id="machine-tab"><a class="anchor" href="#machine-tab"></a>Machine tab</h3>
+<div class="paragraph">
+<p><strong>Name</strong>, <strong>Manufacturer</strong>, and <strong>Description</strong> identify the machine; the name doubles as the key a Job uses to find it. <strong>Units</strong> (Metric or Imperial) sets the unit system for the values you enter here — it&#8217;s independent of the G-code output units on the Options tab. <strong>Template</strong> loads settings from an add-on machine. <strong>Type</strong> rebuilds the axis set from a preset:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Axes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Machine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none — define axes yourself</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2-Axis Lathe (X, Z)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X, Z linear</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3-Axis Mill (XYZ)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X, Y, Z linear</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4-Axis Mill (XYZ + A)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X, Y, Z linear; A rotary about X</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4-Axis Mill (XYZ + B)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X, Y, Z linear; B rotary about Y</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5-Axis Mill (XYZ + A, C)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X, Y, Z linear; C azimuth carrying an A tilt (table/table)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5-Axis Mill (XYZ + B, C)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X, Y, Z linear; B tilt carrying a C azimuth (head/head)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Kinematics</strong> holds two capability flags — <strong>TCP Supported</strong> (the controller does tool-center-point control, e.g. G43.4) and <strong>DWO Supported</strong> (dynamic work offsets, e.g. G54.2) — plus free-form notes.</p>
+</div>
+<div class="paragraph">
+<p>Every axis has:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Role</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where the axis sits in the kinematic chain: <code>table_linear</code>, <code>head_linear</code>, <code>table_rotary</code>, or <code>head_rotary</code>. Table axes move the workpiece, head axes move the tool.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The axis this one is mounted on, for stacked axes (an A tilt riding on a C rotary has parent C).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sequence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Order of the axis within its chain.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Joint origin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The point the axis acts through, in machine coordinates.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Direction / Rotation axis</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unit vector of travel (linear) or of the rotation axis (rotary), selectable as ±X, ±Y, ±Z.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Min limit / Max limit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Travel limits (mm/inch, or degrees for rotary). Sanity checks compare toolpaths against them.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max velocity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Peak axis speed.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Rotary axes add three fields that control how angles come out in G-code:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Solution preference</strong> — when two rotary solutions reach the same orientation, prefer <code>shortest</code>, <code>positive</code>, or <code>negative</code> motion.</p>
+</li>
+<li>
+<p><strong>Allow flip</strong> — permit the 180°-flipped solution when it keeps motion inside the limits.</p>
+</li>
+<li>
+<p><strong>Wrap strategy</strong> — what to emit as an axis accumulates whole revolutions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>unwound</code> — monotonic angles, growing without bound (4613.86°). For controllers that treat the rotary like a linear axis.</p>
+</li>
+<li>
+<p><code>modulo</code> — angles kept in [0°, 360°). For indexers, and any controller where direction across the wrap doesn&#8217;t matter.</p>
+</li>
+<li>
+<p><code>rezero</code> — angles in [0°, 360°) with a <code>G92 A0</code> injected at each full revolution and a closing <code>G92.1</code> to clear the offset. For shortest-path wrapping controllers (LinuxCNC wrapped rotary) when continuous direction matters.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Toolheads</strong> is a tabbed list — a machine can carry several. Each has a type (<code>rotary</code>, <code>laser</code>, <code>waterjet</code>, <code>plasma</code>), which sets its capability profile, plus min/max RPM, maximum power (kW), tool change mode (<code>manual</code> or automatic), flood and mist coolant availability, a coolant delay, and a wait time after start. Type-specific extras: laser wavelength and focus range, waterjet pressure, plasma amperage.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="postprocessor-tab"><a class="anchor" href="#postprocessor-tab"></a>Postprocessor tab</h3>
+<div class="paragraph">
+<p>Pick the Post-Processor here. The combo lists only machine-based posts — the ones declaring <code>POST_TYPE = "machine"</code> — never legacy script posts. Below the combo the editor renders one widget per entry of the selected post&#8217;s property schema: file extension, preamble, postamble, safety block, the pre/post G-code blocks, supported commands, precision settings, and any post-specific properties (LinuxCNC adds its blend mode, the plasma post its pierce and cooling delays). Widgets and defaults come straight from the post&#8217;s schema, so a new post needs no editor changes to be fully configurable. Properties marked <code>runtime</code> in the schema don&#8217;t appear here — they&#8217;re per-run choices offered in the Post Processing dialog instead (see <a href="mbpp-postprocessor.html#property-visibility" class="xref page">property visibility</a>).</p>
+</div>
+<div class="paragraph">
+<p>Only values you actually change are written to the <code>.fcm</code> file. Everything else stays at the schema default, so posts can improve their defaults later without stale copies in every machine file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="options-tab"><a class="anchor" href="#options-tab"></a>Options tab</h3>
+<div class="paragraph">
+<p>These are the output-formatting and processing options — the machine-based replacement for the legacy posts' argument strings. The groups are generated from the machine model itself, so the editor and the Post Processing dialog always show the same set:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 57.1429%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Group</th>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="4"><p class="tableblock">Main</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Units</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G-code output units, metric (G21) or imperial (G20). Independent of the configuration units on the Machine tab.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output Header</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Master switch for the generated header block.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output Tool Length Offset (G43)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Emit <code>G43 H&lt;tool&gt;</code> after each <code>M6</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable Remote Posting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Send output to a network endpoint after generation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Header</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">include_date, include_description, include_document_name, include_machine_name, include_project_file, include_units, include_tool_list, include_fixture_list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Which lines the header contains.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enabled, symbol, include_operation_labels, include_blank_lines, output_bcnc_comments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comment output on/off, the comment character (default <code>(</code>), operation-label comments, blank-line preservation, and bCNC block markers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formatting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">line_numbers, line_number_start, line_number_prefix, line_increment, command_space, end_of_line_chars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Line numbering (<code>N100</code>, +10 per line by default), the separator between command and parameters (set it to an empty string for packed output like <code>G0X10</code>), and line endings.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Precision</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">axis, feed, spindle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decimal places for coordinates, feed rates, and spindle speed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Duplicates</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">commands, parameters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unchecked = modal suppression. <code>commands</code> off drops repeated G/M words (<code>G1 X1</code> then <code>X2</code>); <code>parameters</code> off drops parameters whose value didn&#8217;t change.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" rowspan="8"><p class="tableblock">Processing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Early tool prep</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Emit the next tool number before the current operation ends, so a tool changer can stage it. Changes postable ordering.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filter inefficient moves</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Collapse chains of redundant G0 rapids.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Split Arcs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replace G2/G3 with line segments for controllers without arc support.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tool change</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unchecked suppresses <code>M6</code> output entirely.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Translate Drill Cycles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expand canned drill cycles (G73, G81–G83, G85) into explicit G0/G1 moves.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Translate Rapid Moves</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output rapids as G1 at a rapid feed rate.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">XY Before Z After Tool Change</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decompose the first move after a tool change: travel in XY first, plunge Z second.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional x,y,z position to end the program at.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><b class="button">Edit as Text</b> switches the whole dialog to a JSON editor of the file. <b class="button">Save</b> writes the <code>.fcm</code>; <b class="button">Close</b> discards.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-fcm-file-format"><a class="anchor" href="#the-fcm-file-format"></a>The .fcm file format</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <code>.fcm</code> file is plain JSON. A complete, working 3-axis example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+    "freecad_version": "26.3.0",
+    "version": 1,
+    "machine": {
+        "name": "Shop Router",
+        "manufacturer": "",
+        "description": "3-axis router, LinuxCNC controller",
+        "units": "metric",
+        "kinematics": {
+            "base_frame": {
+                "origin": [0, 0, 0],
+                "orientation_quaternion": [0, 0, 0, 1]
+            },
+            "tcp_supported": false,
+            "dwo_supported": false,
+            "notes": ""
+        },
+        "axes": {
+            "X": {
+                "type": "linear",
+                "role": "table_linear",
+                "parent": null,
+                "sequence": 0,
+                "joint": [[0, 0, 0], [1, 0, 0]],
+                "limits": {"min": 0, "max": 840},
+                "max_velocity": 5000
+            },
+            "Y": {
+                "type": "linear",
+                "role": "table_linear",
+                "parent": null,
+                "sequence": 0,
+                "joint": [[0, 0, 0], [0, 1, 0]],
+                "limits": {"min": 0, "max": 840},
+                "max_velocity": 5000
+            },
+            "Z": {
+                "type": "linear",
+                "role": "head_linear",
+                "parent": null,
+                "sequence": 0,
+                "joint": [[0, 0, 0], [0, 0, 1]],
+                "limits": {"min": 0, "max": 100},
+                "max_velocity": 1000
+            }
+        },
+        "toolheads": [
+            {
+                "name": "Spindle",
+                "toolhead_type": "rotary",
+                "tool_change": "manual",
+                "max_power_kw": 1.5,
+                "min_rpm": 8000,
+                "max_rpm": 24000,
+                "coolant_flood": false,
+                "coolant_mist": true,
+                "coolant_delay": 0.0,
+                "toolhead_wait": 2.0
+            }
+        ]
+    },
+    "postprocessor": {
+        "file_name": "linuxcnc",
+        "properties": {
+            "file_extension": "ngc",
+            "preamble": "G17 G54 G40 G49 G80 G90",
+            "postamble": "M05\nG17 G54 G90 G80 G40\nM2"
+        }
+    },
+    "output": {
+        "units": "metric",
+        "output_tool_length_offset": true,
+        "remote_post": false,
+        "header": {
+            "output_header": true,
+            "include_date": true,
+            "include_description": true,
+            "include_document_name": true,
+            "include_machine_name": true,
+            "include_project_file": true,
+            "include_units": true,
+            "include_tool_list": true,
+            "include_fixture_list": true
+        },
+        "comments": {
+            "enabled": true,
+            "symbol": "(",
+            "include_operation_labels": false,
+            "include_blank_lines": true,
+            "output_bcnc_comments": false
+        },
+        "formatting": {
+            "line_numbers": false,
+            "line_number_start": 100,
+            "line_number_prefix": "N",
+            "line_increment": 10,
+            "command_space": " ",
+            "end_of_line_chars": "\n"
+        },
+        "precision": {"axis": 3, "feed": 3, "spindle": 0},
+        "duplicates": {"commands": true, "parameters": true}
+    },
+    "processing": {
+        "early_tool_prep": false,
+        "filter_inefficient_moves": false,
+        "split_arcs": false,
+        "tool_change": true,
+        "translate_drill_cycles": false,
+        "translate_rapid_moves": false,
+        "xy_before_z_after_tool_change": false
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Key points about the format:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>postprocessor.file_name</code> is the module stem: <code>linuxcnc</code> loads <code>linuxcnc_post.py</code> and instantiates its <code>Linuxcnc</code> class.</p>
+</li>
+<li>
+<p><code>postprocessor.properties</code> is <strong>sparse</strong>. Only user-changed values belong here; every property the post&#8217;s schema defines gets its schema default at load time. Post-specific properties (like the LinuxCNC <code>blend_mode</code>) go in the same dict.</p>
+</li>
+<li>
+<p>Each <code>joint</code> is <code>[origin, axis_vector]</code>. The object form <code>{"origin": [&#8230;&#8203;], "axis": [&#8230;&#8203;]}</code> is also accepted, as is the older axis type name <code>angular</code> for <code>rotary</code>. Rotary axes may also carry <code>solution_preference</code>, <code>allow_flip</code>, and <code>wrap_strategy</code>.</p>
+</li>
+<li>
+<p>Toolheads accept type-specific keys: <code>laser_wavelength</code>, <code>laser_focus_range</code>, <code>waterjet_pressure</code>, <code>plasma_amperage</code>.</p>
+</li>
+<li>
+<p><code>processing.return_to</code> is an optional <code>[x, y, z]</code> array.</p>
+</li>
+<li>
+<p>Older flat layouts (a boolean <code>header</code>, top-level <code>line_numbers</code>, <code>axis_precision</code>, <code>output_comments</code>) still load; saving rewrites them in the nested structure shown above.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Hand-editing the JSON is fine — the editor&#8217;s <b class="button">Edit as Text</b> view exists for exactly that — but keep it valid; a machine that fails to parse simply won&#8217;t load.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="machine-settings-in-the-job"><a class="anchor" href="#machine-settings-in-the-job"></a>Machine settings in the Job</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Set the machine on the General tab of the Job task panel, or write the <strong>Machine</strong> property directly. With a machine assigned:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The Job&#8217;s <strong>PostProcessor</strong> and <strong>PostProcessorArgs</strong> properties are ignored. The machine decides the post and its configuration.</p>
+</li>
+<li>
+<p>The <a href="post-process.html" class="xref page">Post Process</a> command opens the multi-tab Post Processing dialog and runs the machine-based pipeline (<code>export2()</code>).</p>
+</li>
+<li>
+<p>Machine limits, toolhead RPM range, and any post-specific checks feed the sanity system — the dialog&#8217;s Warnings tab and <a href="../job/quick-validate.html" class="xref page">Quick Validate</a>.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="job-level-overrides"><a class="anchor" href="#job-level-overrides"></a>Job-level overrides</h3>
+<div class="paragraph">
+<p>The Job property <strong>PostProcessorPropertyOverrides</strong> holds a JSON dictionary of post properties that this Job overrides, so one machine file can serve several Jobs with small variations:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{"file_extension": "tap", "post_operation": "M9"}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Two rules. Keys must exist in the post&#8217;s property bundle — unknown keys are warned about and dropped. And the string must be valid JSON — a malformed value stops post-processing with an error rather than silently ignoring your settings. Job templates save and restore both <strong>Machine</strong> and these overrides.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="per-export-overrides"><a class="anchor" href="#per-export-overrides"></a>Per-export overrides</h3>
+<div class="paragraph">
+<p>The Post Processing dialog offers one more layer, applied only to that export and never saved:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <strong>Overview</strong> tab shows the post&#8217;s <code>runtime</code> properties (per-run choices like a dry-run flag or blend mode).</p>
+</li>
+<li>
+<p>The <strong>Options</strong> tab shows the machine&#8217;s full output and processing groups, editable in place.</p>
+</li>
+<li>
+<p>The machine combo lets you post against a different machine than the Job&#8217;s, once.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from Machine.models.machine import Machine, MachineFactory
+
+m = Machine.create_3axis_config()          # or create_4axis_A_config(), create_AC_table_config(), ...
+m.name = "Shop Router"
+m.postprocessor_file_name = "linuxcnc"
+m.postprocessor_properties["file_extension"] = "ngc"
+m.output.comments.enabled = False
+m.linear_axes["X"].max_limit = 840
+MachineFactory.save_configuration(m)       # writes &lt;CamAssets&gt;/Machines/Shop_Router.fcm
+
+job.Machine = "Shop Router"
+
+from Path.Post.Processor import PostProcessorFactory
+post = PostProcessorFactory.get_post_processor(job, "linuxcnc")
+sections = post.export2()                  # [(section_name, gcode), ...]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="related"><a class="anchor" href="#related"></a>Related</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><span class="image"><img src="../_images/CAM_Machine.svg" alt="CAM Machine" width="24"></span> <a href="machine.html" class="xref page">CAM Machine</a></p>
+</li>
+<li>
+<p><span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="24"></span> <a href="post-process.html" class="xref page">CAM Post</a></p>
+</li>
+<li>
+<p><a href="mbpp-postprocessor.html" class="xref page">Writing a Machine-Based Post-Processor</a></p>
+</li>
+<li>
+<p><a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="machine.html">Machine</a></span>
+  <span class="next"><a href="../job/sanity-check.html">Sanity Check</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
