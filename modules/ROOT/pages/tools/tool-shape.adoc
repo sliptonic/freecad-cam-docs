@@ -2,12 +2,13 @@
 :page-origin: https://wiki.freecad.org/CAM_ToolShape
 :page-origin-revision: 68c5376d73 2025-11-05
 :page-imported: true
+:page-audit: applied
 
 == Description
 
 ToolShapes are a core part of the xref:tools/index.adoc[CAM Tools] system. ToolShapes are the templates from which ToolBits are created. They represent the specific physical shape of a tool. A ToolShape does not completely describe the bit - for that some additional parameters are needed which will be added when an actual bit is parameterized from the template.
 
-Initially ToolShapes are just FreeCAD documents with a single Body created from the image:Workbench_PartDesign.svg[width=24] https://wiki.freecad.org/PartDesign_Workbench[Part Design ] workbench.
+A Tool Shape is a FreeCAD document with a single PartDesign Body and a PropertyBag labeled `Attributes`, created with the image:Workbench_PartDesign.svg[width=24] https://wiki.freecad.org/PartDesign_Workbench[Part Design] workbench. The label of the Body selects the shape type: it must equal the name (or an alias) of one of the shape types listed below, otherwise the shape is loaded as a Custom shape with a generic parameter set.
 
 Creating new ToolShapes is an advanced topic. The most commonly needed ToolShapes already exist and are provided with the FreeCAD installation at:
 
@@ -17,46 +18,68 @@ Creating new ToolShapes is an advanced topic. The most commonly needed ToolShape
 
 They are:
 
-::
-  `ballend.fcstd`
-  +
-  `bullnose.fcstd`
-  +
-  `chamfer.fcstd`
-  +
-  `drill.fcstd`
-  +
-  `endmill.fcstd`
-  +
-  `probe.fcstd`
-  +
-  `slittingsaw.fcstd`
-  +
-  `thread-mill.fcstd`
-  +
-  `v-bit.fcstd`
+* `ballend.fcstd`
+* `bullnose.fcstd`
+* `chamfer.fcstd`
+* `dovetail.fcstd` [.since]#introduced in 1.1#
+* `drill.fcstd`
+* `endmill.fcstd`
+* `probe.fcstd`
+* `radius.fcstd` [.since]#introduced in 1.1# (corner-rounding mill; added as _fillet_ and renamed _radius_)
+* `reamer.fcstd` [.since]#introduced in 1.1#
+* `slittingsaw.fcstd`
+* `tap.fcstd` [.since]#introduced in 1.1#
+* `taperedballnose.fcstd` [.since]#introduced in 26.3#
+* `thread-mill.fcstd`
+* `v-bit.fcstd`
 
-These can be found in the `Mod/CAM/Tools/Shape/` subdirectory where FreeCAD was installed.
+User-defined Tool Shapes are stored in the `Tools/Shape` folder of the CAM asset directory (see xref:reference/preferences.adoc[CAM Preferences] → Assets). A user shape with the same file name as a shipped shape replaces it in the _Toolbit Shape Selection_ dialog.
+
+Next to each `.fcstd` file there is an `.svg` drawing of the same name. It is shown in the Toolbit Parameter Editor and the Tool Bit lists; the text elements of the drawing provide the abbreviations (for example D, L, H) displayed next to the parameters.
+
+== Parameters
+
+The shape type determines the parameters a xref:tools/toolbit.adoc[Tool Bit] of that shape carries:
+
+* Endmill: CuttingEdgeHeight, Diameter, Flutes, Length, ShankDiameter.
+* Ballend: CuttingEdgeHeight, Diameter, Flutes, Length, ShankDiameter.
+* Bullnose: CuttingEdgeHeight, Diameter, Flutes, Length, ShankDiameter, CornerRadius (older files using FlatRadius are converted).
+* Chamfer: CuttingEdgeAngle, CuttingEdgeHeight, Diameter, Flutes, Length, ShankDiameter, TipDiameter.
+* V-Bit: CuttingEdgeAngle, CuttingEdgeHeight, Diameter, Flutes, Length, ShankDiameter, TipDiameter.
+* Drill: Diameter, Flutes, Length, TipAngle.
+* Dovetail: TipDiameter (crest height), CuttingEdgeAngle, CuttingEdgeHeight (dovetail height), Diameter (major diameter), Flutes, Length, NeckDiameter, NeckHeight, ShankDiameter.
+* Reamer: CuttingEdgeHeight, Diameter, Length, ShankDiameter.
+* Slitting Saw: BladeThickness, CapDiameter, CapHeight, Diameter, Flutes, Length, ShankDiameter.
+* Tap: CuttingEdgeLength, Diameter, Flutes, Length, ShankDiameter, TipAngle, Pitch.
+* Thread Mill: Crest, Diameter, Flutes, Length, NeckDiameter, NeckLength, ShankDiameter, cuttingAngle.
+* Probe: Diameter (ball diameter), Length, ShaftDiameter.
+* Tapered Ball Nose [.since]#introduced in 26.3#: CuttingEdgeHeight, Diameter, Flutes, Length, ShankDiameter, TaperAngle, TaperDiameter.
+* Radius Mill: CuttingEdgeHeight, Diameter, CuttingRadius, Flutes, Length, ShankDiameter, TipDiameter.
+* Custom (any other Body label): CuttingEdgeHeight, Diameter, Flutes, Length, ShankDiameter plus every property found in the `Attributes` PropertyBag.
+
+== Aliases and subtypes
+
+Shape names are matched case-insensitively and through aliases (for example _torus_ → Bullnose, _fillet_ → Radius, _v_bit_ → VBit, _conicalballnose_ → TaperedBallNose). [.since]#introduced in 26.3#: a shape may define subtypes (Drill: jobber, stub, spot, center, brad_point). A subtype does not change the parameters; it is stored in the Tool Bit's `shape-type` key, can be chosen as Toolbit Type in the Toolbit Parameter Editor and is used for filtering in the Library Manager.
 
 == Usage
 
 . Create a new FreeCAD document.
 . Open the image:Workbench_PartDesign.svg[width=16] https://wiki.freecad.org/PartDesign_Workbench[PartDesign Workbench].
-. Create a https://wiki.freecad.org/PartDesign_Body[Body] and give the Body a label you want to show up in the bit selection.
+. Create a https://wiki.freecad.org/PartDesign_Body[Body] and give the Body a label you want to show up in the bit selection. For the shape to be recognized as one of the types above, the label must equal that type's name or an alias.
 . Create a image:PartDesign_NewSketch.svg[width=16] https://wiki.freecad.org/PartDesign_NewSketch[Sketch] on the XZ-plane and draw half the profile of the bit.
 . Constrain the bottom most center of the bit on the origin `(0,0)`. This will be the center of the axis on which the G-code will rotate the bit.
 * Note: Do not add dimensional constraints at this time.
 . Close the Sketch.
 . image:PartDesign_Revolution.svg[width=16] https://wiki.freecad.org/PartDesign_Revolution[Revolve] the Sketch around the vertical Sketch axis.
 . Open the image:Workbench_CAM.svg[width=16] xref:index.adoc[CAM Workbench].
-. Select the Sketch in the https://wiki.freecad.org/Tree_View[Tree View]. This ensures that the PropertyBag created in the next step will be nested in the Body.
+. Select the Body in the https://wiki.freecad.org/Tree_View[Tree View] so that the PropertyBag created in the next step is nested in the Body.
 . Select the menu:CAM[Utils > PropertyBag] option from the menu.
-. A PropertyBag named `Attributes` is created. This PropertyBag will be used to control the dimensions in the Sketch.
+. A PropertyBag named `Attributes` is created. This PropertyBag will be used to control the dimensions in the Sketch. The PropertyBag must keep the label `Attributes`; put every dimension that drives the Sketch into the `Shape` property group. If the Body label matches a shipped shape type, use the parameter names of that type; other properties are copied to the Tool Bit as custom properties.
 . Double-click the PropertyBag in the https://wiki.freecad.org/Tree_View[Tree View].
 . The menu:Property Bag[] task panel opens.
 . Click the btn:[Add...] button.
 . The menu:Create Property[] dialog opens.
-. Create a property named `Diameter`. This property is mandatory for ToolBits. Property names are case-sensitive and may not contain spaces.
+. Create the properties `Diameter` and `Length` (both mandatory: operations and the LinuxCNC export read them) and the other dimensions of the shape. Property names are case-sensitive and may not contain spaces.
 . Select `Shape` from the menu:Group[] dropdown list.
 . Select the appropriate menu:Type[].
 . Optionally specify a menu:ToolTip[].
@@ -71,17 +94,27 @@ These can be found in the `Mod/CAM/Tools/Shape/` subdirectory where FreeCAD was 
 .. Enter `<<Attributes>>.Diameter` in the menu:Formula editor[].
 .. Click the btn:[OK] button twice.
 . Repeat this until the Sketch is fully constrained.
-. Save the `FCStd` file where FreeCAD expects to find ToolBit files. See <<description,Description>> above.
+. Save the file as `<name>.fcstd` in the `Tools/Shape` folder of the CAM asset directory. Optionally add a `<name>.svg` drawing in the same folder; give each text element an id equal to the parameter name (for example `id="Diameter"`) to have its text shown as abbreviation in the editor.
 
-* Note 1. If you are denied access to the folder on Windows, start FreeCAD in ADMINISTRATOR mode.
-* Note 2. The Body of the ToolBit must be the first object in the https://wiki.freecad.org/Tree_View[Tree View]. These instructions ensure that this is the case.
+* Note: create only one Body, and create it before any other object; the loader reads the label of the object whose internal name is `Body`.
 
 == Tool Thumbnail Images
 
-ToolBits will have a small icon image of the tool in the https://wiki.freecad.org/Tree_View[Tree View] if the file is saved with thumbnails active.
+If no `.svg` drawing exists next to the shape file, the thumbnail embedded in the `.fcstd` file is used as icon.
 
 Important notes:
 
-* Before saving the document make sure you have Save Thumbnail selected, and Add program logo deselected in FreeCAD's preferences.
-* Also make sure to switch to Front View and Fit content to screen
-* Whatever you see when saving the document will end up being the visual representation of the template
+* Before saving the document make sure you have Save Thumbnail selected, and Add program logo deselected in FreeCAD's preferences (menu:Edit[Preferences > General > Document]).
+* Also make sure to switch to Front View and Fit content to screen.
+* Whatever you see when saving the document will end up being the visual representation of the template.
+
+== Scripting
+
+[source,python]
+----
+from Path.Tool.shape import ToolBitShape
+
+shape = ToolBitShape.from_file("/path/to/endmill.fcstd")
+print(shape.name, shape.schema())
+body = shape.make_body(App.ActiveDocument)
+----

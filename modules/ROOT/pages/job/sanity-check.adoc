@@ -8,19 +8,18 @@
 :page-shortcut: P S
 :page-since: 0.19
 :page-imported: true
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+:page-audit: applied
 
 [.fcinfobox]
 --
 [.fcTitle]
 image:CAM_Sanity.svg[CAM Sanity,32] *CAM Sanity*
 
-Menu location:: menu:CAM[Sanity Check]
+Menu location:: menu:CAM[Sanity Check]; also in the Tree View context menu of a Job
 Workbenches:: xref:index.adoc[CAM]
-Default shortcut:: kbd:[kbd:[P] kbd:[S]]
+Default shortcut:: kbd:[P] kbd:[S]
 Introduced in version:: 0.19
-See also:: _None_
+See also:: xref:job/quick-validate.adoc[CAM QuickValidate], xref:output/post-process.adoc[CAM Post]
 --
 
 == Description
@@ -33,48 +32,44 @@ One issue in that workflow is that many assumptions made by the programmer are n
 
 Even if the G-code itself is correct, differences between the programmed setup and the actual machine setup can still lead to mistakes. Commercial shops often solve this by preparing a setup report or setup book for the machine operator.
 
-The image:CAM_Sanity.svg[width=24] xref:job/sanity-check.adoc[CAM Sanity] command is used to generate this kind of setup-oriented information. The output is a standalone HTML report with embedded images that can be opened in a web browser.
+The image:CAM_Sanity.svg[width=24] xref:job/sanity-check.adoc[CAM Sanity] command (tooltip: _Checks the CAM job for common errors_; toolbar: *Project Setup → Sanity Check*) is used to generate this kind of setup-oriented information. The output is a standalone HTML report with embedded images that can be opened in a web browser.
 
 image::Sanity.jpg[width=600]
 
 [.caption]
-Above: Example of a CAM Sanity generated report
+Above: Example of a CAM Sanity generated report (from an older version; the current report is titled "Setup Report for CAM Job: <label>" and its fixtures section is titled "Fixtures")
 
 == About the Report
 
-As much as possible, the content is FreeCAD-agnostic. The machine operator may never use FreeCAD, so FreeCAD- and CAM-specific terminology should be kept to a minimum. The report has distinct sections so that setup information is easier to review.
+As much as possible, the content is FreeCAD-agnostic. The machine operator may never use FreeCAD, so FreeCAD- and CAM-specific terminology should be kept to a minimum. The report contains a table of contents and the sections *Part Information*, *Run Summary*, *Rough Stock*, *Tool Data*, *Output (G-code)*, *Fixtures* and *Squawks*.
 
 === Part Information
 
-This section gives an overview of what is being made. Ideally the image should show the base object or objects used by the Job. If there are multiple base objects, the image should show how they relate to each other in the Job setup.
+Shows the CAD file name and last save date, the Customer (document Company field), the Job type, the Job's sequence among the Jobs of the document, the Job description, an image of the Model(s) and the list of Models with their counts.
 
 === Run Summary
 
-This section gives a quick overview of the Job, including important height information and estimated run-time values.
+Lists the estimated total cycle time, the lowest and highest Z of the Job, and a table of every Operation with its Z range, cycle time and coolant mode. Inactive Operations are flagged with "(INACTIVE)"; Dressups are listed with their base Operation.
 
 === Rough Stock
 
-This section shows the Stock object from the Job, including its size and placement relative to the model.
+Shows the Stock dimensions, the assigned stock material with its carbide and HSS surface speeds (if defined; see btn:[Assign Material] on the Job's Setup tab), and an image of the Stock.
 
 === Tool Data
 
-This section contains a subsection for each tool number used in the Job. It summarizes the tool and tool-controller information used by the selected operations. Depending on the available tool information, this can include the tool description, diameter, feed information, spindle speed, and the operations that use the tool.
+One subsection per tool number with the Tool Bit description, shape, diameter, an image of the Tool Bit, horizontal feed, spindle speed and the Operations that use the Tool Controller. Manufacturer, URL, part number and inspection notes are reserved and currently empty.
 
-=== Output
+=== Output (G-code)
 
-This section gives details about the configured output file and post-processing context. It can also show whether the Job contains optional or mandatory stops, so the operator knows whether the machine run requires attention during execution.
+Shows when the Job was last post-processed, the G-code file name, size and line count, whether the Job contains Stop operations (so the operator knows whether the machine run requires attention during execution), the Post-Processor and its arguments.
 
-=== Coolant
+=== Fixtures
 
-This section indicates the coolant requirements defined by the operations in the Job.
-
-=== Fixtures and Work-holding
-
-This section shows the part in the context of the stock envelope and helps communicate the expected setup orientation and reference position.
+Lists the Work Offsets (Fixtures) and the output order, with an image showing the part datum relative to Stock and Model.
 
 === Squawks
 
-This section lists warnings and errors detected by xref:job/sanity-check.adoc[CAM Sanity]. These items may or may not be actual problems, but they should be reviewed before post-processing or running the Job. Examples can include duplicate tool numbers, inconsistent tool information, missing feed or spindle settings, and unused tool controllers.
+This section lists warnings and errors detected by xref:job/sanity-check.adoc[CAM Sanity]. Each squawk has a type (Note, Tip, Caution, Warning) shown by an icon, a date, an operator and a note. Current checks: Job not yet post-processed; last G-code file missing; no stock material assigned; legacy tool; tool number used by several Tool Bits; Tool Controller without feed rate or spindle speed; unused Tool Controller; Job without Operations or Model. When a Machine is assigned, the machine-based Post-Processor can add its own checks. These items may or may not be actual problems, but they should be reviewed before post-processing or running the Job.
 
 == Usage
 
@@ -82,18 +77,39 @@ This section lists warnings and errors detected by xref:job/sanity-check.adoc[CA
 . There are several ways to invoke the command:
 * Press the image:CAM_Sanity.svg[width=16] xref:job/sanity-check.adoc[Sanity Check] button.
 * Select the menu:CAM[Sanity Check] option from the menu.
+* Select *Sanity Check* from the context menu of the Job.
 * Use the keyboard shortcut: kbd:[P] then kbd:[S].
-. If necessary, set the *OutputFile* property of the Job before running the command.
-. FreeCAD generates a standalone HTML report for the selected Job.
-. The report is written to the same location as the configured Job output file.
-. The generated report is opened in the system's default web browser.
+. In the *Save Sanity Check Report* dialog choose where to save the HTML file (defaults to the folder of the FreeCAD document).
+. The report is written and opened in the system's default web browser; the path is also printed in the Report view.
+
+== Quick Validate
+
+[.since]#introduced in 26.3#
+
+The related command xref:job/quick-validate.adoc[CAM QuickValidate] (shortcut kbd:[P] kbd:[V], not in the menus; run it with `Gui.runCommand('CAM_QuickValidate')`) runs the same checks without images or HTML and prints the squawks to the Report view.
+
+== Post Process dialog integration
+
+[.since]#introduced in 26.3#
+
+When post-processing with a Machine, the xref:output/post-process.adoc[Post Process] dialog runs the same checks and shows them on its *Warnings* tab (the tab label shows the count and a "(!)" marker when warnings or cautions exist). The Overview tab has a *Generate HTML sanity report* checkbox (in the current development version this option is collected but does not yet write a report).
 
 == Notes
 
 * The report is generated directly as HTML by FreeCAD. A separate AsciiDoc or Asciidoctor installation is not required.
 * The generated HTML file is intended to be easy to review, archive, or share together with the Job output.
-* Report images can be embedded directly in the generated HTML file.
-
+* Report images are captured from the 3D view and embedded directly in the generated HTML file, so a report generated in FreeCADCmd (without the GUI) has no images.
+* The target folder must exist.
 * Where applicable, report values are formatted for display using the current unit formatting.
 * Tool diameter and feed values are formatted for display, and spindle speed is shown with an `rpm` suffix.
-* The report is a review aid. It does not replace visual toolpath inspection, simulation, or machine-specific setup documentation.
+* The report is a review aid. It does not replace visual Toolpath inspection, simulation, or machine-specific setup documentation.
+
+== Scripting
+
+[source,python]
+----
+from Path.Main.Sanity import Sanity
+checker = Sanity.CAMSanity(job, '/tmp/report.html')
+open('/tmp/report.html', 'w').write(checker.get_output_report())
+squawks, critical = Sanity.CAMSanity.validate_job(job)
+----

@@ -1,0 +1,71 @@
+= CAM DressupArray
+:page-command: CAM_DressupArray
+:page-icon: CAM_DressupArray.svg
+:page-menu: CAM → Path Dressup → Array
+:page-since: 1.1
+:page-workbench: CAM
+:page-see-also: CAM Array
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupArray.svg[CAM DressupArray,32] *CAM DressupArray*
+
+Menu location:: menu:CAM[Path Dressup > Array]
+Toolbar:: Path Modification → Dressup Operations dropdown
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 1.1
+See also:: xref:modify/array.adoc[CAM Array]
+--
+
+== Description
+
+[.since]#introduced in 1.1# The image:CAM_DressupArray.svg[width=24] xref:dressups/array.adoc[CAM DressupArray] command repeats an existing Toolpath in a linear or polar pattern. It is a Dressup: it wraps the selected Operation, uses the Operation's Tool Controller and coolant mode, and places the copies after the original Toolpath. Its tooltip reads: _Creates an array from a selected toolpath_.
+
+== Usage
+
+. Select one Operation or Dressup.
+. There are several ways to invoke the command:
+* Select the menu:CAM[Path Dressup > Array] option from the menu.
+* Select the *Dressup Operations* dropdown on the Path Modification toolbar.
+* Select the menu:Path Dressup[Array] option from the https://wiki.freecad.org/Tree_view[Tree view] context menu.
+. The dressup has no task panel; set *Type* and the pattern parameters in the property editor. Properties that do not apply to the selected *Type* are hidden.
+
+== Properties
+
+.Path
+* *Base* (`Link`): The base Toolpath to modify.
+* *Type* (`Enumeration`): The pattern method; `Linear1D` (default), `Linear2D`, `Polar`.
+* *Copies* (`Integer`): The number of copies in `Linear1D` and `Polar` patterns; default `0`.
+* *Offset* (`VectorDistance`): The spacing between copies in linear patterns.
+* *Copies X*, *Copies Y* (`Integer`): The number of copies in X and Y direction in a `Linear2D` pattern. The base Toolpath counts as position (0,0), so the pattern has (Copies X + 1) × (Copies Y + 1) instances.
+* *Angle* (`Angle`): Total angle of a `Polar` pattern; each copy is rotated by Angle / Copies.
+* *Centre* (`Vector`): The centre of rotation of a `Polar` pattern.
+* *Swap Direction* (`Bool`): Make copies in X direction before Y in a `Linear2D` pattern; rows are traversed in alternating direction.
+* *Jitter Percent* (`Integer`): Percent of copies to randomly offset; default `0`.
+* *Jitter Magnitude* (`VectorDistance`): Maximum random offset of copies.
+* *Jitter Seed* (`Integer`): Seed for the jitter randomness; `0` uses the object name, so recomputes are stable.
+
+== Relation to the Array Operation
+
+The xref:modify/array.adoc[CAM Array] Operation is considered deprecated since version 1.1 in favour of this dressup, but is still available on the Path Modification toolbar. The Operation supports the `Points` pattern type and rotation jitter (*Use Jitter*, [.since]#introduced in 26.3#), which the dressup does not; the dressup in turn follows the *Active* state and the Tool Controller of its base Operation automatically.
+
+== Scripting
+
+[source,python]
+----
+import Path.Dressup.Gui.Array as ArrayGui
+
+obj = ArrayGui.Create(op)
+
+# without GUI:
+import Path.Dressup.Array as DressupArray
+
+obj = DressupArray.Create(op, "DressupArray")
+obj.Type = "Linear2D"
+obj.CopiesX = 2
+obj.CopiesY = 1
+obj.Offset = FreeCAD.Vector(30, 20, 0)
+----

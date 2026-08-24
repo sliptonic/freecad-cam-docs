@@ -2,72 +2,81 @@
 :page-origin: https://wiki.freecad.org/CAM_Workbench
 :page-origin-revision: 98ebc116a0 2026-07-08
 :page-imported: true
+:page-audit: applied
 
 image::Workbench_CAM.svg[CAM workbench icon,128]
 
 == Introduction
 
-The image:Workbench_CAM.svg[width=24] xref:index.adoc[CAM Workbench] is used to produce machine instructions for https://en.wikipedia.org/wiki/CNC_router[CNC machines] from a FreeCAD 3D model. These produce real-world 3D objects on CNC machines such as mills, lathes, lasercutters, or similar. Typically, instructions are a https://en.wikipedia.org/wiki/G-code[G-code] dialect. A https://www.ange-softs.com/SIMULCNCHTML/index.html[general CNC lathe tool path sequence simulation example] is presented here.
+The image:Workbench_CAM.svg[width=24] xref:index.adoc[CAM Workbench] is used to produce machine instructions for https://en.wikipedia.org/wiki/CNC_router[CNC machines] from a FreeCAD 3D model. These produce real-world 3D objects on CNC machines such as mills, routers, lasercutters, or similar. Typically, instructions are a https://en.wikipedia.org/wiki/G-code[G-code] dialect.
 
 image::Pathwb.png[width=600]
+
+[.caption]
+Screenshot of the former Path Workbench interface; toolbars and command names have changed since the rename to CAM.
 
 The FreeCAD CAM Workbench workflow creates these machine instructions as follows:
 
 * A 3D model is the base object, typically created using one or more of the image:Workbench_PartDesign.svg[width=24] https://wiki.freecad.org/PartDesign_Workbench[Part Design], image:Workbench_Part.svg[width=24] https://wiki.freecad.org/Part_Workbench[Part] or image:Workbench_Draft.svg[width=24] https://wiki.freecad.org/Draft_Workbench[Draft] Workbenches.
-* A xref:job/job.adoc[CAM Job] is created in the CAM Workbench. This contains all the information required to generate the necessary G-code to process the Job on a CNC mill: there is Stock material, the mill has a certain xref:tools/library-manager.adoc[set of tools] and it follows certain commands controlling speed and movements (usually G-code).
-* xref:tools/index.adoc[CAM Tools] are selected as required by the Job Operations.
-* Milling paths are created using e.g. xref:operations/profile.adoc[Contour] and xref:operations/pocket-3d.adoc[Pocket] Operations. These CAM objects use internal FreeCAD G-code dialect, independent of the CNC machine.
-* Export the job with a G-code, matching to your machine. This step is called _post processing_; there are different post processors available.
+* A xref:job/job.adoc[Job] is created. It holds the Model, the Stock, the Tool Controllers that reference Tool Bits from a xref:tools/toolbit-library.adoc[Tool Library], the Operations, and the Post-Processor selection.
+* Optionally a xref:output/machine.adoc[Machine] definition is selected for the Job (Machine Library, [.since]#introduced in 26.3#) so that post-processing and rotary kinematics use the machine's axis configuration.
+* Toolpaths are created using Operations such as xref:operations/profile.adoc[Profile] and xref:operations/pocket.adoc[Pocket Shape]. These CAM objects use the internal FreeCAD G-code dialect, independent of the CNC machine.
+* xref:job/sanity-check.adoc[Sanity Check] is run before post-processing to report missing Tool Controller speeds, depths, or output settings.
+* The Job is exported to G-code matching your machine. This step is called _post processing_; there are different Post-Processors available.
 
 == General concepts
 
-The CAM Workbench generates G-code defining the paths required to mill the Project represented by the 3D model on the target mill in xref:reference/scripting.adoc#the-freecad-internal-gcode-format[the CAM Job Operations FreeCAD G-code dialect], which is later translated to the appropriate dialect for the target CNC controller by selecting the appropriate postprocessor.
+The CAM Workbench generates G-code defining the Toolpaths required to mill the model on the target machine in xref:reference/scripting.adoc#the-freecad-internal-gcode-format[the FreeCAD internal G-code dialect], which is later translated to the appropriate dialect for the target CNC controller by the selected Post-Processor.
 
-The G-code is generated from directives and Operations contained in a CAM Job. The Job Workflow lists these in the order they will be executed. The list is populated by adding CAM Operations, Path Dressups, Supplemental Commands, and Path Modifications from the CAM Menu, or GUI buttons.
+The G-code is generated from directives and Operations contained in a CAM Job. The Job Workflow lists these in the order they will be executed. The list is populated by adding Operations, Path Dressups, Supplemental Commands, and Path Modifications from the CAM menu, or GUI buttons.
 
-The CAM Workbench provides a Tool Manager (Library, Tool-Table), and G-code Inspection, and Simulation tools. It links the Postprocessor, and allows importing and exporting Job Templates.
+The CAM Workbench provides a xref:tools/library-manager.adoc[Toolbit Library Manager] and a xref:tools/add-toolbit.adoc[Toolbit selector], G-code inspection, and two simulators. It links the Post-Processor and allows importing and exporting Job Templates.
 
 The CAM Workbench has external dependencies including:
 
-. The FreeCAD 3D model units are defined in the menu:Edit[Preference > General > Default unit system]. The Postprocessor configuration defines the final G-code units.
-. The Macro file path, and Geometric tolerances, are defined in the menu:Edit[Preferences > CAM > Job Preferences] tab.
+. The FreeCAD 3D model units are defined in menu:Edit[Preferences > General > Default unit system]. The Post-Processor and Machine configuration define the final G-code units.
+. The default Job Template, geometry tolerance, curve accuracy, default Post-Processor, output path and file-save policy, and default Stock are defined on the menu:Edit[Preferences > CAM > Job Preferences] page.
+. Asset storage location and the Machine Library (Add, Edit, Delete machine definitions, [.since]#introduced in 26.3#) are managed on the menu:Edit[Preferences > CAM > Assets] page.
 . Colors are defined in the menu:Edit[Preferences > CAM > GUI] tab.
 . Holding tag parameters are defined in the menu:Edit[Preferences > CAM > Dressups] tab.
-. That the Base 3D model quality supports the CAM workbench requirements, passes https://wiki.freecad.org/Part_CheckGeometry[Check Geometry].
+. Warning suppression and OpenCamLib activation are on the menu:Edit[Preferences > CAM > Advanced] page; see xref:reference/experimental.adoc[CAM experimental].
+. That the base 3D model quality supports the CAM Workbench requirements, passes https://wiki.freecad.org/Part_CheckGeometry[Check Geometry].
+
+The preference pages under CAM appear in this order: Assets, Job Preferences, Dressups, GUI, Advanced.
 
 == Limitations
 
 Some current limitations of which you should be aware are:
 
-* Most of the CAM Tools are not true 3D tools but only 2.5D capable. This means that they take a fixed 2D shape and can cut it down to a given depth. However, there are two tools which produce true 3D paths: image:CAM_3DPocket.svg[width=24] xref:operations/pocket-3d.adoc[3D Pocket] and image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[3D Surface].
-* Most of CAM workbench is designed for a simple, standard 3-axis (xyz) CNC mill/router, but lathe tools are supported through the https://wiki.freecad.org/CAM_Turning[Turning] add-on.
-* Most operations in CAM workbench will return paths based on a standard endmill tool/bit only, regardless of the tool/bit type assigned in a given tool controller. [.since]#introduced in 26.3#: The image:CAM_Engrave.svg[width=24] xref:operations/engrave.adoc[Engrave], image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[3D Surface], and other operations now support tool shape awareness.
-* The operations within the CAM workbench are not aware of clamping mechanisms in use to secure the model to your machine. Consequently, please review and simulate the paths you generate prior to sending the code to your machine. If necessary, model your clamping mechanisms in FreeCAD in order to better inspect the paths generated. Look for possible collisions with clamps or other obstacles along the paths.
+* Most Operations are not true 3D but only 2.5D capable. This means that they take a fixed 2D shape and can cut it down to a given depth. However, several Operations produce true 3D Toolpaths: image:CAM_3DPocket.svg[width=24] xref:operations/pocket-3d.adoc[3D Pocket], image:CAM_3DSurface.svg[width=24] xref:operations/surface.adoc[3D Surface], image:CAM_Waterline.svg[width=24] xref:operations/waterline.adoc[Waterline] and, with experimental features enabled, image:CAM_RotarySurface.svg[width=24] xref:operations/rotary-surface.adoc[Rotary Surface] [.since]#introduced in 26.3#.
+* Most Operations target a 3-axis (XYZ) CNC mill or router. Indexed 3+2 positioning is derived from the selected Machine definition ([.since]#introduced in 26.3#), and continuous 4-axis surfacing is provided by the experimental xref:operations/rotary-surface.adoc[Rotary Surface] Operation. Lathe Operations are available through the external https://github.com/dubstar-04/TurningAddon[TurningAddon] add-on, which has no page in this documentation (see xref:reference/faq.adoc[CAM FAQ]).
+* Most Operations generate Toolpaths as if the Tool Bit were a plain end mill, regardless of the Tool Shape assigned to the Tool Controller. [.since]#introduced in 26.3#: linking moves, xref:operations/engrave.adoc[Engrave], xref:operations/surface.adoc[3D Surface] and the drilling-family Operations now account for the Tool Shape.
+* The Operations within the CAM Workbench are not aware of clamping mechanisms in use to secure the model to your machine. Consequently, please review and simulate the Toolpaths you generate prior to sending the code to your machine. If necessary, model your clamping mechanisms in FreeCAD in order to better inspect the Toolpaths generated. Look for possible collisions with clamps or other obstacles along the Toolpaths.
 
 == Units
 
 Unit handling in CAM can be confusing. There are several points to understand:
 
-. FreeCAD base units for length and time are 'mm' and 's' respectively. Velocity is thus 'mm/s'. This is what FreeCAD stores internally regardless of anything else
-. The default unit schema uses the default units. If you're using the default schema and you enter a feed rate without a unit string, it will get entered as 'mm/s'
-. Most CNC machines expect feed rate in the form of either 'mm/min' or 'in/min'. Most post-processors will automatically convert the unit when generating gcode.
+. FreeCAD base units for length and time are 'mm' and 's' respectively. Velocity is thus 'mm/s'. This is what FreeCAD stores internally regardless of anything else.
+. The default unit schema uses the default units. If you're using the default schema and you enter a feed rate without a unit string, it will get entered as 'mm/s'.
+. Most CNC machines expect feed rate in the form of either 'mm/min' or 'in/min'. Most Post-Processors will automatically convert the unit when generating G-code.
 
 Schemas:
 
-. Changing schema in preferences changes default unit string for the input fields. If you're a CAM user and prefer to design in metric, it's highly recommended that you use the "Metric Small Parts & CNC" schema. If you design in US units, either the Imperial Decimal and Building US will work.
+. Changing schema in preferences changes the default unit string for the input fields. If you design in metric, use the "Metric small parts & CNC (mm, mm/min)" schema. If you design in US units, "Imperial decimal (in, lb)", "US customary (in, lb)" or "Building US (ft-in, sqft, cft)" will work.
 . Changing your preferred unit schema will have no effect on output but will help avoid input errors.
+. [.since]#introduced in 26.3#: The Job creation dialog includes a unit schema selector, and each Tool Bit stores its own _Units_ (Metric or Imperial).
 
 Output:
 
-. Generating the correct unit in output is the responsibility of the post-processor and is done only at that time.
+. Generating the correct unit in output is the responsibility of the Post-Processor and is done only at that time.
 . Machine output unit is completely unrelated to your selected unit schema.
-. Post-processors produce either metric (G21) output, Imperial (G20) output or are configurable.
-. Configurable post-processors default to metric (G21).
-. If you want your configurable post-processor to output imperial G-code (G20), set the correct argument in your job output configuration (ie --inches for linuxcnc). This can be stored in a job template and set as your default template to make it automatic for all future jobs.
+. Post-Processors produce either metric (G21) output, imperial (G20) output, or are configurable. Configurable Post-Processors default to metric (G21).
+. For machine-based Post-Processors ([.since]#introduced in 26.3#) the output unit is part of the xref:output/machine.adoc[Machine] definition. For legacy Post-Processors (`*_legacy_post`), pass the argument in the Job's output configuration (for example `--inches` for linuxcnc_legacy). Either can be stored in a Job Template and set as your default template to make it automatic for all future Jobs.
 
-CAM Inspection:
+Inspection:
 
-. If you use the CAM Inspect tool to look at G-code, you will see it in 'mm/s' because it is not being post-processed.
+. xref:inspect/inspect.adoc[Inspect Toolpath] shows the internal G-code, so feed rates appear in mm/s because the Toolpath has not been post-processed.
 
 == Heights and depths
 
@@ -81,140 +90,180 @@ Visual reference for Depth properties (settings)
 
 == Commands
 
-Some commands are experimental and not available by default. To enable them see xref:reference/experimental.adoc[CAM experimental].
+Some commands are hidden until OpenCamLib support or experimental features are enabled in the CAM Advanced preferences. See xref:reference/experimental.adoc[CAM experimental].
 
 === Project Commands
 
-* image:CAM_Job.svg[width=32] xref:job/job.adoc[New Job]: Creates a new CNC job.
+* image:CAM_Job.svg[width=32] xref:job/job.adoc[New Job]: Creates a new CNC Job.
 
-* image:CAM_Sanity.svg[width=32] xref:job/sanity-check.adoc[Sanity Check]: Checks the selected job for missing values.
+* image:CAM_Sanity.svg[width=32] xref:job/sanity-check.adoc[Sanity Check]: Checks the Job for common errors and produces an HTML report.
 
-* image:CAM_Post.svg[width=32] xref:output/post-process.adoc[Post Process]: Exports a project to G-code.
+* xref:job/quick-validate.adoc[Quick Validate]: Runs a fast validation of the Job without generating the full Sanity report. Not present in toolbars or menus; available through the shortcut kbd:[P] then kbd:[V].
 
-* image:CAM_PostSelected.svg[width=32] https://wiki.freecad.org/CAM_PostSelected[Post Process Selected]: TBD. [.since]#introduced in 26.3#
+* image:CAM_Post.svg[width=32] xref:output/post-process.adoc[Post Process]: Post-processes the selected Job to G-code using the chosen Post-Processor and Machine, with a preview of the output. [.since]#introduced in 26.3#: redesigned dialog with Overview, Operations, Workplan tabs and an output filename template.
 
-* image:CAM_ExportTemplate.svg[width=32] xref:job/export-template.adoc[Export Template]: Export the current job as a template.
+* image:CAM_PostSelected.svg[width=32] xref:output/post-process-selected.adoc[Post Process Selected]: Post-processes only the selected Operations of a Job, including Operations inside a Dressup. [.since]#introduced in 26.3#
+
+* image:CAM_ExportTemplate.svg[width=32] xref:job/export-template.adoc[Export Template]: Exports the current Job as a template.
 
 === Tool Commands
 
-* image:CAM_SimulatorGL.svg[width=32] xref:inspect/simulator.adoc[CAM Simulator]: Enables the new, improved CAM simulator. [.since]#introduced in 1.0#
+* image:CAM_SimulatorGL.svg[width=32] xref:inspect/simulator.adoc[CAM Simulator]: Simulates the G-code on the Stock in a dedicated simulator window inside the main window. [.since]#introduced in 1.0#; integrated as a document window in [.since]#26.3 and later#. The simulators share one toolbar button group; set the `DefaultSimulatorLegacy` parameter to make the legacy simulator the default.
 
 * image:CAM_Simulator.svg[width=32] xref:inspect/simulator-legacy.adoc[Legacy CAM Simulator]: Shows the milling operation like it's done on the machine.
 
-* image:CAM_Inspect.svg[width=32] xref:inspect/inspect.adoc[Inspect Toolpath]: Shows the G-code for checking.
+* image:CAM_Camotics.svg[width=32] xref:inspect/camotics.adoc[CAMotics]: Simulates the Job with the external CAMotics simulator; requires the _Enable OCL dependent features_ preference and CAMotics 1.2.2 or newer (command-line `camotics` and its Python module). Shortcut kbd:[P] kbd:[C].
 
-* image:CAM_SelectLoop.svg[width=32] xref:inspect/select-loop.adoc[Finish Selecting Loop]: Completes a loop from two selected edges.
+* image:CAM_Inspect.svg[width=32] xref:inspect/inspect.adoc[Inspect Toolpath]: Shows the internal G-code of an Operation for checking.
 
-* image:CAM_OpActiveToggle.svg[width=32] xref:inspect/op-active-toggle.adoc[Toggle Operation]: Activates or de-activates a path operation.
+* image:CAM_SelectLoop.svg[width=32] xref:inspect/select-loop.adoc[Finish Selecting Loop]: Completes the selection of edges or faces that form a loop from one or two selected edges or a face; modifier keys select inner edges (kbd:[Ctrl]), outer edges (kbd:[Ctrl+Alt]), faces at the same height (kbd:[Shift]) or all edges (kbd:[Alt]). Shortcut kbd:[P] kbd:[L].
 
-* image:CAM_ToolBitLibraryOpen.svg[width=32] xref:tools/library-manager.adoc[ToolBit Library Manager]: Opens an editor to manage ToolBit libraries.
+* image:CAM_OpActive.svg[width=32] xref:inspect/op-active-toggle.adoc[Toggle Operation]: Toggles the Active state of the selected Operations, or of every Operation when a Job or its Operations group is selected ([.since]#introduced in 26.3#). Shortcut kbd:[P] kbd:[X].
 
-* image:CAM_ToolBitDock.svg[width=32] xref:tools/add-toolbit.adoc[Add Toolbit…]: Opens the ToolBit Selector.
+* image:CAM_ToolTable.svg[width=32] xref:tools/library-manager.adoc[Toolbit Library Manager]: Opens the editor for Tool Libraries and Tool Bits (CAM menu only).
+
+* image:CAM_ToolTable.svg[width=32] xref:tools/add-toolbit.adoc[Add Toolbit…]: Opens the Toolbit selector dock to add a Tool Controller to the Job. Shortcut kbd:[P] kbd:[T].
+
+* image:CAM_ToolBit.svg[width=32] Save Toolbit / Save Toolbit As: available in the context menu of a Tool Bit in the Job tree; writes the Tool Bit back to its library file. New Toolbit and Load Tool commands exist but are reachable only through the Toolbit Library Manager.
+
+[.since]#introduced in 26.3#: The xref:tools/tool-controller.adoc[Tool Controller] editor includes a xref:tools/feeds-speeds.adoc[Feeds and Speeds Wizard] that proposes feed and spindle values from the Tool Bit and a selected material, and Tool Bits embedded in a Job can be updated to their current library version.
 
 === Basic Operations
 
-* image:CAM_Profile.svg[width=32] xref:operations/profile.adoc[Profile]: Creates a profile operation of the entire model, or from one or more selected faces or edges.
+* image:CAM_Profile.svg[width=32] xref:operations/profile.adoc[Profile]: Creates a profile Toolpath from the entire model, or from one or more selected faces or edges.
 
-* image:CAM_Pocket_Shape.svg[width=32] xref:operations/pocket.adoc[Pocket Shape]: Creates a pocketing operation from one or more selected pocket(s).
+* image:CAM_Pocket.svg[width=32] xref:operations/pocket.adoc[Pocket Shape]: Creates a pocket Toolpath from selected faces or, in [.since]#26.3 and later#, horizontal edges.
 
-* image:CAM_MillFacing.svg[width=32] https://wiki.freecad.org/CAM_MillFacing[Mill Facing]: Creates a surfacing path.
+* image:CAM_Face.svg[width=32] xref:operations/mill-facing.adoc[Mill Facing]: Machines the top surface of the Stock or selected faces with zigzag, directional, bidirectional or spiral patterns. [.since]#introduced in 26.3# (replaces the Face operation).
 
-* image:CAM_Helix.svg[width=32] xref:operations/helix.adoc[Helix]: Creates a helical path.
+* image:CAM_Helix.svg[width=32] xref:operations/helix.adoc[Helix]: Creates a helical drilling Toolpath from circular holes of the Model.
 
-* image:CAM_Adaptive.svg[width=32] xref:operations/adaptive.adoc[Adaptive]: Creates an adaptive clearing and profiling operation.
+* image:CAM_Adaptive.svg[width=32] xref:operations/adaptive.adoc[Adaptive]: Creates an adaptive clearing and profiling Operation.
 
-* image:CAM_Slot.svg[width=32] xref:operations/slot.adoc[Slot]: Creates a slotting operation from selected features or custom points.
+* image:CAM_Slot.svg[width=32] xref:operations/slot.adoc[Slot]: Creates a single horizontal slot between two points taken from selected geometry or custom points.
 
-* image:CAM_Drilling.svg[width=32] xref:operations/drilling.adoc[Drilling]: Performs a drilling cycle.
+==== Drilling Operations
 
-* image:CAM_ThreadMilling.svg[width=32] xref:operations/thread-milling.adoc[Thread Milling]: Creates a CAM Thread Milling operation from features of a base object.
+* image:CAM_Drilling.svg[width=32] xref:operations/drilling.adoc[Drilling]: Creates a drilling-cycle Toolpath from circular holes; the _Strategy_ property selects Drilling or Tapping (G84/G74) [.since]#introduced in 26.3#.
 
-* image:CAM_Engrave.svg[width=32] xref:operations/engrave.adoc[Engrave]: Creates an engraving path.
+* image:CAM_ThreadMilling.svg[width=32] xref:operations/thread-milling.adoc[Thread Milling]: Creates a Thread Milling Operation from features of a base object.
 
-* image:CAM_Deburr.svg[width=32] xref:operations/deburr.adoc[Deburr]: Creates a deburr path.
+==== Engraving Operations
 
-* image:CAM_Vcarve.svg[width=32] xref:operations/vcarve.adoc[Vcarve]: Creates an engraving path using a V tool shape.
+* image:CAM_Engrave.svg[width=32] xref:operations/engrave.adoc[Engrave]: Creates an engraving Toolpath along the edges of a Draft ShapeString or other selected edges.
+
+* image:CAM_Deburr.svg[width=32] xref:operations/deburr.adoc[Deburr]: Creates a chamfering Toolpath along selected edges or around faces.
+
+* image:CAM_Vcarve.svg[width=32] xref:operations/vcarve.adoc[Vcarve]: Creates a medial-line engraving Toolpath with a V-bit Tool Bit.
 
 === 3D Operations
 
-* image:CAM_Pocket3D.svg[width=32] xref:operations/pocket-3d.adoc[3D Pocket]: Creates a path for a 3D pocket.
+* image:CAM_3DPocket.svg[width=32] xref:operations/pocket-3d.adoc[3D Pocket]: Creates a Toolpath for a 3D pocket.
 
-* image:CAM_Surface.svg[width=32] xref:operations/surface.adoc[3D Surface]: Creates a path for a 3D surface. xref:reference/experimental.adoc[_Experimental_].
+* image:CAM_3DSurface.svg[width=32] xref:operations/surface.adoc[3D Surface]: Creates a 3D surfacing Toolpath using OpenCamLib. Requires _Enable OCL dependent features_.
 
-* image:CAM_Waterline.svg[width=32] xref:operations/waterline.adoc[Waterline]: Creates a waterline path for a 3D surface. xref:reference/experimental.adoc[_Experimental_].
+* image:CAM_Waterline.svg[width=32] xref:operations/waterline.adoc[Waterline]: Creates waterline Toolpaths; [.since]#26.3 and later# adds the OCL Adaptive algorithm. Requires _Enable OCL dependent features_.
+
+* Planar Surface: Creates a Planar Surface Operation from a model. Requires _Enable OCL dependent features_ and xref:reference/experimental.adoc[experimental features]. [.since]#introduced in 26.3#
+
+* image:CAM_RotarySurface.svg[width=32] xref:operations/rotary-surface.adoc[Rotary Surface]: Continuous 4-axis surfacing of a Model mounted on a single rotary axis. Requires _Enable OCL dependent features_ and xref:reference/experimental.adoc[experimental features]. [.since]#introduced in 26.3#
 
 === Path Dressup
 
-* image:CAM_DressupArray.svg[width=32] https://wiki.freecad.org/CAM_DressupArray[Array]: TBD. [.since]#introduced in 1.1#
+All Dressup commands share the image:CAM_Dressup.svg[width=24] Dressup icon.
 
-* image:CAM_DressupAxisMap.svg[width=32] xref:dressups/axis-map.adoc[Axis Map]: Remaps one axis to another.
+* image:CAM_Dressup.svg[width=32] xref:dressups/array.adoc[Array]: Creates a linear, polar or points-based array of a selected Operation's Toolpath as a Dressup; preferred over the Array Path Modification. [.since]#introduced in 1.1#
 
-* image:CAM_DressupPathBoundary.svg[width=32] xref:dressups/path-boundary.adoc[Boundary]: Adds a boundary dressup modification to a selected path.
+* image:CAM_Dressup.svg[width=32] xref:dressups/axis-map.adoc[Axis Map]: Remaps one axis of a Toolpath to another.
 
-* image:CAM_DressupDogbone.svg[width=32] xref:dressups/dogbone.adoc[Dogbone]: Adds a dogbone dressup modification to a selected path.
+* image:CAM_Dressup.svg[width=32] xref:dressups/path-boundary.adoc[Boundary]: Adds a boundary Dressup to a selected Toolpath.
 
-* image:CAM_DressupDragKnife.svg[width=32] xref:dressups/drag-knife.adoc[Drag Knife]: Adds a dragknife dressup modification to a selected path.
+* image:CAM_Dressup.svg[width=32] xref:dressups/dogbone.adoc[Dogbone]: Adds a dogbone Dressup to a selected Toolpath.
 
-* image:CAM_DressupLeadInOut.svg[width=32] xref:dressups/lead-in-out.adoc[Lead In/Out]: Adds a lead-in and/or lead-out point to a selected path.
+* image:CAM_Dressup.svg[width=32] xref:dressups/drag-knife.adoc[Drag Knife]: Adds a dragknife Dressup to a selected Toolpath.
 
-* image:CAM_DressupMirror.svg[width=32] https://wiki.freecad.org/CAM_DressupMirror[Mirror]: TBD. [.since]#introduced in 26.3#
+* image:CAM_Dressup.svg[width=32] xref:dressups/lead-in-out.adoc[Lead In/Out]: Adds a lead-in and/or lead-out to a selected Toolpath. [.since]#26.3 and later# adds the _LineZFollow_ style.
 
-* image:CAM_DressupRampEntry.svg[width=32] xref:dressups/ramp-entry.adoc[Ramp Entry]: Adds ramp entry dressup modification to a selected path.
+* image:CAM_Dressup.svg[width=32] xref:dressups/mirror.adoc[Mirror]: Mirrors the Toolpath of a selected Operation across a chosen axis or plane. [.since]#introduced in 26.3#
 
-* image:CAM_DressupTag.svg[width=32] xref:dressups/tag.adoc[Tag]: Adds a holding tag dressup modification to a selected path.
+* image:CAM_Dressup.svg[width=32] xref:dressups/ramp-entry.adoc[Ramp Entry]: Adds a ramp entry Dressup to a selected Toolpath. [.since]#26.3 and later#: can be applied on top of Lead In/Out.
 
-* image:CAM_DressupZCorrect.svg[width=32] xref:dressups/zcorrect.adoc[Z Depth Correction]: Corrects the Z depth using Probe Map.
+* image:CAM_Dressup.svg[width=32] xref:dressups/tag.adoc[Tag]: Adds a holding tag Dressup to a selected Toolpath. [.since]#26.3 and later#: places tags automatically on several closed Toolpaths.
+
+* image:CAM_Dressup.svg[width=32] xref:dressups/zcorrect.adoc[Z Depth Correction]: Corrects the Z depth using a Probe Map. [.since]#26.3 and later#: points outside the probed area produce a warning instead of an error.
 
 === Supplemental Commands
 
-* image:CAM_Comment.svg[width=32] xref:operations/comment.adoc[Comment]: Inserts a comment in the G-code of a path.
+* image:CAM_Comment.svg[width=32] xref:operations/comment.adoc[Comment]: Adds a comment to the CNC program.
 
 * image:CAM_Stop.svg[width=32] xref:operations/stop.adoc[Stop]: Inserts a full stop of the machine.
 
-* image:CAM_Custom.svg[width=32] xref:operations/custom.adoc[Custom]: Inserts custom G-code.
+* image:CAM_Custom.svg[width=32] xref:operations/custom.adoc[Custom]: Inserts a custom G-code snippet; [.since]#26.3 and later# supports https://wiki.freecad.org/Expressions[expressions] enclosed in @ characters.
 
-* image:CAM_Probe.svg[width=32] xref:operations/probe.adoc[Probe]: Creates a Probing Grid from a job stock.
+* image:CAM_Probe.svg[width=32] xref:operations/probe.adoc[Probe]: Creates a probing grid from a Job's Stock.
 
-* image:CAM_Shape.svg[width=32] xref:operations/path-from-shape-tc.adoc[Path From Shape TC]: Creates a path object from a selected Part object. xref:reference/experimental.adoc[_Experimental_].
+* xref:operations/path-from-shape-tc.adoc[Path from Shape]: Creates a Toolpath object from a selected Part shape using a Tool Controller. [.since]#introduced in 1.1#, xref:reference/experimental.adoc[_Experimental_]. Replaces the earlier From Shape command.
 
 === Path Modification
 
-* image:CAM_Copy.svg[width=32] xref:modify/copy.adoc[Copy Operation]: Creates a parametric Copy of a selected path object.
+* image:CAM_OpCopy.svg[width=32] xref:modify/copy.adoc[Copy Operation]: Copies the selected Operations, including their Dressups, into the Job ([.since]#26.3 and later#: multiple selection and recursive copy).
 
-* image:CAM_Array.svg[width=32] xref:modify/array.adoc[Array]: Creates an array by duplicating a selected path.
+* image:CAM_Array.svg[width=32] xref:modify/array.adoc[Array]: Creates an array from selected Toolpaths; [.since]#26.3 and later# adds the _Points_ pattern type. Prefer the xref:dressups/array.adoc[Array Dressup] ([.since]#1.1 and later#).
 
-* image:CAM_SimpleCopy.svg[width=32] xref:modify/simple-copy.adoc[Simple Copy]: Creates a non-parametric copy of a selected path object.
+* image:CAM_SimpleCopy.svg[width=32] xref:modify/simple-copy.adoc[Simple Copy]: Creates a non-parametric copy of one or more selected Operations ([.since]#26.3 and later#: multiple selection).
 
 === Miscellaneous
 
-* image:CAM_Area.svg[width=32] xref:misc/area.adoc[Area]: Creates a feature area from selected objects. xref:reference/experimental.adoc[_Experimental_].
+* image:CAM_Area.svg[width=32] xref:misc/area.adoc[Area]: Creates a feature area from the selected objects.
 
-* image:CAM_Area_Workplane.svg[width=32] xref:misc/area-workplane.adoc[Area Workplane]: Creates a feature area workplane. xref:reference/experimental.adoc[_Experimental_].
+* image:CAM_Area_Workplane.svg[width=32] xref:misc/area-workplane.adoc[Area Workplane]: Selects a workplane for a feature area.
+
+Both Area commands appear on the _Helpful Tools_ toolbar only when xref:reference/experimental.adoc[experimental features] are enabled.
+
+* xref:misc/property-bag.adoc[Property Bag]: Creates an object that stores custom reference properties which Operations and Tool Bits can use through expressions. Found in menu:CAM[Utils].
+
+* xref:inspect/set-start-point.adoc[Start Point Selection]: Sets the Start Point of the selected Operation from a picked vertex; available from the Operation's context menu and, [.since]#26.3 and later#, from the Profile and Pocket Shape task panels.
+
+* image:CAM_Compound.svg[width=32] Compound: Creates a compound Toolpath object from selected Toolpaths (scripting and macro use; not in toolbars).
+
+=== Context menu
+
+Right-clicking in the model tree offers context-dependent commands (improved in [.since]#26.3 and later#):
+
+* On shapes: xref:job/job.adoc[New Job].
+* On a Job: xref:inspect/op-active-toggle.adoc[Toggle Operation], xref:job/export-template.adoc[Export Template], xref:job/sanity-check.adoc[Sanity Check] and xref:output/post-process.adoc[Post Process].
+* On Operations: the Path Dressup submenu (single Operation), a Path Modification submenu with Array, Copy Operation and Simple Copy, Toggle Operation, xref:inspect/inspect.adoc[Inspect Toolpath] (single Operation), Post Process and xref:output/post-process-selected.adoc[Post Process Selected].
+* On an Operation that has a Start Point: xref:inspect/set-start-point.adoc[Start Point Selection].
+* On a Tool Bit: Save Toolbit and Save Toolbit As.
 
 === Obsolete Commands
 
-* image:CAM_Fixture.svg[width=32] xref:job/fixture.adoc[Fixture]: Changes the fixture position. Not available in [.since]#1.1 and later#.
+* image:CAM_Datums.svg[width=32] xref:job/fixture.adoc[Fixture]: Inserted a fixture-offset (G54 to G59) command. Removed from menus in [.since]#1.1 and later#; Fixtures are now set in the Job's Output settings.
 
-* image:CAM_MillFace.svg[width=32] xref:operations/mill-face.adoc[Face]: Creates a surfacing path. Not available in [.since]#26.3 and later#.
+* image:CAM_Face.svg[width=32] xref:operations/mill-face.adoc[Face]: Legacy facing operation. Replaced by xref:operations/mill-facing.adoc[Mill Facing] in [.since]#26.3 and later#; existing documents still open.
 
-* image:CAM_Tapping.svg[width=32] https://wiki.freecad.org/CAM_Tapping[Tapping]. Not available in [.since]#26.3 and later#.
+* image:CAM_Tapping.svg[width=32] xref:operations/tapping.adoc[Tapping]: Experimental G84/G74 tapping operation in [.since]#introduced in 1.1#. Consolidated into xref:operations/drilling.adoc[Drilling] as the _Tapping_ Strategy in [.since]#26.3 and later#.
 
-== ToolBit architecture
+== Tool Bit architecture
 
-Manage tools, bits, and the Tool Library. Based on the ToolBit architecture.
+Tool Bits, Tool Shapes, Tool Libraries and Tool Controllers are stored as CAM assets.
 
 * xref:tools/index.adoc[CAM Tools]
-* xref:tools/tool-shape.adoc[CAM ToolShape]
-* xref:tools/toolbit.adoc[CAM ToolBit]
-* xref:tools/toolbit-library.adoc[CAM ToolBit Library]
-* xref:tools/tool-controller.adoc[CAM ToolController]
+* xref:tools/tool-shape.adoc[Tool Shape]
+* xref:tools/toolbit.adoc[Tool Bit]
+* xref:tools/toolbit-library.adoc[Tool Library]
+* xref:tools/tool-controller.adoc[Tool Controller]
+* xref:tools/feeds-speeds.adoc[Feeds and Speeds Wizard] [.since]#introduced in 26.3#
+* xref:output/machine.adoc[Machine] [.since]#introduced in 26.3#: machine definitions (`.fcm`) with axis configuration used by post-processing and rotary Operations.
 
 == Other
 
 * xref:reference/faq.adoc[CAM FAQ]: The CAM Workbench shares many concepts with other CAM software packages but has its own peculiarities. If something seems wrong this is a good place to start.
-* xref:job/setup-sheet.adoc[CAM SetupSheet]: You can use a SetupSheet to customize how various property values for operations are calculated.
-* xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization]: If you have a special machine which cannot use one of the available post-processors you may need to write your own post-processor.
-* xref:reference/fourth-axis.adoc[CAM fourth axis]: Experimental four axis milling.
+* xref:output/machine.adoc[CAM Machine]: Define machines (axes, rotary kinematics, output options) in the Machine Library and assign one to a Job for machine-based post-processing. [.since]#introduced in 26.3#
+* xref:job/setup-sheet.adoc[CAM Setup Sheet]: Use the Job's Setup Sheet to customize default values and expressions for new Operations.
+* xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization]: If you have a special machine which cannot use one of the available Post-Processors you may need to write your own.
+* Shipped Post-Processors: machine-based ([.since]#introduced in 26.3#) centroid, generic, generic_plasma, grbl, linuxcnc, mach3_mach4, marlin, masso_g3, opensbp, smoothie, svg, dxf; plus the legacy `*_legacy_post` scripts. See xref:output/postprocessor-customization.adoc[Postprocessor Customization].
+* xref:reference/fourth-axis.adoc[CAM fourth axis]: Indexed 3+2 positioning from the Machine definition and continuous rotary surfacing. Note: the per-operation _Enable Rotation_ properties described on that page were removed in [.since]#26.3 and later#.
 
 == Preferences
 
@@ -227,8 +276,11 @@ See xref:reference/scripting.adoc[CAM scripting].
 == Tutorials
 
 * xref:tutorials/walkthrough-for-the-impatient.adoc[CAM Walkthrough for the Impatient]: a quick tutorial to get familiar with CAM.
+* https://wiki.freecad.org/Manual:Preparing_models_for_3D_printing[Manual: Preparing models for 3D printing]: includes a short CAM Job example (Profile and Pocket Shape on a Lego brick).
 
 == Videos
+
+Note: videos recorded before FreeCAD 1.0 show the former Path Workbench; command names and the Tool Bit dialogs have changed.
 
 * https://www.youtube.com/playlist?list=PLEuOia-QxyFKgzAeTyH62GKqWKVURiWJL[FreeCAD Path: Custom paths with Python - Part 1 - 5]: A playlist with a series of 5 videos in English by sliptonic. This series shows how to work with the xref:index.adoc[CAM Workbench].
 * https://www.youtube.com/playlist?list=PLUrr_kHPp4vhGdLlj6IemtF-OPUlRvSTC[FreeCAD CAM Path Workbench]: A playlist with a series of 7 videos in English by CAD CAM Lessons.

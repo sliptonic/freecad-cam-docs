@@ -9,6 +9,7 @@
 :page-since: 1.0
 :page-see-also: CAM Simulator
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -16,15 +17,16 @@
 image:CAM_SimulatorGL.svg[CAM SimulatorGL,32] *CAM SimulatorGL*
 
 Menu location:: menu:CAM[CAM Simulator]
+Toolbar:: Tool Commands → Simulators → CAM Simulator (default entry)
 Workbenches:: xref:index.adoc[CAM]
-Default shortcut:: kbd:[kbd:[P] kbd:[N]]
+Default shortcut:: kbd:[P] kbd:[N]
 Introduced in version:: 1.0
 See also:: xref:inspect/simulator-legacy.adoc[CAM Simulator]
 --
 
 == Description
 
-The image:CAM_SimulatorGL.svg[width=24] xref:inspect/simulator.adoc[CAM SimulatorGL] command is a new alternative to xref:inspect/simulator-legacy.adoc[Legacy CAM Simulator]. It's based on low-level OpenGL functions. To eliminate interference with the 3D View of FreeCAD, it works in a separate window with a separate OpenGL context. It's meant to be faster and more precise than the old simulator.
+The image:CAM_SimulatorGL.svg[width=24] xref:inspect/simulator.adoc[CAM SimulatorGL] command is the default simulator and an alternative to the xref:inspect/simulator-legacy.adoc[Legacy CAM Simulator], which remains available in the same toolbar group (the parameter `DefaultSimulatorLegacy` swaps the order). Its tooltip reads: _Simulates G-code on stock_. It renders with low-level OpenGL in its own view and is meant to be faster and more precise than the old simulator. [.since]#26.3 and later#: the view opens as a tab in the main window next to the 3D view, follows the navigation style set in the Preferences, and accepts the standard view commands (orthographic/perspective, zoom in/out, fit all).
 
 image::CAM_new_simulator.PNG[width=600]
 
@@ -32,22 +34,27 @@ image::CAM_new_simulator.PNG[width=600]
 
 . There are several ways to invoke the command:
 * Press the image:CAM_SimulatorGL.svg[width=16] xref:inspect/simulator.adoc[CAM Simulator] button.
-* Select the menu:CAM[CAM Simulator] option from the menu.
+* Select the menu:CAM[image:CAM_SimulatorGL.svg[width=16] CAM Simulator] option from the menu.
 * Use the keyboard shortcut: kbd:[P] then kbd:[N].
-. De-select any menu:Operations[] that are not to be simulated
-. Tune the menu:Accuracy[] setting.
-. Select the menu:Job[] for simulation from the drop menu.
-. Press the image:CAM_BPlay.svg[width=24] (Activate / resume simulation) button
-* A separate window with the simulator will open.
-* Use the left-side buttons: Play, Single-Step, Decrease/Increase simulation speed and the slider to control the animation.
-* Use the right-side buttons to: Reset camera, Show/hide overlay of base model, Orbit the model, Display the path and Enable/disable Ambient Occlusion.
-* Control the 3D View with the following mouse controls:
-** Zoom: use the mouse wheel or hold kbd:[Ctrl] and kbd:[Shift] and move the cursor to zoom in and out
-** Pan: hold the middle mouse button or kbd:[Shift] and move the cursor
-** Rotate: hold the middle mouse button, then press and hold the left mouse button and move the cursor or hold kbd:[Alt] and move the cursor
+. Select the Job in the Job drop-down (the Job of the current selection is preselected, [.since]#26.3 and later# also from a selected Operation).
+. Uncheck Operations that should not be simulated; with *Follow operations visibility* checked, hidden Operations start unchecked. [.since]#introduced in 26.3#
+. Set Accuracy (Low, Medium, High).
+. Press the image:CAM_BPlay.svg[width=24] (Activate / resume simulation) button to open the simulator view. Play is disabled when no Operation is checked.
+* Use the buttons below the view, left to right: Play simulation, Single step simulation, Decrease simulation speed ([.since]#introduced in 1.1#), Increase simulation speed (current multiplier shown as xN), Reset camera ([.since]#introduced in 1.1#), Toggle view simulation/model, Toggle turn table animation, Show/hide tool path, Toggle ambient occlusion.
+* The slider above the buttons scrubs through the Toolpath.
+* Navigate the view with the same mouse and keyboard controls as the https://wiki.freecad.org/3D_view[3D view] (see https://wiki.freecad.org/Mouse_navigation[Mouse navigation]). [.since]#26.3 and later#
+. Close the task panel with btn:[Close].
 
-== Properties
+== Task panel
 
-* *Accuracy*: The accuracy of the simulation expressed as a percentage indicating the simulations deviation from the Job. For interactive simulation, reducing accuracy to 0.3 works much faster.
-* *Job*: The Job used as the basis of the simulation.
-* *Operation List*: The list of Operations selected for inclusion in the simulation.
+* *Accuracy*: simulation quality, Low, Medium or High; lower quality is faster.
+* *Job*: the Job to simulate.
+* *Follow operations visibility*: preselect Operations according to their visibility in the 3D view (stored in the preference SimulatorFollowsVisibility). [.since]#introduced in 26.3#
+* *Operations list*: Active Operations to include.
+
+== Notes
+
+* The simulator builds a revolved profile from the Tool Bit solid of each Tool Controller, so all Tool Shapes are represented; the Tool Bit objects themselves are not modified ([.since]#26.3 and later#).
+* Drilling cycles including G84 retract are expanded.
+* Rotary axis words are not simulated. Use xref:inspect/camotics.adoc[CAMotics] or another external simulator for rotary Toolpaths.
+* [.since]#introduced in 1.1#: Reset camera and Decrease simulation speed buttons were added.

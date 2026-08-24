@@ -7,6 +7,7 @@
 :page-workbench: CAM
 :page-see-also: CAM Copy
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -17,22 +18,52 @@ Menu location:: menu:CAM[Path Modification > Simple Copy]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: xref:modify/copy.adoc[CAM Copy]
+See also:: xref:modify/copy.adoc[CAM Copy], xref:operations/custom.adoc[CAM Custom]
 --
 
 == Description
 
-The image:CAM_SimpleCopy.svg[width=24] xref:modify/simple-copy.adoc[CAM SimpleCopy] command creates a non-parametric copy of a given path.
+The image:CAM_SimpleCopy.svg[width=24] xref:modify/simple-copy.adoc[CAM SimpleCopy] command creates a non-parametric copy of one or more Operations. The copy is a xref:operations/custom.adoc[Custom] operation named `<operation>_SimpleCopy` (or `SimpleCopy` for several Operations) that contains the G-code of the originals and uses their Tool Controller and coolant mode. It is not linked to the originals.
 
-[.since]#introduced in 26.3#: The command can combine multiple selected operations into one simple copy.
+[.since]#introduced in 26.3#: Simple Copy accepts any toolpath object, including dressups, Arrays and other copies, and several Operations can be combined into one copy.
 
 == Usage
 
-. Select one or more xref:index.adoc[CAM] objects.
-. Press the image:CAM_SimpleCopy.svg[width=16] xref:modify/simple-copy.adoc[Simple Copy] button
+. Select one or more Operations (dressups are accepted). All selected Operations must use the same Tool Controller and the same coolant mode, otherwise the command is disabled.
+. There are several ways to invoke the command:
+* Press the image:CAM_SimpleCopy.svg[width=16] xref:modify/simple-copy.adoc[Simple Copy] button.
+* Use menu:CAM[Path Modification > Simple Copy].
+* Use menu:Path Modification[Simple Copy] in the Tree View context menu.
 
 == Options
 
-* The simple copy is not bound anymore to the path that was used to make the copy, and is not parametric. Therefore, when edited with the xref:inspect/inspect.adoc[CAM Inspect] tool, any change made to its G-code will be retained.
-* Multiple selected operations must use the same *Coolant Mode* and *Tool Controller*.
-* [.since]#introduced in 26.3#: SimpleCopy can also copy operations that contain commands without using the standard CAM operation base class.
+* The simple copy is not bound anymore to the toolpath that was used to make the copy, and is not parametric. The G-code of the copy can be edited in the xref:operations/custom.adoc[Custom] task panel (double-click the copy) or in its *Gcode* property; the changes are kept because the copy is not recomputed from the original.
+* Multiple selected Operations must use the same *Coolant Mode* and *Tool Controller*.
+
+== Properties
+
+The copy is a Custom operation; see xref:operations/custom.adoc#properties[CAM Custom]. *Source* is `Text` and *Gcode* contains one entry per command.
+
+== Notes
+
+* An inactive copy (its *Active* property set to false) shows the Toggle Operation icon in the Tree View.
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+import Path.Op.Custom, Path.Base.Util
+from PathScripts import PathUtils
+
+src = FreeCAD.ActiveDocument.Profile
+job = PathUtils.findParentJob(src)
+obj = Path.Op.Custom.Create(src.Name + "_SimpleCopy", parentJob=job)
+obj.ToolController = Path.Base.Util.toolControllerForOp(src)
+obj.CoolantMode = Path.Base.Util.coolantModeForOp(src)
+obj.Gcode = [c.toGCode() for c in PathUtils.getPathWithPlacement(src).Commands]
+FreeCAD.ActiveDocument.recompute()
+----

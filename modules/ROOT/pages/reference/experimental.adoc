@@ -2,31 +2,37 @@
 :page-origin: https://wiki.freecad.org/CAM_experimental
 :page-origin-revision: 80ba071766 2026-07-08
 :page-imported: true
+:page-audit: applied
 
 == Description
 
-The CAM Workbench contains a set of hidden commands. They are hidden by default because they are experimental. A command can be considered experimental for any of the following reasons:
+The CAM Workbench contains a set of hidden commands. There are two independent switches that expose them:
 
-* It is incomplete.
-* It is bug-ridden.
-* It is unstable.
-* It does not produce correct, stable, safe, paths.
-* It is not a standard, regularly used command in the traditional CAM workflow.
-* It is mature but has not yet been moved to the standard tool list.
-* ... other reasons.
+* _Enable OCL dependent features_: a preference checkbox that exposes Operations which need the optional https://github.com/aewallin/opencamlib[OpenCamLib] library. These commands are not experimental; they are hidden only because the library is an optional dependency. See xref:reference/opencamlib.adoc[OpenCamLib].
+* `EnableExperimentalFeatures`: a parameter with no preference checkbox that exposes unfinished commands. A command can be considered experimental for any of the following reasons:
 
-== Enable experimental commands
+** It is incomplete.
+** It is bug-ridden.
+** It is unstable.
+** It does not produce correct, stable, safe Toolpaths.
+** It is not a standard, regularly used command in the traditional CAM workflow.
+** It is mature but has not yet been moved to the standard command list.
+** ... other reasons.
 
-To access the hidden experimental commands of the CAM Workbench, the user must enable them.
-
-=== Enable xref:operations/surface.adoc[CAM Surface] and xref:operations/waterline.adoc[CAM Waterline] commands
+== Enable OpenCamLib dependent commands
 
 . Open the https://wiki.freecad.org/Preferences_Editor[Preferences Editor] via menu:Edit[Preferences].
 . Go to the menu:CAM[Advanced] page.
 . Check the menu:Enable OCL dependent features[] checkbox.
 . Restart FreeCAD.
 
-=== Enable other experimental commands
+This adds image:CAM_3DSurface.svg[width=24] xref:operations/surface.adoc[3D Surface] and image:CAM_Waterline.svg[width=24] xref:operations/waterline.adoc[Waterline] to the 3D Operations group, and adds image:CAM_Camotics.svg[width=24] xref:inspect/camotics.adoc[CAMotics] to the Tool Commands toolbar if CAMotics 1.2.2 or newer is installed (the command-line `camotics` and its Python module).
+
+OpenCamLib must be importable as `ocl` or `opencamlib`; if it is not, the console prints "OpenCamLib is not working!" unless menu:Suppress openCAMlib warning[] is checked on the same preference page.
+
+== Enable experimental commands
+
+There is no checkbox for experimental features in the CAM preferences; the parameter must be created by hand:
 
 . Open the https://wiki.freecad.org/Std_DlgParameter[Parameter Editor] via menu:Tools[Edit Parameters].
 . Once in the editor the path is menu:BaseApp[Preferences > Mod > CAM].
@@ -36,6 +42,24 @@ To access the hidden experimental commands of the CAM Workbench, the user must e
 . Save the settings.
 . Restart FreeCAD.
 
+Setting `EnableExperimentalFeatures` adds:
+
+* xref:operations/path-from-shape-tc.adoc[Path from Shape] to menu:CAM[Supplemental Commands];
+* the _Helpful Tools_ toolbar with xref:misc/area.adoc[Area] and xref:misc/area-workplane.adoc[Area Workplane];
+* and, when OCL dependent features are also enabled, Planar Surface and xref:operations/rotary-surface.adoc[Rotary Surface] ([.since]#introduced in 26.3#) in the 3D Operations group.
+
+Note: with experimental features enabled, the xref:operations/slot.adoc[Slot] command is currently appended a second time to the 2D operation list, so Slot appears twice in the New Operations toolbar and CAM menu.
+
+== Parameters
+
+All CAM parameters live under `BaseApp/Preferences/Mod/CAM` and names are case-sensitive:
+
+* `EnableAdvancedOCLFeatures` (Boolean): set by the _Enable OCL dependent features_ checkbox.
+* `EnableExperimentalFeatures` (Boolean): no checkbox; must be created by hand.
+* `WarningSuppressOpenCamLib` (Boolean): set by the _Suppress openCAMlib warning_ checkbox.
+
 == Additional Information
 
-Read more about the specific experimental commands on the https://wiki.freecad.org/Special:WhatLinksHere/CAM_experimental[wiki pages that link to this one].
+Experimental commands: xref:operations/path-from-shape-tc.adoc[Path from Shape], xref:misc/area.adoc[Area], xref:misc/area-workplane.adoc[Area Workplane], Planar Surface, xref:operations/rotary-surface.adoc[Rotary Surface].
+
+Former experimental commands now standard: Tapping (merged into xref:operations/drilling.adoc[Drilling] as the _Tapping_ Strategy in 26.3), xref:job/sanity-check.adoc[Sanity Check], xref:operations/slot.adoc[Slot].

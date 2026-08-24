@@ -7,6 +7,7 @@
 :page-workbench: CAM
 :page-see-also: CAM DressupTag, CAM DressupRampEntry
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -14,6 +15,7 @@
 image:CAM_DressupPathBoundary.svg[CAM DressupPathBoundary,32] *CAM DressupPathBoundary*
 
 Menu location:: menu:CAM[Path Dressup > Boundary]
+Toolbar:: Path Modification → Dressup Operations dropdown
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
@@ -22,20 +24,62 @@ See also:: xref:dressups/tag.adoc[CAM DressupTag], xref:dressups/ramp-entry.adoc
 
 == Description
 
-The image:CAM_DressupPathBoundary.svg[width=24] xref:dressups/path-boundary.adoc[CAM DressupPathBoundary] command allows restricting the extent of a path to a smaller part of the object. For example, restricting a profile path to just one face or part of the model.
+The image:CAM_DressupPathBoundary.svg[width=24] xref:dressups/path-boundary.adoc[CAM DressupPathBoundary] command restricts an existing Toolpath to the inside (or outside) of a solid boundary. Moves of the base Operation that leave the boundary are removed and replaced by retract, rapid and plunge moves at the boundary crossing points. For example, a Profile Toolpath can be limited to one face or one region of the Model. Its tooltip reads: _Creates a boundary dress-up from a selected toolpath_.
 
 == Usage
 
-. Select a path such as contour, profile or pocket operation.
-. Select the menu:CAM[Path Dressup > Boundary] option from the menu.
+. Select one Operation or Dressup whose base Operation has *Clearance Height* and *Safe Height* properties (the command is disabled otherwise).
+. There are several ways to invoke the command:
+* Select the menu:CAM[Path Dressup > Boundary] option from the menu.
+* Select the *Dressup Operations* dropdown on the Path Modification toolbar.
+* Select the menu:Path Dressup[Boundary] option from the https://wiki.freecad.org/Tree_view[Tree view] context menu.
+. Choose the boundary body type and dimensions in the task panel and press btn:[Apply] or btn:[OK].
 
 == Options
 
-* *Create Box*
-* *Create Cylinder*
-* *Extend Model's Boundary Box*: A very convenient way to limit a path is to select this option and use negative values.
-* *Use Existing Solid*
+* *Boundary Body*: Selects what type of solid is used to constrain the Toolpath:
+** *Create box*: A box with the given *Length*, *Width* and *Height*.
+** *Create cylinder*: A cylinder with the given *Radius* and *Height*.
+** *Extend model's bounding box*: The Model's bounding box, extended by *Ext. X*, *Ext. Y* and *Ext. Z* (each with a minimum and a maximum extension). Negative values shrink the box and are a convenient way to limit a Toolpath.
+** *Use existing solid*: Select any solid in the document.
+* *Constrained to inside*: If checked, the Toolpath is constrained to the inside of the solid; otherwise the volume of the solid is a keep-out zone.
+
+The boundary solid appears as a child object labelled *Boundary* under the dressup in the https://wiki.freecad.org/Tree_view[Tree view]. It is shown while the task panel is open and removed when the dressup is deleted.
+
+== Properties
+
+.Base
+* *Base* (`Link`): The base Toolpath to modify.
+
+.Boundary
+* *Stock* (`Link`): Solid object used to limit the generated Toolpath.
+* *Inside* (`Bool`): Determines if the boundary describes an inclusion or an exclusion mask; default `true`.
+* *Retract Threshold* (`Length`): [.since]#introduced in 26.3# Distance below which the dressup links two kept segments with a feed move instead of retracting to *Clearance Height*. It replaces the *Keep Tool Down* property of version 1.1; a file with *Keep Tool Down* enabled is migrated to a very large threshold on load.
+* *Rest Machining Pass* (`Bool`): [.since]#introduced in 26.3# Apply the boundary to the rest-machining pass.
+* *Offset* (`Length`): [.since]#introduced in 26.3# Offset applied to the boundary shape; with *Inside* checked the offset is applied inwards.
+
+*Retract Threshold*, *Rest Machining Pass* and *Offset* are only editable in the property editor, not in the task panel.
+
+== Notes
+
+* [.since]#introduced in 1.1# Canned drilling cycles (G73, G81, G82, G83, G85) are kept only when the hole lies completely inside the boundary.
 
 == Limitations
 
-* The _Create Box_ option only sets the dimensions of the box, not its origin. To alter its origin it is necessary to adjust its _Placement_ in the https://wiki.freecad.org/Tree_View[Tree View].
+* The *Create box* and *Create cylinder* options only set the dimensions of the solid, not its position. To move it, edit the *Placement* of the *Boundary* object shown under the dressup in the https://wiki.freecad.org/Tree_view[Tree view].
+
+== Scripting
+
+[source,python]
+----
+import Path.Dressup.Gui.Boundary as Boundary
+
+dressup = Boundary.Create(op)  # opens the task panel
+
+# without GUI:
+import Path.Dressup.Boundary as PathBoundary
+
+dressup = PathBoundary.Create(op, "DressupPathBoundary")
+dressup.Inside = False
+dressup.RetractThreshold = 5
+----

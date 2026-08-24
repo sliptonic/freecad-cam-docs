@@ -3,47 +3,37 @@
 :page-origin-revision: 309578ac37 2025-11-07
 :page-command: CAM_Area_Workplane
 :page-icon: CAM_Area_Workplane.svg
-:page-menu: CAM → Area workplane
+:page-menu: CAM → Area Workplane
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
-WARNING: This is an unfinished experimental feature. See xref:reference/experimental.adoc[Enable Experimental Features].
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+WARNING: This is an experimental feature. See xref:reference/experimental.adoc[Enable Experimental Features]. The command appears in the menu:CAM[Area Workplane] menu and on the _Helpful Tools_ toolbar only when experimental features are enabled.
 
 [.fcinfobox]
 --
 [.fcTitle]
 image:CAM_Area_Workplane.svg[CAM Area Workplane,32] *CAM Area Workplane*
 
-Menu location:: menu:CAM[Area workplane]
+Menu location:: menu:CAM[Area Workplane]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:misc/area.adoc[CAM Area]
 --
 
 == Description
 
-Empty
+The Area Workplane command (tooltip: "Selects a workplane for a feature area") assigns a planar shape as the *WorkPlane* of a xref:misc/area.adoc[FeatureArea]. The workplane defines the plane used for coplanarity checks and, with *SectionMode* = `Workplane`, the starting height of Z sections.
 
 == Usage
 
-Empty
-
-== Options
-
-Empty
+. Select exactly one FeatureArea object and one planar shape: a whole 2D object, or a single face or edge sub-element of an object (an edge is expanded to its wire). The command is enabled only when a FeatureArea is part of the selection.
+. Press the image:CAM_Area_Workplane.svg[width=16] Area Workplane button. The shape is stored in the area's *WorkPlane* property and the area is made visible. Errors such as "Select one feature area only", "Select one sub shape object for plane only" or "Selected shape is not 2D" are printed in the https://wiki.freecad.org/Report_view[Report view].
 
 == Properties
 
-=== Data
-
-Empty
-
-=== View
-
-Empty
+This command creates no object of its own. It sets the *WorkPlane* (`PartShape`) property of the selected xref:misc/area.adoc[Area].
 
 == Scripting
 
@@ -53,5 +43,9 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import PathCommands
+
+area = FreeCAD.ActiveDocument.FeatureArea
+area.WorkPlane = PathCommands.findShape(FreeCAD.ActiveDocument.Sketch.Shape, 'Edge1', 'Wires')
+FreeCAD.ActiveDocument.recompute()
 ----

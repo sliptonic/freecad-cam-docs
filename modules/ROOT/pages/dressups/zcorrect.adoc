@@ -6,8 +6,7 @@
 :page-menu: CAM → Path Dressup → Z Depth Correction
 :page-workbench: CAM
 :page-imported: true
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -15,18 +14,73 @@ NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 image:CAM_DressupZCorrect.svg[CAM DressupZCorrect,32] *CAM DressupZCorrect*
 
 Menu location:: menu:CAM[Path Dressup > Z Depth Correction]
+Toolbar:: Path Modification → Dressup Operations dropdown
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:operations/probe.adoc[CAM Probe]
 --
 
 == Description
 
+The image:CAM_DressupZCorrect.svg[width=24] xref:dressups/zcorrect.adoc[CAM DressupZCorrect] command corrects the Z depth of an existing Toolpath using a map of probed surface heights. It reads a probe point file, builds a B-spline interpolation surface through the points and shifts the Z of every move by the interpolated surface height at that X, Y. This compensates for Stock that is not parallel to the machine table, for example when engraving a warped PCB. Arcs are discretised and every move is output as G1. Its tooltip reads: _Corrects Z depth using a probe map_.
+
 == Usage
+
+. Create the probe file, for example with a xref:operations/probe.adoc[CAM Probe] Operation (G38 probing) on the machine.
+. Select one Operation or Dressup.
+. There are several ways to invoke the command:
+* Select the menu:CAM[Path Dressup > Z Depth Correction] option from the menu.
+* Select the *Dressup Operations* dropdown on the Path Modification toolbar.
+* Select the menu:Path Dressup[Z Depth Correction] option from the https://wiki.freecad.org/Tree_view[Tree view] context menu.
+. In the task panel enter or browse for the probe file. While the panel is open the interpolated surface is shown as a transparent yellow object placed at the top of the Stock.
+. Press btn:[OK].
+
+=== Probe file format
+
+The probe file is a plain text file with one point per line, the first three whitespace-separated numbers being X, Y and Z (the LinuxCNC G38 probe log format with nine values XYZABCUVW is accepted; extra columns are ignored). A comma is accepted as decimal separator. [.since]#introduced in 26.3# Lines that do not contain three numbers are skipped with a warning. At least three points are required; the points should form a rectangular grid, missing grid positions are filled with the average Z of their row.
 
 == Options
 
+The task panel is titled *Z Depth Correction*:
+
+* *Probe Points File* → *File Name*: The file containing the probe data, with a btn:[…] button to browse.
+
+All other settings are edited in the property editor.
+
 == Properties
 
+.Path
+* *Base* (`Link`): The base Toolpath to modify.
+* *interpSurface* (`Shape`): The interpolated surface; internal.
+
+.ProbeData
+* *probefile* (`File`): The point file from the surface probing. Note the lower-case property name.
+
+.Interpolate
+* *Arc Interpolate* (`Distance`): Deflection distance used to discretise arcs; default `0.1 mm`.
+* *Seg Interpolate* (`Distance`): Straight segments are broken into smaller segments of this length so the Z correction follows the surface; default `1.0 mm`.
+
+== Limitations
+
+* [.since]#introduced in 26.3# If any point of the Toolpath lies outside the probed area, the dressup prints a warning with the point and the probe area bounds and outputs the unmodified base Toolpath (earlier versions raised an error).
+* If the probe file is missing or invalid, the base Toolpath is passed through unchanged.
+
 == Scripting
+
+[source,python]
+----
+import FreeCAD
+import Path.Dressup.Gui.ZCorrect as ZCorrect
+import PathScripts.PathUtils
+
+obj = FreeCAD.ActiveDocument.addObject("Path::FeaturePython", "ZCorrectDressup")
+ZCorrect.ObjectDressup(obj)
+obj.Base = op
+ZCorrect.ViewProviderDressup(obj.ViewObject)
+PathScripts.PathUtils.addToJob(obj)
+
+obj.probefile = "/path/to/probe.txt"
+obj.SegInterpolate = 2
+FreeCAD.ActiveDocument.recompute()
+----

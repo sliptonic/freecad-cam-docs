@@ -1,0 +1,134 @@
+= CAM Mill Facing
+:page-command: CAM_MillFacing
+:page-icon: CAM_Face.svg
+:page-menu: CAM → Mill Facing
+:page-since: 26.3
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Face.svg[CAM Mill Facing,32] *CAM Mill Facing*
+
+Menu location:: menu:CAM[Mill Facing]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 26.3
+See also:: xref:operations/mill-face.adoc[CAM MillFace]
+--
+
+== Description
+
+The image:CAM_Face.svg[width=24] xref:operations/mill-facing.adoc[CAM Mill Facing] command creates an operation that machines the top surface of the Stock down to the Final Depth with a rectangular clearing pattern. [.since]#introduced in 26.3#: It replaces the xref:operations/mill-face.adoc[Face] operation. The boundary is taken from the Stock cross-section at the Final Depth, so no Base Geometry selection is needed; the Stock may be rectangular or cylindrical (curved outlines are converted to the enclosing rectangle aligned to *Angle*).
+
+The command's menu text is "Mill Facing" and its tooltip reads "Create a Mill Facing Operation to machine the top surface of stock".
+
+== Usage
+
+. The Job must have a Stock object; the operation uses its outline.
+. Press the Mill Facing button on the New Operations toolbar or select menu:CAM[Mill Facing].
+. On the Heights tab set _Start depth_ (top of Stock), _Final depth_ (target surface), _Step down_ and the Linking options.
+. On the Tool Controller tab choose the Tool Controller and coolant mode.
+. On the Operation tab choose _Clearing Pattern_, _Cut Mode_, _Angle_, _Reverse_, _Step over_, _Pass Extension_, _Stock Extension_ and _Axial stock to leave_.
+. Press btn:[Apply] to preview, btn:[OK] to accept.
+
+== Clearing patterns
+
+* *ZigZag*: continuous back-and-forth passes, alternating direction, linked at the ends.
+* *Bidirectional*: passes alternate between the two opposite edges of the boundary and meet in the middle, keeping a constant climb or conventional direction with rapid links outside the clearing area.
+* *Directional*: every pass cuts in the same direction; the Tool Bit retracts to the Retract height and moves laterally to the start of the next pass (best surface consistency).
+* *Spiral*: a rectangular spiral from the outer corner inward.
+
+All patterns step by *Step Over* percent of the Tool Bit diameter and honour *Cut Mode*; *Reverse* flips the direction for the chosen pattern.
+
+== Properties
+
+.Facing
+* *Angle*: Rotation angle of the cutting passes (default 0°).
+* *Axial Stock To Leave*: How much stock to leave on the floor; the operation stops at Final Depth plus this value (default 0).
+* *Clearing Pattern*: `ZigZag` (default), `Bidirectional`, `Directional` or `Spiral`.
+* *Cut Mode*: `Climb` (default) or `Conventional`.
+* *Pass Extension*: Distance to extend cuts beyond the boundary for Tool Bit disengagement (default 3 mm).
+* *Reverse*: Reverse the cutting direction for the selected pattern.
+* *Step Over*: Stepover as percent of the Tool Bit diameter (default 25, clamped to 0-100).
+* *Stock Extension*: Extends the boundary outward on all sides.
+
+.Linking
+* *Collision Avoidance Strategy*: How moves between areas are checked: `Clearance Height` (no collision detection, rapids at Clearance Height), `Retract Height` (no collision detection, rapids at Safe Height), `Line of Sight` (fastest - checks the Toolpath centerline), `Tool Diameter` (balanced - checks clearance using the Tool Bit diameter), `Tool Shape` (safest - checks clearance using the cross section of the Tool Shape).
+* *Collision Clearance*: Minimum clearance distance between the Tool Bit and any solid during linking moves (default expression: `OpToolDiameter`).
+
+.Depth
+* *Clearance Height*: The height needed to clear clamps and obstructions
+* *Final Depth*: Final Depth of Tool Bit - lowest value in Z
+* *Safe Height*: (_Retract_ in the task panel) The height above which rapid moves are allowed between locations.
+* *Start Depth*: Starting depth of Tool Bit - first cut depth in Z
+* *Step Down*: Incremental step down of Tool Bit during operation
+
+The operation has no Finish Depth, no Start Point and no Base Geometry.
+
+.Path
+* *Active*: Make False, to prevent operation from generating code
+* *Block Delete*: Enable the Post-Processor to add block delete commands
+* *Comment*: An optional comment for this Operation
+* *Coolant Mode*: The coolant mode for this operation: `None`, `Flood` or `Mist`
+* *Cycle Time*: (read-only) The cycle time estimation for this operation.
+* *Tool Controller*: Defines the Tool Controller used in the Operation
+* *User Label*: User assigned label
+* *Workplane*: The orientation of the Tool Bit for this operation; default (0, 0, 1) for standard Z-up milling.
+
+.Op Values
+These read-only properties hold values calculated by the operation. They are useful as sources for expressions.
+
+* *Op Start Depth*, *Op Final Depth*: the calculated default depths
+* *Op Tool Diameter*: the diameter of the Tool Bit
+* *Op Stock ZMax*, *Op Stock ZMin*: the Z extent of the Stock
+
+== Tasks Window Editor Layout
+
+=== Heights
+
+* *Clearance*
+* *Retract*
+* *Start*
+* *Step down*
+* *Final*
+* Linking group: *Collision Avoidance Strategy*, *Collision Clearance*
+
+=== Tool Controller
+
+* *Tool controller*
+* *Coolant mode*
+
+=== Operation
+
+* *Clearing Pattern*
+* *Cut Mode*
+* *Angle* (°)
+* *Reverse*
+* *Step over* (%)
+* *Pass Extension*
+* *Stock Extension*
+* *Axial stock to leave*
+
+The quantity fields accept expressions.
+
+== Notes
+
+* Each step-down starts with a rapid to Clearance Height, then to Safe Height and a feed plunge to the layer depth; feed rates are taken from the Tool Controller.
+* 3+2 machining: set *Workplane* with the _Set Workplane from Face_ context menu command to face a tilted Stock top [.since]#introduced in 26.3#.
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+[source,python]
+----
+import Path.Op.MillFacing as MillFacing
+
+op = MillFacing.Create('MillFacing', parentJob=job)
+op.ClearingPattern = 'Spiral'
+op.StepOver = 40
+doc.recompute()
+----
+
+Setup Sheet defaults can be provided for *Cut Mode*, *Clearing Pattern*, *Angle*, *Step Over*, *Axial Stock To Leave*, *Pass Extension*, *Reverse* and the Linking properties.

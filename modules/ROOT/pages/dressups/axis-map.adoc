@@ -6,8 +6,7 @@
 :page-menu: CAM → Path Dressup → Axis Map
 :page-workbench: CAM
 :page-imported: true
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -15,6 +14,7 @@ NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 image:CAM_DressupAxisMap.svg[CAM DressupAxisMap,32] *CAM DressupAxisMap*
 
 Menu location:: menu:CAM[Path Dressup > Axis Map]
+Toolbar:: Path Modification → Dressup Operations dropdown
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
@@ -23,10 +23,58 @@ See also:: _None_
 
 == Description
 
+The image:CAM_DressupAxisMap.svg[width=24] xref:dressups/axis-map.adoc[CAM DressupAxisMap] command remaps one linear axis of a Toolpath to a rotary axis. Every X or Y coordinate of the base Toolpath is converted to an angle on the A, B or C axis by dividing the linear distance by the *Radius* (angle = degrees(distance / Radius)). This wraps a flat Toolpath around a cylinder, for example to drive a 4th-axis rotary. The feed rate of pure rotary moves is converted to degrees per minute with the same ratio. Its tooltip reads: _Remaps one axis to another_.
+
 == Usage
+
+. Select one Operation or Dressup in the Job. If the selection is not exactly one Toolpath object, the command is disabled.
+. There are several ways to invoke the command:
+* Select the menu:CAM[Path Dressup > Axis Map] option from the menu.
+* Select the *Dressup Operations* dropdown on the Path Modification toolbar.
+* Select the menu:Path Dressup[Axis Map] option from the https://wiki.freecad.org/Tree_view[Tree view] context menu.
+. The task panel opens; set *Radius*, *Axis mapping* and *Reverse*. Changes are applied immediately to the Toolpath preview.
+. Press btn:[OK].
 
 == Options
 
+The task panel is titled *AxisMap Dressup*:
+
+* *Radius*: The radius of the wrapped axis.
+* *Axis mapping*: The input mapping axis; coordinates of the first axis are mapped to the second (`X->A`, `Y->A`, `X->B`, `Y->B`, `X->C`, `Y->C`).
+* *Reverse*: [.since]#introduced in 26.3# Reverses the rotary axis direction.
+
 == Properties
 
+.Path
+* *Base* (`Link`): The base Toolpath to modify.
+* *Axis Map* (`Enumeration`): The input mapping axis; values `X->A`, `Y->A`, `X->B`, `Y->B`, `X->C`, `Y->C`; default `Y->A`.
+* *Radius* (`Distance`): The radius of the wrapped axis; default `45 mm`. Changing it also sets the Job's center of rotation to (0, 0, -Radius).
+* *Reverse* (`Bool`): [.since]#introduced in 26.3# Reverse the rotary axis direction.
+
+== Notes
+
+* [.since]#introduced in 26.3# G2/G3 arcs in the base Toolpath are split into straight segments, using the Job's *Geometry Tolerance* as deflection, before remapping. Earlier versions used a fixed 0.1 mm deflection.
+
 == Scripting
+
+The dressup is implemented in the `Path.Dressup.Gui.AxisMap` module (there is no separate model module):
+
+[source,python]
+----
+import FreeCAD
+import Path.Dressup.Gui.AxisMap as AxisMap
+import PathScripts.PathUtils
+
+# op is an existing Operation of the Job
+obj = FreeCAD.ActiveDocument.addObject("Path::FeaturePython", "AxisMapDressup")
+AxisMap.ObjectDressup(obj)
+obj.Base = op
+job = PathScripts.PathUtils.findParentJob(op)
+job.Proxy.addOperation(obj, op)
+AxisMap.ViewProviderDressup(obj.ViewObject)
+
+obj.AxisMap = "Y->A"
+obj.Radius = 25
+obj.Reverse = False
+FreeCAD.ActiveDocument.recompute()
+----

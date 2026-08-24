@@ -2,10 +2,11 @@
 :page-origin: https://wiki.freecad.org/OpenCamLib
 :page-origin-revision: 634d2069b4 2025-07-05
 :page-imported: true
+:page-audit: applied
 
 == Description
 
-OpenCamLib (OCL) is an open source library aiming to provide computer aided manufacturing (CAM) algorithms. FreeCAD uses OCL in the experimental image:Path_Surface.svg[width=24] xref:operations/surface.adoc[3D Surface] path operations and other experimental features.
+OpenCamLib (OCL) is an open source library aiming to provide computer aided manufacturing (CAM) algorithms. FreeCAD uses OCL for the image:CAM_3DSurface.svg[width=24] xref:operations/surface.adoc[3D Surface] and image:CAM_Waterline.svg[width=24] xref:operations/waterline.adoc[Waterline] Operations, the experimental image:CAM_RotarySurface.svg[width=24] xref:operations/rotary-surface.adoc[Rotary Surface] Operation, and as the gate for the image:CAM_Camotics.svg[width=24] xref:inspect/camotics.adoc[CAMotics] simulator integration. These commands are hidden until menu:Enable OCL dependent features[] is checked on the menu:Edit[Preferences > CAM > Advanced] page and FreeCAD is restarted.
 
 Github: https://github.com/aewallin/opencamlib
 
@@ -15,9 +16,9 @@ Website: http://www.anderswallin.net/CAM/
 
 === Windows
 
-*Note:* Beginning with FreeCAD version 0.19, OCL should be included with all Windows distribution packages.
+*Note:* Recent Windows and macOS builds of FreeCAD ship OpenCamLib. If it is missing, install the `opencamlib` package into FreeCAD's bundled Python (for example with the Addon Manager's Python dependency installer or `pip install opencamlib`) so that `import opencamlib` succeeds. The historical `ocl.pyd` instructions below apply only to legacy builds.
 
-To install OCL on Windows, follow these instructions.
+To install OCL on Windows manually, follow these instructions.
 
 . Obtain the Python version of OpenCamLib (OCL).
 * Build from https://github.com/aewallin/opencamlib[source] using the Python version used by your FreeCAD version. Peter Lama's https://github.com/peterlama/opencamlib[fork of the same] source has project files for a MSVC build.
@@ -66,57 +67,27 @@ If you are struggling, carefully review any error messages you get during the cm
 ==== Archlinux
 
 . Install OpenCamLib from the https://aur.archlinux.org/packages/opencamlib-git[AUR package].
-. Then run the following code snippet inside FreeCAD's https://wiki.freecad.org/Python_console[Python console]
+. If the package installs outside Python's site-packages, run the following code snippet inside FreeCAD's https://wiki.freecad.org/Python_console[Python console] before enabling the preference:
 
-[source,bash]
+[source,python]
 ----
 import sys
 sys.path.append('/usr/opencamlib/')
 import ocl
 ----
 
-==== Python 3
+If the package installs into site-packages this is unnecessary; FreeCAD accepts either `import ocl` or `import opencamlib`.
 
-Identify the version of cmake you have installed with `cmake --version`
+==== Building from source
 
-For cmake ++>++= 3.12, add these flags:
-
-[source,bash]
-----
-cmake -DBUILD_PY_LIB=ON -DUSE_PY_3=ON -DCMAKE_BUILD_TYPE=Release ../src -Wno-dev
-----
-
-For cmake ++<++ 3.12 (like in Ubuntu 18.04, which has 3.10), first you'll need to edit `src/pythonlib/pythonlib.cmake`, and apply this patch:
-
-`Index: opencamlib-2019.07/src/pythonlib/pythonlib.cmake` +
-`===================================================================` +
-`--- opencamlib-2019.07.orig/src/pythonlib/pythonlib.cmake` +
-`{plus}{plus}{plus} opencamlib-2019.07/src/pythonlib/pythonlib.cmake` +
-`@@ -48,13 {plus}48,13 @@ if($++{++CMAKE++_++VERSION} VERSION++_++LESS "3.12.0` +
-`     message("Python not found")` +
-`   endif()` +
-`   execute++_++process(` +
-`-    COMMAND $++{++PYTHON++_++EXECUTABLE} -c "from distutils.sysconfig import get++_++python++_++lib; print get++_++python++_++lib(0,0,++\++"/usr/local++\++")"` +
-`{plus}    COMMAND $++{++PYTHON++_++EXECUTABLE} -c "import site; print(site.getsitepackages()++[++-1++]++)"` +
-`     OUTPUT++_++VARIABLE PYTHON++_++SITE++_++PACKAGES` +
-`     OUTPUT++_++STRIP++_++TRAILING++_++WHITESPACE` +
-`   ) ++#++ on Ubuntu 11.10 this outputs: /usr/local/lib/python2.7/dist-packages` +
-` ` +
-`   execute++_++process(` +
-`-    COMMAND $++{++PYTHON++_++EXECUTABLE} -c "from distutils.sysconfig import get++_++python++_++lib; print get++_++python++_++lib(plat++_++specific=1,standard++_++lib=0,prefix=++\++"/usr/local++\++")"` +
-`{plus}    COMMAND $++{++PYTHON++_++EXECUTABLE} -c "import site; print(site.getsitepackages()++[++-1++]++)"` +
-`     OUTPUT++_++VARIABLE PYTHON++_++ARCH++_++PACKAGES` +
-`     OUTPUT++_++STRIP++_++TRAILING++_++WHITESPACE` +
-`   )`
-
-Then, in order for Python 3 to be detected correctly you'll need to add 2 more flags to the cmake line:
+Build with the upstream instructions (Python 3):
 
 [source,bash]
 ----
-cmake -DBUILD_PY_LIB=ON -DUSE_PY_3=ON -DPYTHON_EXECUTABLE="$(which python3)" -DPYTHON_VERSION_SUFFIX=3 -DCMAKE_BUILD_TYPE=Release ../src -Wno-dev
+cmake -DBUILD_PY_LIB=ON -DCMAKE_BUILD_TYPE=Release ../src -Wno-dev
 ----
 
-See the FreeCAD forum at https://forum.freecad.org/viewtopic.php?p=316970#p316988[Re: How to activate openCamLib after compiling it], and a few posts following.
+or simply install the `opencamlib` wheel with pip. The cmake 3.10 patch that older revisions of this page described is no longer needed.
 
 === Mac
 
@@ -131,16 +102,15 @@ make -j4
 make install
 ----
 
-To test the build enter the following in the https://wiki.freecad.org/Python_console[Python console]:
+To test the build enter the following in the https://wiki.freecad.org/Python_console[Python console] (either module name works):
 
 [source,python]
 ----
-import area
-import ocl
+import ocl  # or: import opencamlib as ocl
 dir(ocl)
 ----
 
-The return value should be:
+The returned list should contain `Waterline`, `AdaptiveWaterline` and `PathDropCutter`, similar to:
 
 [source,python]
 ----
@@ -156,6 +126,10 @@ In case of an error the return value will be:
 
 For cmake the Release option is very important, when using Debug area and ocl will collide and either library will not load (depending on what what was loaded first).
 
+== Enabling in FreeCAD
+
+After installation, open menu:Edit[Preferences > CAM > Advanced], check menu:Enable OCL dependent features[] and restart FreeCAD. FreeCAD imports the module as `ocl` or, failing that, `opencamlib`. If neither import works the report view prints "OpenCamLib is not working!" unless menu:Suppress openCAMlib warning[] is checked.
+
 == More help
 
 In case you run into difficulties, you may find additional help at these forum posts:
@@ -166,3 +140,8 @@ In case you run into difficulties, you may find additional help at these forum p
 == Acknowledgments
 
 Thank you to http://www.anderswallin.net/about/[Dr. Anders Wallin] for providing OCL to the public.
+
+== See also
+
+* xref:reference/experimental.adoc[CAM experimental]
+* https://wiki.freecad.org/Installing_additional_components[Installing additional components]

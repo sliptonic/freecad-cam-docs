@@ -7,6 +7,7 @@
 :page-workbench: CAM
 :page-since: 0.19
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -22,7 +23,7 @@ See also:: _None_
 
 == Description
 
-The image:CAM_Profile.svg[width=24] xref:operations/profile.adoc[CAM Profile] command creates a contour operation based on selected features of the model. The tool was introduced in version 0.19. It offers three operations that were handled by separate tools in previous versions.
+The image:CAM_Profile.svg[width=24] xref:operations/profile.adoc[CAM Profile] command creates a contour Operation based on selected features of the model. It is found on the New Operations toolbar and in the CAM menu; its tooltip reads "Profile entire model, selected face(s) or selected edge(s)". The command was introduced in version 0.19 and offers three operations that were handled by separate commands in previous versions.
 
 All operations create objects that are made to be part of a image:CAM_Job.svg[width=16] xref:job/job.adoc[CAM Job].
 
@@ -30,24 +31,25 @@ These are the available operations:
 
 === Contour operation
 
-A Contour operation is the default. It creates a simple external contour cut of complex 3D image:Workbench_Part.svg[width=24] https://wiki.freecad.org/Part_Workbench[Part]-based objects. The entire Job Model serves as the input for the Operation, regardless of whether any Body Geometry is selected when the Contour command is invoked.
+A Contour operation is the default. It creates a simple external contour cut of complex 3D image:Workbench_Part.svg[width=24] https://wiki.freecad.org/Part_Workbench[Part]-based objects. The entire Job Model serves as the input for the Operation, regardless of whether any Base Geometry is selected when the Contour command is invoked.
 
 === Profile Face operation
 
-A Profile Face operation creates a simple contour path from one or more selected faces of an object.
+A Profile Face operation creates a simple contour Toolpath from one or more selected faces of an object.
 
 === Profile Edges operation
 
-A Profile Edges operation creates a simple contour path from selected edges.
+A Profile Edges operation creates a simple contour Toolpath from selected edges.
 
 image::Path_profile_example.jpg[width=600]
 
 == Usage
 
 . There are several ways to invoke the command:
-* Press the image:CAM_Profile.svg[width=16] xref:operations/profile.adoc[Profile] button.
+* Press the image:CAM_Profile.svg[width=16] xref:operations/profile.adoc[Profile] button on the New Operations toolbar.
 * Select the menu:CAM[Profile] option from the menu.
-. Activate the Base Geometry section by clicking its tab, and select features from the Job model.
+. The task panel has four tabs: Base Geometry, Heights, Tool Controller and Operation. [.since]#introduced in 26.3#: the Tool Controller and Coolant mode selectors are on the Tool Controller tab, which also lets you edit the selected Tool Controller's feeds and speeds in place.
+. Activate the Base Geometry section by clicking its tab, and select features from the Job Model.
 * If no features are selected, the command defaults to a menu:Contour[] operation, contouring the entire model.
 * If faces are selected, then the result is a menu:Profile Face[] operation.
 * If edges are selected, then the result is a menu:Profile Edges[] operation. +
@@ -58,19 +60,21 @@ image::Path_profile_example.jpg[width=600]
 
 *Important Note: CAM Profile doesn't take care of other details of the object. You have to adjust the properties, especially the final depth, carefully, a mistake might destroy your work piece!*
 
-A Start point can be enabled from the Operation tab in the Tasks Window editor, using a location defined in the menu:Property View[Data > Start Point].
+To use a custom start point, check _Use start point_ on the Operation tab. [.since]#introduced in 26.3#: click a point on the model in the 3D view, then press the _Set picked point as start point_ button to copy the picked coordinates into *Start Point*. The point can also be edited in the Property View or set with the Start Point Selection context menu command.
+
+[.since]#introduced in 1.1#: Set _Number of passes_ greater than 1 and a non-zero _Pass stepover_ to cut the profile in several radial passes; each extra pass is offset outward by the stepover distance.
 
 Make additional adjustments to the operation by modifying the operation's properties in the Data tab of the Property View. Advanced properties will be located here, if any.
 
 == Usage Notes
 
 * The image:CAM_Profile.svg[width=16] xref:operations/profile.adoc[Profile] operation is capable of profiling *open-edges* (one or more continuous edges that do not form a loop as seen from the _Top View_)
-** It is best to select the top edges (highest edges) for the selection. After doing so, you will need to manually set the Final Depth for the operation. Selection of bottom edges only is unpredictable and will likely return undesirable paths in many situations; however, it will return correct paths in some situations.
+** It is best to select the top edges (highest edges) for the selection. After doing so, you will need to manually set the Final Depth for the operation. Selection of bottom edges only is unpredictable and will likely return undesirable Toolpaths in many situations; however, it will return correct Toolpaths in some situations.
 ** Selected edges must form a continual edge _as viewed from the Top View_. Selected top edges may have differing heights, so long as they connect at a common (X, Y) coordinate - differing Z-heights are acceptable in _some**++**++**_ cases. +
 **++**++**In certain cases, the user will need to include in their selection the straight vertical connecting edge between two adjacent edges of different heights that share a common (X, Y) coordinate.
 ** Because top edges are selected, the Final Depth for the operation will need to be set manually.
-** When profiling open-edges, the _Side_ or _Cut Side_ property is disabled internally even though it will likely be visible within the Task editor window and the Properties list within the Data tab.
-* When profiling the entire model (a complete contour of the model) the _Side_ or _Cut Side_ property is set to _Outside_ by default. User can adjust it depending on the configuration of the part.
+** When profiling open edges the _Side_ (_Cut side_) property remains visible, but the Toolpath follows the selected edges on the compensated side; verify the result in the 3D view.
+* When profiling the entire model (a complete contour of the model) the _Side_ or _Cut side_ property is set to _Outside_ by default and is hidden, since only the outside can be contoured.
 
 == Properties
 
@@ -93,11 +97,10 @@ Note: It is suggested that you do not edit the Placement property of path operat
 
 .Depth
 * *Clearance Height*: The height needed to clear clamps and obstructions
-* *Final Depth*: Final Depth of Tool- lowest value in Z. User must define it.
-* *Finish Depth*: Maximum material removed on final pass. The height (thickness) of the last cutting level - _set for a better finish_.
-* *Safe Height*: The height above which Rapid motions are allowed. (Rapid safety height between locations)
-* *Start Depth*: Starting depth of Tool - _first cut depth in Z_. User must define it.
-* *Step Down*: Incremental step down of Tool during operation
+* *Final Depth*: Final Depth of Tool Bit - lowest value in Z. User must define it.
+* *Safe Height*: (_Retract_ in the task panel) The height above which rapid moves are allowed between locations.
+* *Start Depth*: Starting depth of Tool Bit - _first cut depth in Z_. User must define it.
+* *Step Down*: Incremental step down of Tool Bit during operation
 
 image::Path-DepthsAndHeights.gif[width=600]
 
@@ -107,39 +110,45 @@ Visual reference for Depth properties (settings)
 .Path
 * *Active*: make False, to prevent operation from generating code
 * *Base*: The base geometry for this operation
+* *Block Delete*: [.since]#introduced in 26.3# Enable the Post-Processor to add block delete commands
 * *Comment*: An optional comment for this Operation
-* *Coolant Mode*: The coolant mode for this operation.
-* *Cycle Time*: The cycle time estimation for this operation.
-* *Tool Controller*: Defines the Tool controller used in the Operation
+* *Coolant Mode*: The coolant mode for this operation: `None`, `Flood` or `Mist`
+* *Cycle Time*: (read-only) The cycle time estimation for this operation.
+* *Sorting Mode*: [.since]#introduced in 26.3# Order processing of the shapes. `Automatic` uses a nearest-neighbour algorithm; `Manual` uses the order in which the shapes were selected. Only visible when *Handle Multiple Features* is `Individually`.
+* *Split Arcs*: Split arcs into discrete segments
+* *Tool Controller*: Defines the Tool Controller used in the Operation
 * *User Label*: User assigned label
+* *Workplane*: [.since]#introduced in 26.3# The orientation of the Tool Bit for this operation; default (0, 0, 1) for standard Z-up milling. Set with the _Set Workplane from Face_ context menu command for 3+2 machining.
+
+.Op Values
+These read-only properties hold values calculated by the operation. They are useful as sources for expressions.
+
+* *Op Start Depth*, *Op Final Depth*: the calculated default depths
+* *Op Tool Diameter*: the diameter of the Tool Bit
+* *Op Stock ZMax*, *Op Stock ZMin*: the Z extent of the Stock
 
 .Profile
-* *Direction*: The direction that the tool path should go around the part: Clockwise++[++CW++]++ or Counterclockwise++[++CCW++]++
-* *Expand Profile*: Extend the profile clearing beyond the Extra Offset.
-* *Expand Profile Step Over*: Set the stepover percentage, based on the tool's diameter.
-* *Handle Multiple Features*: Choose how to process multiple Base Geometry features. `Individually` processes each feature separately. `Collectively` combines compatible features before generating the profile path. [.since]#introduced in 26.3#: `Collectively` also supports Profile Edges selections and whole-model perimeter profiles.
-* *OffsetExtra*: Extra value to stay away from final profile- good for roughing toolpath
-* *Process Circles*: Check if you want this Profile Operation to also be applied to cylindrical holes, _which normally get drilled_.
-* *Process Holes*: Check if this Profile Operation should also process holes in the base geometry. *Note* that this does not include cylindrical holes.
-* *Process Perimeter*: Check if this Profile Operation should also process the outside perimeter of the base geometry shapes
-* *Retract Threshold*: Distance below which the operation can stay down for repositioning moves. A value of `0` disables this behavior.
-* *Side*: (Cut Side) Side of edge that tool should cut. This only matters if _Use Compensation_ is True (checked).
-* *Use Compensation*: If checked, the Profile Operation is offset by the tool radius. The offset direction is determined by the Cut Side.
-* *SortingMode*: Controls how multiple selected features are ordered. `Automatic` uses the default path sorting. `Manual` follows the order in which the features were selected.
-
-.Rotation
-* *Attempt Inverse Angle*: Automatically attempt Inverse Angle if initial rotation is incorrect.
-* *Enable Rotation*: Enable rotation to gain access to pockets or areas not normal to Z axis.
-* *Inverse Angle*: Inverse the angle of the rotation. _*Example:* change a rotation from -22.5 to 22.5 degrees._
-* *Limit Depth To Face*: Enforce the Z-depth of the selected face as the lowest value for final depth. Higher user values for final depth will be observed.
-* *Reverse Direction*: Reverse orientation of Operation by 180 degrees.
+* *Direction*: The direction the Toolpath goes around the part, `CW` (default) or `CCW`.
+* *Handle Multiple Features*: Choose how to process multiple Base Geometry features. `Individually` (default) processes each feature separately. `Collectively` combines compatible features before generating the Toolpath. *Sorting Mode* and *Use Longest Edge* are only available with `Individually`. [.since]#introduced in 26.3#: `Collectively` combines all shapes of the same kind (perimeters, holes, open edges) into one compound before generating the Toolpath.
+* *Join Type*: (hidden) Controls how the Tool Bit moves around corners: `Round` (default), `Square` or `Miter`.
+* *Miter Limit*: (hidden) Maximum distance before a miter joint is truncated (default 0.1).
+* *Num Passes*: [.since]#introduced in 1.1# The number of passes to do (1 to 99999, default 1). If more than one, requires a non-zero value for *Stepover*. Shown as _Number of passes_ in the task panel.
+* *Stepover*: [.since]#introduced in 1.1# If doing multiple passes, the extra offset of each additional pass. Hidden when *Num Passes* is 1; shown as _Pass stepover_ in the task panel.
+* *Offset Extra*: Set how much stock to leave on the walls for the operation. Shown as _Radial stock to leave_ in the task panel.
+* *Process Circles*: Check if you want this Profile Operation to also be applied to cylindrical holes, _which normally get drilled_. Only shown when faces are selected as Base Geometry.
+* *Process Holes*: Check if this Profile Operation should also process holes in the base geometry. *Note* that this does not include cylindrical holes. Only shown when faces are selected as Base Geometry.
+* *Process Perimeter*: (default checked) Check if this Profile Operation should also process the outside perimeter of the base geometry shapes. Only shown when faces are selected as Base Geometry.
+* *Retract Threshold*: [.since]#introduced in 26.3# Repositioning moves shorter than this distance are made without retracting to Safe Height. A value of `0` disables this behavior.
+* *Side*: (_Cut side_ in the task panel) Side of the edge the Tool Bit should cut, `Outside` (default) or `Inside`. Hidden when *Use Comp* is off or when the whole model is contoured.
+* *Use Comp*: (_Use Compensation_) If checked (default), the Toolpath is offset by the Tool Bit radius on the *Side* selected; otherwise the Tool Bit centre follows the geometry.
 
 .Start Point
-* *Start Point*: The custom start point for the path of this operation.
+* *Start Point*: The custom start point for the Toolpath of this operation.
 ** *X*: x distance value
 ** *Y*: y distance value
 ** *Z*: z distance value
-* *Use Start Point*: Make True, if manually specifying a Start Point. Set the start point in the property data Start Point field.
+* *Use Start Point*: Make True, if manually specifying a Start Point. Set the start point in the property data Start Point field or pick it in the 3D view.
+* *Use Longest Edge*: [.since]#introduced in 26.3# Start the profile at the middle of the longest edge instead of the default start vertex. Only available when *Handle Multiple Features* is `Individually` and *Use Start Point* is unchecked.
 
 == Tasks Window Editor Layout
 
@@ -147,36 +156,45 @@ _Descriptions for the settings are provided in the Properties list above._ This 
 
 === Base Geometry
 
-* *Add*: Adds selected element(s) which should be the base(s) for the path(s)
-* *Delete*: Delete the selected item(s) in the Base Geometry list
+* *Add*: Adds selected element(s) which should be the base(s) for the Toolpath(s)
+* *Remove*: Remove the selected item(s) in the Base Geometry list
 * *Clear*: Clear all items in the Base Geometry list
-
-=== Depths
-
-* *Start Depth*
-* *Final Depth*
-* *Step Down*
+* The drop-down and *Import* button copy the Base Geometry of another operation in the Job.
 
 === Heights
 
-* *Safe Height*
-* *Clearance Height*
+* *Clearance* height
+* *Retract* (safe) height
+* *Start* depth
+* *Step down*
+* *Final* depth
+
+The _Finish step down_ field of the shared Heights page is hidden for the Profile operation, which has no *Finish Depth* property.
+
+The buttons next to _Start_ and _Final_ transfer the Z value of the selected feature.
+
+=== Tool Controller
+
+* *Tool controller*
+* *Coolant mode*
+
+[.since]#introduced in 26.3#: this tab also embeds an editor for the selected Tool Controller's feeds and speeds.
 
 === Operation
 
-* *Tool Controller*
-* *Coolant Mode*
-* *Cut Side ***
+* *Cut side ***
 * *Direction*
-* *Extra Offset*
-* *Enable Rotation*
-* *Use Start Point*
+* *Radial stock to leave* (Offset Extra)
+* *Number of passes* [.since]#introduced in 1.1#
+* *Pass stepover* [.since]#introduced in 1.1# (enabled only when _Number of passes_ is greater than 1)
+* *Retract threshold*
+* *Use start point* and the *Set picked point as start point* button [.since]#introduced in 26.3#
 * *Use Compensation*
-* *Process Holes ***
-* *Process Circles ***
+* *Process holes ***
+* *Process circles ***
 * *Process Perimeter ***
 
-*++**++* Availability changes based on selections in Base Geometry section.
+*++**++* Shown only when the Base Geometry contains faces.
 
 == Scripting
 
@@ -186,5 +204,13 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import Path.Op.Profile as PathProfile
+
+op = PathProfile.Create('Profile')
+op.Base = [(doc.Body, ['Face6'])]
+op.Side = 'Outside'
+op.Direction = 'CW'
+doc.recompute()
 ----
+
+`Create(name, obj=None, parentJob=None)` is defined in `Path/Op/Profile.py`; pass `parentJob` to add the operation to a Job.

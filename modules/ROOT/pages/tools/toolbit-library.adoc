@@ -2,48 +2,75 @@
 :page-origin: https://wiki.freecad.org/CAM_ToolBit_Library
 :page-origin-revision: db6e1c2df9 2025-01-23
 :page-imported: true
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+:page-audit: applied
 
 == Description
 
-Within the xref:tools/index.adoc[CAM Tools] system, Toolbits are organized into libraries. A library is simply a list of toolbits and can be used by the user for whichever purpose is needed. A tool library is nevertheless a great representation for a physical grouping of tools, such as in an automatic tool changer. Or tools might be grouped by intended use, for example all tools for cutting plastic.
+Within the xref:tools/index.adoc[CAM Tools] system, Tool Bits are organized into libraries. A library is simply a list of Tool Bits and can be used by the user for whichever purpose is needed. A Tool Library is nevertheless a great representation for a physical grouping of tools, such as in an automatic tool changer. Or tools might be grouped by intended use, for example all tools for cutting plastic.
 
-A tool library is a (JSON) file with a mapping of tool id to the path of the toolbit file. As a consequence each toolbit can be in multiple libraries.
+A Tool Library is a JSON file (`.fctl`) in the `Tools/Library` folder of the asset directory. It maps tool numbers to Tool Bit IDs; the Tool Bits themselves live in `Tools/Bit`. As a consequence each Tool Bit can be in multiple libraries.
 
-Due to each tool being stored in its own file and the storage/organization of those files being quite flexible the importance of a tool library for organisational purposes is quite diminished. The user is free to organize their tools in whichever directory hierarchy they see fit and can also name them as best fits their use and organisation.
+[.since]#introduced in 1.1#: libraries are stored in the asset directory and edited with the rewritten Library Manager; drag and drop and copy/paste between libraries were added.
 
-== Toolbit IDs
+FreeCAD ships one library, _Default_, with 13 Tool Bits (3.175 mm and 5 mm endmills, 5 mm drill, 6 mm ball end, 6 mm bullnose, 30/45/60/90 degree V-bits, 45 degree chamfer, slitting saw, probe, 5 mm thread cutter). It is copied into the asset directory the first time the Library Manager or Toolbit Selector is opened.
 
-The Toolbit does not have an id of it's own. The id is a property of the library. When a toolbit is used to create a toolcontroller, the ID in the current library will become the default tool number in the controller. Of course, the tool number can be changed in the tool controller.
+== Tool numbers
+
+A Tool Bit has a permanent ID (its file name, shown as *ToolBitID*). The tool number, however, belongs to the library: the same Tool Bit can have different numbers in different libraries. Numbers are unique within a library; giving a Tool Bit a number that is already in use moves the other Tool Bit to the next free number. When a Tool Controller is created from a library entry, the library number becomes the Tool Controller's *Tool Number*, which can be changed afterwards.
 
 == Usage
 
+Libraries are managed in the xref:tools/library-manager.adoc[Library Manager] (menu:CAM[Toolbit Library Manager]):
+
+* btn:[Adds a new library]: opens the _Library Properties_ dialog asking for a Name.
+* btn:[Renames the library] (also kbd:[F2] in the library list).
+* btn:[Removes the library] (also kbd:[Del]); the Tool Bits it lists are kept on disk.
+* btn:[Imports a library] from a `.fctl` or Camotics `.json` file; Tool Bits referenced by an imported file are imported from the `Bit` folder next to it if they are not yet in the asset directory.
+* btn:[Exports the library] as `.fctl`, Camotics `.json` or LinuxCNC tool table `.tbl`.
+
+Tool Bits are added to a library with btn:[Adds a toolbit] (new Tool Bit), btn:[Imports a toolbit] (`.fctb` or YAML file), copy/cut/paste between libraries, or by dragging Tool Bits from the list onto a library in the left pane. The pseudo-library _All Toolbits_ lists every Tool Bit in the asset directory regardless of library membership.
+
+The library last selected in the Library Manager or Toolbit Selector and the last sort order are remembered between sessions (parameters `LastToolLibrary` and `LastToolLibrarySortKey` under `Preferences/Mod/CAM/Tools`). Changing the asset path resets the remembered library.
+
 == Export
 
-A toolbit library can be exported to create a http://wiki.linuxcnc.org/cgi-bin/wiki.pl?ToolTable[LinuxCNC Tool Table] (.tbl).
+A library can be exported with btn:[Exports the library] in the Library Manager as:
+
+* FreeCAD Tool Library (`.fctl`),
+* Camotics tool table (`.json`),
+* http://wiki.linuxcnc.org/cgi-bin/wiki.pl?ToolTable[LinuxCNC Tool Table] (`.tbl`): one line per tool, `T<number> P0 X0 Y0 Z0 A0 B0 C0 U0 V0 W0 D<diameter> I0 J0 Q0 ;<label>`, with the diameter in the user's preferred length unit and the number of decimals from the unit preferences. [.since]#introduced in 1.1#
 
 == JSON Structure
 
-[source,python]
+[source,json]
 ----
 {
+  "label": "Default",
   "tools": [
     {
       "nr": 1,
-      "path": "t1.fctb"
+      "path": "3.175mm_Endmill.fctb"
     },
     {
       "nr": 2,
-      "path": "t2.fctb"
-    },
-    {
-      "nr": 3,
-      "path": "t3.fctb"
+      "path": "5mm_Endmill.fctb"
     }
   ],
   "version": 1
 }
 ----
 
-== Options
+The `label` is the name shown in the UI; if missing, the file name is used. Each `path` is the ID of a Tool Bit in `Tools/Bit`.
+
+== Scripting
+
+[source,python]
+----
+from Path.Tool.camassets import cam_assets
+
+lib = cam_assets.get("toolbitlibrary://Default", depth=1)
+for bit in lib:
+    print(lib.get_bit_no_from_bit(bit), bit.label)
+lib.add_bit(bit, bit_no=20)
+cam_assets.add(lib)  # save
+----

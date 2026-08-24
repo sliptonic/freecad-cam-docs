@@ -1,0 +1,40 @@
+= CAM Tapping
+:page-command: CAM_Tapping
+:page-icon: CAM_Tapping.svg
+:page-since: 1.1
+:page-workbench: CAM
+:page-audit: applied
+
+[.obsolete]#obsolete since 26.3#
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Tapping.svg[CAM Tapping,32] *CAM Tapping*
+
+Menu location:: _None_ (removed from toolbar and menu)
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 1.1
+See also:: xref:operations/drilling.adoc[CAM Drilling]
+--
+
+== Description
+
+The CAM Tapping command created a G84/G74 tapping Operation for circular holes. It was added as an experimental feature in 1.1 and superseded in 26.3 by the `Tapping` Strategy of the xref:operations/drilling.adoc[CAM Drilling] operation. The command is no longer available in the toolbar or menu; Tapping operations in existing documents continue to recompute, but print a deprecation warning and cannot be newly created.
+
+== Migration
+
+To obtain the same result on 26.3, create a xref:operations/drilling.adoc[CAM Drilling] operation, set *Strategy* to `Tapping`, select a Tool Controller whose Tool Bit is a tap with a non-zero *Pitch*, and set *Extend depth* as required. Left-hand taps are recognised through the Tool Bit Spindle Direction `Reverse` and produce G74.
+
+== Legacy properties
+
+.Tap
+* *Dwell Enabled*: Enable dwell.
+* *Dwell Time*: The time to dwell at bottom of tapping cycle.
+* *Add Tip Length*: Calculate the tip length and subtract from final depth.
+* *Return Level*: Controls how tool retracts Default=G98 (`G98` or `G99`).
+* *Retract Height*: The height where feed starts and height during retract tool when path is finished while in a peck operation.
+* *Extra Offset*: How far the tap depth is extended (`None`, `Drill Tip`, `2x Drill Tip`).
+
+The operation requires a Tool Bit with a *Pitch* (tap shape). When such an operation is converted to Drilling, Return Level `G99` becomes *Keep Tool Down* and Retract Height is folded into *Start Depth*.

@@ -6,10 +6,9 @@
 :page-menu: CAM → Area
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
-WARNING: This is an unfinished experimental feature. See xref:reference/experimental.adoc[Enable Experimental Features].
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+WARNING: This is an experimental feature. See xref:reference/experimental.adoc[Enable Experimental Features]. The command appears in the menu:CAM[Area] menu and on the _Helpful Tools_ toolbar only when experimental features are enabled.
 
 [.fcinfobox]
 --
@@ -20,102 +19,100 @@ Menu location:: menu:CAM[Area]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:misc/area-workplane.adoc[CAM Area Workplane]
 --
 
 == Description
 
-Empty
+The Area command (tooltip: "Creates a feature area from the selected objects") creates a `Path::FeatureArea` object, a 2D geometry processor based on the libarea/Clipper2 engine that the Profile, Pocket and other Operations use internally. It performs boolean operations, offsets, pocket patterns and Z sections on planar faces or wires linked in its *Sources* property and exposes the result as a Part shape. It is a developer and debugging aid rather than a machining Operation: it produces no toolpath and is not post-processed.
 
 == Usage
 
-Empty
-
-== Options
-
-Empty
+. Select one or more planar objects, faces or edges in the 3D View or Tree View (edges are expanded to the wire containing them; 3D sub-shapes are rejected with "Selected shape is not 2D").
+. Press the image:CAM_Area.svg[width=16] Area button. A _FeatureArea_ is created whose *Sources* property links the selected objects (sub-elements are first extracted into helper `Part::Feature` objects named `<object>_<Face n>`). The source objects are hidden; drag and drop in the Tree View adds or removes sources.
+. Selecting a single existing FeatureArea and pressing the button instead creates a _FeatureAreaView_ object showing individual sections of that area (*Source*; *SectionIndex*: start index of the section to show, negative for reverse index from bottom; *SectionCount*: number of sections to show, 0 for all).
 
 == Properties
 
 === Data
 
 .Area
-* *Operation*: -
-* *Fill*: -
-* *Coplanar*: -
-* *Reorient*: -
-* *Outline*: -
-* *Explode*: -
-* *OpenMode*: -
-* *Deflection*: -
-* *SubjectFill*: -
-* *ClipFill*: -
+* *Operation* (`Enumeration`): Boolean operation: `Union`, `Difference`, `Intersection`, `Xor`, `Compound` (`Compound` = no operation, used for wire sorting).
+* *Fill* (`Enumeration`): `None`, `Face`, `Auto` — fill the output wires to make a face; `Auto` makes a face if any child has a face.
+* *Coplanar* (`Enumeration`): `None`, `Check`, `Force` — `Force` discards non-coplanar shapes, `Check` only warns.
+* *Reorient* (`Bool`): Re-orient closed wires so that inner wires become holes.
+* *Outline* (`Bool`): Remove all inner wires (holes) before output.
+* *Explode* (`Bool`): Explode the first shape into open edges so that `Difference` behaves like wire cutting.
+* *OpenMode* (`Enumeration`): `None`, `Union`, `Edges` — how open wires are handled.
+* *Deflection* (`Precision`): Deflection for non-circular curve discretization.
+* *SubjectFill* (`Enumeration`) and *ClipFill* (`Enumeration`): Clipper2 fill rules `EvenOdd`, `NonZero`, `Positive`, `Negative`.
 
 .Base
-* *Sources*: -
-* *Placement*: -
-* *Label*: -
+* *Sources* (`LinkList`): The input shapes.
+* *WorkPlane* (`PartShape`): The workplane shape, set by xref:misc/area-workplane.adoc[Area Workplane].
+* *Placement*, *Label*: generic properties.
 
 .Offset
-* *Offset*: -
-* *ExtraPass*: -
-* *Stepover*: -
-* *LastStepover*: -
-* *JoinType*: -
-* *EndType*: -
-* *MiterLimit*: -
-* *RoundPrecision*: -
+* *Offset* (`Distance`): Offset value, positive for expansion, negative for shrinking.
+* *ExtraPass* (`Integer`): Number of extra offset passes to generate.
+* *Stepover* (`Length`): Cutter diameter to step over on each pass; 0 uses *Offset*.
+* *JoinType* (`Enumeration`): `Round`, `Square`, `Miter`.
+* *EndType* (`Enumeration`): `Round`, `Polygon`, `Joined`, `Square`, `Butt`.
+* *MiterLimit* (`Float`): Miter limit for join type `Miter`.
+* *RoundPrecision* (`Precision`): Round joint precision; 0 defaults to *Accuracy*.
 
 .Pocket
-* *PocketMode*: -
-* *ToolRadius*: -
-* *PocketExtraOffset*: -
-* *PocketStepover*: -
-* *PocketLastStepover*: -
-* *FromCenter*: -
-* *Angle*: -
-* *AngleShift*: -
-* *Shift*: -
-* *Thicken*: -
+* *PocketMode* (`Enumeration`): `None`, `ZigZag`, `Offset`, `Spiral`, `ZigZagOffset`, `Line`, `Grid`, `Triangle` — pocket toolpath pattern.
+* *ToolRadius* (`Length`): Tool radius for pocketing.
+* *PocketExtraOffset* (`Distance`): Extra offset for pocketing.
+* *PocketStepover* (`Length`): Cutter diameter to step over on each pass; 0 uses *ToolRadius*.
+* *FromCenter* (`Bool`): Start pocketing from center.
+* *Angle* (`Angle`): Pattern angle in degrees.
+* *AngleShift* (`Angle`): Pattern angle shift for each section.
+* *Shift* (`Distance`): Pattern shift distance for each section (`Offset`, `Grid` and `Triangle` only).
+* *ForceMaxStepover* (`Bool`): Force maximum stepover even if not all area is cleared; otherwise large stepovers are reduced to ensure full coverage. [.since]#introduced in 26.3#
+* *Thicken* (`Bool`): Thicken the resulting wires with *ToolRadius*.
 
 .Section
-* *SectionCount*: -
-* *Stepdown*: -
-* *SectionOffset*: -
-* *SectionTolerance*: -
-* *SectionMode*: -
-* *Project*: -
+* *SectionCount* (`Integer`): Number of sections to generate; -1 means full sections.
+* *Stepdown* (`Distance`): Step down distance for each section; positive from top down, negative upward.
+* *SectionOffset* (`Distance`): Offset for the first section.
+* *SectionTolerance* (`Precision`): Offset added when hitting the boundary.
+* *SectionMode* (`Enumeration`): `Absolute`, `BoundBox`, `Workplane` — section offset coordinate mode.
+* *Project* (`Bool`): Produce the section by projecting the outline of all shapes to the section plane instead of slicing.
 
 .libarea
-* *Tolerance*: -
-* *FitArcs*: -
-* *Simplify*: -
-* *CleanDistance*: -
-* *Accuracy*: -
-* *Unit*: -
-* *MinArcPoints*: -
-* *MaxArcPoints*: -
-* *ClipperScale*: -
+* *Tolerance* (`Precision`): Point coincidence tolerance.
+* *FitArcs* (`Bool`): Enable arc fitting.
+* *Simplify* (`Bool`): Simplify polygons after operation.
+* *CleanDistance* (`Length`): Clean polygons smaller than this distance.
+* *Accuracy* (`Precision`): Arc fitting accuracy.
+* *Unit* (`Float`): Scaling factor for conversion to inch.
+* *MinArcPoints* (`Integer`): Minimum segments for arc discretization.
+* *MaxArcPoints* (`Integer`): Maximum segments for arc discretization (currently ignored).
+* *ClipperScale* (`Float`): Scale factor to convert floating points to Clipper integers.
 
-==== Hidden
-
-* *ExpressionEngine*: -
-* *Label2*: -
-* *Shape*: -
-* *Visibility*: -
-* *WorkPlane*: -
+[.until]#1.1 and earlier#: The *LastStepover* (Offset group) and *PocketLastStepover* (Pocket group) properties were removed in 26.3.
 
 === View
 
-Empty
+The view provider hides the source objects while they are linked, claims them as children in the Tree View, and shows them again when the FeatureArea is deleted. A FeatureAreaView uses the icon image:CAM_Area_View.svg[width=16].
 
 == Scripting
 
 See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
 
+The same parameters listed above are the keyword arguments of `Path.Area.setParams()`, and the defaults can be set with `Path.Area.setDefaultParams()`.
+
 Example:
 
 [source,python]
 ----
-#Place code example here.
+import Path, Part
+
+area = Path.Area()
+area.add(FreeCAD.ActiveDocument.Sketch.Shape)
+area.setParams(Offset=-2.0)
+shape = area.getShape()
+Part.show(shape)
 ----

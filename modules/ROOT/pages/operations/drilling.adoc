@@ -5,6 +5,7 @@
 :page-icon: CAM_Drilling.svg
 :page-menu: CAM → Drilling
 :page-workbench: CAM
+:page-audit: applied
 :page-imported: true
 
 [.fcinfobox]
@@ -16,43 +17,58 @@ Menu location:: menu:CAM[Drilling]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:operations/thread-milling.adoc[CAM ThreadMilling], xref:operations/tapping.adoc[CAM Tapping (obsolete)]
 --
 
 == Description
 
-The image:CAM_Drilling.svg[width=24] xref:operations/drilling.adoc[CAM Drilling] command generates a drilling Operation in the Job.
+The image:CAM_Drilling.svg[width=24] xref:operations/drilling.adoc[CAM Drilling] command generates a drilling Operation in the Job. The command tooltip reads "Creates a Drilling toolpath from the features of a base object".
+
+[.since]#introduced in 26.3#: The operation has a *Strategy* property with the values `Drilling` and `Tapping`. The former experimental xref:operations/tapping.adoc[CAM Tapping] operation was consolidated into Drilling; select Strategy `Tapping` with a Tool Controller that uses a tap-shaped Tool Bit to generate G84/G74 tapping cycles.
 
 image::Path_Drilling_Sample.png[width=400]
 
 [.caption]
-Above: CAM Drilling operation sample
+Above: CAM Drilling operation sample (screenshot predates 26.3; the current task panel shows the Strategy combo box and the hole table with X/Y/Blind columns)
 
 == Usage
 
 . There are several ways to invoke the command:
-* Press the image:CAM_Drilling.svg[width=16] xref:operations/drilling.adoc[Drilling] button.
+* Press the image:CAM_Drilling.svg[width=16] xref:operations/drilling.adoc[Drilling] button in the *Drilling Operations* group of the New Operations toolbar.
 * Select the menu:CAM[Drilling] option from the menu.
-* Currently, any faces or edges selected before invoking the Drilling operation are ignored during initial hole selection.
+. [.since]#26.3 and later#: Holes can be selected manually. Select cylindrical wall faces, circular bottom faces, circular or arc edges, or vertexes and press btn:[Add] in the Base Geometry section. btn:[Auto-select] fills the list with every drillable hole of the Job Models, or only of the Models selected in the 3D view. Partial arcs and cylinder faces with more than three edges are accepted.
 * It is best to ensure a suitable drill is already included in the Job Tools before starting. This improves initial hole selection.
+* Accepted Base Geometry: vertexes (diameter 0), circular edges, cylindrical or conical faces, and flat circular faces. For other shapes the centre of mass is used and the diameter may be inaccurate.
 . In the menu:Operation[] section:
-* Select a menu:ToolController[].
-* Select a menu:Coolant Mode[].
+* Choose the menu:Strategy[] (`Drilling` or `Tapping`).
 * Optionally enable and adjust the following:
-** menu:Peck[] set the menu:Depth[].
-** menu:Dwell[] set the menu:Time[] in seconds.
-** menu:Extended Depth[].
-. In the menu:Base Geometry[] section confirm that the list matches the holes that are intended for processing, and adjust add, enable, or disable, as necessary. Holes can be added by selecting the wall faces of the Holes.
-. In the menu:Depths[] section check, and if required adjust, the menu:Start Depth[] and menu:Final Depth[].
-. In the menu:Heights[] section check, and if required adjust, the menu:Safe Height[] and the menu:Clearance Height[].
-. Press the btn:[OK] button to generate the drilling path(s).
+** menu:Keep tool down[] (G99 retraction between holes).
+** menu:Peck[] and set the menu:Depth[].
+** menu:Chip break[] (only enabled when Peck is checked).
+** menu:Feed retract[] (G85: retract from the hole at the given feedrate instead of a rapid move).
+** menu:Dwell[] and set the menu:Time[] in seconds.
+** menu:Extend depth[] (`None`, `Drill tip`, `2x drill tip`).
+* Peck, Dwell and Feed retract are mutually exclusive; the panel disables the others when one is enabled.
+. In the menu:Base Geometry[] section confirm that the list matches the holes that are intended for processing, and add, enable, or disable holes as necessary. [.since]#introduced in 26.3#: The section shows a table with the columns #, Feature, Diameter, X, Y and Blind. A menu:Sorting[] combo box selects `Automatic` (holes ordered by the built-in travelling-salesman solver) or `Manual` (drag rows or edit the # column to set the order). menu:Select All[] and a menu:Filter[] field act on the checkboxes that enable or disable individual holes.
+. In the menu:Heights[] section check, and if required adjust, menu:Clearance[], menu:Retract[] (Safe Height), menu:Start[] (Start Depth) and menu:Final[] (Final Depth). The same section holds the Linking settings menu:Collision Avoidance Strategy[] and menu:Collision Clearance[] ([.since]#introduced in 26.3#).
+. In the menu:Tool Controller[] section select a menu:Tool controller[] and a menu:Coolant[] mode.
+. Press the btn:[OK] button to generate the drilling Toolpath.
 
 == Notes
 
 * When using edges for Base Geometry, always select the bottom edge of the hole.
-* Always verify the tool chosen is the correct diameter for the hole(s) selected.
-* *Peck disabled* generates (G81 canned drill cycles). *Peck enabled* generates (G83 canned drill cycles).
-* *Dwell enabled* is currently unsupported, but is intended to generate (G82 canned drill cycles).
+* Always verify the Tool Bit chosen is the correct diameter for the hole(s) selected.
+* Generated cycles:
+** *Peck disabled* generates G81 cycles.
+** *Peck enabled* generates G83 cycles, or G73 when *Chip break* is also enabled.
+** *Dwell enabled* generates G82 cycles with the dwell time as P.
+** *Feed retract* generates G85 cycles.
+** Peck, Dwell and Feed retract cannot be combined.
+** Strategy `Tapping` generates G84 (right-hand) or G74 (left-hand, Tool Bit Spindle Direction `Reverse`) cycles with F set to the tap pitch and S to the Tool Controller spindle speed.
+* [.since]#introduced in 26.3#: *Keep Tool Down* false emits G98 (retract to the Z before the cycle); true emits G99 (retract only to Start Depth between holes). Every cycle command carries `RetractMode` and `operation` annotations used by post-processors and the CAM simulator. Between holes the Linking settings decide whether the tool can travel at Safe Height or must return to Clearance Height.
+* Machines without canned cycles: enable *Expand drill-cycles* in the post-processing options to expand G81/G82/G83/G73 into plain G0/G1 moves. G84/G74 tapping cycles are not expanded.
+* Strategy `Tapping` requires a Tool Bit with a non-zero *Pitch* (tap shape, for example the shipped M8x1.25_Tap or 375-16_Tap) and a Tool Controller with a non-zero spindle speed; otherwise an error is reported and no Toolpath is generated. Peck, Chip break and Feed retract are hidden for this strategy; Dwell, Keep tool down and Extend depth apply to both strategies.
+* The former xref:operations/tapping.adoc[CAM Tapping] command ([.until]#1.1 and earlier#, experimental) is superseded by Strategy `Tapping`. Tapping operations in existing files continue to work but new ones cannot be created.
 
 == Properties
 
@@ -72,37 +88,58 @@ Note: It is suggested that you do not edit the Placement property of path operat
 *** *Y*: Y-distance value
 *** *Z*: Z-distance value
 * *Label*: User-provided name of the object (UTF-8)
-* *Disabled*: List of disabled features
+* *Disabled*: List of disabled features (holes unchecked in the Base Geometry table). [.since]#introduced in 26.3#: holes at duplicate X/Y positions are disabled automatically, keeping the larger diameter.
 
 .Depth
 * *Clearance Height*: The height needed to clear clamps and obstructions
 * *Final Depth*: Final Depth of Tool- lowest value in Z
-* *Safe Height*: The height above which Rapid motions are allowed. (Rapid safety height between locations)
+* *Safe Height*: Rapid Safety Height between locations. Shown as _Retract_ in the task panel. It is the R plane of the canned cycle.
 * *Start Depth*: Starting depth of Tool - _first cut depth in Z_
 
 .Drill
 * *Add Tip Length*: Calculate the tip length and subtract from final depth
+* *Chip Break Enabled*: Use chipbreaking (G73 instead of G83; only with Peck)
 * *Dwell Enabled*: Enable dwell
-* *Dwell Time*: The time to dwell between peck cycles
-* *Peck Depth*: Incremental Drill depth before retracting to clear chips
+* *Dwell Time*: The time to dwell between peck cycles (seconds). Default: Setup Sheet DwellTime if defined, otherwise 1.
+* *Extra Offset*: How far the drilling depth is extended. Values `None` (default), `Drill Tip` (adds the computed tip length of the Tool Bit), `2x Drill Tip`.
+* *Feed Retract Enabled*: Use G85 boring cycle with feed out
+* *Keep Tool Down*: Apply G99 retraction: only retract to StartDepth between holes in this operation. Default: false.
+* *Peck Depth*: Incremental Drill depth before retracting to clear chips. Default: Setup Sheet PeckDepth if defined, otherwise the expression `OpToolDiameter*0.75`.
 * *Peck Enabled*: Enable pecking
-* *Retract Height*: The height where feed starts and height during retract tool when path is finished
-* *Return Level*: Controls how tool retracts Default=G98
+* *Strategy* ([.since]#introduced in 26.3#): Hole-making strategy. Values `Drilling` (default) or `Tapping`.
+
+.Linking
+[.since]#introduced in 26.3#
+
+* *Collision Avoidance Strategy*: Method of collision detection used for moves between holes. Values `Clearance Height` (default; no detection, rapids at Clearance Height), `Retract Height` (no detection, rapids at Safe Height), `Line of Sight` (fastest, checks the path centerline), `Tool Diameter` (checks clearance using the Tool Bit diameter), `Tool Shape` (safest, checks the cross section of the Tool Shape).
+* *Collision Clearance*: Distance for collision detection.
+
+.Op Values
+* *Op Final Depth*: Holds the calculated value for the FinalDepth. Read-only.
+* *Op Start Depth*: Holds the calculated value for the StartDepth. Read-only.
+* *Op Stock ZMax*: Holds the max Z value of Stock. Read-only.
+* *Op Stock ZMin*: Holds the min Z value of Stock. Read-only.
+* *Op Tool Diameter*: Holds the diameter of the tool. Read-only.
 
 .Path
 * *Active*: Make False, to prevent operation from generating code
+* *Base*: The base geometry for this operation
 * *Comment*: An optional comment for this Operation
+* *Coolant Mode*: Coolant mode for this operation (`None`, `Flood`, `Mist`)
+* *Cycle Time*: Operations Cycle Time Estimation (read-only)
+* *Locations*: Base locations for this operation (list of X/Y points edited in the Base Location section)
+* *Tool Controller*: Defines the Tool Controller used in the Operation
 * *User Label*: User assigned label
-* *Tool Controller*: Defines the Tool controller used in the Operation
+* *Workplane*: The orientation of the tool for this operation. Default is (0, 0, 1) for standard Z-up milling. Multi-axis positioning of holes not normal to the Z axis is done through this property together with a Job of type Multiaxis; the former Rotation properties (Enable Rotation, Attempt Inverse Angle, Inverse Angle, B_Axis Error Override, Reverse Direction) no longer exist.
 
-.Rotation
-QQNOBLANK (_when available_)
+.Sorting
+[.since]#introduced in 26.3#
 
-* *Attempt Inverse Angle*: Automatically attempt Inverse Angle if initial rotation is incorrect.
-* *B_Axis Error Override*: Visually orient B(y) rotations to model (error in FreeCAD rendering).
-* *Enable Rotation*: Enable rotation to gain access to holes not normal to Z axis.
-* *Inverse Angle*: Inverse the angle of the rotation. _*Example:* change a rotation from -22.5 to 22.5 degrees._
-* *Reverse Direction*: Reverse orientation of Operation by 180 degrees.
+* *Sorting Mode*: Manual or Automatic mode sorting of holes. `Automatic` (default) orders holes with the built-in 2-opt travelling-salesman solver; `Manual` keeps the order of the Base Geometry list.
+* *Start Point*: Start point for automatic sorting (x,y used, z ignored).
+* *Use End Point*: Enable to use end point for automatic sorting.
+* *End Point*: End point for automatic sorting (x,y used, z ignored).
+* The three point properties are hidden when Sorting Mode is `Manual`.
 
 == Tasks Window Editor Layout
 
@@ -112,9 +149,12 @@ This section is simply a layout map of the settings in the window editor for the
 
 === Base Geometry
 
-* *Add*: Adds selected element(s) which should be the base(s) for the path(s).
-* *Delete*: Delete the selected item(s) in the Base Geometry list.
-* *Clear*: Clear all items in the Base Geometry list.
+Table with the columns #, Feature, Diameter, X, Y and Blind; a Sorting combo box (`Automatic` / `Manual`), a Select All checkbox and a Filter field ([.since]#introduced in 26.3#).
+
+* *Add*: Add selected features from the 3D view to the list.
+* *Remove*: Remove the selected list items from the list.
+* *Auto-select*: Remove all list items and auto-fill list with all eligible features from the job's base object.
+* *Clear All*: Clear all items in the list.
 
 === Base Location
 
@@ -122,25 +162,28 @@ This section is simply a layout map of the settings in the window editor for the
 * *Remove*: Remove the selected location item(s) from the Base Location list.
 * *Edit*: Edit the selected location item.
 
-=== Depths
-
-* *Start Depth*:
-* *Final Depth*:
-
 === Heights
 
-* *Safe Height*:
-* *Clearance Height*:
+* *Clearance*
+* *Retract* (Safe Height)
+* *Start* (Start Depth)
+* *Final* (Final Depth)
+* *Collision Avoidance Strategy* and *Collision Clearance* (Linking group, [.since]#introduced in 26.3#)
+
+=== Tool Controller
+
+* *Tool controller*
+* *Coolant*
 
 === Operation
 
-* *Tool Controller*:
-* *Retract Height*:
-* *Peck*:
-* *Peck Depth*:
-* *Dwell*:
-* *Dwell Time*:
-* *Use Tip Length*:
+* *Strategy*
+* *Keep tool down*
+* *Peck* and *Depth*
+* *Chip break*
+* *Feed retract*
+* *Dwell* and *Time*
+* *Extend depth*
 
 == Scripting
 
@@ -150,5 +193,13 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import FreeCAD
+import Path.Op.Drilling as PathDrilling
+
+job = FreeCAD.ActiveDocument.getObject('Job')
+op = PathDrilling.Create('Drilling', parentJob=job)
+op.Proxy.findAllHoles(op)
+op.Strategy = 'Drilling'
+op.PeckEnabled = True
+FreeCAD.ActiveDocument.recompute()
 ----

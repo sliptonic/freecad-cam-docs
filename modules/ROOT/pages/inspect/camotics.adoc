@@ -1,0 +1,59 @@
+= CAM Camotics
+:page-command: CAM_Camotics
+:page-icon: CAM_Camotics.svg
+:page-menu: CAM → CAMotics
+:page-workbench: CAM
+:page-shortcut: P C
+:page-since: 1.0
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Camotics.svg[CAM Camotics,32] *CAM Camotics*
+
+Menu location:: menu:CAM[CAMotics]
+Toolbar:: Tool Commands (last entry)
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[P] kbd:[C]
+Introduced in version:: 1.0
+See also:: xref:inspect/simulator-legacy.adoc[CAM Simulator], xref:inspect/simulator.adoc[CAM SimulatorGL]
+--
+
+== Description
+
+The image:CAM_Camotics.svg[width=24] xref:inspect/camotics.adoc[CAM Camotics] command simulates the selected Job with the external https://camotics.org[CAMotics] simulator. Its tooltip reads: _Simulates using CAMotics_. The Job is post-processed with its Post-Processor, the resulting G-code is loaded into the CAMotics Python engine, and the simulated Stock is shown in the document as a Mesh object named Camotics. The command can also write a CAMotics project file and launch the CAMotics application on it.
+
+== Requirements
+
+* CAMotics 1.2.2 or newer installed with the `camotics` executable on the PATH and its Python module importable by FreeCAD's Python.
+* menu:Edit[Preferences > CAM > Advanced > Enable OCL dependent features] must be checked; the command is only added to the toolbar when both conditions are met at startup.
+* A Job must be selected in the Tree view for the command to be active.
+
+== Usage
+
+. Select the Job in the Tree view.
+. Press the image:CAM_Camotics.svg[width=16] btn:[CAMotics] button or choose menu:CAM[CAMotics], or press kbd:[P] then kbd:[C]. The Job is post-processed (without the G-code editor) and the simulation is prepared at high resolution.
+. Drag the time slider to simulate up to that point in time; the progress bar and status text show the state and a Camotics Mesh object appears in the document.
+. Press btn:[New CAMotics File] to save a `.camotics` project (units, tools, workpiece from the Stock bounding box, G-code files) or btn:[Launch CAMotics] to save the project and open it in the CAMotics application.
+. Press btn:[OK] to keep the Camotics mesh in the document, or btn:[Cancel] to remove it.
+
+== Task panel
+
+* Progress bar.
+* Status label (initially _Drag Slider to Simulate_).
+* Time slider spanning the total machining time computed by CAMotics.
+* A text area.
+* Buttons btn:[Launch CAMotics] and btn:[New CAMotics File].
+
+There is no resolution control; the in-FreeCAD simulation runs at CAMotics 'high' resolution and the exported project uses 'medium'.
+
+== Tool Shape mapping
+
+Tool Bits are translated to CAMotics tool shapes by Tool Shape: Endmill → Cylindrical, Ballend and TaperedBallNose → Ballnose, V-bit → Conical, Chamfer → Snubnose; all other shapes are simulated as Cylindrical. A Tool Bit may carry a custom `Camotics` attribute naming the shape to use in the exported project. Tool length and diameter are taken from the Tool Bit.
+
+== Notes
+
+* The post-processed G-code files are written to the Job's output location as configured in the Job; the project file references them.
+* Units of the project follow the FreeCAD unit schema (imperial schemas export 'imperial', others 'metric').
+* CAMotics also supports rotary axes, which the built-in simulators do not.

@@ -6,8 +6,7 @@
 :page-menu: CAM → Helix
 :page-workbench: CAM
 :page-imported: true
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -23,52 +22,109 @@ See also:: _None_
 
 == Description
 
-The image:CAM_Helix.svg[width=24] xref:operations/helix.adoc[CAM Helix] command appends a helical clearing operation to the Job. Clockwise Helix outputs (G2) G-Code commands. Counterclockwise outputs (G3) G-Code commands. Step Over percentage specifies the concentric step-over as a percentage of the Tool diameter. One or more helical paths will be created at progressively different diameters, to clear the hole.
+The image:CAM_Helix.svg[width=24] xref:operations/helix.adoc[CAM Helix] command creates helical (and optionally spiral) Toolpaths to clear or profile circular holes and bosses. It is found on the New Operations toolbar and in the CAM menu; its tooltip reads "Creates a Helical toolpath from the features of a base object". The rotation direction (G2 or G3) is computed from *Cut Mode*, *Side* and *Start At*. *Step Over* sets the concentric step as a percentage of the Tool Bit diameter; successive helices are generated at increasing or decreasing radius until the hole is cleared.
 
 == Usage
 
 * Select the image:Workbench_CAM.svg[width=16] xref:index.adoc[CAM Workbench].
-* Select the image:CAM_Helix.svg[width=24] icon or kbd:[CAM] → image:CAM_Helix.svg[width=24] Helix from the top menu. This opens the image:CAM_Helix.svg[width=24] Helix configuration panel.
-* You will be prompted with a *Choose a Tool Controller* pop-up window to select a Tool Controller. In older versions, in the image:CAM_Helix.svg[width=24] Operation tab, choose a Tool controller and confirm by pressing btn:[Apply].
-* Open the Base Geometry tab. All available holes compatible with the Helix tool in the Job Model will be selectable for processing. In the https://wiki.freecad.org/3D_View[3D View] select the holes by their edge or wall face and add them with the btn:[Add] button. Check that they appear in the list. Confirm that the list matches the holes that are intended for processing.
-* To remove holes select them in the list and press the btn:[Remove] button.
-* Ensure Start Depth, Final Depth and the helix pitch and ramp limits are correct, and adjust if not.
+* Select the image:CAM_Helix.svg[width=24] icon or menu:CAM[Helix] from the top menu. This opens the Helix configuration panel.
+* [.since]#introduced in 26.3#: Choose the Tool Controller and coolant mode on the Tool Controller tab, which also lets you edit the selected Tool Controller's feeds and speeds in place. In older versions you were prompted with a _Choose a Tool Controller_ pop-up window.
+* Open the Base Geometry tab. btn:[Auto-select] fills the table with every drillable circular feature of the Job Model; btn:[Add] appends features selected in the 3D view [.since]#introduced in 26.3# (faces or edges); btn:[Remove] deletes the selected rows; btn:[Clear All] empties the list. Untick a row to disable it without removing it.
+* [.since]#introduced in 26.3#: The table shows position and whether a cylinder is blind (columns #, Feature, Diameter, X, Y, Blind). Choose _Sorting_ = `Manual` to drag rows into the desired machining order, or `Automatic` to let the automatic sorter order them (optionally from *Start Point* to *End Point*).
+* On the Heights tab set Start depth, Final depth and Step down. By default the operation makes one pass from Start to Final (*Step Down* defaults to the expression `StartDepth - FinalDepth`); set a smaller Step down for multiple depth passes.
 * Ensure Safe and Clearance Heights are correct.
-* In the Operation tab, specify the helix Starting surface (outside/inside), cutting Direction (climb/conventional), and Step Over percentage.
-* Click btn:[Apply] to create or update the path, btn:[OK] to apply and close the panel, or btn:[Cancel] to abort and close the panel.
+* On the Operation tab set _Side_ (Inside for holes, Outside for bosses), _Start from_ (Inside or Outside), _Cut mode_ (Climb or Conventional), _Max pitch_, _Max ramp angle_, _Step over_ and _Radial stock to leave (outer)_.
+* Click btn:[Apply] to create or update the Toolpath, btn:[OK] to apply and close the panel, or btn:[Cancel] to abort and close the panel.
 
 == Options
 
-*Extra Offset* adds a margin of material to be left unmachined. This is typically to allow a light finishing pass as a separate operation.
+*Radial Stock To Leave Outer* [.since]#introduced in 26.3# (formerly *Offset Extra*) adds a margin of material left on the outer wall unmachined. This is typically to allow a light finishing pass as a separate operation.
 
-[.since]#introduced in 26.3#: *Max Pitch* replaces _Pitch_ of Helix and limits the maximum helix pitch when non-zero.
+*Helix Max Pitch* [.since]#introduced in 26.3# (replaces _Helix Pitch_) limits the maximum descent per revolution; 0 disables the limit.
 
-Helix *Max Ramp Angle* limits the ramp-entry angle when non-zero. The pitch is calculated for each helix radius.
+*Helix Max Ramp Angle* [.since]#introduced in 26.3# limits the ramp entry angle (0-90°); 0 disables the limit. The effective pitch is computed per helix radius from both limits.
 
-*Start Radius* is not available in the _Helix_ task panel but can be edited directly in the https://wiki.freecad.org/Property_View[Property View].
+*Radial Stock To Leave Inner* [.since]#introduced in 26.3# (formerly *Start Radius*) is not available in the _Helix_ task panel but can be edited directly in the https://wiki.freecad.org/Property_View[Property View].
 
-This is the radius of material remaining at the center. By default it is zero, giving a path where the tool just touches the axis of the hole. This produces a central path cutting a hole twice the size of the tool diameter.
+This is the stock left at the centre. The default inner radius for an inside profile is the Tool Bit radius; by default (zero) the Tool Bit just touches the axis of the hole, producing a central Toolpath cutting a hole twice the size of the Tool Bit diameter.
 
-If this parameter is set to a negative value, it can allow a smaller helix radius. For example, a negative radius equal to the tool radius will produce a zero radius helix: a.k.a. plunge cut with the endmill, should the tool be suitable. This will work as a first cut in a multi-pass operation but attempting to make a helix path with a tool the same size as the hole in the model is rejected.
+If this parameter is set to a negative value, it can allow a smaller helix radius; it cannot be less than minus the Tool Bit radius. A negative value equal to minus the Tool Bit radius will produce a zero radius helix: a.k.a. plunge cut with the endmill, should the Tool Bit be suitable. This will work as a first cut in a multi-pass operation, but attempting to make a helix Toolpath with a Tool Bit the same size as the hole in the model is rejected. For outside profiles the reference is the profile radius.
 
 == Comments
 
-* The helix pitch limit is not respected exactly. It is always rounded to give a complete number of turns from Start Depth to Final Depth.
+* The helix pitch limit is not respected exactly. It is always rounded to give a complete number of turns from Start Depth to Final Depth ([.since]#introduced in 26.3#: the helix Toolpath is produced by a rewritten generator).
 * Similarly Step Over is not respected exactly. It is always rounded to give a number of equal steps.
 
-The feedrate parameter is constant across all cuts and is based on the position of the tool's axis, thus actual feedrate of the cutting edge of the tool can vary considerably between the inner most cut and the outside surface. If the job dimensions produce a path diameter smaller than the tool diameter, this can lead to much faster cutting speeds than the feedrate given for the tool in the tool controller. This may need to considered when selecting "feed and speeds" in the xref:tools/tool-controller.adoc[tool controller] for the job.
-
-Also the current implementation only uses the horizontal tool speed for helix paths, even in the case where a tight spiral maybe nearly a vertical cut.
+By default *Override Arc Feed Rate* (hidden property, default checked) adjusts the feed of each helical arc from the Tool Controller's horizontal and vertical feeds so the cutting-edge speed stays constant between inner and outer passes; disable it in the Property View to keep the raw Tool Controller feed. Consider this behavior when selecting feeds and speeds in the xref:tools/tool-controller.adoc[Tool Controller] for the Job.
 
 == Properties
 
 === Data
 
-Empty
+.Helix Drill
+* *Side*: `Inside` (default, for holes) or `Outside` (for bosses).
+* *Start At*: (formerly *Start Side*) Start cutting from the `Inside` or `Outside`.
+* *Cut Mode*: `Climb` or `Conventional` (default).
+* *Direction*: (read-only) The computed `CW` / `CCW` rotation of the circular cuts.
+* *Step Over*: Percent of Tool Bit diameter to step over on each pass (default 50).
+* *Radial Stock To Leave Inner*, *Radial Stock To Leave Outer*: see <<options,Options>>.
+* *Helix Max Pitch*, *Helix Max Ramp Angle*: see <<options,Options>>.
+* *Helix Cone Angle*: Cone angle of the helix (0 = cylindrical); positive for inside profiles, mirrored for outside profiles.
+* *Start Cone From Bottom*: [.since]#introduced in 26.3# (visible only with a non-zero cone angle) Process the cone helix from bottom to top.
+* *Single Helix*: (hidden) Create only one helix.
+* *Spiral Mill*: Cut a spiral instead of concentric helices.
+* *Finish Helix Circle*, *Finish Spiral Circle*: (hidden, default True) Add a full finishing circle for the helix or spiral.
+* *Retract From Wall*: (hidden, default True) Move away from the wall before retracting, if there is free space.
+* *Override Arc Feed Rate*: (hidden, default True) Override arc feed rates to get constant cutting speed at the Tool Bit's edge.
+* *Override Profile Diameter*: (hidden) Use this diameter for every hole instead of the detected one, to get identical hole sizes; cannot be less than the Tool Bit diameter.
+* *Rotation Angle*: (hidden, default -1 = automatic) Angular position of the start and end points; 0 places them along the X axis.
+
+.Sorting
+* *Sorting Mode*: [.since]#introduced in 26.3# `Automatic` (default) sorts the holes automatically; `Manual` uses the table order.
+* *Start Point*, *End Point*, *Use End Point*: [.since]#introduced in 26.3# Start and optional end of the automatic sorting (X and Y used, Z ignored); hidden in Manual mode.
+
+.Base
+* *Disabled*: List of Base Geometry features that are unchecked in the table.
+
+.Linking
+* *Collision Avoidance Strategy*: [.since]#introduced in 26.3# How moves between areas are checked: `Clearance Height` (no collision detection, rapids at Clearance Height), `Retract Height` (no collision detection, rapids at Safe Height), `Line of Sight` (fastest - checks the Toolpath centerline), `Tool Diameter` (balanced - checks clearance using the Tool Bit diameter), `Tool Shape` (safest - checks clearance using the cross section of the Tool Shape).
+* *Collision Clearance*: [.since]#introduced in 26.3# Minimum clearance distance between the Tool Bit and any solid during linking moves (default expression: `OpToolDiameter`).
+
+.Depth
+* *Clearance Height*: The height needed to clear clamps and obstructions
+* *Final Depth*: Final Depth of Tool Bit - lowest value in Z
+* *Safe Height*: (_Retract_ in the task panel) The height above which rapid moves are allowed between locations.
+* *Start Depth*: Starting depth of Tool Bit - first cut depth in Z
+* *Step Down*: Incremental step down of Tool Bit during operation (default expression: `StartDepth - FinalDepth`, one pass)
+
+.Path
+* *Active*: Make False, to prevent operation from generating code
+* *Base*: The base geometry for this operation
+* *Block Delete*: [.since]#introduced in 26.3# Enable the Post-Processor to add block delete commands
+* *Comment*: An optional comment for this Operation
+* *Coolant Mode*: The coolant mode for this operation: `None`, `Flood` or `Mist`
+* *Cycle Time*: (read-only) The cycle time estimation for this operation.
+* *Tool Controller*: Defines the Tool Controller used in the Operation
+* *User Label*: User assigned label
+* *Workplane*: [.since]#introduced in 26.3# The orientation of the Tool Bit for this operation; default (0, 0, 1) for standard Z-up milling.
+
+.Op Values
+These read-only properties hold values calculated by the operation. They are useful as sources for expressions.
+
+* *Op Start Depth*, *Op Final Depth*: the calculated default depths
+* *Op Tool Diameter*: the diameter of the Tool Bit
+* *Op Stock ZMax*, *Op Stock ZMin*: the Z extent of the Stock
 
 === View
 
-Empty
+The Helix operation has no additional View properties beyond the standard Toolpath display properties.
+
+== Notes
+
+* Holes whose radius is too small for the Tool Bit and the configured stock-to-leave are skipped with a warning in the Report view [.since]#introduced in 26.3#.
+* Coincident holes keep only the largest diameter.
+* If Safe Height is above Clearance Height, Clearance Height is used.
+* Step Down is split into equal passes; with *Retract From Wall* the Tool Bit steps away from the wall before each retract.
 
 == Scripting
 
@@ -78,5 +134,12 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import Path.Op.Helix as PathHelix
+
+op = PathHelix.Create('Helix', parentJob=job)
+op.Base = [(doc.Body, ['Face8'])]
+op.Side = 'Inside'
+op.CutMode = 'Climb'
+op.StepOver = 50
+doc.recompute()
 ----

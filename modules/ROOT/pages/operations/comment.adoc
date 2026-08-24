@@ -6,6 +6,7 @@
 :page-menu: CAM → Supplemental Commands → Comment
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -16,21 +17,31 @@ Menu location:: menu:CAM[Supplemental Commands > Comment]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:operations/stop.adoc[CAM Stop], xref:operations/custom.adoc[CAM Custom]
 --
 
 == Description
 
-The image:CAM_Comment.svg[width=24] xref:operations/comment.adoc[CAM Comment] command inserts a comment. When exporting a project to G-code, the comments will be inserted in the G-code program, and can be read by people reading the file. Some machine controllers will also display comments on their display screens.
+The image:CAM_Comment.svg[width=24] xref:operations/comment.adoc[CAM Comment] command adds a Comment object to the Job. On post-processing the comment is written into the G-code program as a comment line, and can be read by people reading the file. Some machine controllers will also display comments on their display screens.
+
+The comment is emitted as a parenthesized G-code comment, for example `(Change to 6 mm end mill)`. Do not use a closing parenthesis inside the comment text. Post-Processors may reformat or strip comments depending on their settings.
 
 == Usage
 
-. Press the image:CAM_Comment.svg[width=16] xref:operations/comment.adoc[Comment] button or use the kbd:[P] then kbd:[C] keyboard shortcut.
-. Write your comment in the *Comment* property
+. Select the menu:CAM[Supplemental Commands > Comment] option from the menu. The command is not on any toolbar and is only enabled once a xref:job/job.adoc[Job] exists in the active document. If the document contains several Jobs, a dialog asks which Job the comment is added to.
+. The new Comment object is added to the Job's Operations group.
+. Write your comment in the *Comment* property.
 
 == Properties
 
-* *Comment*: The text of your comment
+.Path
+* *Comment* (`String`): Comment or note for CNC program.
+
+The *Placement* property is hidden.
+
+== Notes
+
+* Comment objects are simple G-code containers, not Operations: they have no Tool Controller, no depths and no *Active* property, and cannot be toggled with xref:inspect/op-active-toggle.adoc[Toggle Operation].
 
 == Scripting
 
@@ -40,5 +51,14 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import FreeCAD, Path
+import Path.Op.Gui.Comment
+from PathScripts import PathUtils
+
+obj = FreeCAD.ActiveDocument.addObject("Path::FeaturePython", "Comment")
+Path.Op.Gui.Comment.Comment(obj)
+Path.Op.Gui.Comment._ViewProviderComment(obj.ViewObject)
+obj.Comment = "Start of roughing"
+PathUtils.addToJob(obj)
+FreeCAD.ActiveDocument.recompute()
 ----

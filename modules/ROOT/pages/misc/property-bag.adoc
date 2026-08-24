@@ -1,0 +1,58 @@
+= CAM PropertyBag
+:page-command: CAM_PropertyBag
+:page-menu: CAM → Utils → Property Bag
+:page-workbench: CAM
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+*CAM PropertyBag*
+
+Menu location:: menu:CAM[Utils > Property Bag]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 0.19
+See also:: https://wiki.freecad.org/Expressions[Expressions]
+--
+
+== Description
+
+The *CAM PropertyBag* command (tooltip: _Creates an object which can be used to store reference properties_) creates a _Property Bag_ object: a container for user-defined, typed properties that other objects (e.g. Operations or the xref:job/setup-sheet.adoc[Setup Sheet]) can reference in https://wiki.freecad.org/Expressions[expressions].
+
+== Usage
+
+. Optionally select a PartDesign Body (or a feature inside one); the Property Bag is then added to that Body with the label _Attributes_.
+. Select menu:CAM[Utils > Property Bag] (there is no toolbar button or keyboard shortcut).
+. Double-click the Property Bag in the Tree View to open its task panel and add properties.
+
+== Task panel
+
+The *Property Bag* panel lists the custom properties (name, group, value).
+
+* btn:[Add] opens the *Create Property* dialog with:
+** *Name*: letters, digits and underscores only; MixedCase names are displayed with spaces.
+** *Group*: category shown in the property editor; existing groups are offered.
+** *Type*: Angle, Bool, Distance, Enumeration, File, Float, Integer, Length, Percent, String.
+** *Enums*: comma-separated values, for the Enumeration type.
+** *ToolTip*
+** *Create another*: keep the dialog open to add several properties in a row.
+* btn:[Modify] edits the selected property's value.
+* btn:[Remove] deletes the selected property.
+
+== Properties
+
+* *CustomPropertyGroups* (`Enumeration`): list of the custom property groups in the bag.
+
+All user-created properties appear under their own group and can be referenced as `PropertyBag.MyValue` in expressions.
+
+== Scripting
+
+[source,python]
+----
+import Path.Base.PropertyBag as PropertyBag
+bag = PropertyBag.Create('PropertyBag')
+bag.Proxy.addCustomProperty('App::PropertyLength', 'StockTop', 'Stock', 'Top of stock')
+bag.StockTop = 25
+op.setExpression('StartDepth', 'PropertyBag.StockTop')
+----

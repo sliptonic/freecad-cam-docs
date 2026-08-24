@@ -6,6 +6,7 @@
 :page-menu: CAM → Adaptive
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -21,7 +22,7 @@ See also:: _None_
 
 == Description
 
-The image:CAM_Adaptive.svg[width=24] xref:operations/adaptive.adoc[CAM Adaptive] command creates clearing and profiling paths. The operation varies cutter engagement so that the material removal never exceeds a maximum value.
+The image:CAM_Adaptive.svg[width=24] xref:operations/adaptive.adoc[CAM Adaptive] command creates clearing and profiling Toolpaths. The operation varies cutter engagement so that the material removal never exceeds a maximum value. It is found on the New Operations toolbar and in the CAM menu; its tooltip reads "Adaptive clearing and profiling".
 
 == Usage
 
@@ -29,41 +30,63 @@ Usage instructions for the xref:operations/adaptive.adoc[Adaptive] operation are
 
 === Basic Operation
 
-. Press the image:CAM_Adaptive.svg[width=16] xref:operations/adaptive.adoc[Adaptive] icon, or select the kbd:[CAM] → image:CAM_Adaptive.svg[width=24] xref:operations/adaptive.adoc[Adaptive] from the top menu.
-. Select the tool controller for the Operation from the Tool controller dialogue pop up window, if prompted.
-. Adjust the operation depths as needed in the Depths tab: Start Depth, Finish Depth, Step Down.
-. Make adjustments in Heights tab if needed.
-. Configure settings in the Operations tab:
+. Press the image:CAM_Adaptive.svg[width=16] xref:operations/adaptive.adoc[Adaptive] icon, or select menu:CAM[Adaptive] from the top menu.
+. Choose the Tool Controller and coolant mode on the Tool Controller tab.
+. Set Start depth, Final depth, Step down and Finish step down on the Heights tab together with Clearance and Retract heights.
+. Configure settings in the Operation tab:
 .. (*See the <<properties,Properties>> → Adaptive section below.*)
-.. Set the Step Over value as a percentage of the diameter of the Tool.
+.. Set the Step Over value as a percentage of the diameter of the Tool Bit.
 . If you wish to preview the result before accepting the settings, click btn:[Apply]
-. Click btn:[OK] button to confirm and generate paths.
+. Click btn:[OK] button to confirm and generate Toolpaths.
+
+The Extensions tab works as for xref:operations/pocket.adoc[Pocket Shape]; extensions enlarge the clearing region beyond the selected faces. Extension entries whose name starts with `Avoid_` are excluded from the region instead.
+
+[.since]#introduced in 1.1#: With *Model Aware Experiment* enabled and no Base Geometry selected, the operation roughs the entire Job Model from the Stock outline, detecting overhangs and machining each region only at the depths where it is accessible. Without the experiment, Base Geometry is required and a warning is shown otherwise.
+
+[.since]#introduced in 26.3#: Check _Use rest machining_ to skip regions already cleared by earlier operations of the Job.
 
 === Preliminary Notes About Adaptive Clearing
 
 * Depending on the size and complexity of the area for the operation, is might be better to not recompute the operation after every property change; rather, consider:
 ** deactivate the operation with the image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Active] toggle tool, make your changes to the operation's properties, then click the image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Active] icon again to re-activate the operation - which triggers a recompute internally.
-* The image:CAM_Adaptive.svg[width=16] xref:operations/adaptive.adoc[Adaptive] operation might contain a few bugs yet to be clearly identified. Please report bugs and issues in the https://forum.freecad.org/viewforum.php?f=15[FreeCAD Path/CAM Forum].
-* All tool shapes may not be respected with this operation. Check the FreeCAD forum for further details.
-* Should you choose to run the path simulator in the CAM Workbench, it only uses the standard end mill to simulate paths. Therefore, you will not see tool-shape-specific material removal. Material removal is shown using the end mill shape.
+* The image:CAM_Adaptive.svg[width=16] xref:operations/adaptive.adoc[Adaptive] operation might contain a few bugs yet to be clearly identified. Please report bugs and issues in the https://forum.freecad.org/viewforum.php?f=15[CAM forum].
+* All Tool Shapes may not be respected with this operation; the Adaptive engine works with the Tool Bit diameter only. Check the FreeCAD forum for further details.
+* Should you choose to run the path simulator in the CAM Workbench, it only uses the standard end mill to simulate Toolpaths. Therefore, you will not see tool-shape-specific material removal. Material removal is shown using the end mill shape.
+* [.since]#introduced in 26.3#: Lead-in start points that would cause short slotting moves near inside corners are rejected automatically, so the configured stepover is respected.
 
 == Properties
 
 *_Note_*: The names of some Properties in this list differ a little from the same settings used in the Task Window Editor.
 
 .Adaptive
+* *Finishing Profile*: (hidden, default True) Take a finishing profile pass at the end of each layer.
 * *Force Inside-Out*: Force plunging into material inside and clearing towards the edges
-* *Helix Angle*: Helix ramp entry angle (degrees)
-* *Helix Cone Angle*: Angle (degrees) of conical helix
-* *Helix Diameter Limit*: Limit helix entry diameter, if limit larger than tool diameter or 0, tool diameter is used
-* *Keep Tool Down Ratio*: Max length of keep tool down path compared to direct distance between points
-* *Lift Distance*: Lift distance for rapid moves
-* *Operation Type*: Type of adaptive operation: Clearing or Profiling
-* *Side*: Side of selected faces that tool should cut: Inside or Outside
-* *Step Over*: Percent of cutter diameter to step over on each pass
-* *Stock to Leave*: How much stock to leave (i.e. for a separate finishing operation)
-* *Tolerance*: Influences accuracy and performance
-* *Use Helix Arcs*: Use Arcs (G2) for helix ramp
+* *Keep Tool Down Ratio*: (_Retract threshold_ in the task panel) Maximum length of a keep-tool-down link compared with the direct distance; longer links retract to Clearance Height (default 3).
+* *Lift Distance*: How far the Tool Bit is lifted for rapid linking moves over cleared regions; if the link is not clear the Tool Bit rises to Clearance Height.
+* *Model Aware Experiment*: [.since]#introduced in 1.1# Respect 3D geometry and prevent cutting under overhangs (enables adaptive roughing of the whole model).
+* *Operation Type*: Type of adaptive operation: `Clearing` (default) or `Profiling`
+* *Order Cuts By Region*: [.since]#introduced in 1.1# Order cuts by region instead of by depth (only visible with Model Aware Experiment).
+* *Side*: (_Cut region_ in the task panel) Cut `Inside` (default) or `Outside` of the selected shapes.
+* *Step Over Percent*: [.since]#introduced in 26.3# (formerly *Step Over*) Percent of Tool Bit diameter to step over on each pass (0.1-100, default 20); fractional values allowed.
+* *Stock To Leave*: (_Radial stock to leave_ in the task panel) How much stock to leave on the walls (i.e. for a separate finishing operation).
+* *Tolerance*: Influences calculation performance vs stability and accuracy; larger values compute faster, smaller values give more accurate Toolpaths (default 0.1).
+* *Use Outline*: Use only the outer wire of the selected faces, ignoring holes.
+* *Use Rest Machining*: [.since]#introduced in 26.3# Skip regions already cleared by previous operations.
+* *Z Stock To Leave*: [.since]#introduced in 1.1# Stock to leave on the floor (only visible with Model Aware Experiment).
+
+Hidden properties *Stopped*, *Stop Processing*, *Adaptive Input State* and *Adaptive Output State* are used internally to cache results and support the Stop button; do not edit them.
+
+.Adaptive Helix Entry
+* *Helix Cone Angle*: Helix cone angle in degrees; negative values are reset to 0.
+* *Helix Max Diameter Percent*: [.since]#introduced in 26.3# (replaces *Helix Diameter Limit*) Maximum (and nominal) helix entry diameter as a percentage of the Tool Bit diameter (default 100).
+* *Helix Max Pitch*: [.since]#introduced in 26.3# Maximum descent in a single revolution of the entry helix; 0 disables the pitch limit.
+* *Helix Max Ramp Angle*: [.since]#introduced in 26.3# (formerly *Helix Angle*) Maximum helix ramp entry angle in degrees (default 5°, clamped 0-90); 0 disables the limit.
+* *Helix Min Diameter Percent*: [.since]#introduced in 26.3# Minimum acceptable entry diameter as a percentage of the Tool Bit diameter (default 10). The entry diameter is chosen automatically within this range.
+
+.Extension
+* *Extension Corners*: When enabled connected extension edges are combined to wires.
+* *Extension Length Default*: Default length of extensions (default half the Tool Bit diameter).
+* *Extension Feature*: (hidden) List of features to extend.
 
 .Base
 Note: It is suggested that you do not edit the Placement property of path operations. Rather, move or rotate the CAM Job model as needed.
@@ -82,67 +105,99 @@ Note: It is suggested that you do not edit the Placement property of path operat
 
 .Depth
 * *Clearance Height*: The height needed to clear clamps and obstructions
-* *Final Depth*: Final Depth of Tool- lowest value in Z
-* *Finish Depth*: Maximum material removed on final pass.
-* *Safe Height*: The above which Rapid motions are allowed.
-* *Start Depth*: Starting Depth of Tool- first cut depth in Z
-* *Step Down*: Incremental Step Down of Tool
+* *Final Depth*: Final Depth of Tool Bit - lowest value in Z
+* *Finish Depth*: (_Finish step down_) Depth of the final cut; applied to every region separately, so *Z Stock To Leave* is often preferable.
+* *Safe Height*: (_Retract_ in the task panel) The height above which rapid moves are allowed between locations.
+* *Start Depth*: Starting Depth of Tool Bit - first cut depth in Z
+* *Step Down*: Incremental Step Down of Tool Bit
 
 .Path
 * *Active*: Make False, to prevent operation from generating code
+* *Base*: The base geometry for this operation
+* *Block Delete*: [.since]#introduced in 26.3# Enable the Post-Processor to add block delete commands
 * *Comment*: An optional comment for this Operation
+* *Coolant Mode*: The coolant mode for this operation: `None`, `Flood` or `Mist`
+* *Cycle Time*: (read-only) The cycle time estimation for this operation.
+* *Locations*: Base locations for this operation
+* *Tool Controller*: Defines the Tool Controller used in the Operation
 * *User Label*: User assigned label
-* *Tool Controller*: Defines the Tool controller used in the Operation
+* *Workplane*: [.since]#introduced in 26.3# The orientation of the Tool Bit for this operation; default (0, 0, 1) for standard Z-up milling.
+
+Note: Adaptive has no *Start Point* and no Linking group.
+
+.Op Values
+These read-only properties hold values calculated by the operation. They are useful as sources for expressions.
+
+* *Op Start Depth*, *Op Final Depth*: the calculated default depths
+* *Op Tool Diameter*: the diameter of the Tool Bit
+* *Op Stock ZMax*, *Op Stock ZMin*: the Z extent of the Stock
 
 == Tasks Window Editor Layout
 
 _Descriptions for these settings are provided in the Properties list above._
 
-This section is simply a layout map of the settings in the window editor for the Operation.
+This section is simply a layout map of the settings in the window editor for the Operation. The task panel has five tabs: Base Geometry, Extensions, Heights, Tool Controller and Operation.
 
 === Base Geometry
 
-* *Add*: Adds selected element(s) which should be the base(s) for the path(s).
-* *Delete*: Delete the selected item(s) in the Base Geometry list.
+* *Add*: Adds selected element(s) which should be the base(s) for the Toolpath(s).
+* *Remove*: Remove the selected item(s) in the Base Geometry list.
 * *Clear*: Clear all items in the Base Geometry list.
+* The drop-down and *Import* button copy the Base Geometry of another operation in the Job.
 
-=== Depths
+=== Extensions
 
-* *Start Depth*
-* *Final Depth*
-* *Finish Depth*
-* *Step Down*
+See xref:operations/pocket.adoc[Pocket Shape] for a description of the Extensions tab.
 
 === Heights
 
-* *Safe Height*
-* *Clearance Height*
+* *Clearance*
+* *Retract*
+* *Start*
+* *Step down*
+* *Finish step down*
+* *Final*
+
+=== Tool Controller
+
+* *Tool controller*
+* *Coolant mode*
 
 === Operation
 
-* *Tool Controller*
-* *Cut Region* (Side)
-* *Operation Type*
-* *Step Over Percent*
-* *Accuracy vs Performance* (Tolerance)
-* *Helix Ramp Angle*
-* *Helix Cone Angle*
-* *Helix Max Diameter* (Helix Diameter Limit)
-* *Lift Distance*
-* *Keep Tool Down Ratio*
-* *Stock to Leave*
-* *Force Clearing Inside-Out*
-* *Stop*
+* *Accuracy vs performance* (Tolerance)
+* *Force clearing inside-out*
+* *Cut region* (Side)
+* *Operation type*
+* *Radial stock to leave* (Stock To Leave)
+* *Step over (percent)* and *Step over (distance)* [.since]#introduced in 26.3# (the distance field is synchronised with the percent field from the Tool Bit diameter)
+* *Use outline*
+* *Use rest machining* [.since]#introduced in 26.3#
+* *Lift distance*
+* *Retract threshold* (binds the *Keep Tool Down Ratio* property; the button next to it toggles the value between 0 and the Tool Bit diameter)
+* *Helix Parameters* frame: *Max pitch*, *Max ramp angle*, *Cone angle*, *Max diameter* (%), *Min diameter* (%)
+* *Stop*: aborts a running calculation
 
 == Known Issues
 
-In case CAM Adaptive creates some unwanted paths, try with a *Stock to Leave* set to `0.001 mm` or more. You can reduce the diameter of the tool by double that amount to keep the paths exact.
-
-A proposed bugfix is available (but no one is working on integrating it):
-
-https://github.com/FreeCAD/FreeCAD/pull/5276
+If unwanted Toolpaths appear, try a small *Stock To Leave* (`0.001 mm` or more; the Tool Bit diameter can be reduced by double that amount to keep the Toolpaths exact) or adjust *Tolerance*. Report remaining issues on the https://forum.freecad.org/viewforum.php?f=15[CAM forum].
 
 == Resources
 
 * Author's GitHub page for the original project: https://github.com/kreso-t/FreeCAD_Mod_Adaptive_Path[kreso-t/FreeCAD++_++Mod++_++Adaptive++_++Path]
 * Active topic in FreeCAD forums for Path Adaptive operation: https://forum.freecad.org/viewtopic.php?f=15&t=30127[Adaptive Path/CAM Operation]
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+[source,python]
+----
+import Path.Op.Adaptive as PathAdaptive
+
+op = PathAdaptive.Create('Adaptive', parentJob=job)
+op.Base = [(doc.Body, ['Face5'])]
+op.OperationType = 'Clearing'
+op.StepOverPercent = 25
+doc.recompute()
+----

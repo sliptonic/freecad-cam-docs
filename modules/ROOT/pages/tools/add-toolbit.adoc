@@ -2,53 +2,47 @@
 :page-origin: https://wiki.freecad.org/CAM_ToolBitDock
 :page-origin-revision: 5ac993245b 2026-07-08
 :page-command: CAM_ToolBitDock
-:page-icon: CAM_ToolBitDock.svg
+:page-icon: CAM_ToolTable.svg
 :page-menu: CAM → Add Toolbit…
 :page-workbench: CAM
 :page-shortcut: P T
 :page-since: 0.19
 :page-see-also: CAM ToolBitLibraryOpen, CAM Tools, CAM ToolBit
+:page-audit: applied
 :page-imported: true
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
 [.fcinfobox]
 --
 [.fcTitle]
-image:CAM_ToolBitDock.svg[CAM ToolBitDock,32] *CAM ToolBitDock*
+image:CAM_ToolTable.svg[CAM ToolBitDock,32] *CAM ToolBitDock*
 
 Menu location:: menu:CAM[Add Toolbit…]
+Toolbar:: Tool Commands → Add Toolbit…
 Workbenches:: xref:index.adoc[CAM]
-Default shortcut:: kbd:[kbd:[P] kbd:[T]]
-Introduced in version:: 0.19
+Default shortcut:: kbd:[P] kbd:[T]
+Introduced in version:: 0.19 (dialog rewritten in 1.1)
 See also:: xref:tools/library-manager.adoc[CAM ToolBitLibraryOpen], xref:tools/index.adoc[CAM Tools], xref:tools/toolbit.adoc[CAM ToolBit]
 --
 
 == Description
 
-The image:CAM_ToolBitDock.svg[width=24] xref:tools/add-toolbit.adoc[CAM ToolBitDock] command opens the Toolbit Selector.
+The *Add Toolbit…* command opens the _Toolbit Selector_, a dialog that shows the Tool Bits of a library and creates Tool Controllers in the active Job from the selected Tool Bits. Despite the command name it is a dialog, not a dock panel. [.since]#introduced in 1.1#: the Toolbit Selector replaced the earlier Tool Bit dock panel.
 
-The purpose of the selector is to display the currently selected library and allow the user to quickly add tool controllers to the CAM Job(s).
+Double-clicking a Tool Bit creates one Tool Controller for it. Selecting several Tool Bits and pressing btn:[Add to Job] creates one Tool Controller per selected Tool Bit. The btn:[Add to Job] button is only enabled when a Tool Bit is selected and the document contains a Job.
 
-Double-clicking on a toolbit will create a single tool controller for the toolbit. Multi-selecting toolbits and pressing the 'Add to Job' button will create tool controllers for all toolbits in the library.
+The first row of the dialog holds the library drop-down (the last used library is preselected), the _All Toolbit Types_ filter and the sort drop-down; below it is a search box. Each list entry shows the tool number in the selected library, the label, a one-line summary and the shape icon. The buttons at the bottom are btn:[Open Library Editor] (opens the xref:tools/library-manager.adoc[Library Manager]), btn:[Add to Job] and btn:[Close].
 
-The user may also select multiple tools and use the 'add...' button at the bottom to add tool controllers for the selection.
+If the document contains no Job, the message _Create a Job first_ is shown. If it contains several Jobs, a dialog asks which Job to add the Tool Controllers to. The new Tool Controller is named _TC: <Tool Bit label>_, gets the Tool Bit's number in the selected library as *Tool Number* and the Tool Bit's *Spindle Direction*.
 
-[cols=",",]
-|===
-|image:Toolbit_Dock.png[width=200] |The top of the panel shows the name of the current library *(1)*. All tool libraries from that location are scanned and shown in the selector. The selector will remember the last selection between uses. A manager button at the top right *(4)* allows the user to launch the library manager. The library manager can be used to maintain the toolbits and to select a different library.
-|===
+The same Tool Bit browser is used by the Job editor (Tools tab → btn:[Add], dialog _Select Toolbit_, which additionally offers _All Tools_; Tool Bits taken from _All Tools_ get the next free tool number of the Job) and by the _Tool controller_ drop-down of an operation's task panel, whose last entry opens the Toolbit Selector to create a new Tool Controller.
 
 == Usage
 
 === Create Tool Controllers
 
 . There are several ways to open the Toolbit Selector:
-* Press the image:CAM_ToolBitDock.svg[width=16] xref:tools/add-toolbit.adoc[Add Toolbit…] button.
+* Press the image:CAM_ToolTable.svg[width=16] btn:[Add Toolbit…] button in the Tool Commands toolbar.
 * Select the menu:CAM[Add Toolbit…] option from the menu.
 * Use the keyboard shortcut: kbd:[P] then kbd:[T].
-. Use the selector to add tool controllers to a CAM Job.
-* Doubleclick on a toolbit node *(2)* to create a toolcontroller for that toolbit.
-* select one or more toolbits and press the 'add to Job...' *(3)* button.
-
-== Options
+. Select a library in the drop-down.
+. Double-click a Tool Bit, or select one or more Tool Bits and press btn:[Add to Job].

@@ -2,40 +2,46 @@
 :page-origin: https://wiki.freecad.org/CAM_Copy
 :page-origin-revision: 3f5597dfb4 2026-05-17
 :page-aliases: CAM_OperationCopy.adoc
-:page-command: CAM_Copy
-:page-icon: CAM_Copy.svg
+:page-command: CAM_OperationCopy
+:page-icon: CAM_OpCopy.svg
 :page-menu: CAM → Path Modification → Copy Operation
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
 [.fcTitle]
-image:CAM_Copy.svg[CAM Copy,32] *CAM Copy*
+image:CAM_OpCopy.svg[CAM Copy,32] *CAM Copy*
 
 Menu location:: menu:CAM[Path Modification > Copy Operation]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:modify/simple-copy.adoc[Simple Copy], xref:modify/array.adoc[Array]
 --
+
+NOTE: The internal name of this command is `CAM_OperationCopy`. A separate legacy command named `CAM_Copy` still exists but is not available from any toolbar or menu; see the Notes below.
 
 == Description
 
-The image:CAM_Copy.svg[width=24] xref:modify/copy.adoc[CAM Copy] command creates a copy of a selected path.
+The image:CAM_OpCopy.svg[width=24] xref:modify/copy.adoc[Copy Operation] command duplicates the selected Operation(s) inside the same Job. The copy is independent: changing the original does not change the copy. If the selected object is a dressup, the base Operation and the whole dressup chain are copied.
+
+[.since]#introduced in 26.3#: several Operations can be selected at once and dressup chains are copied recursively.
 
 == Usage
 
-. Select a image:Workbench_CAM.svg[width=16] xref:index.adoc[CAM] object
+. Select one or more Operations (or dressups) in the https://wiki.freecad.org/Tree_View[Tree View]. The command is only enabled when every selected object is an Operation or a dressup.
 . There are several ways to invoke the command:
-* Press the image:CAM_Copy.svg[width=16] xref:modify/copy.adoc[Copy Operation] button in the CAM toolbar
-* Use the kbd:[P] then kbd:[Y] keyboard shortcut
-* Use the menu:CAM[Path Modification > Copy Operation] entry in the CAM menu
+* Press the image:CAM_OpCopy.svg[width=16] xref:modify/copy.adoc[Copy Operation] button in the Path Modification toolbar.
+* Use the menu:CAM[Path Modification > Copy Operation] entry in the CAM menu.
+* Use the menu:Path Modification[Copy Operation] entry in the Tree View context menu.
+. The copies are appended to the Job's Operations group.
 
 == Properties
 
-* *Base*: The base path to be copied
+The copy has the same properties as the copied Operation.
 
-== Options
+== Notes
 
-The copy stays linked with the original path. If the original changes, so does the copy.
+* The hidden legacy command `CAM_Copy` instead creates a linked copy object with *Base* (`Link`): The toolpath to be copied, and *ToolController* (`Link`). It is not available from the menus.

@@ -1,0 +1,81 @@
+= CAM Machine
+:page-command: CAM_Machine
+:page-icon: CAM_Machine.svg
+:page-menu: Edit → Preferences → CAM → Assets → Machines
+:page-since: 26.3
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Machine.svg[CAM Machine,32] *CAM Machine*
+
+Menu location:: menu:Edit[Preferences > CAM > Assets > Machines]; btn:[New Machine] on the General tab of the Job task panel
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 26.3
+See also:: xref:job/job.adoc[CAM Job], xref:output/post-process.adoc[CAM Post], xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization]
+--
+
+== Description
+
+A *Machine* is a definition of a CNC machine (axes, kinematics, toolheads, and the machine-based xref:output/post-process.adoc[Post-Processor] with its output options) stored as a `.fcm` file in the CAM asset directory. Assigning a Machine to a xref:job/job.adoc[Job] switches the Job to machine-based post-processing. [.since]#introduced in 26.3#
+
+== Machine library
+
+menu:Edit[Preferences > CAM > Assets] shows a *Machines* group listing the `.fcm` files in `<asset path>/Machines` with btn:[Add], btn:[Edit] and btn:[Delete]. The Machine Editor is also opened by btn:[New Machine] on the General tab of the Job task panel. The xref:output/post-process.adoc[Post Processing] dialog lets you pick any machine for a single export.
+
+NOTE: The Assets preference page still shows an "experimental feature" warning; machine definitions do affect post-processing when assigned to a Job.
+
+== Machine Editor
+
+=== Machine tab
+
+* *Name*, *Manufacturer*, *Description*.
+* *Template*: load settings from a built-in or add-on machine template.
+* *Units*: Metric or Imperial for the values entered.
+* *Type*: Custom Machine, 2-Axis Lathe (X, Z), 3-Axis Mill (XYZ), 4-Axis Mill (XYZ + A), 4-Axis Mill (XYZ + B), 5-Axis Mill (XYZ + A, C), 5-Axis Mill (XYZ + B, C).
+* *Kinematics*: TCP Supported, DWO Supported, Notes.
+* *Axes*: for each linear axis Role (table_linear, head_linear), Parent, Sequence, Direction, Min Limit, Max Limit, Max Velocity, Joint Origin; for each rotary axis Role (table_rotary, head_rotary), Parent, Sequence, Rotation Axis, limits, velocity, Joint Origin, Solution Preference (shortest, positive, negative), Allow Flip and Wrap Strategy (unwound, modulo, rezero).
+* *Toolheads*: btn:[Add Toolhead]; type rotary, laser, waterjet or plasma; min/max rpm, power, tool change mode, coolant flood/mist, coolant delay, toolhead wait.
+
+=== Postprocessor tab
+
+* *Post Processor*: one of the enabled machine-based Post-Processors (centroid, generic, generic_plasma, linuxcnc, mach3_mach4, marlin, opensbp, smoothie or an add-on post).
+* Below it the *Postprocessor Properties* declared by that post: file extension, preamble, postamble, safety block, pre/post blocks for job, fixture change, operation, tool change, rotary moves, tool return, supported commands, drill cycles to translate, parameter order, precision, plus post-specific entries such as LinuxCNC's Path Blending Mode. See xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization].
+
+=== Options tab
+
+* *Output Units*
+* *Output Header* and *Header Options*: Include Date, Description, Document Name, Machine Name, Project File, Units, Tool List, Fixture List.
+* *Comment Options*: Enable Comments, Comment Symbol, Include Operation Labels, Include Blank Lines, Output bCNC Comments.
+* *Formatting Options*: Line Numbers, Line Number Start, Prefix, Increment, Command Space, End of Line Chars.
+* *Precision Options*: Axis, Feed, Toolhead.
+* *Duplicate Output Options*: Duplicate Commands, Duplicate Parameters (unchecked = modal suppression).
+* Processing options: Early tool prep, Filter inefficient moves, Split Arcs, Tool change, Translate Drill Cycles, Translate Rapid Moves, XY before Z after tool change, Return to, Output Tool Length Offset, Enable Remote Posting.
+
+The Postprocessor and Options tabs are hidden when the parameter `Mod/CAM/EnableMachinePostprocessor` is false. btn:[Edit as Text] toggles a JSON text editor of the whole file; btn:[Save] writes the `.fcm`, btn:[Close] discards.
+
+== Machine file (.fcm)
+
+A JSON file named after the machine (spaces replaced by underscores) in `<asset path>/Machines`. Top-level keys: `freecad_version`, `version`, `machine` (name, manufacturer, description, units, kinematics, axes, toolheads), `postprocessor` (file_name, properties), `output` (units, output_tool_length_offset, remote_post, header, comments, formatting, precision, duplicates) and `processing`. The Job stores only the machine's display name in its *Machine* property; the file is looked up by name (case-insensitive).
+
+== Templates and add-ons
+
+The Template combo offers the machine types above plus machine templates from add-ons. Any installed add-on whose `package.xml` declares a machine content item (for example the *FreeCAD/Machines* add-on from the Addon Manager) contributes the `.fcm` files of its `machines/` folder as read-only templates, grouped by add-on name; selecting one copies it into your own machine, so later add-on updates do not change your machine. Add-ons can likewise ship Post-Processors in a `posts/` folder. Placing a file named `ADDON_DISABLED` in an add-on folder, or `ALL_ADDONS_DISABLED` in the Mod folder, hides them.
+
+== Using a Machine
+
+Select the machine on the General tab of the xref:job/job.adoc[Job] task panel (or set the Job's *Machine* property). xref:output/post-process.adoc[Post Process] then opens the Post Processing dialog, uses the machine's Post-Processor and options, and runs the machine's sanity checks. Per-Job overrides of Post-Processor properties are kept in *PostProcessorPropertyOverrides*; per-export overrides are made in the dialog.
+
+== Scripting
+
+[source,python]
+----
+from Machine.models.machine import MachineFactory, Machine
+m = Machine.create_3axis_config()
+m.name = 'My Router'
+m.postprocessor_file_name = 'grbl'
+MachineFactory.save_configuration(m)
+job.Machine = 'My Router'
+----

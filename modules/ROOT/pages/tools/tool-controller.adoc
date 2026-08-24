@@ -2,24 +2,87 @@
 :page-origin: https://wiki.freecad.org/CAM_ToolController
 :page-origin-revision: 50f2b935e9 2025-01-23
 :page-imported: true
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+:page-audit: applied
 
 == Description
 
-A tool controller carries properties for how a tool should be used in one or more operations.
+A Tool Controller is the object that an Operation references to know which xref:tools/toolbit.adoc[Tool Bit] to use and with which spindle speed, feed rates and rapid rates. It lives in the Tools group of a xref:job/job.adoc[Job] and owns one Tool Bit object (shown as its child in the tree). The same Tool Bit can be used by several Tool Controllers with different settings, for example roughing and finishing. When the Job is post-processed, the Tool Controller emits the tool change (`T` and `M6`), spindle speed (`S`) and spindle direction (`M3`, `M4` or `M5`) commands.
 
-For example a tool, like a 1/4 inch cutter can run at many different spindle speeds and feed rates. The same tool might be used in different ways in the same job.
+== Usage
+
+Tool Controllers are created by:
+
+* xref:tools/add-toolbit.adoc[CAM ToolBitDock] (menu:CAM[Add Toolbit…]),
+* the btn:[Add] button of the Tools tab in the Job task panel,
+* the last two entries of the _Tool controller_ drop-down in an operation's task panel (create a new Tool Controller from the Toolbit Selector, or copy the current one).
+
+They are edited by double-clicking the Tool Controller in the tree (Tool Controller Editor task panel), with the btn:[Edit] button of the Job's Tools tab, or [.since]#introduced in 1.1# directly in the Tool Controller page of an operation's task panel ([.since]#26.3 and later#: shown on its own tab). A Tool Controller that is used by an operation cannot be deleted from the Job editor.
+
+== Task panel
+
+* _Controller Name_ / _Tool Number_: the label and the number used for the `T` command.
+* _Horizontal feed_, _Vertical feed_, _Lead-in feed_, _Lead-out feed_, _Ramp feed_, _Horizontal rapid_, _Vertical rapid_.
+* _Spindle_: direction (Forward, Reverse, None) and speed in rpm.
+* [.since]#introduced in 26.3# btn:[Feeds and Speeds Wizard] button: opens the _Suggest Feeds & Speeds_ dialog, see xref:tools/feeds-speeds.adoc[CAM FeedsSpeeds].
+
+When the editor is embedded in an operation's task panel, a warning states how many other operations use the same Tool Controller.
 
 == Properties
 
-* *feed speed (h)*
-* *feed speed (v)*
+.Base
+* *Tool* (`Link`): the Tool Bit used by this controller.
 
-* *rapid speed (h)*
-* *rapid speed (v)*
+.Tool
+* *ToolNumber* (`IntegerConstraint`, 0 to 10000): the tool number emitted with the tool change.
+* *SpindleSpeed* (`Float`): speed of the cutting spindle in rpm.
+* *SpindleDir* (`Enumeration`): Forward, Reverse or None; initialized from the Tool Bit's *Spindle Direction*.
 
-* *Spindle Speed (rpm)*
-* *Spindle direction (forward/reverse)*
+.Feed
+* *HorizFeed* (`Speed`): feed rate for horizontal moves.
+* *VertFeed* (`Speed`): feed rate for vertical moves in Z.
+* *RampFeed* (`Speed`) [.since]#introduced in 26.3#: feed rate for ramp moves; bound to *HorizFeed* by an expression until changed.
+* *LeadInFeed* (`Speed`) [.since]#introduced in 26.3#: feed rate for lead-in moves; bound to *HorizFeed* by default.
+* *LeadOutFeed* (`Speed`) [.since]#introduced in 26.3#: feed rate for lead-out moves; bound to *HorizFeed* by default.
 
-* *Tool Number*
+.Rapid
+* *HorizRapid* (`Speed`): rapid rate for horizontal moves.
+* *VertRapid* (`Speed`): rapid rate for vertical moves in Z.
+
+Rapid rates are only used for cycle-time estimation and by post-processors that output rapids as feed moves.
+
+.Feeds & Speeds
+These properties are added the first time the Feeds and Speeds dialog is opened for the controller. [.since]#introduced in 26.3#
+
+* *OpTypeHint* (`Enumeration`: empty, profile, pocket, slot, drill, adaptive, surface_finish): which kind of cutting the controller is intended for; used when matching presets.
+* *FeedSpeedProvenance* (`Map`): for each of *HorizFeed*, *VertFeed* and *SpindleSpeed*, the source that last wrote the value (for example `preset:tool/<material>/<op>`).
+
+== Expressions and templates
+
+Feed properties may hold expressions (for example `VertFeed = HorizFeed * 0.5`); expressions are preserved in Job Templates. Tool Controllers, including their Tool Bit, are saved in Job Templates and restored when a Job is created from the template.
+
+== Tool Bit replacement
+
+[.since]#introduced in 26.3#: when the library Tool Bit a controller's Tool Bit came from has changed, the menu:Update Tools from Library[] command (Job context menu, or automatically on document open) replaces the controller's Tool Bit with the current library version.
+
+== Scripting
+
+[source,python]
+----
+import Path.Tool.Controller as PathToolController
+from Path.Tool.toolbit import ToolBit
+
+tb = ToolBit.from_shape_id("endmill.fcstd").attach_to_doc(App.ActiveDocument)
+tc = PathToolController.Create("TC: 6mm Endmill", tool=tb, toolNumber=3)
+tc.HorizFeed = "600 mm/min"
+tc.SpindleSpeed = 12000
+job.Proxy.addToolController(tc)
+----
+
+The legacy module `PathScripts.PathToolController` is not available.
+
+== Related
+
+* xref:tools/index.adoc[CAM Tools]
+* xref:tools/toolbit.adoc[CAM ToolBit]
+* xref:tools/add-toolbit.adoc[CAM ToolBitDock]
+* xref:tools/feeds-speeds.adoc[CAM FeedsSpeeds]

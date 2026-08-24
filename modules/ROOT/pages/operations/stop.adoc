@@ -6,6 +6,7 @@
 :page-menu: CAM → Supplemental Commands → Stop
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -16,19 +17,45 @@ Menu location:: menu:CAM[Supplemental Commands > Stop]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:operations/comment.adoc[CAM Comment]
 --
 
 == Description
 
-The image:CAM_Stop.svg[width=24] xref:operations/stop.adoc[CAM Stop] command inserts a Stop command (M1). This command will Pause a running program on the CNC controller, waiting for user interaction to continue.
+The image:CAM_Stop.svg[width=24] xref:operations/stop.adoc[CAM Stop] command adds a Stop object to the Job. Depending on its *Stop* property it emits an optional stop (M1) or a mandatory stop (M0). An optional stop only pauses the program if the controller's optional-stop switch is enabled; a mandatory stop always pauses and waits for the operator to resume.
 
-*Note: this does not stop the spindle.*
+NOTE: Whether spindle and coolant are switched off during M0/M1 depends on the machine controller; check its documentation.
 
 == Usage
 
-. Press the image:CAM_Stop.svg[width=16] xref:operations/stop.adoc[Stop] button
+. Select the menu:CAM[Supplemental Commands > Stop] option from the menu. The command is not on any toolbar and has no shortcut; it is only enabled once a xref:job/job.adoc[Job] exists in the document.
+. Set the *Stop* property to `Optional` or `Mandatory`.
 
 == Properties
 
-* *Stop*: Defines if the Stop is optional or mandatory.
+.Path
+* *Stop* (`Enumeration`): Add an optional or mandatory stop to the program. `Optional` (default) emits M1, `Mandatory` emits M0.
+
+== Notes
+
+* Stop objects are not Operations: they have no Tool Controller and no *Active* property, and cannot be toggled with xref:inspect/op-active-toggle.adoc[Toggle Operation].
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+import FreeCAD, Path
+import Path.Op.Gui.Stop
+from PathScripts import PathUtils
+
+obj = FreeCAD.ActiveDocument.addObject("Path::FeaturePython", "Stop")
+Path.Op.Gui.Stop.Stop(obj)
+Path.Op.Gui.Stop._ViewProviderStop(obj.ViewObject)
+obj.Stop = "Mandatory"
+PathUtils.addToJob(obj)
+FreeCAD.ActiveDocument.recompute()
+----

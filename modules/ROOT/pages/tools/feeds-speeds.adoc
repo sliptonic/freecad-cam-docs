@@ -1,0 +1,120 @@
+= CAM FeedsSpeeds
+:page-icon: CAM_FeedsSpeeds.svg
+:page-since: 26.3
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_FeedsSpeeds.svg[CAM FeedsSpeeds,32] *CAM FeedsSpeeds*
+
+Menu location:: _None_ (btn:[Feeds and Speeds Wizard] button in the Tool Controller editor)
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 26.3
+See also:: xref:tools/tool-controller.adoc[CAM ToolController], xref:tools/toolbit.adoc[CAM ToolBit], xref:reference/preferences.adoc[CAM Preferences]
+--
+
+== Description
+
+[.since]#introduced in 26.3#: the Feeds and Speeds helper suggests spindle speed, horizontal feed and vertical feed for a xref:tools/tool-controller.adoc[Tool Controller] from Feeds & Speeds Presets stored on the Tool Bit, the Machinability data of the Stock material and the spindle limits of the Job's xref:output/machine.adoc[Machine]. It is opened with the image:CAM_FeedsSpeeds.svg[width=16] btn:[Feeds and Speeds Wizard] button in the Tool Controller editor.
+
+== Presets
+
+A Preset is a named Feeds & Speeds record stored on a Tool Bit for a material and an operation type. Presets are edited on the _Feeds && Speeds_ tab of the Toolbit Parameter Editor (open the Tool Bit from the Library Manager to change the library copy; open it from a Job to change only the embedded copy). The tab lists Name, Material, Op type, Surface speed, Chipload and Notes and offers btn:[Add preset], btn:[Edit], btn:[Copy] and btn:[Delete].
+
+The _Edit preset_ dialog has:
+
+* *Name* (required).
+* *Material*: chosen with btn:[Browse…] from the materials that carry the Machinability model, or btn:[Generic (any material)].
+* *Op type*: any, profile, pocket, slot, drill, adaptive, surface_finish.
+* *Surface speed* (m/min, or ft/min with an imperial unit schema).
+* *Chipload (per tooth)*.
+* *Vert feed ratio*: vertical feed as a fraction of the horizontal feed, default 0.33.
+* A _Direct feed and speed_ group (*Horiz feed* and *Spindle speed*) that is kept in sync with surface speed and chipload using the Tool Bit's Diameter and Flutes.
+* *Notes*.
+
+Only Surface Speed, Chipload and the ratio are stored; feed and spindle speed are recomputed from the Tool Bit geometry when the Preset is used. Two Presets on one Tool Bit may not share the same name, material and op type. A new Preset's chipload is seeded from the Tool Bit's *Chipload* attribute.
+
+== Suggest Feeds & Speeds dialog
+
+Open a Tool Controller (double-click, or the Tool Controller tab of an operation) and press the btn:[Feeds and Speeds Wizard] button. The _Suggest Feeds & Speeds_ dialog shows:
+
+* _Tool_: the Tool Bit label.
+* _Material_: the Stock material of the Job assigned with menu:Assign Stock Material[], or none — generic resolution.
+* _Op type_: overrides the Tool Controller's *OpTypeHint* for this resolution.
+* _Apply preset_: _Auto (use resolver)_ or a specific Preset by name.
+* A _Suggestion_ group with _Source_, _Confidence_, a table of Current, Suggested and delta for Spindle, Horiz feed and Vert feed (feeds shown in the document's unit system), and warnings.
+
+btn:[Apply] writes the suggested values to *SpindleSpeed*, *HorizFeed* and *VertFeed*, records the source per field in *FeedSpeedProvenance*, stores the chosen Op type in *OpTypeHint* and recomputes the document. If nothing matches, the dialog reports _No matching preset on this tool. Open the tool from the library to add presets._
+
+== How suggestions are computed
+
+The Resolver walks a chain of Providers and merges their contributions field by field; the first Provider that fills a field wins:
+
+. Tool preset provider: the best-matching Preset on the Tool Bit. A Preset matches when its material (by UUID, or by name) and op type either equal the request or are generic; specific matches score higher and give the Confidence value.
+. Machinability provider: the Stock material's Machinability model supplies the Surface Speed for HSS or Carbide, chosen by the Tool Bit's *Material* attribute (confidence 0.35).
+. Tool defaults provider: the Tool Bit's *Chipload* attribute (confidence 0.10).
+
+From Surface Speed (Vc), Chipload (Fz), Diameter and Flutes the Resolver derives spindle speed = Vc × 1000 / (π × D), horizontal feed = rpm × flutes × Fz and vertical feed = horizontal feed × vertical feed ratio.
+
+If the Job has a Machine with spindle limits, the spindle speed is clamped to the machine's min/max rpm and the feeds are scaled by the same ratio, keeping the Chipload constant; a warning is shown.
+
+Feed/Speed Provenance: every field written by the dialog is tagged with its source (for example `preset:tool/<material>/<op>`, `preset:tool/manual/<name>`, `machinability:<material>/<hss or carbide>`, `tool_defaults:chipload`). Values entered by hand are not tagged; applying a new suggestion overwrites them.
+
+== Properties
+
+* On the Tool Bit: *Presets* (Feeds & Speeds group, JSON string), *Chipload* and *Material* (Attributes group).
+* On the Tool Controller (added on first use of the dialog): *OpTypeHint* (`Enumeration`), *FeedSpeedProvenance* (`Map`).
+
+See xref:tools/toolbit.adoc[CAM ToolBit] and xref:tools/tool-controller.adoc[CAM ToolController].
+
+== Material
+
+Presets and the Machinability provider use the Material Workbench's materials that carry the Machinability model (surface speed for HSS and carbide tools). The Stock material of a Job is chosen in the Job task panel (menu:Assign Stock Material[]); the _Choose material_ dialog of the preset editor shows the same filtered list.
+
+== Machine tie-in
+
+The spindle limits come from the first spindle of the Job's Machine template (Job → General → Machine, created and edited in menu:Edit[Preferences > CAM > Assets]). Without a Machine, or with a machine whose spindle has no limits (0 rpm), no clamping takes place. See xref:output/machine.adoc[CAM Machine].
+
+== Scripting
+
+[source,python]
+----
+from Path.Tool.FeedsSpeeds import (
+    ToolContext, MaterialContext, OpContext,
+    resolve, get_presets, set_presets, make_preset,
+)
+
+tb = tc.Tool
+presets = get_presets(tb)
+presets.append(make_preset(
+    name="Alu profile",
+    material_name="Aluminium",
+    op_type="profile",
+    surface_speed=300.0,
+    chipload=0.05,
+))
+set_presets(tb, presets)
+
+result = resolve(
+    ToolContext(diameter=6.0, flutes=2, presets=tuple(presets),
+                shape_id="endmill", tool_material="Carbide"),
+    MaterialContext(name="Aluminium"),
+    OpContext(op_type="profile"),
+)
+print(result.spindle_speed, result.horiz_feed, result.source)
+
+# apply to a Tool Controller
+from Path.Tool.Gui.FeedsSpeedsDialog import write_result_to_tc
+write_result_to_tc(tc, result)
+----
+
+The resolver module has no FreeCAD dependency; feeds are in mm/min, surface speed in m/min, chipload in mm per tooth.
+
+== Related
+
+* xref:tools/index.adoc[CAM Tools]
+* xref:tools/toolbit.adoc[CAM ToolBit]
+* xref:tools/tool-controller.adoc[CAM ToolController]
+* xref:reference/preferences.adoc[CAM Preferences]

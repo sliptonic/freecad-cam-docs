@@ -2,10 +2,15 @@
 :page-origin: https://wiki.freecad.org/CAM_FAQ
 :page-origin-revision: c048fd19cd 2025-12-07
 :page-imported: true
+:page-audit: applied
 
 == How many axes can CAM Workbench handle?
 
-At the moment, CAM Workbench can handle up to 3 axis milling. Currently, 4th-axis capabilities are not officially included but xref:reference/fourth-axis.adoc[experimental implementations] exist.
+CAM Workbench generates 3-axis toolpaths for all operations. [.since]#Since 26.3#, when a Machine with rotary axes is assigned to the Job, operations can be oriented to a non-Z-up Workplane (3+2 indexed machining) and the required A/B/C positioning moves are emitted automatically. Continuous 4-axis toolpaths are available from the experimental xref:operations/rotary-surface.adoc[Rotary Surface] operation, the Rotational scan type of the xref:operations/surface.adoc[3D Surface] operation and the xref:dressups/axis-map.adoc[Axis Map] dressup. See xref:reference/fourth-axis.adoc[CAM fourth axis].
+
+== Does CAM support laser or plasma cutting?
+
+[.since]#Since 26.3#, Machine definitions describe the toolhead type (rotary spindle, laser, plasma, waterjet); the machine-based post-processors (for example `generic_plasma`) use it to emit power or torch commands instead of spindle commands. Machines are managed in the CAM xref:reference/preferences.adoc[preferences] under Assets.
 
 == Does CAM workbench support lathe machining?
 
@@ -17,11 +22,11 @@ CAM Workbench provides existing tools to meet many milling operations and becaus
 
 As with 3D modeling, there are often multiple methods available that might be advantageous to use for different Job operations. In some cases, combinations of Operations are used to provide complete milling of the Stock.
 
-One common example is that a Contour cut could be generated from Edges or Faces. In some cases there will be an advantage to one geometric input over another.
+One common example is that a Profile cut could be generated from Edges or Faces. In some cases there will be an advantage to one geometric input over another.
 
-== Why does Dressing up an Operation change the position in the Job Workflow shown in the Operations list?
+== Why does Dressing up an Operation change the position in the Job Workplan shown in the Operations list?
 
-All additions to the Job--including modifications, and Operation copies--are appended at the end of the Job Workflow. If that disrupts the correct Job sequence, it must be reordered in the Job editor-++>++Workflow tab.
+All additions to the Job--including modifications, and Operation copies--are appended at the end of the Job Workplan. If that disrupts the correct Job sequence, it can be reordered on the Job editor's Workplan tab using the up and down buttons, or by drag and drop in the tree.
 
 == What is the difference between Clearance Height and Safe Height?
 
@@ -33,70 +38,68 @@ The xref:job/setup-sheet.adoc[SetupSheet] is a dedicated spreadsheet contained w
 
 Current inputs for Depths, Heights, and Tool Controllers include:
 
-. Final Depth Expression -- OpFinalDepth
-. Start Depth Expression -- OpStartDepth
-. Step Down Expression -- Defaults to OpToolDiameter. This expression is used for each Operation to calculate its default Step down value based on the diameter of the Tool defined in the associated Tool controller.
-. Clearance Height Expression -- StartDepth{plus}SetupSheet.ClearanceHeightOffset
-. Clearance Height Offset Value -- Contains value used in Expressions
-. Safe Height Expression -- StartDepth{plus}SetupSheet.SafeHeightOffset
-. Safe Height Offset Value -- Contains value used in Expressions
-. Horizontal Rapid Value -- Provides the default value used to initially populate the Horizontal Rapid Feed rate for all Tool controllers.
-. Vertical Rapid Value -- Provides the default value used to initially populate the Vertical Rapid Feed rate for all Tool controllers.
+. Final Depth Expression (`FinalDepthExpression`) -- OpFinalDepth
+. Start Depth Expression (`StartDepthExpression`) -- OpStartDepth
+. Step Down Expression (`StepDownExpression`) -- Defaults to OpToolDiameter. This expression is used for each Operation to calculate its default Step down value based on the diameter of the Tool Bit defined in the associated Tool Controller.
+. Clearance Height Expression (`ClearanceHeightExpression`) -- StartDepth{plus}SetupSheet.ClearanceHeightOffset
+. Clearance Height Offset (`ClearanceHeightOffset`) -- Contains value used in Expressions
+. Safe Height Expression (`SafeHeightExpression`) -- StartDepth{plus}SetupSheet.SafeHeightOffset
+. Safe Height Offset (`SafeHeightOffset`) -- Contains value used in Expressions
+. Horizontal Rapid (`HorizRapid`) -- Provides the default value used to initially populate the Horizontal Rapid Feed rate for all Tool Controllers.
+. Vertical Rapid (`VertRapid`) -- Provides the default value used to initially populate the Vertical Rapid Feed rate for all Tool Controllers.
+. Coolant Mode (`CoolantMode`) -- default coolant mode for new operations.
+. Collision Avoidance Strategy (`CollisionAvoidanceStrategy`) [.since]#introduced in 26.3# -- default linking strategy for Drilling, Helix and MillFacing.
 
 This provides flexibility. For example, default expressions are provided, but can be overwritten by the user. The modification can even reduce the default equation to a Value if that suits the user.
 
 == What is the typical use of the Job Templates?
 
-Job templates allow commonly used Job definitions to be saved from a Job for use on subsequent similarly configured Jobs.
+Job templates allow commonly used Job definitions to be saved from a Job for use on subsequent similarly configured Jobs. They store the Job's Setup Sheet values, Tool Controllers, Stock definition, post-processor settings, a description and [.since]#since 26.3# the assigned Machine. They are exported with xref:job/export-template.adoc[Export Template] and selected in the New Job dialog.
 
 == How many Base objects does CAM Workbench support?
 
-Support exists only for a single Base object. To create paths for multiple solids in a single Job you can make a Compound out of them and use that as the base object for the Job.
+A Job can reference any number of Models. Select them in the New Job dialog (Model list) or later with the Edit button next to Model on the Job editor's General tab. Each model is cloned into the Job's Model group so it can be positioned independently of the design.
 
 == Why does an Operation not produce usable output?
 
 A variety of reasons exist that may cause an individual Operation to generate no output.
 
-One common reason is that the Tool geometry defined in the Tool controller selected for the Operation is too large to fit within the geometry selected on the 3D model for the Operation.
+One common reason is that the Tool Bit geometry defined in the Tool Controller selected for the Operation is too large to fit within the geometry selected on the 3D model for the Operation.
 
 Be aware that this will typically exhibit as a Rapids movement to where the Operation beginning, completed by a Rapid Z movement to the geometry selected to define the Operation, and then a return to Rapid transit height.
 
-Another common misunderstanding is that a Contour Operation is not outputting paths, when the Contour editor Operation-++>++Cut Side is "Inside", the default, and toggling the 3D Model viability allows them to be seen.
+Another common misunderstanding is that a Profile operation appears to output nothing when Cut side is set to Inside and the toolpath runs inside the model; toggling the model's visibility reveals it.
+
+[.since]#Since 26.3#, when the selected Base Geometry becomes invalid the operation is marked with an error state and the toolpath is cleared; remove the stale entries from the Base Geometry list.
 
 == Can CAM Workbench perform 3D surface milling?
 
-Yes, CAM provides for 3D surface milling Operations. It requires installation in the Macro file path of OpenCamLibrary--a 3rd party Open Source module.
-
-OpenCamLibrary is not integrated into FreeCAD to ensure no licensing violations occur.
+Yes. The xref:operations/surface.adoc[3D Surface], xref:operations/waterline.adoc[Waterline] and (experimental) xref:operations/rotary-surface.adoc[Rotary Surface] operations use OpenCAMLib (OCL). OCL must be available to FreeCAD's Python as the `ocl` or `opencamlib` package (bundled with some builds, otherwise installable with pip or conda), and "Enable OCL dependent features" must be checked in menu:Edit[Preferences > CAM > Advanced]. A restart is required. OCL is an optional external library and is not compiled into FreeCAD.
 
 == What do I do if the default Operation strategies don't meet my needs?
 
-For Pocket Operations, the Start Point defaults to XYZ = 000, and is always on, but it too can be configured in the Property view window. Pocket and Facing Operations provide explicit Climb versus Conventional Cut Mode specification in the Operation tab.
+Profile and Pocket operations have an optional Start Point: check btn:[Use start point] in the task panel (or set `UseStartPoint` in the Property view) and pick a point in the 3D view with the btn:[Set picked point as start point] button ([.since]#introduced in 26.3#). Pocket and Facing Operations provide explicit Climb versus Conventional Cut Mode specification in the Operation tab.
 
-For Contour style Operations, the Operation tab has a "Direction" input that may be configured as CW (clockwise), or CCW (counterclockwise), which defines the cut direction. For reference:
+For Profile Operations, the Operation tab has a "Direction" input that may be configured as CW (clockwise), or CCW (counterclockwise), which defines the cut direction. For reference:
 
 . Cut Side = Outside, Cut Direction = CCW, Climb Cut
 . Cut Side = Outside, Cut Direction = CW, Conventional Cut
 . Cut Side = Inside, Cut Direction = CW, Conventional Cut
 . Cut Side = Inside, Cut Direction = CCW, Climb Cut
 
-Start Points can be enabled and configured in the Property view window.
-
-In FaceMill Operations Material Allowance can be specified, allowing overcutting for positive values, and undercutting for negative values.
-
-In Contour and Pocket Operations, the Extra Offset serves the same purpose.
+In MillFacing, Pass Extension and Stock Extension extend the passes beyond the face and Axial Stock To Leave keeps material on the floor. Profile has Offset Extra (`OffsetExtra`), plus Radial stock to leave and multi-pass Number of passes / Pass stepover ([.since]#introduced in 1.1#); Pocket has Extra Offset (`ExtraOffset`). Positive values leave material, negative values overcut.
 
 These inputs are valuable, allowing functionality including:
 
 . Defining Roughing Passes, in conjunction with the Depths input fields.
 . Specifying overcut for Facing operations
-. Features smaller than the Tool diameter, that must be faced, can benefit from specifying an Outside Contour cut with a negative Extra Offset value.
+. Features smaller than the Tool Bit diameter, that must be faced, can benefit from specifying an Outside Profile cut with a negative Extra Offset value.
 
-Judicious care should be exercised when specifying Material Allowances and Offsets, at the risk of undesired cuts into the Stock.
+Judicious care should be exercised when specifying stock-to-leave values and Offsets, at the risk of undesired cuts into the Stock.
 
 == What do I do if an Operation generates more Vertical movements than my Job can tolerate?
 
-Operations such as xref:operations/pocket-3d.adoc[Pocket 3D], xref:operations/pocket.adoc[Pocket Shape], and xref:operations/mill-face.adoc[MillFace], but not Contour Operations have a configuration option to keep the tool down, in the Data tab of the Property View.
+Profile and Pocket operations have a Retract Threshold property: moves shorter than this distance are made at the current depth instead of retracting to Safe Height ([.since]#user-settable since 26.3#). Drilling keeps a Keep Tool Down option, and Drilling, Helix, MillFacing, Engrave and Deburr offer a Linking Mode with collision-avoidance strategies (retract height, clearance height, line of sight, tool diameter or tool shape) [.since]#introduced in 26.3#.
 
 == How can I leave tabs to clamp my milled work?
 
@@ -104,75 +107,87 @@ CAM Workbench provides a xref:dressups/tag.adoc[Tag dressup] for just this purpo
 
 == What is a Postprocessor?
 
-The xref:output/post-process.adoc[Postprocessor] is used to tailor output code to target CNC controllers for various machines, in their G-Code dialect.
+The xref:output/post-process.adoc[Postprocessor] converts the internal toolpath into the G-code dialect of a specific controller. [.since]#Since 26.3#, when a Machine (`.fcm`) is assigned to the Job, the post-processor named in the machine definition is used and its output options come from the machine; otherwise the post-processor is selected on the Job's Output tab.
 
 == Can I modify an existing, or make my own Postprocessor?
 
-Postprocessors are Python scripts, and are saved in the Macro file path. They are intended to be modified, or used as a template for further Postprocessor development.
+Post-processors are Python files ending in `_post.py`. The ones shipped with FreeCAD are in `Mod/CAM/Path/Post/scripts` (legacy ones end in `_legacy_post.py`). Place your own in the macro directory or the CAM "Default path" folder; add-ons can register further directories. New-style posts subclass `Path.Post.Processor.PostProcessor`; see xref:output/postprocessor-customization.adoc[Postprocessor Customization].
 
 == I only want to use one Postprocessor--can I make it the default, or hide other options?
 
-Yes, the xref:reference/preferences.adoc[CAM preferences] has a section for post processors where you can select which post processors to display and select a default post.
+Yes. In menu:Edit[Preferences > CAM > Job Preferences > Post processor], check only the post-processors to show under "Post processors selection" and pick a "Default post processor" and "Default arguments".
 
 == How I can set metric/imperial units for my path object?
 
-The 3D model units are defined in the Edit-++>++Preferences++>++General-++>++Units tab's User System drop menu.
+The model units come from the document unit schema; [.since]#since 26.3# the New Job dialog lets you pick a schema and highlights per-minute velocity schemas (mm/min, in/min) as recommended, because per-second schemas can produce wrong feed rates.
 
-The Units setting configuring how the the target mill interprets the Job G-Code is set in the output Postprocessor, which inserts a G20, or a G21 G-Code command to indicate inches or millimeters, respectively.
+Output units (G20/G21) are set by the post-processor: by the Machine's output units for machine-based posts, or by arguments such as `--inches` for legacy posts. Feed rates are converted to units per minute by the post-processor.
 
-The Postprocessor also is configured for Units/Second, or Units/Minute. If set for Units/Minute, the CAM Workbench internal G-Code dialect Feed rate is multiplied by 60.
-
-Mismatches between the 3D model and Postprocessor settings are likely culprits for factor of 60 errors in Feed rate, and factors of 25.4 in distance.
+Mismatches between the document unit schema and post-processor settings are likely culprits for factor of 60 errors in Feed rate, and factors of 25.4 in distance.
 
 == How I can simulate my milling strategies?
 
-A volumetric simulator is provided to view the result of cutting the tool geometries included in the Job Operations against the Stock.
+Two simulators are provided: the xref:inspect/simulator.adoc[CAM Simulator] (default, shortcut kbd:[P] kbd:[N], opened as a separate view in the main window [.since]#since 26.3#) and the xref:inspect/simulator-legacy.adoc[Legacy CAM Simulator] (kbd:[P] kbd:[M]). Both cut the Stock with the Tool Shapes of the Job's Tool Controllers. If the CAMotics integration is installed and OCL features are enabled, a CAMotics simulation command is also shown.
 
-If the path lines obscure the simulation result, their visibility should be toggled off before simulation.
+If the toolpath lines obscure the simulation result, their visibility should be toggled off before simulation.
 
 == What is the significance of the path line colors?
 
-CAM line colors are defined in the Edit-++>++Preference...-++>++CAM-++>++GUI-++>++Default CAM colors. Default colors include:
+Toolpath colors are defined in menu:Edit[Preferences > CAM > GUI > Default Path Colors]. Default colors include:
 
-. Green for normal paths.
-. Red for rapid paths.
-. Yellow for Probed paths.
+. Dark green for feed moves (Default normal path color).
+. Dark red for rapid moves (Rapid path color).
+. Yellow for probe moves (Probe path color).
+
+The GUI page also has "Hide first rapid move" and task panel layout options.
 
 == How do I Enable/Disable visibility of path lines?
 
-CAM Workbench allows control of the display of path lines by toggling the visibility of the Job by selecting it in the https://wiki.freecad.org/Combo_view[Combo View]. The visibility of individual or groups of Operations are then toggled from the Combo View.
+Toggle the Job or individual Operations in the tree with kbd:[Space]. To exclude an operation from post-processing without deleting it use xref:inspect/op-active-toggle.adoc[Toggle Operation Active State] (also works on the Job and on operation groups [.since]#since 26.3#).
 
 == How do I check that my G-Code sequence is correct?
 
-By default, the Postprocessor output is displayed in a window before saving. This--along with the CAM simulator provide a means to examine the Job before processing it on a CNC machine. The G-Code inspection tool allows you to inspect the internal CAM G-Code for each Operation, providing a means to trace whether the output of the Postprocessor reflects what is defined in the Operation.
+With a Machine assigned ([.since]#introduced in 26.3#) the Post Processing dialog shows the generated G-code (with line numbers) and a Warnings list before you press btn:[Save to Disk]; for legacy post-processors the "CAM Export Gcode" editor opens when "Show editor before writing G-code" is enabled in the CAM GUI preferences. Use xref:inspect/inspect.adoc[Inspect Toolpath] to view the internal G-code of one operation and xref:job/sanity-check.adoc[Sanity Check] for a pre-flight report.
 
-The Operations list in the Combo View panel displays the sequence that the operations will be processed in the Job. If the Operations are correct, but not in the desired sequence, that can be adjusted by double clicking the Operations list and dragging the Operations to their proper location, or by double clicking the Job editor and selecting the Workflow tab, then using the Up/Down arrows on selected Operations to sort them.
+Operation order is changed on the Job editor's Workplan tab with the up/down buttons, or by drag and drop in the tree.
 
-== Why am I not getting correct G-Code output from my Postprocessor for Operations inserted using the Partial Command-++>++Custom command?
+== Why am I not getting correct G-Code output from Operations inserted using the Supplemental Commands-++>++Custom command?
 
-Commonly, the Custom G-Code command because the format is always in Units/second, it can cause factor of 60 errors for CNC machine targets that operate in Units/minute.
+Custom G-code (xref:operations/custom.adoc[CAM Custom], menu menu:CAM[Supplemental Commands > Custom]) is passed through the post-processor unchanged apart from formatting; write feed rates in the units the post-processor expects. [.since]#Since 26.3#, Custom G-code may contain expressions enclosed in `@` characters, e.g. `G1 Z@-StartDepth@`.
 
 == Why do changes to Placement values in the Property View not seem to work correctly in CAM Workbench?
 
-The Path feature also holds a Placement property. Changing the value of that placement will change the position of the Feature in the 3D View, although the Path information itself won't be modified. The transformation is purely visual. This allows you, for example, to create a Path around a face that has a particular orientation on your model, that is not the same orientation as your cutting material will have on the CNC machine.
+The Path feature also holds a Placement property. Changing the value of that placement will change the position of the Feature in the 3D View, although the toolpath information itself won't be modified. The transformation is purely visual. This allows you, for example, to create a toolpath around a face that has a particular orientation on your model, that is not the same orientation as your cutting material will have on the CNC machine.
 
-However, Path Compounds can make use of the Placement of their children (see below).
-
-xref:reference/scripting.adoc[CAM scripting ]
+However, Path Compounds can apply the Placement of their children; see xref:reference/scripting.adoc#the-path-compound-feature[CAM scripting]. To actually move a model for machining, use the Alignment controls on the Job editor's Setup tab, which move the Job's model clone.
 
 == Why does CAM Workbench on my computer seem to miss functionality that I see in other users forum posts?
 
-By default, Experimental functionality is hidden in CAM Workbench.
+Experimental commands are hidden by default. OCL-dependent operations are enabled with menu:Edit[Preferences > CAM > Advanced > Enable OCL dependent features]; other experimental commands (Area, Area Workplane, Rotary Surface, Path Shape with Tool Controller) require the boolean parameter `EnableExperimentalFeatures` under `BaseApp/Preferences/Mod/CAM` (there is no checkbox for it). See xref:reference/experimental.adoc[CAM experimental].
 
 == Why do Youtube videos posted by CAM Workbench developers appear out of sync with the CAM Workbench?
 
-CAM Workbench shifted dramatically from FreeCAD v0.16 to v0.17, and any videos posted prior to January 1st, 2018, are very likely to contain information that is no longer in sync with v0.17 of FreeCAD CAM Workbench.
+CAM Workbench shifted dramatically from FreeCAD v0.16 to v0.17, and any videos posted prior to January 1st, 2018, are very likely to contain information that is no longer in sync with v0.17 of FreeCAD CAM Workbench. The workbench was renamed from Path to CAM in 1.0, the tool library dialogs were replaced in 1.1 (Better Tool Library integration), and 26.3 introduced Machine definitions, machine-based post-processing and a redesigned Job dialog, so videos made for earlier versions will differ.
 
 == Why are arcs not round, but are made of a set of straight lines?
 
-This is only a matter of displaying the path. You can change this in the preferences: Load CAM Workbench.
+This is only a matter of displaying the toolpath. Display and computation tolerance is per Job:
 
-. open Preferences-++>++CAM-++>++Job Preferences
-. set the values for _Default Geometry Tolerance_ and _Default Curve Accuracy_ to small values but not to 0, e.g. to 0.01mm.
-. confirm the change
-. Restart FreeCAD.
+* For new Jobs, set menu:Edit[Preferences > CAM > Job Preferences > General] -> _Default geometry tolerance_ and _Default curve accuracy_ to small values but not to 0, e.g. to 0.01 mm.
+* For an existing Job, change its Geometry Tolerance property and recompute.
+
+== Where are my tool bits and libraries stored?
+
+Tool Bits (`.fctb`), Tool Libraries (`.fctl`), Tool Shapes (`.fcstd`), Job Templates and Machine definitions (`.fcm`) live in the CamAssets folder (by default under the user application data directory); the location is set in menu:Edit[Preferences > CAM > Assets > Asset Location]. Built-in shapes and bits are used as a fallback when the folder is empty. [.since]#introduced in 1.1#
+
+== How do I tap holes?
+
+Use xref:operations/drilling.adoc[Drilling] with Strategy set to Tapping, together with a tap Tool Bit; the post-processor emits G84/G74 (or rigid tapping where supported). The separate Tapping operation of 1.1 was merged into Drilling. [.since]#introduced in 26.3#
+
+== How do I get dogbone corners for inside pockets?
+
+Apply the xref:dressups/dogbone.adoc[Dogbone dressup] to a Profile or Pocket operation; it adds T-bone or dogbone incisions in inside corners. The adaptive incision length can be limited [.since]#since 26.3#.
+
+== What is a Machine and do I need one?
+
+[.since]#introduced in 26.3# A Machine (`.fcm`) describes a controller: axes and limits, toolhead, output units, post-processor and formatting options. It is created in menu:Edit[Preferences > CAM > Assets > Machines] or with the btn:[New Machine] button on the Job's General tab, and assigned to the Job. Without a Machine the Job falls back to the legacy post-processor selection on the Output tab.

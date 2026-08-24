@@ -2,15 +2,16 @@
 :page-origin: https://wiki.freecad.org/CAM_Pocket_Shape
 :page-origin-revision: 6645424a75 2026-07-08
 :page-command: CAM_Pocket_Shape
-:page-icon: CAM_Pocket_Shape.svg
+:page-icon: CAM_Pocket.svg
 :page-menu: CAM → Pocket Shape
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
 [.fcTitle]
-image:CAM_Pocket_Shape.svg[CAM Pocket Shape,32] *CAM Pocket Shape*
+image:CAM_Pocket.svg[CAM Pocket Shape,32] *CAM Pocket Shape*
 
 Menu location:: menu:CAM[Pocket Shape]
 Workbenches:: xref:index.adoc[CAM]
@@ -21,7 +22,7 @@ See also:: _None_
 
 == Description
 
-The image:CAM_Pocket_Shape.svg[width=24] xref:operations/pocket.adoc[CAM Pocket Shape] command creates a pocketing operation from selected bottom faces, or walls, of one or more pockets of the jobs base object.
+The image:CAM_Pocket.svg[width=24] xref:operations/pocket.adoc[CAM Pocket Shape] command creates a pocketing operation from selected bottom faces, or walls, of one or more pockets of the Job Model. It is found on the New Operations toolbar and in the CAM menu; its tooltip reads "Creates a pocket toolpath from a face or faces".
 
 The CAM Pocket Shape object is made to be part of a image:CAM_Job.svg[width=16] xref:job/job.adoc[CAM Job].
 
@@ -30,9 +31,9 @@ image::Path_Pocket_Shape_example.png[width=600]
 == Usage
 
 . Select the bottom or the wall(s) of a pocket. While it is usually easier to select the bottom, the walls have to be selected when a pocket goes through all.
-. [.since]#introduced in 26.3#: Horizontal edges can also be selected. Edges are combined into wires, and a closed horizontal wire is converted into a pocket face.
+. [.since]#introduced in 26.3#: Horizontal edges can also be selected; connected edges are combined into wires, and a closed horizontal wire is converted into a pocket face. Open wires or vertical walls whose projection forms a closed area can be closed with *Close Open Paths*.
 . There are several ways to invoke the command:
-* Press the image:CAM_Pocket_Shape.svg[width=16] xref:operations/pocket.adoc[Pocket Shape] button.
+* Press the image:CAM_Pocket.svg[width=16] xref:operations/pocket.adoc[Pocket Shape] button on the New Operations toolbar. The command uses the `CAM_Pocket.svg` icon.
 * Select the menu:CAM[Pocket Shape] option from the menu.
 . Adjust the desired properties.
 
@@ -57,11 +58,11 @@ Note: It is suggested that you do not edit the *Placement* property of path oper
 
 .Depth
 * *Clearance Height*: The height needed to clear clamps and obstructions
-* *Final Depth*: Final Depth of Tool- lowest value in Z
+* *Final Depth*: Final Depth of Tool Bit - lowest value in Z
 * *Finish Depth*: Maximum material removed on final pass. The height (thickness) of the last cutting level - _set for a better finish_.
-* *Safe Height*: The height above which Rapid motions are allowed. (Rapid safety height between locations)
-* *Start Depth*: Starting depth of Tool - _first cut depth in Z_
-* *Step Down*: Incremental step down of Tool during operation
+* *Safe Height*: (_Retract_ in the task panel) The height above which rapid moves are allowed between locations.
+* *Start Depth*: Starting depth of Tool Bit - _first cut depth in Z_
+* *Step Down*: Incremental step down of Tool Bit during operation
 
 image::Path-DepthsAndHeights.gif[width=500]
 
@@ -70,79 +71,97 @@ Visual reference for Depth properties (settings)
 
 .Extension
 * *Extension Corners*: When enabled connected extension edges are combined to wires.
-* *Extension Length Default*: Default length of extensions.
-
-.Face
-* *Offset Pattern*: Clearing pattern to use. (Select in which manner the horizontal movements should be done.)
+* *Extension Length Default*: Default length of extensions (default expression: `OpToolDiameter / 2.0`, half the Tool Bit diameter).
+* *Extension Feature*: (hidden) List of features to extend.
 
 .Path
 * *Active*: Make False, to prevent operation from generating code
+* *Base*: The base geometry for this operation
+* *Block Delete*: [.since]#introduced in 26.3# Enable the Post-Processor to add block delete commands
 * *Comment*: An optional comment for this Operation
+* *Coolant Mode*: The coolant mode for this operation: `None`, `Flood` or `Mist`
+* *Cycle Time*: (read-only) The cycle time estimation for this operation.
+* *Locations*: Base locations for this operation (not editable in the task panel; the Extensions tab replaces the Base Location tab)
+* *Sorting Mode*: [.since]#introduced in 26.3# `Automatic` sorts shapes with a nearest-neighbour algorithm; `Manual` follows the selection order.
+* *Split Arcs*: Split arcs into discrete segments
+* *Tool Controller*: Defines the Tool Controller used in the Operation
 * *User Label*: User assigned label
-* *Tool Controller*: Defines the Tool controller used in the Operation
+* *Workplane*: [.since]#introduced in 26.3# The orientation of the Tool Bit for this operation; default (0, 0, 1) for standard Z-up milling. Set with the _Set Workplane from Face_ context menu command for 3+2 machining.
+
+.Op Values
+These read-only properties hold values calculated by the operation. They are useful as sources for expressions.
+
+* *Op Start Depth*, *Op Final Depth*: the calculated default depths
+* *Op Tool Diameter*: the diameter of the Tool Bit
+* *Op Stock ZMax*, *Op Stock ZMin*: the Z extent of the Stock
 
 .Pocket
-* *Cut Mode*: Specifies a CW or CCW move for the cut
-* *Extra Offset*: Extra offset to apply to the operation. Direction is operation dependent. (Extra value to stay away from final profile _good for roughing toolpath_)
-* *Min Travel*: Use 3D Sorting of Path (when multiple base geometries used).
-* *Retract Threshold*: Distance below which the operation can stay down for repositioning moves. A value of `0` disables this behavior. [.since]#introduced in 26.3#: This replaces *Keep Tool Down*.
-* *Start At*: Start pocketing at center or boundary.
-* *Step Over*: Select the horizontal step over (*Percent* of tool diameter: 100% = tool diameter).
-* *Use Outline*: Uses the outline of the base geometry.
-* *Angle*: Angle of the clearing pattern relative to the X-axis. This property was formerly named *Zig Zag Angle*. It is hidden when *Offset Pattern* is set to `Offset`.
-* *SortingMode*: Controls how multiple selected base geometries are ordered. `Automatic` uses automatic sorting. `Manual` follows the selection order.
-
-.Rotation
-* *Attempt Inverse Angle*: Automatically attempt Inverse Angle if initial rotation is incorrect.
-* *B_Axis Error Override*: Visually orient B(y) rotations to model (error in FreeCAD rendering).
-* *Enable Rotation*: Enable rotation to gain access to pockets or areas not normal to Z axis.
-* *Inverse Angle*: Inverse the angle of the rotation. _*Example:* change a rotation from -22.5 to 22.5 degrees._
-* *Reverse Direction*: Reverse orientation of Operation by 180 degrees.
+* *Angle*: [.since]#introduced in 26.3# (formerly *Zig Zag Angle*) Angle of the grid, line and zigzag patterns relative to the X axis (default 45°). Hidden, and disabled in the task panel, when the pattern is `Offset`.
+* *Clearing Pattern*: [.since]#introduced in 1.1# (formerly *Offset Pattern*; _Pattern_ in the task panel) Clearing pattern to use: `ZigZag`, `Offset` (default), `ZigZagOffset`, `Line` or `Grid`. Old documents are migrated automatically.
+* *Close Open Paths*: [.since]#introduced in 26.3# Close an open area formed by edges or vertical faces with a straight line so it can be pocketed.
+* *Cut Mode*: `Climb` or `Conventional`. Climb moves the Tool Bit into the cut on each rotation; in conventional mode the Tool Bit's rotation and lateral movement are in the same direction.
+* *Extra Offset*: Extra offset to apply to the operation - radial stock to leave on the walls. Shown as _Radial stock to leave_ in the task panel.
+* *Force Max Step Over*: [.since]#introduced in 26.3# Force the maximum stepover even if not all area is cleared. Without it the stepover may be reduced (for stepovers above 50 %) to ensure full coverage.
+* *Min Travel*: Use 3D sorting of the Toolpath to minimise travel; only applied when *Use Start Point* is enabled.
+* *Retract Threshold*: [.since]#introduced in 26.3# Repositioning moves shorter than this distance stay down. Replaces *Keep Tool Down*; documents with *Keep Tool Down* checked get the expression `1 * OpToolDiameter`.
+* *Start At*: Start pocketing at `Center` or `Edge`.
+* *Step Over*: Percent of Tool Bit diameter to step over on each pass (default 50 %).
+* *Use Outline*: (_Ignore holes_ in the task panel) Uses the outline of the Base Geometry and ignores all holes.
+* *Use Rest Machining*: Skip regions that have already been cleared by previous operations of the Job.
 
 .Start Point
-* *Start Point*: The start point of this path.
+* *Start Point*: The start point of this Toolpath.
 * *Use Start Point*: Make True, if manually specifying a Start Point, then enter Start Points in the property data Start Points field.
 
 == Tasks Window Editor Layout
 
 _Descriptions for the settings are provided in the Properties list above._
 
-This section is simply a layout map of the settings in the window editor for the Operation.
+This section is simply a layout map of the settings in the window editor for the Operation. The task panel has five tabs: Base Geometry, Extensions, Heights, Tool Controller [.since]#introduced in 26.3# and Operation.
 
 === Base Geometry
 
-* *Add*: Adds selected element(s) which should be the base(s) for the path(s)
-* *Delete*: Delete the selected item(s) in the Base Geometry list
+* *Add*: Adds selected element(s) which should be the base(s) for the Toolpath(s)
+* *Remove*: Remove the selected item(s) in the Base Geometry list
 * *Clear*: Clear all items in the Base Geometry list
+* The drop-down and *Import* button copy the Base Geometry of another operation in the Job.
 
 === Extensions
 
+* *Enable extensions*: turn the feature on
 * *Show All*: If selected, all potential extensions are visualized. Enabled extensions in purple, disabled extensions in yellow.
-* *Extension Corners*
-* *Extension Length Default*
-* *Enable*
-* *Disable*
-* *Clear*
-
-=== Depths
-
-* *Start Depth*
-* *Final Depth*
-* *Step Down*
+* *Extend corners*: combine selected adjacent edges
+* *Default length*: extent of new extensions (default half the Tool Bit diameter)
+* *Enable* / *Disable* / *Clear*: act on the selected tree items
 
 === Heights
 
-* *Safe Height*
-* *Clearance Height*
+* *Clearance*
+* *Retract*
+* *Start*
+* *Step down*
+* *Finish step down*
+* *Final*
+
+=== Tool Controller
+
+* *Tool controller*
+* *Coolant mode*
 
 === Operation
 
-* *Tool Controller*
 * *Cut Mode*
-* *Pattern* (Offset Pattern)
-* *Angle*
-* *Step Over Percent* (Step Over)
-* *Pass Extension*: The distance the facing operation will extend beyond the boundary shape (base geometry)
+* *Pattern* (Clearing Pattern)
+* *Angle* (disabled for `Offset`)
+* *Step over* (%)
+* *Radial stock to leave* (Extra Offset)
+* *Ignore holes* (Use Outline)
+* *Min travel*
+* *Use rest machining*
+* *Retract threshold*
+* *Use start point* and the *Set picked point as start point* button [.since]#introduced in 26.3#
+
+The Boundary Shape and Clear edges widgets in the shared pocket panel are hidden for Pocket Shape.
 
 == Scripting
 
@@ -150,5 +169,11 @@ See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Ba
 
 [source,python]
 ----
-#Place code example here.
+import Path.Op.PocketShape as PathPocketShape
+
+op = PathPocketShape.Create('Pocket_Shape')
+op.Base = [(doc.Body, ['Face3'])]
+op.ClearingPattern = 'Offset'
+op.StepOver = 50
+doc.recompute()
 ----

@@ -7,6 +7,7 @@
 :page-workbench: CAM
 :page-shortcut: P I
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -15,26 +16,49 @@ image:CAM_Inspect.svg[CAM Inspect,32] *CAM Inspect*
 
 Menu location:: menu:CAM[Inspect Toolpath]
 Workbenches:: xref:index.adoc[CAM]
-Default shortcut:: kbd:[kbd:[P] kbd:[I]]
+Default shortcut:: kbd:[P] then kbd:[I]
 Introduced in version:: -
 See also:: _None_
 --
 
 == Description
 
-The image:CAM_Inspect.svg[width=24] xref:inspect/inspect.adoc[CAM Inspect] command allows inspection of the internal FreeCAD G-code dialect contents of a CAM Operation object.
+The image:CAM_Inspect.svg[width=24] xref:inspect/inspect.adoc[Inspect Toolpath] command opens the _CAM Inspect_ dialog showing the internal G-code of the selected toolpath object in a read-only code viewer with line numbers and G-code syntax highlighting (G/M words, numbers and F feed words). The toolpath has not been post-processed: coordinates are in millimetres and feed rates in mm/s, and a note at the bottom of the dialog reminds of this.
+
+Selecting one or more lines in the viewer highlights the corresponding moves in the https://wiki.freecad.org/3D_View[3D View] (drawn with the _Highlight path_ color from menu:Edit[Preferences > CAM > Colors]) and moves the Tool Bit shape of the Operation's Tool Controller to the start point of the selection.
+
+[.since]#introduced in 26.3#: line numbers are shown. For very long toolpaths (more than 1000 lines by default, parameter `MaxHighlighterSize`) syntax highlighting is switched off.
 
 image:Path_inspector.jpg[]
 
+NOTE: This screenshot predates line numbers and the unit note in the current dialog.
+
 == Usage
 
-. Select a CAM object.
+. Select exactly one toolpath object (Operation, dressup, Array, copy or Job) whose toolpath is not empty. Otherwise "Select exactly one path object" is printed in the Report view.
 . There are several ways to invoke the command:
 * Press the image:CAM_Inspect.svg[width=16] xref:inspect/inspect.adoc[Inspect Toolpath] button.
 * Select the menu:CAM[Inspect Toolpath] option from the menu.
-* Select the menu:Inspect Toolpath[] option from the https://wiki.freecad.org/Tree_View[Tree View] context menu.
+* Select the menu:Inspect Toolpath[] option from the https://wiki.freecad.org/Tree_View[Tree View] context menu (offered when exactly one Operation is selected).
 * Use the keyboard shortcut: kbd:[P] then kbd:[I].
 
 == Options
 
-* The font and colors of the editor window follow the settings from menu:Edit[Preferences > Editor]
+* The font and the Number/Keyword/Define name colors of the editor window follow the settings from menu:Edit[Preferences > Editor]. The 3D highlight color comes from the CAM Colors preference page.
+* The size and position of the dialog are stored in the user parameters.
+
+== Notes
+
+* For an Operation deactivated with xref:inspect/op-active-toggle.adoc[Toggle Operation] the viewer only shows `(inactive operation)`.
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+import Path.Main.Gui.Inspect
+Path.Main.Gui.Inspect.show(FreeCAD.ActiveDocument.Profile)
+----

@@ -2,43 +2,100 @@
 :page-origin: https://wiki.freecad.org/CAM_Preferences
 :page-origin-revision: c0f7759332 2026-08-07
 :page-imported: true
+:page-audit: applied
 
 == Overview
 
 After selecting the xref:index.adoc[CAM Workbench] the preferences screen is found in the https://wiki.freecad.org/Preferences_Editor[Preferences Editor], menu:Edit[Preferences > CAM].
 
-There are five pages: <<gui,GUI>>, <<assets,Assets>>, <<job-preferences,Job preferences>>, <<dressups,Dressups>>, and <<advanced,Advanced>>.
+There are five pages: <<gui,GUI>>, <<assets,Assets>> ([.since]#introduced in 1.1#), <<job-preferences,Job Preferences>>, <<dressups,Dressups>>, and <<advanced,Advanced>>. All settings are stored under menu:Tools[Edit parameters] → `BaseApp/Preferences/Mod/CAM`.
 
 == GUI
 
-image:Preference_Path_Tab_03_V020.png[]
+=== Default Path Colors
+
+* *Default pathline width* (1 to 9).
+* *Default normal path color*.
+* *Rapid path color*.
+* *Path highlight color*.
+* *Probe path color*.
+* *Default path marker color*.
+* *Bounding box normal color*.
+* *Bounding box selection color*.
+
+=== UI Settings
+
+* *Path selection style*: Shape, Bounding box or None; default behaviour when selecting Toolpaths in the 3D view.
+* *Task panel layout*: Classic, Classic - reversed, Multi-panel or Multi-panel - reversed; layout of the operation task panels.
+* *Hide first rapid move* [.since]#introduced in 26.3#: hide the initial rapid move in the Toolpath display.
+* *Show editor before writing G-code* [.since]#introduced in 26.3#: open the G-code editor for review before the post-processor output file is written.
+* *Maximum lines of G-code to use highlighter* [.since]#introduced in 26.3# (default 1000): larger files are shown without syntax highlighting; set to zero to disable the highlighter.
 
 == Assets
 
-TBD
+[.since]#introduced in 1.1#
 
-[.since]#introduced in 26.3#: machine assets can be managed from the CAM preferences. The Machine Library and Machine Editor create and edit `*.fcm` machine configuration files used by machine-based postprocessing.
+=== Asset Location
 
-== Job preferences
+* *Default path*: the CAM asset directory holding the `Tools` folder (`Bit`, `Shape` and `Library` subfolders), the `Machines` folder and the `Templates` folder for Job Templates. Use the folder button to pick a directory and btn:[Reset] to return to the default (`CamAssets` in the user application data directory). The directory must be writable. Changing it resets the remembered last tool library. See xref:tools/index.adoc[CAM Tools].
 
-There are four sections: General, Post processor, Setup and Tools.
+=== Machines
+
+[.since]#introduced in 26.3#
+
+* List of Machine templates (`.fcm` files in the `Machines` folder plus templates provided by add-ons). btn:[Add] creates a new machine in the Machine Editor, btn:[Edit] (or double-click) opens the selected machine in the Machine Editor, btn:[Delete] removes the file after confirmation. See xref:output/machine.adoc[CAM Machine].
+* The page shows the note _Warning: Machine definition is an experimental feature._
+* *Check for tool updates from the library when opening a document* [.since]#introduced in 26.3#: when enabled (default), opening a document compares the Tool Bits embedded in its Jobs with the library and offers to update them (see xref:tools/toolbit.adoc[CAM ToolBit]).
+
+Machine templates created here are selected per Job in the Job task panel (General tab → Machine) and used by machine-based post-processors; see xref:output/machine.adoc[CAM Machine] and xref:job/job.adoc[CAM Job].
+
+== Job Preferences
+
+There are three tabs: General, Post processor and Setup.
 
 === General
 
-image:Preference_Path_Tab_01_01_V020.png[]
+* Defaults → *Template*: Job Template preselected when creating a new Job; leave empty for none.
+* Geometry → *Default geometry tolerance*: default tolerance of new Jobs used when computing Toolpaths; smaller values increase accuracy and computation time.
+* Geometry → *Default curve accuracy* [.since]#introduced in 26.3#: accuracy used when arcs are approximated; smaller values increase accuracy and computation time.
 
 === Post processor
 
-image:Preference_Path_Tab_01_02_V020.png[]
+* Output File → *Default path*: default directory and optional file name for the G-code output. Substitutions: `%D` directory of the active document, `%d` name of the active document, `%M` user macro directory, `%j` name of the Job; when output is split: `%T` Tool Number, `%t` Tool Controller label, `%W` work coordinate system, `%O` Operation label, `%S` sequence number.
+* Output File → *File save policy*: Open file dialog, Open file dialog on conflict, Overwrite existing file, or Append Unique ID on conflict.
+* Post Processor → *Post processors selection*: check the post-processors that should be offered in Jobs; unchecked ones are blacklisted.
+* Post Processor → *Default post processor* and *Default arguments*: preselected for new Jobs.
 
 === Setup
 
-image:Preference_Path_Tab_01_03_V020.png[]
+* *Stock*: default Stock for new Jobs: Create box (Length, Width, Height), Create cylinder (Radius, Height) or Extend model's bounding box (Ext. X, Ext. Y, Ext. Z, negative and positive).
+* *Placement* (optional): Angle, Axis and Position applied to the default Stock.
 
 == Dressups
 
-image:Preference_Path_Tab_02_V020.png[]
+Defaults for the xref:dressups/tag.adoc[Tag] dressup.
+
+* Tag Parameters: *Default width*, *Default height*, *Default angle* (plunge angle of the tag flanks), *Default radius* (fillet on the tag's top edge).
+* Tag Generation: *Initial # tags*: number of tags created when a new dressup is added.
 
 == Advanced
 
-image:Preference_Path_Tab_04_V020.png[]
+* Warnings: *Suppress all missing speeds warning*, *Suppress missing rapid speeds warning* (ignored if all speed warnings are suppressed), *Suppress selection mode warning*.
+* OpenCAMLib: *Enable OCL dependent features* (requires a restart; enables the Surface, Waterline and, with experimental features, Rotary Surface operations and the Camotics command) and *Suppress openCAMlib warning*.
+
+== Parameters without a preferences page
+
+Under `BaseApp/Preferences/Mod/CAM`:
+
+* `EnableExperimentalFeatures` (Bool): enables the Helpful Tools toolbar (Area, Area Workplane), Rotary Surface (with OCL) and Path Shape with Tool Controller; requires a restart.
+* `DefaultSimulatorLegacy` (Bool): makes the legacy CAM Simulator the default entry of the simulator toolbar button.
+* `PostProcessorBlacklist` (JSON list, maintained by the Post processors selection list).
+* `DefaultStockTemplate` (String): stock defaults written by the Setup tab.
+* `CheckAssetPathWritable` (Bool, default true): skip the writability check of the asset path when disabled.
+* `DefaultFilePath` (String): legacy tool/template directory, migrated into the asset path on first use.
+
+Under `BaseApp/Preferences/Mod/CAM/Tools`:
+
+* `ToolPath`: the asset directory.
+* `LastToolLibrary`, `LastToolLibrarySortKey`: library and sort order remembered by the Library Manager and Toolbit Selector.
+* `ToolUpdateOnLoad`: the Assets page checkbox.

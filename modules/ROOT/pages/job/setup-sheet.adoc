@@ -2,47 +2,65 @@
 :page-origin: https://wiki.freecad.org/CAM_SetupSheet
 :page-origin-revision: 45eab38f4c 2025-01-23
 :page-imported: true
+:page-audit: applied
 
 == Description
 
-Using a *SetupSheet* allows the user to customize how the various property values for operations will be calculated. The user always has the option to override the SetupSheet values with an explicit value or change the way SetupSheet values are calculated.
+The *Setup Sheet* is an object created automatically with every xref:job/job.adoc[CAM Job] (shown as _SetupSheet_ under the Job in the Tree View, icon image:CAM_SetupSheet.svg[width=16]). It holds the default values and expressions applied to every newly created Operation and Tool Controller of that Job.
 
-Since SetupSheets are part of the CAM Job, values do not changes the default behavior of CAM. Rather, they change only the behaviour within the context of the current job.
+Using a Setup Sheet allows the user to customize how the various property values for Operations will be calculated. The user always has the option to override the Setup Sheet values with an explicit value or change the way Setup Sheet values are calculated.
 
-SetupSheets are particularly useful when saved with a xref:job/export-template.adoc[Job Template].
+Since Setup Sheets are part of the CAM Job, values do not change the default behavior of CAM. Rather, they change only the behaviour within the context of the current Job.
+
+Setup Sheets are particularly useful when saved with a xref:job/export-template.adoc[Job Template].
+
+NOTE: In FreeCAD the term _Setup Sheet_ means this defaults container, not the shop-floor setup document. A printable setup report for the machine operator is produced by xref:job/sanity-check.adoc[CAM Sanity].
+
+== Usage
+
+Edit the Setup Sheet either from the xref:job/job.adoc[Job] task panel (Setup tab: *Default values*; Tools tab: *Rapid Speeds*; Advanced tab: *Operation Defaults*) or by double-clicking the SetupSheet object in the Tree View. The latter opens a task panel with the tabs menu:Operation[] (Depths and Heights expressions), menu:Tool Controller[] (Rapid Speeds), menu:Coolant[] and one tab per Operation type listing that type's per-operation defaults as an editable table. The properties can also be changed directly in the property editor.
 
 == Properties
 
-* *VertRapid*: Sets the Vertical Rapid Rate in new Tool Controllers. (Used in post processors that support customizable Rapid rates)
-* *HorizRapid*: Sets the Horizontal Rapid Rate in new Tool Controllers. (Used in post processors that support customizable Rapid rates)
-* *SafeHeightOffset*: The usage of this field depends on SafeHeightExpression (see below)
-* *SafeHeightExpression*: The result of this expression will be used to set the Safe Height of operations.
-* *ClearanceHeightOffset*: The usage of this field depends on ClearanceHeightExpression (see below)
-* *ClearanceHeightExpression*: The result of this expression will be used to set the Clearance Height of operations.
-* *StartDepthExpression*: The result of this expression will be used to set the StartDepth property of operations.
-* *FinalDepthExpression*: The result of this expression will be used to set the FinalDepth property of operations.
-* *StepDownExpression*: The result of this expression will be used to set the StepDown property of operations.
+.Tool Controller
+* *HorizRapid* (`Speed`): default horizontal rapid rate assigned (by expression) to new Tool Controllers. Only Post-Processors that output rapid feed rates use it.
+* *VertRapid* (`Speed`): default vertical rapid rate assigned to new Tool Controllers.
+
+.Coolant
+* *CoolantMode* (`Enumeration`): default coolant mode for new Operations: None, Flood or Mist.
+* *CoolantModes* (`StringList`): the list of available coolant modes.
+
+.Operation Heights
+* *SafeHeightOffset* (`Length`, default 3 mm): added to the stock top by the default safe-height expression.
+* *SafeHeightExpression* (`String`, default `OpStockZMax+SetupSheet.SafeHeightOffset`): the result of this expression is used to set the Safe Height of Operations.
+* *ClearanceHeightOffset* (`Length`, default 5 mm): added to the stock top by the default clearance-height expression.
+* *ClearanceHeightExpression* (`String`, default `OpStockZMax+SetupSheet.ClearanceHeightOffset`): the result of this expression is used to set the Clearance Height of Operations.
+
+.Operation Depths
+* *StartDepthExpression* (`String`, default `OpStartDepth`): the result of this expression is used to set the StartDepth property of Operations.
+* *FinalDepthExpression* (`String`, default `OpFinalDepth`): the result of this expression is used to set the FinalDepth property of Operations.
+* *StepDownExpression* (`String`, default `OpToolDiameter`): the result of this expression is used to set the StepDown property of Operations.
+
+.Linking
+* *CollisionAvoidanceStrategy* (`Enumeration`, default Retract Height) [.since]#introduced in 26.3#: default linking collision-avoidance strategy for new Operations that support linking (Drilling, Helix, MillFacing, Engrave, Deburr): Clearance Height, Retract Height, Line of Sight, Tool Diameter or Tool Shape.
 
 == Operation Parameters
 
-The following are pulled from:
+The expressions may reference these read-only properties of the Operation:
 
-* OpFinalDepth - The value of the FinalDepth property
-* OpStartDepth - The value of the FinalDepth property
-* OpToolDiameter - The value of the Tool Diameter property of the Tool Controller referenced by the operation.
+* *OpStartDepth*: the top of the Model/Stock for the operation.
+* *OpFinalDepth*: the bottom of the selected Base Geometry.
+* *OpToolDiameter*: the diameter of the Tool Bit of the operation's Tool Controller.
+* *OpStockZMax*: the top of the Stock.
 
-== SetupSheet Values
+== Referencing Setup Sheet values
 
-Other values in the SetupSheet can be referenced directly:
+Other Setup Sheet properties are referenced by the object's internal name, e.g. `SetupSheet.ClearanceHeightOffset` or `SetupSheet001.SafeHeightOffset` for the second Job in a document. In exported Job Templates the reference is stored as `${SetupSheet}` and resolved on import.
 
-* SetupSheet.ClearanceHeightOffset
-* SetupSheet.SafeHeightOffset
+== Per-operation defaults
 
-* StartDepth
-* SafeHeightOffset
-* SafeHeightExpression
-* ClearanceHeightOffset
-* ClearanceHeightExpression
-* StartDepthExpression
-* FinalDepthExpression
-* StepDownExpression
+Each Operation type registers the properties it allows as Setup Sheet defaults. When a value is set (Advanced tab of the Job task panel or the SetupSheet task panel) the Setup Sheet gains a property named after the operation and the property (e.g. `ProfileStepOver`); new Operations of that type receive that value, replacing any default expression ([.since]#26.3 and later#). When an Operation is created the Setup Sheet also applies StartDepth, FinalDepth, StepDown, SafeHeight and ClearanceHeight expressions, the CoolantMode and the CollisionAvoidanceStrategy.
+
+== Job Templates
+
+When exporting a xref:job/export-template.adoc[Job Template] you can include the rapid speeds, coolant mode, operation heights, operation depths and the per-operation defaults.

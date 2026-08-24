@@ -6,51 +6,58 @@
 :page-menu: CAM → Face
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
-WARNING: THIS COMMAND IS OBSOLETE It is not available in [.since]#26.3 and later#.
+WARNING: [.obsolete]#obsolete since 26.3# This command was replaced by xref:operations/mill-facing.adoc[Mill Facing] in 26.3 and is no longer in the toolbar or menu. Existing Face operations in saved documents keep working and can still be created from Python with `FreeCADGui.runCommand('CAM_MillFace')` or `Path.Op.MillFace.Create()`. They are not converted to Mill Facing automatically.
 
 [.fcinfobox]
 --
 [.fcTitle]
 image:CAM_MillFace.svg[CAM MillFace,32] *CAM MillFace*
 
-Menu location:: menu:CAM[Face]
+Menu location:: menu:CAM[Face] [.until]#1.1 and earlier#
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:operations/mill-facing.adoc[CAM Mill Facing]
 --
 
 == Description
 
-The image:CAM_MillFace.svg[width=24] xref:operations/mill-face.adoc[CAM MillFace] command creates a path to perform a facing operation on a horizontal surface. This operation is generally used:
+The image:CAM_MillFace.svg[width=24] xref:operations/mill-face.adoc[CAM MillFace] command creates a Toolpath to perform a facing operation on a horizontal surface. The command's menu text is "Face" and its tooltip reads "Create a Facing Operation from a model or face"; in the source the command uses the `CAM_Face.svg` icon. This operation is generally used:
 
 * to smooth out a rough stock surface,
 * to mill selected face(s) to desired depth in preparation for performing subsequent clearing operations within the boundary of the regions affected by this operation,
 * or to apply a finishing surface to the selected face(s).
 
-This operation contains a *BoundaryShape* property that allows for a modified selection area based upon the selected face(s).
+This operation contains a *Boundary Shape* property that allows for a modified selection area based upon the selected face(s).
+
+For 26.3 and later use xref:operations/mill-facing.adoc[Mill Facing], which faces the Stock cross-section at the Final Depth and does not use Base Geometry.
 
 image::MillFace_Sample.png[Sample image of Mill Face operation used to prepare stock surface for subsequent clearing operation.,600]
 
 == Usage
 
+[.until]#1.1 and earlier#
+
 . Select one or more faces to be surfaced. *Note:* If selected faces exist at different heights, then all will be milled to the Final Depth setting.
 . There are several ways to invoke the command:
 * Press the image:CAM_MillFace.svg[width=16] xref:operations/mill-face.adoc[Face] button.
 * Select the menu:CAM[Face] option from the menu.
-. Select the correct *BoundaryShape* setting to modify the milling area based on the face(s) selected as menu:Base Geometry[].
+. Select the correct *Boundary Shape* setting to modify the milling area based on the face(s) selected as menu:Base Geometry[].
 . Adjust the other properties as needed. They are listed further below.
 
 == Caveats
 
-* Using it on an inclined plane may produce unexpected results: it will still produce a path to cut a horizontal surface. The extent of the cut will be the vertical projection of the inclined plane, performed at a height corresponding to the lowest point in that plane.
+The following caveats apply to this legacy operation. The replacement xref:operations/mill-facing.adoc[Mill Facing] operation faces the whole Stock top without a face selection, so the issues around inclined planes and unmachined corners below do not apply to it.
 
-* Since the CAM tools work on the geometry of the selected edges/faces only, and do not relate to the rest of the 3D model, the paths will not go beyond the bounds of the chosen plane, even if it is surrounded by unused stock or air. This will leave unmachined corners. These can sometimes removed with one of the dress-up tools to be found on the _CAM_ menu.
+* Using it on an inclined plane may produce unexpected results: it will still produce a Toolpath to cut a horizontal surface. The extent of the cut will be the vertical projection of the inclined plane, performed at a height corresponding to the lowest point in that plane.
+
+* Since the CAM operations work on the geometry of the selected edges/faces only, and do not relate to the rest of the 3D model, the Toolpaths will not go beyond the bounds of the chosen plane, even if it is surrounded by unused stock or air. This will leave unmachined corners. These can sometimes be removed with one of the Dressups found on the _CAM_ menu.
 
 == Vertical face milling
 
-* This tool will not work on a *vertical plane* or vertical non planar surface. Vertical operations can be achieved by using the xref:operations/profile.adoc[face profile] tool or xref:operations/profile.adoc[edge profile] tool. These will need the selection of a face or closed loop of edges _including the top or bottom edge of the vertical surface desired_). The extent of the path can then be reduced using the xref:dressups/path-boundary.adoc[Boundary Dress-up] tool to be found on the _CAM_ menu. With the Dress-up tool, select _Create Box_ option and reduce the size to limit the scope of the profile path. These settings will not allow the origin of the boundary box to be moved, however. This must be done by adjusting the Placement settings in the https://wiki.freecad.org/Tree_View[Tree View].
+* This operation will not work on a *vertical plane* or vertical non planar surface. Vertical operations can be achieved by using the xref:operations/profile.adoc[face profile] or xref:operations/profile.adoc[edge profile] operation. These will need the selection of a face or closed loop of edges _including the top or bottom edge of the vertical surface desired_). The extent of the Toolpath can then be reduced using the xref:dressups/path-boundary.adoc[Boundary Dress-up] found on the _CAM_ menu. With the Dressup, select _Create Box_ option and reduce the size to limit the scope of the profile Toolpath. These settings will not allow the origin of the boundary box to be moved, however. This must be done by adjusting the Placement settings in the https://wiki.freecad.org/Tree_View[Tree View].
 * This will work on compound surfaces such as several vertical planes or cylindrical surfaces joined together, so long as they form one continuous surface.
 
 == Properties
@@ -76,47 +83,55 @@ Note: It is suggested that you do not edit the Placement property of path operat
 
 .Depth
 * *Clearance Height*: The height needed to clear clamps and obstructions
-* *Final Depth*: Final Depth of Tool- lowest value in Z
+* *Final Depth*: Final Depth of Tool Bit - lowest value in Z
 * *Finish Depth*: Maximum material removed on final pass.
-* *Safe Height*: The above which Rapid motions are allowed.
-* *Start Depth*: Starting Depth of Tool- first cut depth in Z
-* *Step Down*: Incremental Step Down of Tool
+* *Safe Height*: The height above which rapid moves are allowed.
+* *Start Depth*: Starting Depth of Tool Bit - first cut depth in Z
+* *Step Down*: Incremental Step Down of Tool Bit
 
 .Face
-* *BoundaryShape*: Shape to use for calculating Boundary
-* *ClearEdges*: Clear edges of surface (Only applicable to BoundBox)
-* *ExcludeRaisedAreas*: Exclude milling raised areas inside the face.
-* *Offset Pattern*: Clearing pattern to use. (Select in which manner the horizontal movements should be done.)
+* *Boundary Shape*: Shape to use for calculating the boundary: `Boundbox`, `Face Region`, `Perimeter` or `Stock`.
+* *Clear Edges*: Clear edges of surface (Only applicable to Boundbox)
+* *Exclude Raised Areas*: Exclude milling raised areas inside the face.
 
 .Path
 * *Active*: Make False, to prevent operation from generating code
 * *Base*: The base geometry for this operation
+* *Block Delete*: [.since]#introduced in 26.3# Enable the Post-Processor to add block delete commands
 * *Comment*: An optional comment for this Operation
-* *Coolant Mode*: The coolant mode for this operation.
-* *Cycle Time*: The cycle time estimation for this operation.
-* *Tool Controller*: Defines the Tool controller used in the Operation
+* *Coolant Mode*: The coolant mode for this operation: `None`, `Flood` or `Mist`
+* *Cycle Time*: (read-only) The cycle time estimation for this operation.
+* *Sorting Mode*: [.since]#introduced in 26.3# `Automatic` sorts shapes with a nearest-neighbour algorithm; `Manual` follows the selection order.
+* *Tool Controller*: Defines the Tool Controller used in the Operation
 * *User Label*: User assigned label
+* *Workplane*: [.since]#introduced in 26.3# The orientation of the Tool Bit for this operation; default (0, 0, 1) for standard Z-up milling.
+
+.Op Values
+These read-only properties hold values calculated by the operation. They are useful as sources for expressions.
+
+* *Op Start Depth*, *Op Final Depth*: the calculated default depths
+* *Op Tool Diameter*: the diameter of the Tool Bit
+* *Op Stock ZMax*, *Op Stock ZMin*: the Z extent of the Stock
 
 .Pocket
-* *Cut Mode*: The direction that the toolpath should go around the part ClockWise (CW) or CounterClockWise (CCW)
+* *Angle*: [.since]#introduced in 26.3# (formerly *Zig Zag Angle*) Angle of the grid, line and zigzag patterns. Hidden when the pattern is `Offset`.
+* *Clearing Pattern*: [.since]#introduced in 1.1# (formerly *Offset Pattern*) Clearing pattern to use: `ZigZag`, `Offset`, `ZigZagOffset`, `Line` or `Grid`.
+* *Cut Mode*: `Climb` or `Conventional`.
 * *Extra Offset*: Extra offset to apply to the operation. Direction is operation dependent.
-* *StartAt*: Start pocketing at center or boundary
-* *Step Over*: Percent of cutter diameter to step over on each pass
-* *Zig Zag Angle*: Angle of the zigzag pattern
-* *Offset Pattern*: Clearing pattern to use
-* *Min Travel*: Use 3D Sorting of Path
-* *Keep Tool Down*: Attempts to avoid unnecessary retractions.
-
-.Rotation
-* *Attempt Inverse Angle*: Automatically attempt Inverse Angle if initial rotation is incorrect.
-* *Enable Rotation*: Enable rotation to gain access to pockets or areas not normal to Z axis.
-* *Inverse Angle*: Inverse the angle of the rotation. _*Example:* change a rotation from -22.5 to 22.5 degrees._
-* *Limit Depth To Face*: Enforce the Z-depth of the selected face as the lowest value for final depth. Higher user values for final depth will be observed.
-* *Reverse Direction*: Reverse orientation of Operation by 180 degrees.
+* *Force Max Step Over*: [.since]#introduced in 26.3# Force the maximum stepover even if not all area is cleared.
+* *Min Travel*: Use 3D Sorting of the Toolpath
+* *Retract Threshold*: [.since]#introduced in 26.3# Repositioning moves shorter than this distance stay down. Replaces *Keep Tool Down* [.until]#1.1 and earlier#.
+* *Start At*: Start pocketing at center or boundary
+* *Step Over*: Percent of Tool Bit diameter to step over on each pass (a value of 0 is reset to 1 %)
+* *Use Rest Machining*: Skip regions already cleared by previous operations.
 
 .Start Point
-* *Start Point*: The custom start point for the path of this operation.
+* *Start Point*: The custom start point for the Toolpath of this operation.
 ** *X*: X-distance value
 ** *Y*: Y-distance value
 ** *Z*: Z-distance value
 * *Use Start Point*: Make True, if manually specifying a Start Point. Set the start point in the property data Start Point field.
+
+== Notes
+
+* The legacy Heidenhain Post-Processor (`heidenhain_legacy_post.py`) still special-cases Face operations when labelling the output. It does not recognise the newer xref:operations/mill-facing.adoc[Mill Facing] operation, so users of that Post-Processor who rely on the FACE labelling should be aware of the difference.

@@ -5,6 +5,7 @@
 :page-icon: CAM_Engrave.svg
 :page-menu: CAM → Engrave
 :page-workbench: CAM
+:page-audit: applied
 :page-imported: true
 
 [.fcinfobox]
@@ -16,29 +17,46 @@ Menu location:: menu:CAM[Engrave]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:operations/vcarve.adoc[CAM Vcarve]
 --
 
 == Description
 
-The image:CAM_Engrave.svg[width=24] xref:operations/engrave.adoc[CAM Engrave] command is primarily for engraving a image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft ShapeString] onto a part. It can also be used with other flat 2D geometry, for example imported SVG-based shapes.
+The image:CAM_Engrave.svg[width=24] xref:operations/engrave.adoc[CAM Engrave] command is primarily for engraving a image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft ShapeString] onto a part. It can also be used with other flat 2D geometry, for example imported SVG-based shapes. The command tooltip reads "Creates an Engraving toolpath around a Draft ShapeString".
+
+[.since]#introduced in 26.3#: Any Model whose shape has no volume (a sketch, a Draft ShapeString, an imported SVG) can be engraved as a whole; edges and faces of solid Models can also be selected. If no Base Geometry is given, every zero-volume Model of the Job is engraved.
 
 == Usage
 
 . There are several ways to invoke the command:
-* Press the image:CAM_Engrave.svg[width=16] xref:operations/engrave.adoc[Engrave] button.
+* Press the image:CAM_Engrave.svg[width=16] xref:operations/engrave.adoc[Engrave] button in the *Engraving Operations* group of the New Operations toolbar.
 * Select the menu:CAM[Engrave] option from the menu.
 . In the menu:Base Geometry[] section, select the geometry to engrave.
 * A image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft ShapeString] can be used.
 * Other flat 2D geometry, such as imported SVG-based shapes, can also be used.
 * When possible, select the whole flat shape instead of selecting many individual edges in the https://wiki.freecad.org/3D_View[3D View].
-. In the menu:Depths[] section, check and adjust the depth settings as required.
+. In the menu:Heights[] section, check and adjust the height and depth settings as required.
 . Confirm the operation.
 
 == Options
 
-* *Base*: The geometry to engrave.
-* *Clear*: Clears the current geometry selection.
+The task panel has the following sections:
+
+.Base Geometry
+* *Add*: Add selected features to the list of base geometries for this operation.
+* *Remove*: Remove the selected list items from the list of base geometries.
+* *Clear*: Clears list of base geometries.
+* *Import*: copies the Base Geometry of another operation of the Job.
+
+.Heights
+* *Clearance*, *Retract*, *Start*, *Step down*, *Final*.
+* *Collision Avoidance Strategy* and *Collision Clearance* (Linking group, [.since]#introduced in 26.3#).
+
+.Tool Controller
+* *Tool controller*, *Coolant*.
+
+.Operation
+* *Start at vertex*: Specify the vertex number of the underlying shape string at which engraving should start.
 
 == Properties
 
@@ -50,24 +68,43 @@ The image:CAM_Engrave.svg[width=24] xref:operations/engrave.adoc[CAM Engrave] co
 
 .Depth
 * *Clearance Height*: The height needed to clear clamps and obstructions
-* *Final Depth*: Final Depth of Tool- lowest value in Z
-* *Safe Height*: The above which Rapid motions are allowed.
+* *Final Depth*: Final Depth of Tool- lowest value in Z. [.since]#introduced in 26.3#: the default is the top Z of the selected Base Geometry or Base Shapes, or the Stock top if nothing is selected, so a newly created Engrave operation cuts at the surface of the engraved shape.
+* *Safe Height*: Rapid Safety Height between locations. Shown as _Retract_ in the task panel.
 * *Start Depth*: Starting Depth of Tool- first cut depth in Z
-* *Step Down*: Incremental Step Down of Tool
+* *Step Down*: Incremental Step Down of Tool; each layer repeats the wire.
+
+.Linking
+[.since]#introduced in 26.3#
+
+* *Collision Avoidance Strategy*: `Clearance Height`, `Retract Height`, `Line of Sight`, `Tool Diameter`, `Tool Shape`. Used for the moves between wires; the first entry always starts from Clearance Height.
+* *Collision Clearance*: Distance for collision detection.
+
+.Op Values
+* *Op Final Depth*, *Op Start Depth*, *Op Stock ZMax*, *Op Stock ZMin*, *Op Tool Diameter*. All read-only.
 
 .Path
 * *Active*: Make False, to prevent operation from generating code
+* *Approximation* ([.since]#introduced in 26.3#): Approximate complex curves to arcs and lines. Produces G2/G3 output for B-splines and reduces the command count.
 * *Base*: The base geometry for this operation
 * *Comment*: An optional comment for this operation
 * *Coolant Mode*: Coolant mode for this operation
-* *Cycle Time*: Estimated cycle time for this operation
-* *Start Vertex*: The vertex index to start the path from
+* *Cut Pattern* ([.since]#introduced in 26.3#): Set the cut pattern for the operation. `Bidirectional` (default) alternates the direction on each step-down layer of an open wire so no retract is needed; `Directional` retracts and re-enters so every layer runs the same way. (The release notes call this property _Pattern_.)
+* *Cycle Time*: Operations Cycle Time Estimation (read-only)
+* *Reverse* ([.since]#introduced in 26.3#): Reverse milling direction.
+* *Start Vertex*: The vertex index to start the toolpath from. Integer 0–999999; for closed wires the edge list is rotated to start at that index, for open wires it is ignored.
 * *Tool Controller*: The tool controller that will be used to calculate the path
 * *User Label*: User assigned label
+* *Workplane*: The orientation of the tool for this operation. Default is (0, 0, 1) for standard Z-up milling.
+
+.Sorting
+* *Sorting Mode*: Order processing of the wires. `Automatic` (default) sorts wires by the nearest-neighbour method, further improved with 2-opt; `Manual` uses the order of selection without sorting.
+* *Start Point*: The start point for sorting.
+* *End Point*: The end point for sorting.
+* *Use End Point*: Use end point for sorting.
+* The three point properties are hidden while Sorting Mode is `Manual`.
 
 .Hidden
-* *Base Object*:
-* *Base Shapes*:
+* *Base Shapes*: Additional base objects to be engraved.
 * *Expression Engine*:
 * *Label2*:
 * *Path*:
@@ -78,6 +115,11 @@ The image:CAM_Engrave.svg[width=24] xref:operations/engrave.adoc[CAM Engrave] co
 
 Empty
 
+== Notes
+
+* [.since]#introduced in 26.3#: The precision used to segment complex curves into G-code is the *Geometry Tolerance* property of the CAM Job; there is no per-operation tolerance property.
+* [.since]#introduced in 26.3#: Moves between wires use the Linking generator: the tool retracts only to Safe Height (_Retract_) when the Collision Avoidance Strategy finds the move clear, instead of always returning to Clearance Height.
+
 == Scripting
 
 See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
@@ -86,5 +128,15 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import FreeCAD
+import Path.Op.Engrave as PathEngrave
+
+job = FreeCAD.ActiveDocument.getObject('Job')
+op = PathEngrave.Create('Engrave', parentJob=job)
+op.BaseShapes = [FreeCAD.ActiveDocument.getObject('ShapeString')]
+op.StartVertex = 0
+op.CutPattern = 'Bidirectional'
+FreeCAD.ActiveDocument.recompute()
 ----
+
+The ShapeString must be a Model of the Job.

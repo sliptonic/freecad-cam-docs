@@ -3,30 +3,125 @@
 :page-origin-revision: b36bf90091 2026-07-08
 :page-command: CAM_ThreadMilling
 :page-icon: CAM_ThreadMilling.svg
-:page-menu: CAM → Specialty Operations → Thread Milling
+:page-menu: CAM → Thread Milling
 :page-workbench: CAM
+:page-since: 1.1
+:page-audit: applied
 :page-imported: true
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
 [.fcinfobox]
 --
 [.fcTitle]
 image:CAM_ThreadMilling.svg[CAM ThreadMilling,32] *CAM ThreadMilling*
 
-Menu location:: menu:CAM[Specialty Operations > Thread Milling]
+Menu location:: menu:CAM[Thread Milling]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
-Introduced in version:: -
-See also:: _None_
+Introduced in version:: 1.1
+See also:: xref:operations/drilling.adoc[CAM Drilling]
 --
 
 == Description
 
+The CAM Thread Milling command creates an Operation that mills internal or external threads in circular holes or on cylindrical bosses with a thread-milling cutter. The command tooltip reads "Creates a Thread Milling toolpath from features of a base object".
+
+The Toolpath is a helical G2/G3 move at the thread pitch, repeated for the number of passes; the radial depth of each pass is computed so that every pass removes the same area. The Tool Controller must use a Tool Bit with the `thread-mill` Tool Shape (properties *Diameter* and *Crest*; the shipped `5mm-thread-cutter` is an example). Base Geometry is selected like in xref:operations/drilling.adoc[CAM Drilling] (circular faces, edges or vertexes, with Auto-select).
+
+[.until]#1.1 and earlier#: only available when _Enable experimental features_ is checked in the CAM preferences. [.since]#26.3 and later#: available by default.
+
 == Usage
+
+. Optionally select hole faces or edges on the Model.
+. Press the image:CAM_ThreadMilling.svg[width=16] Thread Milling button in the *Drilling Operations* group of the New Operations toolbar, or select menu:CAM[Thread Milling] from the menu.
+. In the menu:Base Geometry[] section add or Auto-select the holes; use Sorting to order them.
+. In the menu:Heights[] section set Clearance, Retract, Start and Final.
+. In the menu:Tool Controller[] section pick a Tool Controller with a thread-mill Tool Bit; the error "This operation requires a tool controller with a threadmilling tool" is shown otherwise.
+. In the menu:Operation[] section choose Orientation, Type, the thread name (standard threads) or enter Major diameter, Minor diameter and Pitch or TPI (custom threads), and adjust Fit, Passes, Direction and Lead in/out.
+. Press btn:[OK].
 
 == Options
 
+.Thread group
+* *Orientation*: `LeftHand` or `RightHand`.
+* *Type*: see the Thread Type property values below.
+* Thread name combo box, filled from the data tables shipped with the workbench (metric-internal-6H, metric-external-6G, metric-external-4G6G, imperial-internal-2B, imperial-internal-3B, imperial-external-2A, imperial-external-3A).
+* *Fit*: slider 0–100.
+* *Major diameter*, *Minor diameter*, *Pitch*, *TPI*.
+* For `Custom` types the name and Fit are disabled and the diameters, Pitch and TPI are entered directly. For metric standards Pitch is filled and TPI disabled; for imperial standards TPI is filled and Pitch disabled; the diameters are interpolated between the standard's minimum and maximum according to Fit.
+
+.Operation group
+* *Passes*: number of passes used to cut the thread.
+* *Direction*: `Climb` or `Conventional`.
+* *Lead in/out*: add lead-in and lead-out arcs.
+
 == Properties
 
+.Thread
+* *Thread Orientation*: Set thread orientation. `LeftHand` or `RightHand` (default).
+* *Thread Type*: `Custom External`, `Custom Internal`, `Imperial External (2A)`, `Imperial External (3A)`, `Imperial Internal (2B)`, `Imperial Internal (3B)`, `Metric External (4G6G)`, `Metric External (6G)`, `Metric Internal (6H)` (default). (The source tooltip still reads "Currently only internal", which is stale; external types are implemented.)
+* *Thread Name*: Defines which standard thread was chosen.
+* *Major Diameter*: Set thread's major diameter.
+* *Minor Diameter*: Set thread's minor diameter.
+* *Pitch*: Set thread's pitch - used for metric threads. Default: 1 mm.
+* *TPI*: Set thread's TPI (turns per inch) - used for imperial threads. Default: 0; when greater than 0 it overrides Pitch.
+* *Thread Fit*: Override to control how loose or tight the threads are milled (0–100). Default: 50.
+
+.Operation
+* *Passes*: Set how many passes are used to cut the thread. Default: 1.
+* *Direction*: Direction of thread cutting operation, `Climb` (default) or `Conventional`.
+* *Lead In Out*: Set to True to get lead in and lead out arcs at the start and end of the thread cut. Default: false.
+* *Clearance Op*: Operation to clear the inside of the thread (link to another operation; defined but currently unused by the operation).
+
+.Base
+* *Disabled*: List of disabled features (holes unchecked in the Base Geometry table).
+
+.Sorting
+[.since]#introduced in 26.3#
+
+* *Sorting Mode*: `Automatic` or `Manual`.
+* *Start Point*, *Use End Point*, *End Point*: points for automatic sorting; hidden when Sorting Mode is `Manual`.
+
+.Depth
+* *Clearance Height*, *Safe Height*, *Start Depth*, *Final Depth*.
+
+.Linking
+[.since]#introduced in 26.3#
+
+* *Collision Avoidance Strategy*, *Collision Clearance*: inherited from the circular-hole base; the thread milling Toolpath retracts to Clearance Height between holes.
+
+.Path
+* *Active*, *Base*, *Comment*, *Coolant Mode*, *Cycle Time*, *Tool Controller*, *User Label*, *Workplane*.
+
+.Op Values
+* *Op Final Depth*, *Op Start Depth*, *Op Stock ZMax*, *Op Stock ZMin*, *Op Tool Diameter*. All read-only.
+
+== Notes
+
+* The radii of the passes are derived from the major and minor diameters and the Tool Bit diameter; the cutter *Crest* is compensated ([.since]#introduced in 26.3#: crest handling fixed).
+* Internal threads are milled from the inside out, external threads from the outside in. Between passes the tool retracts to Clearance Height.
+* If the Tool Bit is larger than the minor diameter an error is reported.
+
 == Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+import FreeCAD
+import Path.Op.ThreadMilling as PathThreadMilling
+
+job = FreeCAD.ActiveDocument.getObject('Job')
+op = PathThreadMilling.Create('ThreadMilling', parentJob=job)
+op.Proxy.findAllHoles(op)
+op.ThreadType = 'MetricInternal6H'
+op.ThreadName = 'M8 x 1.25'
+op.MajorDiameter = 8.0
+op.MinorDiameter = 6.647
+op.Pitch = 1.25
+op.Passes = 2
+FreeCAD.ActiveDocument.recompute()
+----
+
+Note: in scripting the enumeration data values are the identifiers without spaces or parentheses: `MetricInternal6H`, `ImperialInternal2B`, `CustomInternal`, and so on.

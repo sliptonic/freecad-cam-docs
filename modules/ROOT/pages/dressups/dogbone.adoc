@@ -7,6 +7,7 @@
 :page-workbench: CAM
 :page-see-also: CAM DressupTag, CAM DressupRampEntry, CAM DressupDragKnife
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -14,6 +15,7 @@
 image:CAM_DressupDogbone.svg[CAM DressupDogbone,32] *CAM DressupDogbone*
 
 Menu location:: menu:CAM[Path Dressup > Dogbone]
+Toolbar:: Path Modification → Dressup Operations dropdown
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
@@ -22,21 +24,64 @@ See also:: xref:dressups/tag.adoc[CAM DressupTag], xref:dressups/ramp-entry.adoc
 
 == Description
 
-The image:CAM_DressupDogbone.svg[width=24] xref:dressups/dogbone.adoc[CAM DressupDogbone] command dresses up an existing path to overcut corners on inside angles of a profile or contour operation. A cylindrical cutter cannot cut all the way into an acute corner without colliding with the model. In certain cases, it may be preferable to violate the model and ensure that the material at the corner is removed. This is especially necessary if parts are going to intersect/interlock with each other.
+The image:CAM_DressupDogbone.svg[width=24] xref:dressups/dogbone.adoc[CAM DressupDogbone] command dresses up an existing Toolpath to overcut inside corners. A cylindrical Tool Bit cannot reach into a sharp inside corner; the dressup inserts a short move (a _bone_) into each corner so that the corner material is removed. This is needed when parts must interlock. Its tooltip reads: _Creates a dogbone dress-up object from a selected toolpath_.
+
+Since version 1.0 the command creates a _Dogbone II_ dressup (module `Path.Dressup.DogboneII`). The original Dogbone implementation has been removed in [.since]#26.3#; documents containing the old object type can no longer be loaded with a working dressup. The property names *Side*, *Style*, *Incision*, *Custom* and *Bone Blacklist* are the same in both implementations.
 
 == Usage
 
-. Select a contour or profile path xref:index.adoc[CAM] objects.
-. Select the menu:CAM[Path Dressup > Dogbone] option from the menu.
+. Select one Operation or Dressup (typically a Profile or Pocket).
+. There are several ways to invoke the command:
+* Select the menu:CAM[Path Dressup > Dogbone] option from the menu.
+* Select the *Dressup Operations* dropdown on the Path Modification toolbar.
+* Select the menu:Path Dressup[Dogbone] option from the https://wiki.freecad.org/Tree_view[Tree view] context menu.
+. Adjust *Style*, *Side*, *Incision* and the list of bones in the task panel; the Toolpath updates immediately.
+. Press btn:[OK].
 
 == Options
 
-* *Side*: Which side of the path the modification will be added to.
-* *Style*: Style of overcut (Dogbone, T-Bone Horizontal, T-Bone Vertical, T-Bone Long Edge, T-Bone Short Edge).
-* *Incision*: The algorithm used to calculate the overcut length.
-* *Custom*: If *Incision* is set to `Custom`, this value defines the overcut length.
-* [.since]#introduced in 26.3# For the adaptive incision type, a non-zero *Custom* value can also be used to limit the maximum incision length.
+The task panel is titled *Dogbones*:
 
-== Limitations
+* *Style*: `Dogbone` (shortest move that covers the corner), `T-bone horizontal`, `T-bone vertical`, `T-bone long edge`, `T-bone short edge` (extend in a given direction until the corner is covered). Default `Dogbone`.
+* *Side*: `Left` or `Right`. On which side of the Toolpath bones are inserted; this also determines which corners are dressed up. The default is derived from the base Operation: `Right`, `Left` if the base Operation's *Side* is `Inside`, flipped again if its *Direction* is `CCW`.
+* *Incision*: Determines the incision length of the bone:
+** `adaptive` (default): The length is adapted to cover the corner based on the angle of its edges, taking the Tool Bit radius into account.
+** `fixed`: The length is the radius of the Tool Bit (R) for T-bones, and R * (2/√2 - 1) for dogbones.
+** `custom`: The length is taken from the *Length* field below.
+* *Length* (property *Custom*): Bone length when *Incision* is `custom`; enabled only in that case. [.since]#introduced in 26.3# For the `adaptive` incision a non-zero value also limits the maximum bone length.
+* *Bones*: List of bone locations (X, Y) with the IDs of all bones at that location across step-downs. Un-check a bone to exclude it (property *Bone Blacklist*). Selecting a bone highlights a marker in the 3D view (green = enabled, red = disabled). Bones already created by a previous Dogbone dressup on the same Toolpath are greyed out. An empty list usually means the wrong *Side* is selected.
 
-The dogbone dressup needs a straight path segment (G1) before and after the corner where the dressup should be inserted.
+== Properties
+
+.Base
+* *Base* (`Link`): The base Toolpath to dress up.
+
+.Dressup
+* *Side* (`Enumeration`): The side of the Toolpath to insert bones; `Left` or `Right`.
+* *Style* (`Enumeration`): The style of bones; `Dogbone`, `T-bone horizontal`, `T-bone vertical`, `T-bone long edge`, `T-bone short edge`.
+* *Incision* (`Enumeration`): The algorithm to determine the bone length; `adaptive`, `fixed`, `custom`.
+* *Custom* (`Length`): Bone length if *Incision* is set to `custom`; default `0`. A non-zero value also limits the maximum `adaptive` length.
+* *Bone Blacklist* (`IntegerList`, hidden): IDs of bones that are not dressed up; edit through the task panel.
+* *Only Closed Profiles* (`Bool`): [.since]#introduced in 1.1# Create bones only for outer closed profiles; useful for multi-profile Operations such as Pocket with the ZigZagOffset pattern.
+
+== Notes
+
+* [.since]#introduced in 1.1# No bone is inserted between two rapid moves.
+* The corner detection works on the tangents of the adjoining moves, so corners between straight and arc segments are handled.
+
+== Scripting
+
+[source,python]
+----
+import Path.Dressup.Gui.DogboneII as Dogbone
+
+obj = Dogbone.Create(op)  # with GUI
+
+# without GUI:
+import Path.Dressup.DogboneII as DogboneII
+
+obj = DogboneII.Create(op, "DressupDogbone")
+obj.Style = "T-bone horizontal"
+obj.Incision = "custom"
+obj.Custom = 1.5
+----

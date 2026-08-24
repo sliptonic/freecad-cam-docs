@@ -7,6 +7,7 @@
 :page-workbench: CAM
 :page-shortcut: P L
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -15,24 +16,33 @@ image:CAM_SelectLoop.svg[CAM SelectLoop,32] *CAM SelectLoop*
 
 Menu location:: menu:CAM[Finish Selecting Loop]
 Workbenches:: xref:index.adoc[CAM]
-Default shortcut:: kbd:[kbd:[P] kbd:[L]]
+Default shortcut:: kbd:[P] then kbd:[L]
 Introduced in version:: -
 See also:: _None_
 --
 
 == Description
 
-The image:CAM_SelectLoop.svg[width=24] xref:inspect/select-loop.adoc[CAM SelectLoop] command completes a selection of edges that form a loop.
+The image:CAM_SelectLoop.svg[width=24] xref:inspect/select-loop.adoc[Finish Selecting Loop] command extends the current selection to a complete loop of edges or a set of faces, depending on what is selected. It handles vertical and horizontal faces, one or two edges, several objects at once, and whole objects without sub-elements; modifier keys force a specific search mode.
 
 == Usage
 
-. Select an edge.
-. There are several ways to invoke the command:
-* Press the image:CAM_SelectLoop.svg[width=16] xref:inspect/select-loop.adoc[Finish Selecting Loop] button.
-* Select the menu:CAM[Finish Selecting Loop] option from the menu.
-* Use the keyboard shortcut: kbd:[P] then kbd:[L].
-. The remaining edges of the loop are added to the selection.
+. Make a selection in the https://wiki.freecad.org/3D_View[3D View]:
+* One edge: the horizontal loop of edges containing it is selected.
+* Two edges: the wire of the shape containing both, or the chain of tangent edges between them; kbd:[Ctrl] forces the tangent search.
+* Several edges with kbd:[Alt]: all horizontal wires containing the selected edges. [.since]#introduced in 26.3#
+* Vertical face(s): the faces forming the same wall loop are selected; kbd:[Shift] selects vertical faces with the same center height.
+* Horizontal face: kbd:[Ctrl] selects its inner edges, kbd:[Ctrl]+kbd:[Alt] its outer edges, kbd:[Shift] the horizontal faces at the same height ([.since]#introduced in 26.3#); without modifier the inner edges are tried first, then the wall loop, then the faces at the same height.
+* Any face with kbd:[Alt]: all edges of the face.
+* Object without sub-elements: all edges of the object ([.since]#introduced in 26.3#); kbd:[Alt] selects all faces, kbd:[Ctrl] all vertices.
+. Invoke the command: the toolbar button, menu:CAM[Finish Selecting Loop], or kbd:[P] then kbd:[L]. The modifier keys are read when the command is activated, so they must be held while pressing the button or shortcut.
+. If no other method succeeds, the wire containing the selected edges is selected. [.since]#introduced in 26.3#
+Selected vertices are removed from the selection. Several objects can be processed in one call. [.since]#introduced in 26.3#
+
+If no loop can be found a warning ("Closed loop detection failed in model ...") is printed in the https://wiki.freecad.org/Report_view[Report view] and the selection is left unchanged.
 
 == Notes
 
-* This command can also be very useful in other workbenches.
+* The command can be used while an Operation's task panel is open, for example to complete the Base Geometry selection before pressing btn:[Add].
+* The command only affects the selection, so once the CAM Workbench has been loaded it can also be used from other workbenches via the shortcut.
+* [.since]#26.3 and later#: the expanded behaviour described above (whole objects, multiple edges, face modifier keys, wire fallback, multiple objects) was introduced in 26.3.

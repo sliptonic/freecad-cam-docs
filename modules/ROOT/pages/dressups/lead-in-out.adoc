@@ -7,6 +7,7 @@
 :page-workbench: CAM
 :page-see-also: CAM DressupDogbone, CAM DressupTag, CAM DressupRampEntry, CAM DressupDragKnife
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -14,6 +15,7 @@
 image:CAM_DressupLeadInOut.svg[CAM DressupLeadInOut,32] *CAM DressupLeadInOut*
 
 Menu location:: menu:CAM[Path Dressup > Lead In/Out]
+Toolbar:: Path Modification → Dressup Operations dropdown
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
@@ -22,32 +24,97 @@ See also:: xref:dressups/dogbone.adoc[CAM DressupDogbone], xref:dressups/tag.ado
 
 == Description
 
-The image:CAM_DressupLeadInOut.svg[width=24] xref:dressups/lead-in-out.adoc[CAM DressupLeadInOut] command dresses up an existing path by adding lead-in and lead-out moves at the beginning and end of the toolpath.
+The image:CAM_DressupLeadInOut.svg[width=24] xref:dressups/lead-in-out.adoc[CAM DressupLeadInOut] command dresses up an existing Toolpath by adding lead-in and lead-out moves at the beginning and end of the Toolpath. Its tooltip reads: _Creates entry and exit motions for a selected path_.
 
 == Usage
 
-. Select an existing path object.
+. Select one Operation or Dressup (Profile, Pocket or similar; compound objects are rejected).
 . There are several ways to invoke the command:
-* Press the image:CAM_DressupLeadInOut.svg[width=16] xref:dressups/lead-in-out.adoc[Lead In/Out] button.
 * Select the menu:CAM[Path Dressup > Lead In/Out] option from the menu.
+* Select the *Dressup Operations* dropdown on the Path Modification toolbar.
+* Select the menu:Path Dressup[Lead In/Out] option from the https://wiki.freecad.org/Tree_view[Tree view] context menu.
 . Adjust the lead-in and lead-out settings in the task panel.
-. Confirm the dressup.
+. Press btn:[OK].
 
 == Options
 
-* *Lead in*: Controls the entry move added before the main cutting path.
-* *Lead out*: Controls the exit move added after the main cutting path.
-* *Feed rate*: [.since]#introduced in 26.3# The corresponding lead-in and lead-out moves use the feed rates defined for these moves in the tool controller. By default these follow the horizontal feed rate.
+The task panel contains a *Lead In* and a *Lead Out* checkable group (properties *Lead In* and *Lead Out*), each with:
+
+* *Style*: The style of the lead motion, see below.
+* *Radius/length*: Radius or length of the lead move; the label changes with the style.
+* *Angle*: Angle of the lead move.
+* *Extend*: Extends the lead distance; only used for the styles `Arc`, `Line`, `Perpendicular` and `Tangent`.
+* *Offset Entrance Location* / *Offset Exit Location*: Move the start or end point along the Toolpath.
+* *Invert Direction*: Invert the lead direction.
+
+Below the groups:
+
+* *Rapid plunge*: Perform plunges with G0.
+* *Retract Threshold*: Distance below which the tool is kept down between segments instead of retracting.
+
+Fields that do not apply to the selected style are hidden.
+
+=== Styles
+
+Available styles: `Arc`, `Line`, `Perpendicular`, `Tangent`, `Arc3d`, `ArcZ`, `ArcZFollow`, `Helix`, `Line3d`, `LineZ`, `LineZFollow`, `No Retract`, `Vertical`. `ArcZFollow` [.since]#introduced in 26.3# and `LineZFollow` [.since]#introduced in 26.3# follow the Z of the Toolpath while leading in; `LineZFollow` is a simpler alternative to `ArcZFollow` that needs less computation.
+
+Field visibility per style:
+
+* *Angle* is hidden for `No Retract`, `Perpendicular`, `Tangent` and `Vertical`.
+* *Extend* is only shown for `Arc`, `Line`, `Perpendicular` and `Tangent`.
+* *Radius/length* is hidden for `No Retract` and `Vertical`.
+* *Invert Direction* is hidden for `No Retract`, `ArcZ`, `ArcZFollow`, `LineZ`, `LineZFollow`, `Vertical` and `Tangent`.
+* The offset fields are hidden for `No Retract`.
+
+== Properties
+
+.Path
+* *Base* (`Link`): The base Toolpath to modify.
+* *Lead In*, *Lead Out* (`Bool`): Modify the lead in to, or the lead out from, the Toolpath.
+* *Style In*, *Style Out* (`Enumeration`): [.since]#introduced in 1.1# The style of motion into or out of the Toolpath (they replace *Style On* and *Style Off* of version 1.0; files are migrated).
+* *Rapid Plunge* (`Bool`): Perform plunges with G0.
+* *Retract Threshold* (`Length`): [.since]#introduced in 1.1# Distance below which the tool is kept down between segments instead of retracting (replaces the 1.0 *Keep Tool Down* property).
+
+.Path Lead-in
+* *Angle In* (`Angle`): [.since]#introduced in 1.1# Angle of the lead-in move; default `45°`. Values are clamped to 0–180° (a 0.1° minimum applies to the arc and Z styles; the maximum is 179° for the `ArcZ` styles and 89° for `LineZFollow`).
+* *Radius In* (`Length`): [.since]#introduced in 1.1# Radius or length of the lead-in move. The default is an expression: 1.5 times the Tool Bit radius of the base Operation's Tool Controller (replaces *Length* of version 1.0).
+* *Invert In* (`Bool`): [.since]#introduced in 1.1# Invert the lead-in direction.
+* *Offset In* (`Distance`): [.since]#introduced in 1.1# Move the start point along the Toolpath.
+* *Extend In* (`Length`): [.since]#introduced in 26.3# Extend the lead-in distance; only for the styles `Arc`, `Line`, `Perpendicular` and `Tangent` (version 1.0 had *Extend Lead In*; 1.1 had no extend property).
+
+.Path Lead-out
+* *Angle Out* (`Angle`): [.since]#introduced in 1.1# Angle of the lead-out move; default `45°`; clamped like *Angle In*.
+* *Radius Out* (`Length`): [.since]#introduced in 1.1# Radius or length of the lead-out move; default as for *Radius In* (replaces *Length Out* of version 1.0).
+* *Invert Out* (`Bool`): [.since]#introduced in 1.1# Invert the lead-out direction.
+* *Offset Out* (`Distance`): [.since]#introduced in 1.1# Move the end point along the Toolpath.
+* *Extend Out* (`Length`): [.since]#introduced in 26.3# Extend the lead-out distance; only for the styles `Arc`, `Line`, `Perpendicular` and `Tangent`.
+
+[.until]#1.0 and earlier#: *Include Layers*, *Keep Tool Down*, *Style On*, *Style Off*, *Length*, *Length Out*, *Extend Lead In* and *Extend Lead Out* no longer exist; documents are migrated on load.
+
+== Notes
+
+* Feed rate: [.since]#introduced in 26.3# lead-in moves use the *Lead In Feed* and lead-out moves the *Lead Out Feed* of the base Operation's Tool Controller. When these are zero, lead-in falls back to the vertical feed rate and lead-out to the horizontal feed rate.
+* The side (`Inside` or `Outside`) and direction (`CW` or `CCW`) of the leads are taken from the base Operation's *Side* and *Direction* properties; Operations without them are treated as `Inside` and `CCW`.
+* *Clearance Height* and *Safe Height* are taken from the base Operation or, when absent, from the first two rapid Z moves of the Toolpath. The dressup emits nothing and prints a warning when these parameters cannot be determined.
 
 == Limitations
 
-* This dressup modifies the start and end of an existing path.
-* The exact result depends on the selected path and the chosen lead-in and lead-out settings.
-* [.since]#introduced in 26.3# image:CAM_DressupRampEntry.svg[width=16] xref:dressups/ramp-entry.adoc[CAM DressupRampEntry] can also be applied to a path that already has a Lead In/Out dressup.
+* Lead In/Out cannot be applied to compound Toolpath objects.
+* [.since]#introduced in 26.3# image:CAM_DressupRampEntry.svg[width=16] xref:dressups/ramp-entry.adoc[CAM DressupRampEntry] can be applied on top of a Lead In/Out dressup.
 
 == Scripting
 
 [source,python]
 ----
-Add python code here
+import Path.Dressup.Gui.LeadInOut as LeadInOut
+
+obj = LeadInOut.Create(op)          # shows the task panel
+obj = LeadInOut.Create(op, mode=2)  # no task panel
+
+obj.StyleIn = "Arc"
+obj.RadiusIn = 3
+obj.AngleIn = 90
+obj.LeadOut = False
 ----
+
+[.since]#introduced in 26.3# The moves are produced by the generator `Path.Base.Generator.leadinout.LeadInOut(**args).generate()`, which can be used without a document.

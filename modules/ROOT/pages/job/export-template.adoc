@@ -7,52 +7,73 @@
 :page-workbench: CAM
 :page-see-also: CAM SetupSheet
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
 [.fcTitle]
 image:CAM_ExportTemplate.svg[CAM ExportTemplate,32] *CAM ExportTemplate*
 
-Menu location:: menu:CAM[Export Template]
+Menu location:: menu:CAM[Export Template]; also in the Tree View context menu of a Job
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: xref:job/setup-sheet.adoc[CAM SetupSheet]
+See also:: xref:job/setup-sheet.adoc[CAM SetupSheet], xref:job/job.adoc[CAM Job]
 --
 
 == Description
 
-The image:CAM_ExportTemplate.svg[width=24] xref:job/export-template.adoc[CAM ExportTemplate] tool provides a convenient mechanism to save commonly used Job definitions from within an existing Job. This facilitates the setup of future Jobs, that are largely similar, by allowing Job template import during the Job creation process.
+The image:CAM_ExportTemplate.svg[width=24] xref:job/export-template.adoc[CAM ExportTemplate] tool provides a convenient mechanism to save commonly used Job definitions from within an existing Job (tooltip: _Exports the CAM job as a template to be used for other jobs_). This facilitates the setup of future Jobs, that are largely similar, by allowing Job Template import during the Job creation process. There is no toolbar button and no keyboard shortcut; the command is also available in the Tree View context menu of a Job.
 
-The menu:Edit[Preferences > CAM > Job Preferences > Defaults > Template] sets the default template.
+menu:Edit[Preferences > CAM > Job preferences > General > Defaults > Template] sets the template preselected in the New Job dialog.
 
 == Usage
 
-. Select the menu:CAM[Export Template] option from the menu.
-. Select elements for inclusion from the menu:Export Template[] configuration dialog.
-. The template must be saved in the Macro directory or the CAM directory, as configured in the xref:reference/preferences.adoc[CAM Preferences].
-. The template name must follow the pattern of `job_<template name>.json`. When shown in the selection combobox, the `job_` prefix and the extension are left out.
-. Press the btn:[OK] button and save the template.
+. Select the Job in the Tree View (not needed if the document contains only one Job).
+. Select the menu:CAM[Export Template] option from the menu, or *Export Template* in the Job's context menu.
+. Select elements for inclusion in the *Job Template Export* configuration dialog (see the options below).
+. Press btn:[OK]; a file dialog opens in the CAM asset Templates directory (`<asset path>/Templates`). Templates stored there, in the CAM file path set in the xref:reference/preferences.adoc[CAM Preferences], or in the macro directory are found automatically when creating a Job.
+. Enter a name; the `job_` prefix and `.json` extension are added if missing. When shown in the selection combobox of the New Job dialog, the `job_` prefix and the extension are left out.
 
 == Options
 
-== Post Processing
+=== Description
 
-* Postprocessor selection
-* Postprocessor arguments
-* Output file name
+[.since]#introduced in 26.3#
 
-== Stock
+Optional text, pre-filled from the Job's Description, stored in the template and shown as a tooltip when choosing the template in the New Job dialog (e.g. "Metric defaults for 3-axis router with 600x900 work area").
 
-* Extent: Stock Size
-* Placement: Stock Location
+=== Post Processing
 
-== Setup Sheet
+If enabled, the legacy Post-Processor name, its arguments and the output file template are stored. The group is disabled when the Job has no legacy Post-Processor. The Fixtures list, Order-by and Split Output settings, the Machine name ([.since]#introduced in 26.3#) and any Post-Processor property overrides are stored with the template independently of this checkbox. The geometry tolerance of the Job is always included.
 
-* Operation Heights
-* Operation Depths
-* Tool Rapid Speeds
+=== Stock
 
-== Tool controllers
+If enabled, the stock creation method (box, cylinder or extend bounding box) is stored:
 
-* Selected Tool controllers.
+* *Extent*: adds the dimensions/allowances.
+* *Placement*: adds position and rotation (unchecked by default for bounding-box stock).
+
+Without a stock definition the default (bounding box of the Model) is used. A Stock made from an existing solid cannot be exported.
+
+=== Setup Sheet
+
+Check *Operation heights*, *Operation depths*, *Tool rapid speeds* and *Coolant Mode* to include those defaults; the list below offers every Operation type that has per-operation defaults set. Modified values are preselected. See xref:job/setup-sheet.adoc[CAM SetupSheet].
+
+=== Tool Controllers
+
+Check the Tool Controllers to include; the group checkbox toggles all. Each stores its label, tool number, feeds (horizontal, vertical, lead-in, lead-out, ramp) and rapids, spindle speed and direction, any expressions, and the complete Tool Bit definition.
+
+== Notes
+
+* If the template's Post-Processor is not available when a Job is created from it, a warning is written to the Report view and the default Post-Processor is used ([.since]#introduced in 26.3#).
+
+== Scripting
+
+[source,python]
+----
+import Path.Main.Gui.JobCmd as JobCmd
+JobCmd.CommandJobTemplateExport.Execute(job, '/path/job_mytemplate.json')
+----
+
+exports everything; pass a `Path.Main.Gui.JobDlg.JobTemplateExport` dialog as third argument to filter.

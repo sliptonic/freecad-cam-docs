@@ -6,6 +6,7 @@
 :page-menu: CAM → Vcarve
 :page-workbench: CAM
 :page-since: 0.19
+:page-audit: applied
 :page-imported: true
 
 [.fcinfobox]
@@ -17,30 +18,35 @@ Menu location:: menu:CAM[Vcarve]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: 0.19
-See also:: _None_
+See also:: xref:operations/engrave.adoc[CAM Engrave]
 --
 
 == Description
 
-The image:CAM_Vcarve.svg[width=24] xref:operations/vcarve.adoc[CAM Vcarve] command is primarily for center-line engraving a image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft ShapeString] onto a part. However, it may be useful for other kinds of 2D.
+The image:CAM_Vcarve.svg[width=24] xref:operations/vcarve.adoc[CAM Vcarve] command is primarily for center-line engraving a image:Draft_ShapeString.svg[width=16] https://wiki.freecad.org/Draft_ShapeString[Draft ShapeString] onto a part. However, it may be useful for other kinds of 2D. The command tooltip reads "Creates a medial line engraving toolpath".
 
 Unlike engraving which follows the lines in the shapestring, V-carving uses a V-shaped cutter and attempts to clear the area by moving the cutter down the center of the region and varying the depth of cut. Since a v-cutter radius varies with the depth, the width of cut varies as well. The result is a more natural looking cut, particularly for serif fonts.
 
+The Tool Controller must use a Tool Bit with the `v-bit` Tool Shape (properties *Diameter*, *Tip Diameter* and *Cutting Edge Angle* below 180°), for example the shipped 30/45/60/90degree_Vbit. With any other Tool Bit the task panel reports "This operation requires a tool controller with a v-bit tool" and no Toolpath is generated.
+
 image::Engravepath.png[]
 
- 
 
-image::Vcarvepath.png[Example Vcarving Path]
 
- 
+image::Vcarvepath.png[Example Vcarving Toolpath]
+
+
 
 image::Vcarved.png[]
 
- 
+
 
 image::Scrolltest.png[]
 
-The V-carve algorithm calculates a path down the center-line of a region using a Voronoi diagram. This center-line is the path the tool will follow in the XY-plane. It next calculates a 'maximum inscribed circle' along the path. This is the largest circle that can be drawn at that point and remain entirely inside the clearing area. Using the circle radius and the tip angle of the cutter, the depth of cut is calculated.
+[.caption]
+The images above predate the 26.3 virtual edge backtracking.
+
+The V-carve algorithm calculates a Toolpath down the center-line of a region using a Voronoi diagram. This center-line is the path the tool will follow in the XY-plane. It next calculates a 'maximum inscribed circle' along the medial line. This is the largest circle that can be drawn at that point and remain entirely inside the clearing area. Using the circle radius and the tip angle of the cutter, the depth of cut is calculated.
 
 [.since]#introduced in 26.3#: Routing can use virtual edge backtracking. If the next cutting start point is reachable through an already-carved path, or through an edge that will be carved next, the operation can follow that edge instead of a retract, rapid move and plunge.
 
@@ -58,7 +64,7 @@ The V-carve algorithm calculates a path down the center-line of a region using a
 ::
   image:Svgimport.png[frameless]
   +
-  
+
 [.caption]
 Above: Results of importing 'SVG as geometry'
 
@@ -86,16 +92,23 @@ Above: Results of importing 'SVG as geometry'
 === Create the Vcarve operation
 
 * Switch to the image:Workbench_CAM.svg[width=16] xref:index.adoc[CAM Workbench] in the https://wiki.freecad.org/Std_Workbench[workbench dropdown menu]
-* Add a job, use the objects named `Face<number>` (or the ShapeString) as a base, add a v-bit tool controller, set feeds, speeds, etc.
-* The operation only supports one object (either a single Face object, or a ShapeString) so for each object:
-** Select menu:CAM[Vcarve] from the top menu. This opens the configuration panel.
-** Open the kbd:[Base Geometry] tab and add all faces of the ShapeString, or the face of a single Face object obtained above
-** Press btn:[Apply] and inspect the generated path; if necessary, adjust operation parameters (Threshold can be set higher in most situations)
+* Add a job, use the objects named `Face<number>` (or the ShapeString) as a base, add a Tool Controller with a v-bit Tool Bit, set feeds, speeds, etc.
+* Create the operation:
+** Press the image:CAM_Vcarve.svg[width=16] Vcarve button in the *Engraving Operations* group of the New Operations toolbar, or select menu:CAM[Vcarve] from the top menu. This opens the configuration panel.
+** Add the ShapeString(s), Face objects or individual faces of Models to menu:Base Geometry[]; every face is processed separately. If nothing is selected, all Sketcher and Part 2D objects of the Job are used.
+** Press btn:[Apply] and inspect the generated Toolpath; if necessary, adjust operation parameters (raising menu:Filter colinear lines[] removes more short segments from the medial line)
 ** Press btn:[OK] to finish
 
 == Options
 
-Empty
+The Operation section of the task panel contains:
+
+* *Discretization Deflection*: This value is used in discretizing arcs into segments. Smaller values will result in larger G-code. Larger values may cause unwanted segments in the medial line path.
+* *Filter colinear lines*: Sets how aggressively colinear segments are filtered from the voronoi diagram. Valid values are 0 - 90 degrees (larger numbers filter more). Default = 10.
+* *Finishing pass*: After carving, travel again the path to remove artifacts and imperfections. Enables *Finishing pass Z offset*: Endmill offset for the finishing pass run. Use small value like -0.2 mm to help clean 'fuzzy skin' or other artefacts.
+* *Optimize movements*: Optimize path to avoid raising endmill when moving to adjacent edges. May result in sub-millimeter inaccuracies.
+
+Other sections: Base Geometry (Import, Add, Remove, Clear), Heights (Clearance, Retract, Start, Step down, Final), Tool Controller (Tool controller, Coolant).
 
 == Properties
 
@@ -106,33 +119,39 @@ Empty
 * *Label*: -
 
 .Depth
-* *ClearanceHeight*: -
-* *FinalDepth*: -
-* *SafeHeight*: -
-* *StartDepth*: -
-* *StepDown*: -
+* *Clearance Height*: The height needed to clear clamps and obstructions.
+* *Final Depth*: Final Depth of Tool- lowest value in Z; default is the bottom of the Stock. The actual depth at each point is the smaller of the depth derived from the maximum inscribed circle and Final Depth.
+* *Safe Height*: Rapid Safety Height between locations.
+* *Start Depth*: Starting Depth of Tool- first cut depth in Z; default is the top of the Job Models.
+* *Step Down* ([.since]#introduced in 26.3#: fixed): Incremental Step Down of Tool; when non-zero the medial lines are cut in successive layers, limited to the maximum usable depth of each face.
 
 .Op Values
-* *OpFinalDepth*: -
-* *OpStartDepth*: -
-* *OpStockZMax*: -
-* *OpStockZMin*: -
-* *OpToolDiameter*: -
+* *Op Final Depth*: Holds the calculated value for the FinalDepth. Read-only.
+* *Op Start Depth*: Holds the calculated value for the StartDepth. Read-only.
+* *Op Stock ZMax*: Holds the max Z value of Stock. Read-only.
+* *Op Stock ZMin*: Holds the min Z value of Stock. Read-only.
+* *Op Tool Diameter*: Holds the diameter of the tool. Read-only.
 
 .Path
-* *Active*: -
-* *Comment*: -
-* *CoolantMode*: -
-* *StartVertex*: -
-* *ToolController*: -
-* *UserLabel*: -
+* *Active*: Make False, to prevent operation from generating code.
+* *Base*: The base geometry for this operation.
+* *Colinear*: Cutoff for removing colinear segments (degrees). Default: 10.0.
+* *Comment*: An optional comment for this Operation.
+* *Coolant Mode*: Coolant mode for this operation (`None`, `Flood`, `Mist`).
+* *Cycle Time*: Operations Cycle Time Estimation (read-only).
+* *Discretize*: The deflection value for discretizing arcs. Default: 0.25.
+* *Finishing Pass*: Add finishing pass. Default: false.
+* *Finishing Pass Z Offset*: Finishing pass Z offset. Default: 0.
+* *Optimize Movements*: Optimize movements. Default: false.
+* *Tolerance* ([.since]#introduced in 26.3#): Vcarve Tolerance; default is the CAM geometry tolerance preference. Used to decide when the cutter can follow an already-carved edge instead of retracting (virtual edge backtracking).
+* *Tool Controller*: The tool controller that will be used to calculate the path.
+* *User Label*: User Assigned Label.
+* *Workplane*: The orientation of the tool for this operation. Default is (0, 0, 1) for standard Z-up milling. [.since]#introduced in 26.3#
 
 ==== Hidden
 
-* *Base*: -
-* *BaseObject*: -
-* *BaseShapes*: -
-* *ExpressionEngine*: -
+* *Base Shapes*: Additional base objects to be engraved.
+* *Expression Engine*: -
 * *Label2*: -
 * *Path*: -
 * *Proxy*: -
@@ -142,6 +161,11 @@ Empty
 
 Empty
 
+== Notes
+
+* Whole objects can be added to Base Geometry only when they are 2D objects (Draft ShapeString, Draft or Part 2D faces); for other Models select individual faces.
+* *Optimize Movements* lets the cutter travel back along already-carved edges at feed rate instead of retracting, rapid-moving and plunging. *Finishing Pass* repeats the whole Toolpath once more, offset in Z by *Finishing Pass Z Offset*, to clean fuzz left by the first pass.
+
 == Scripting
 
 See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
@@ -150,5 +174,14 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import FreeCAD
+import Path.Op.Vcarve as PathVcarve
+
+job = FreeCAD.ActiveDocument.getObject('Job')
+op = PathVcarve.Create('Vcarve', parentJob=job)
+op.BaseShapes = [FreeCAD.ActiveDocument.getObject('ShapeString')]
+op.Discretize = 0.25
+op.Colinear = 10
+op.OptimizeMovements = True
+FreeCAD.ActiveDocument.recompute()
 ----

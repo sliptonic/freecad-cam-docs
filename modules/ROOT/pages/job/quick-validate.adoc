@@ -1,0 +1,34 @@
+= CAM QuickValidate
+:page-command: CAM_QuickValidate
+:page-icon: CAM_Sanity.svg
+:page-menu: none
+:page-since: 26.3
+:page-workbench: CAM
+:page-shortcut: P V
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_Sanity.svg[CAM QuickValidate,32] *CAM QuickValidate*
+
+Menu location:: _None_
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[P] then kbd:[V]
+Introduced in version:: 26.3
+See also:: xref:job/sanity-check.adoc[CAM Sanity]
+--
+
+== Description
+
+[.since]#introduced in 26.3#
+
+The Quick Validate command (menu text: _Quick Validate_; tooltip: "Validates the CAM job for common issues without generating a full report") runs the xref:job/sanity-check.adoc[Sanity Check] rules on the selected Job and prints the findings in the https://wiki.freecad.org/Report_view[Report view] without producing the HTML report and its images.
+
+The command is not on any toolbar, menu or context menu; it is reachable only through its keyboard shortcut kbd:[P] then kbd:[V], or by adding it to a toolbar via menu:Tools[Customize].
+
+== Usage
+
+. Select the Job in the https://wiki.freecad.org/Tree_View[Tree View] (the command is enabled only for a Job).
+. Press kbd:[P] then kbd:[V].
+. Read the output in the Report view: `Quick Validate: No issues found.` or a block `=== Quick Validation Results ===` with one line per finding prefixed by its severity (`[WARNING]`, `[CAUTION]` or `[NOTE]`), followed by `N issue(s) found, M critical`. Warnings and cautions are printed in the warning color.

@@ -7,6 +7,7 @@
 :page-menu: CAM → 3D Pocket
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
@@ -16,15 +17,16 @@ NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 image:CAM_Pocket3D.svg[CAM Pocket3D,32] *CAM Pocket3D*
 
 Menu location:: menu:CAM[3D Pocket]
+Toolbar:: New Operations → 3D Pocket
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:operations/surface.adoc[CAM Surface]
 --
 
 == Description
 
-The image:CAM_Pocket3D.svg[width=24] xref:operations/pocket-3d.adoc[CAM Pocket3D] command inserts a 3D Pocket object into the Job. This operation takes into account the bottom surface of the pocket, as well as selected walls that are not vertical. In its current state, this operation is used to rough out a pocket with non-vertical walls and/or non-horizontal bottom. A common finishing technique is to use a ball end mill with the experimental image:CAM_Surface.svg[width=16] xref:operations/surface.adoc[3D Surface] operation.
+The image:CAM_Pocket3D.svg[width=24] xref:operations/pocket-3d.adoc[CAM Pocket3D] command inserts a 3D Pocket object into the Job. Its tooltip reads: _Creates a 3D Pocket toolpath from a face or faces_. This Operation takes into account the bottom surface of the pocket, as well as selected walls that are not vertical. In its current state, this Operation is used to rough out a pocket with non-vertical walls and/or a non-horizontal bottom. A common finishing technique is to follow a 3D Pocket with a ball end Tool Bit and the image:CAM_Surface.svg[width=16] xref:operations/surface.adoc[3D Surface] operation (requires OpenCamLib, see that page).
 
 image::Path_3D_Pocket_Sample.png[width=600]
 
@@ -37,32 +39,30 @@ Sample image of 3D Pocket operation used to clear cylindrical battery holder.
 
 . From within a Job, select one or more Faces from the Job Model to include as the Base Geometry.
 . There are several ways to invoke the command:
-* Press the image:CAM_Pocket3D.svg[width=16] xref:operations/pocket-3d.adoc[Pocket 3D] button.
-* Select the menu:CAM[Pocket 3D] option from the menu.
-. Choose a Tool controller from the pop up selection dialogue window.
+* Press the image:CAM_Pocket3D.svg[width=16] xref:operations/pocket-3d.adoc[3D Pocket] button on the New Operations toolbar.
+* Select the menu:CAM[3D Pocket] option from the menu.
+. On the Tool Controller tab select the Tool Controller and Coolant mode for the Operation. [.since]#26.3 and later#
 . Add or subtract Base Geometry elements as needed to configure the Operation.
-. Check the Depths tab to ensure the Start Depth, Finish Depth, and Step Down percentage are correct. The Final Depth is determined by the Body Geometry selection and is not modifiable.
-. Check the Heights tab to ensure the Safe and Clearance Heights are appropriate.
-. Check the Operation tab where the Tool controller can be re-selected, the Cut mode can be configured for Climb or Conventional milling, the Pattern can be set, the Step Over percentage can be adjusted, and Pass Extension can be applied.
-. Click btn:[Apply] to observe the milling path for the passes of the Operation. Adjust parameters until satisfied with the Operation.
+. On the Heights tab check Clearance, Retract (safe height), Start depth, Step down and Finish step down. [.since]#26.3 and later# depths and heights share a single Heights tab. The Final depth is computed from the selected Base Geometry and cannot be edited.
+. On the Operation tab set the Cut Mode (Climb or Conventional), the clearing Pattern, the Angle for the Line, ZigZag and Grid patterns, the Step over percentage, Pass Extension, Min travel, Use rest machining, and optionally Use start point (the start point can be picked in the 3D view with the adjacent button, [.since]#introduced in 26.3#).
+. Click btn:[Apply] to observe the Toolpath for the passes of the Operation. Adjust parameters until satisfied with the Operation.
 . Click btn:[OK] to save the Operation.
 
 == Notes
 
-* All paths generated from this operation are based on a standard end mill using the diameter of the tool you selected for this 3D Pocket operation.
-* Ball end mills and other shapes are not respected for path generation even if selected as the tool for this operation.
+* All Toolpaths from this Operation are computed for a flat end mill using the diameter of the Tool Bit in the selected Tool Controller. Ball end and other Tool Shapes are not respected for Toolpath generation.
 
 == Options
 
 * Use the *Adaptive Pocket Finish* property to attempt to minimize air milling below a 3D Pocket in cases where the pocket is a hole through the model.
-* Use the *Adaptive Pocket Start* property to attempt to minimize air milling upon entry to the pocket. For example, look at the sample image above in the xref:operations/pocket-3d.adoc#description[Description] section of this page. In order to reduce the air milling above that 3D Pocket, toggle this property to True and the paths will begin closer to the pocket, much nearer to where the pocket actually begins. See the following image and note the difference in the path start height. The air milling is reduced.
+* Use the *Adaptive Pocket Start* property to attempt to minimize air milling upon entry to the pocket. For example, look at the sample image above in the xref:operations/pocket-3d.adoc#description[Description] section of this page. In order to reduce the air milling above that 3D Pocket, toggle this property to True and the Toolpaths will begin closer to the pocket, much nearer to where the pocket actually begins. See the following image and note the difference in the Toolpath start height. The air milling is reduced.
 
 image::3D_Pocket_Sample_Adaptive_Start.png[width=600]
 
 [.caption]
 Sample image of 3D Pocket operation used to clear cylindrical battery holder with the Adaptive Pocket Start enabled in order to reduce air milling upon entry.
 
-* If you wish to process the entire model and stock as a whole, use the *Process Stock Area* property set to True with no Base Geometry selected.
+* *Process Stock Area* is intended for processing the whole Model against the Stock when no Base Geometry is selected; verify on your version whether the Operation produces a Toolpath without Base Geometry.
 
 == Properties
 
@@ -87,46 +87,54 @@ Note: It is suggested that you do not edit the Placement property of path operat
 * *Clearance Height*: The height needed to clear clamps and obstructions
 * *Final Depth*: Final Depth of Tool- lowest value in Z
 * *Finish Depth*: Maximum material removed on final pass.
-* *Safe Height*: The above which Rapid motions are allowed.
+* *Safe Height*: Rapid safety height between locations.
 * *Start Depth*: Starting Depth of Tool- first cut depth in Z
 * *Step Down*: Incremental Step Down of Tool
-
-.Face
-* *Offset Pattern*: Clearing pattern to use. (Select in which manner the horizontal movements should be done.)
 
 .Path
 * *Active*: Make False, to prevent operation from generating code
 * *Base*: The base geometry for this operation
+* *Block Delete*: Enable post processor to add block delete commands. [.since]#introduced in 26.3#
 * *Comment*: An optional comment for this Operation
 * *Coolant Mode*: The coolant mode for this operation.
 * *Cycle Time*: The cycle time estimation for this operation.
-* *Tool Controller*: Defines the Tool controller used in the Operation
+* *Sorting Mode*: Order processing of the shapes. Automatic: uses nearest neighbour algorithm to sort shapes. Manual: uses order of shape selection. [.since]#introduced in 26.3#
+* *Split Arcs*: Split arcs into discrete segments.
+* *Tool Controller*: The Tool Controller that will be used to calculate the Toolpath
 * *User Label*: User assigned label
+* *Workplane*: The orientation of the Tool Bit for this Operation. Default (0, 0, 1) for standard Z-up milling; other values require a Machine with rotary axes and emit rotary positioning moves at the start of the Toolpath. [.since]#introduced in 26.3#
 
 .Pocket
 * *Adaptive Pocket Finish*: Use adaptive algorithm to eliminate excessive air milling below planar pocket bottom.
 * *Adaptive Pocket Start*: Use adaptive algorithm to eliminate excessive air milling above planar pocket top.
-* *Cut Mode*: The direction that the toolpath should go around the part ClockWise (CW) or CounterClockWise (CCW)
+* *Angle*: Angle of the grid, line and zigzag patterns. Default 45°. Hidden when Clearing Pattern is Offset. [.since]#26.3 and later#: renamed from Zig Zag Angle.
+* *Clearing Pattern*: Clearing pattern to use. Values: ZigZag (default), Offset, ZigZagOffset, Line, Grid. [.since]#introduced in 26.3#: replaces Offset Pattern (formerly in the Face property group).
+* *Cut Mode*: The direction the Toolpath runs around the part: Climb or Conventional.
 * *Extra Offset*: Extra offset to apply to the operation. Direction is operation dependent.
-* *Handle Multiple Features*: Choose how to process multiple Base Geometry features.
-* *Keep Tool Down*: Attempts to avoid unnecessary retractions.
+* *Force Max Step Over*: Force maximum stepover even if not all area is cleared. Without this flag set, the stepover may be reduced (for large stepover, >50%) to ensure full area coverage. [.since]#introduced in 26.3#
+* *Handle Multiple Features*: Choose how to process multiple Base Geometry features. Values: Collectively (default), Individually.
 * *Min Travel*: Use 3D Sorting of Path
 * *Process Stock Area*: Process the model and stock in an operation with no Base Geometry selected.
-* *Start At*: Start pocketing at center or boundary
-* *Step Over*: Percent of cutter diameter to step over on each pass
-* *Zig Zag Angle*: Angle of the zigzag pattern
+* *Retract Threshold*: Set distance which will attempt to avoid unnecessary retractions; moves shorter than this distance stay at depth. [.since]#26.3 and later#: replaces Keep Tool Down.
+* *Start At*: Start pocketing at center or boundary. Values: Center, Edge.
+* *Step Over*: Percent of cutter diameter to step over on each pass. Default 50.
+* *Use Rest Machining*: Skips machining regions that have already been cleared by previous operations.
 
-.Rotation
-Note: Rotation is not available for 3D Pocket as of 0.19.
+.Op Values
+Read-only values computed by the Operation:
 
-* *Enable Rotation*: Enable rotation to gain access to pockets or areas not normal to Z axis.
+* *Op Start Depth*: Holds the calculated value for the StartDepth
+* *Op Final Depth*: Holds the calculated value for the FinalDepth
+* *Op Tool Diameter*: Holds the diameter of the Tool Bit
+* *Op Stock Z Max*: Holds the max Z value of Stock
+* *Op Stock Z Min*: Holds the min Z value of Stock
 
 .Start Point
-* *Start Point*: The custom start point for the path of this operation.
+* *Start Point*: The start point of this Toolpath.
 ** *X*: X-distance value
 ** *Y*: Y-distance value
 ** *Z*: Z-distance value
-* *Use Start Point*: Make True, if manually specifying a Start Point. Set the start point in the property data Start Point field.
+* *Use Start Point*: Make True if specifying a Start Point. [.since]#26.3 and later#: the point can be picked from the task panel.
 
 === View
 
@@ -140,5 +148,14 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import Path.Op.Pocket as PathPocket
+
+op = PathPocket.Create('Pocket3D')
+op.Base = [(doc.Model, ['Face6'])]
+op.ToolController = job.Tools.Group[0]
+op.StepOver = 50
+op.ClearingPattern = 'Offset'
+doc.recompute()
 ----
+
+The Operation must belong to a Job; use `Path.Main.Job` helpers or create it with the GUI command.

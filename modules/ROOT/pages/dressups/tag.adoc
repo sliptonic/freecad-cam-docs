@@ -7,6 +7,7 @@
 :page-workbench: CAM
 :page-see-also: CAM DressupRampEntry, CAM DressupDogbone, CAM DressupDragKnife
 :page-imported: true
+:page-audit: applied
 
 [.fcinfobox]
 --
@@ -14,6 +15,7 @@
 image:CAM_DressupTag.svg[CAM DressupTag,32] *CAM DressupTag*
 
 Menu location:: menu:CAM[Path Dressup > Tag]
+Toolbar:: Path Modification → Dressup Operations dropdown
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
@@ -22,21 +24,73 @@ See also:: xref:dressups/ramp-entry.adoc[CAM DressupRampEntry], xref:dressups/do
 
 == Description
 
-The image:CAM_DressupTag.svg[width=24] xref:dressups/tag.adoc[CAM DressupTag] command dresses up an existing path (usually a 2D contour cutting path) to leave tags that hold the part in place. Without them a part (which is not fixed to the base) is liable to fly off the machine uncontrollably as the final cut is made. The tags are intended to be broken off by hand (or using a chisel) and then filed flat to finish the part.
+The image:CAM_DressupTag.svg[width=24] xref:dressups/tag.adoc[CAM DressupTag] command dresses up an existing Toolpath (usually a 2D Profile) to leave holding tags that keep the part attached to the Stock. Without tags a part that is not clamped can come loose when the final cut is made. The tags are broken off by hand or with a chisel and filed flat afterwards. Its tooltip reads: _Creates a tag dress-up object from a selected toolpath_.
 
 A video explanation of this feature is given at: https://www.youtube.com/watch?v=JZ4prlR6sps
 
 == Usage
 
-. Select a contour or profile path objects.
-. Select the menu:CAM[Path Dressup > Tag] option from the menu.
+. Select one Operation or Dressup.
+. There are several ways to invoke the command:
+* Select the menu:CAM[Path Dressup > Tag] option from the menu.
+* Select the *Dressup Operations* dropdown on the Path Modification toolbar.
+* Select the menu:Path Dressup[Tag] option from the https://wiki.freecad.org/Tree_view[Tree view] context menu.
+. Tags are generated automatically; adjust them in the task panel.
+. Press btn:[Apply] to preview or btn:[OK] to finish.
 
 == Options
 
-* *Angle* : Controls the angle of plunge and ascent when a tag is created.
-* *Height* : Controls the height of the tag top from the bottom of the profile cut.
-* *Radius* : Radius of the fillet for the tag.
-* *Segmentation Factor* : Number of segments to approximate a rounded tag.
-* *Width* : Overall width of the tag.
+The task panel is titled *Holding Tags*:
 
-Tags are automatically generated evenly spaced along the contour, beginning with the largest edge. You have the option to delete any you don't like or change their locations so that they appear on the convex parts of the job where it will be easier to file off the excess material.
+* *Width*: Width of the resulting holding tag.
+* *Height*: Height of the tag; the result may be smaller if width and angle produce a triangular shape.
+* *Angle*: Plunge angle for ascent and descent; 5–90°, default `45°`.
+* *Radius*: Radius of the fillet at the top; if too big for the tag shape it is reduced, giving a dome.
+* *Tags list*: Every tag with its index and X, Y position and a checkbox to enable or disable it; double-click or the btn:[Edit] button lets you pick a new position on the Toolpath in the 3D view. Tags are automatically disabled if they overlap the previous tag or do not lie on the base wire.
+* Buttons: btn:[Add] (pick new positions in the 3D view), btn:[Remove] (selected tag), btn:[Edit], btn:[Clear] ([.since]#introduced in 26.3# remove all tags), btn:[Enable All] / btn:[Disable All], btn:[Copy] ([.since]#introduced in 26.3# replace all tags by the tags of another Tag dressup in the document; shown only when another one exists).
+* *Auto Generate* group: *Min* and *Max* number of tags per wire and the button btn:[Replace Existing Tags], which creates between *Min* and *Max* tags per bottom wire depending on its length.
+
+On creation the dressup generates tags automatically: the number of tags per closed bottom wire is scaled between *Min* and *Max* by the wire length relative to the longest wire, and they are spaced evenly along the wire. The initial count comes from the *Initial # tags* preference (default 4). [.since]#introduced in 26.3# Tags are generated for every closed wire of a multi-body or multi-profile Operation, and open base wires are accepted.
+
+== Properties
+
+.Base
+* *Base* (`Link`): The base Toolpath to modify.
+
+.Tag
+* *Width* (`Length`): Width of tags.
+* *Height* (`Length`): Height of tags.
+* *Angle* (`Angle`): Angle of tag plunge and ascent.
+* *Radius* (`Length`): Radius of the fillet for the tag.
+* *Positions* (`VectorList`): Locations of inserted holding tags.
+* *Disabled* (`IntegerList`): IDs of disabled holding tags.
+
+.Path
+* *Approximation* (`Bool`, hidden): [.since]#introduced in 26.3# Split B-splines by arcs and ignore non-vertical arc axes (experimental); can greatly reduce the number of commands when the Toolpath contains non-horizontal arcs such as a helix. Set it from the Python console or by unhiding it in the property editor.
+
+The *Segmentation Factor* property of earlier versions was removed in 26.3.
+
+== Notes
+
+* [.since]#introduced in 26.3# The precision used to segment complex shapes while creating the tag Toolpath is the Job's *Geometry Tolerance*; there is no separate property on the dressup.
+
+== Preferences
+
+Defaults for new Tag dressups are set in menu:Edit[Preferences > CAM > Dressups]: *Default width* (0 = guess a reasonable value from the Toolpath), *Default height* (0 = half the part height; larger than the part is reduced to the part height), *Default angle*, *Default radius* and *Initial # tags* (default 4).
+
+== Scripting
+
+[source,python]
+----
+import FreeCAD
+import Path.Dressup.Gui.Tags as Tags
+
+obj = Tags.Create(op)  # with GUI
+
+# without GUI:
+import Path.Dressup.Tags as PathTags
+
+obj = PathTags.Create(op, "DressupTag")
+obj.Positions = [FreeCAD.Vector(10, 0, 0)]
+obj.Disabled = []
+----

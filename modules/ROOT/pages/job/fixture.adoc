@@ -2,49 +2,59 @@
 :page-origin: https://wiki.freecad.org/CAM_Fixture
 :page-origin-revision: 8d851eaa90 2025-11-07
 :page-command: CAM_Fixture
-:page-icon: CAM_Fixture.svg
-:page-menu: CAM → Supplemental Commands → Fixture
+:page-icon: CAM_Datums.svg
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
-WARNING: THIS COMMAND IS OBSOLETE It is not available in [.since]#1.1 and later#.
+WARNING: THIS COMMAND IS OBSOLETE. It was removed from the menus in [.since]#1.1 and later#; the command still exists but is not exposed in any toolbar or menu. Fixtures (work coordinate systems) are now a property of the xref:job/job.adoc[Job].
 
 [.fcinfobox]
 --
 [.fcTitle]
-image:CAM_Fixture.svg[CAM Fixture,32] *CAM Fixture*
+image:CAM_Datums.svg[CAM Fixture,32] *CAM Fixture*
 
-Menu location:: menu:CAM[Supplemental Commands > Fixture]
+Menu location:: _None_ ([.until]#CAM → Supplemental Commands → Fixture in 1.0 and earlier#)
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:job/job.adoc[CAM Job], xref:output/post-process.adoc[CAM Post]
 --
 
 == Description
 
-The tool image:CAM_Fixture.svg[width=24] xref:job/fixture.adoc[Fixture] sets the Work Offset Coordinate Fixture of the machine CNC controller.
+The image:CAM_Datums.svg[width=24] xref:job/fixture.adoc[Fixture] command sets the Work Offset Coordinate Fixture of the machine CNC controller. It can only be invoked from Python (`FreeCADGui.runCommand("CAM_Fixture")`).
 
-Target Work Offset Coordinates typically include: Fixtures G53 to G59. The G-code is simply the Fixture (G53, G54, etc...). The coordinate offset fixtures represent:
+G54 to G59 and the extended G59.1 to G59.9 select one of the work offsets stored in the CNC controller; G53 (machine coordinates) is not selectable. Which extended offsets exist depends on the controller.
 
-* G53 → Machine coordinate system.
-* G54 → Scratchpad coordinate system.
-* G55 to G59.9 → Coordinate fixtures allowing work offsets, relative to Homing switches located on the CNC machine, to be used.
+NOTE: In the CAM Workbench, _Fixture_ means a work coordinate system selection, not the physical workholding device.
 
-The G59 Fixture is used to expand available fixtures. The degree of expansion implemented is CNC machine specific, and this command allows provides for G59.1 to G59.9.
+== Fixtures on the Job
 
-== Usage
+Since 1.0 the work coordinate systems are selected on the Job:
 
-. Press the image:CAM_Fixture.svg[width=16] xref:job/fixture.adoc[Fixture] button or use the kbd:[P] then kbd:[F] keyboard shortcut.
-. Select the desired Work Offset Fixture from the drop-menu.
+* The *Fixtures* property (default G54) lists the systems to output.
+* *OrderOutputBy* (Fixture, Tool, Operation) controls grouping.
+* *SplitOutput* writes one file per group.
+
+In the Job task panel these are on the menu:Output[] tab under *Work Coordinate Systems* (checklist G54 to G59.9, Order by, Split Output). The Post-Processor emits the fixture command before the Operations of each group.
+
+When the Job has a Machine, the xref:output/post-process.adoc[Post Process] dialog's Overview tab shows a *Fixtures* checklist ([.since]#introduced in 26.3#); unchecking a fixture omits it from that export without changing the Job.
 
 == Properties
 
-* *Fixture*: Sets the current fixture point
-* *Active*: Defines if this command is active or not when inserted into a compound
+[.until]#1.0 and earlier#
 
-== Notes
-
-== Limitations
+* *Fixture*: the work offset (G54 … G59.9).
+* *Active*: when false the object emits no G-code.
 
 == Scripting
+
+Set the work coordinate systems on the Job instead:
+
+[source,python]
+----
+job.Fixtures = ['G54', 'G55']
+job.OrderOutputBy = 'Fixture'
+job.SplitOutput = True
+----

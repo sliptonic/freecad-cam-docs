@@ -1,72 +1,86 @@
-= CAM Shape
+= Path from Shape
 :page-origin: https://wiki.freecad.org/CAM_Shape
 :page-origin-revision: cfa3523e6b 2026-05-21
-:page-command: CAM_Shape
+:page-aliases: CAM_PathShapeTC.adoc
+:page-command: CAM_PathShape
 :page-icon: CAM_Shape.svg
 :page-menu: CAM → Supplemental Commands → Path From Shape TC
+:page-since: 1.1
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
 
 WARNING: This is an experimental feature. See xref:reference/experimental.adoc[Enable Experimental Features].
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
 [.fcinfobox]
 --
 [.fcTitle]
-image:CAM_Shape.svg[CAM Shape,32] *CAM Shape*
+image:CAM_Shape.svg[CAM Path From Shape TC,32] *CAM Path From Shape TC*
 
 Menu location:: menu:CAM[Supplemental Commands > Path From Shape TC]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
-Introduced in version:: -
-See also:: _None_
+Introduced in version:: 1.1
+See also:: xref:inspect/select-loop.adoc[CAM SelectLoop]
 --
 
 == Description
 
-The image:CAM_Shape.svg[width=24] xref:operations/path-from-shape-tc.adoc[CAM Shape] command doesn't match the current CAM workflow. For that reason it's moved to the experimental features.
+The xref:operations/path-from-shape-tc.adoc[Path From Shape TC] command creates a toolpath that follows selected edges directly, without tool radius compensation and without depth stepping. The toolpath is linked to a Tool Controller of the Job for feed rates and tool change. It is an xref:reference/experimental.adoc[experimental] command.
 
-This tool generates tool-paths from CAM Object edges.
+This command replaced the earlier experimental _From Shape_ (`CAM_Shape`) command in [.since]#version 1.1#; that command is no longer available from the menus.
 
-Tool-paths are uncompensated for tool radius. There is no Tool controller associated with the generated tool-paths.
+The new PathShape object is added to the Job's Operations and is post-processed like any other Operation.
 
 image::FromShape_image_0.png[width=500]
 
+NOTE: This image predates the 1.1 Path From Shape TC command and may not match the current object.
+
 == Usage
 
-All edges associated with the 3D Model selection will be included.
+. Select one or more edges of a model in the https://wiki.freecad.org/3D_View[3D View], or select an object whose shape is a single wire or edge (for example a Draft wire). Faces and whole solids are not accepted; only the first selected object is used. xref:inspect/select-loop.adoc[Finish Selecting Loop] can help to select a closed loop of edges.
+. Select menu:CAM[Supplemental Commands > Path From Shape TC]. The command is only enabled when a Job exists.
+. Adjust the Tool Controller, retraction and feed properties in the property editor (there is no task panel).
 
-. Select edges by selecting the entire object from the https://wiki.freecad.org/3D_View[3D View] or https://wiki.freecad.org/Tree_View[Tree View], or by selecting individual edges, or by Faces from the https://wiki.freecad.org/3D_View[3D View].
-. Press the image:CAM_Shape.svg[width=16] xref:operations/path-from-shape-tc.adoc[Path From Shape TC] button.
+=== Objects created
 
-The output tool-path is added outside the CAM Job.
+The command creates a hidden helper object `PartShape` holding a wire built from the selected edges (its *Base* property links the edges; for a wire object a Draft clone is used instead), and a `PathShape` object of type `Path::FeatureShape` whose *Sources* property links the helper. *Retraction*, *ResumeHeight* and *RetractThreshold* are initialised to the Stock top plus 10 mm.
 
 == Options
 
-All Options provided are available only from the FromShape.Property.Data view, and include:
-
-* *Retraction Axis*
-* *Retraction Height*
-* *Resume Height*
-* *Feed Rate*
-* *Feed Rate Vertical*
+All settings are edited in the property editor: *RetractAxis*, *Retraction*, *ResumeHeight*, *RetractThreshold*, *FeedRate*, *FeedRateVertical* (see Properties).
 
 == Properties
 
-=== Data
+.Path
+* *Sources* (`LinkList`): shapes to convert.
+* *StartPoint* (`Vector`): Feed start position.
+* *UseStartPoint* (`Bool`): Enable feed start position.
+* *ArcPlane* (`Enumeration`): `None`, `Auto`, `XY`, `ZX`, `YZ`, `Variable` — arc drawing plane (G17/G18/G19).
+* *SortMode* (`Enumeration`): `None`, `2D5`, `3D`, `Greedy` — wire sorting mode to optimize travel.
+* *MinDistance* (`Length`), *SortAbscissa* (`Length`), *NearestK* (`Integer`): sorting parameters.
+* *Orientation* (`Enumeration`): `Normal`, `Reversed` — loop orientation.
+* *Direction* (`Enumeration`): `None`, `XPositive`, `XNegative`, `YPositive`, `YNegative`, `ZPositive`, `ZNegative` — open path direction.
+* *RetractThreshold* (`Length`): end points closer than this are treated as connected (tool stays down).
+* *RetractAxis* (`Enumeration`): `X`, `Y`, `Z`.
+* *Retraction* (`Length`): absolute retract coordinate along the retract axis.
+* *ResumeHeight* (`Length`): pause height relative to the next move after a retract.
+* *Segmentation* (`Length`): break long curves into segments of this length (0 = off).
+* *FeedRate* (`Float`) and *FeedRateVertical* (`Float`): feed rates, initialised from the Tool Controller.
+* *Verbose* (`Bool`), *AbsoluteArcCenter* (`Bool`), *EmitPreamble* (`Bool`), *Deflection* (`Precision`).
+* *Active* (`Bool`), *Comment* (`String`), *UserLabel* (`String`), *CycleTime* (`String`, read-only), *ToolController* (`Link`), *OpToolDiameter* (`Distance`, read-only, group Op Values): added by the command.
 
-Empty
+== Notes
 
-=== View
-
-Empty
+* The C++ commands _From Shape_ (`CAM_Shape`, creates a `Path::FeatureShape` from selected faces/edges/objects without Tool Controller) and _Compound_ (`CAM_Compound`) are still compiled into the workbench but are not on any toolbar or menu; they can only be reached via menu:Tools[Customize] or Python.
 
 == Scripting
 
 See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
 
-=== DocString Info
+The command has no Python API; the equivalent is to create a `Path::FeatureShape` object and set its *Sources* property. The low-level conversion is available as `Path.fromShapes()`:
+
+=== Path.fromShapes()
 
 Returns a Path object from a list of shapes.
 

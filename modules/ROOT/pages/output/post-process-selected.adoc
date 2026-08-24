@@ -1,0 +1,40 @@
+= CAM PostSelected
+:page-command: CAM_PostSelected
+:page-icon: CAM_PostSelected.svg
+:page-menu: CAM → Post Process Selected
+:page-workbench: CAM
+:page-shortcut: P O
+:page-since: 26.3
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_PostSelected.svg[CAM PostSelected,32] *CAM PostSelected*
+
+Menu location:: menu:CAM[Post Process Selected]; also in the Tree View context menu of Operations
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: kbd:[P] kbd:[O]
+Introduced in version:: 26.3
+See also:: xref:output/post-process.adoc[CAM Post], xref:job/job.adoc[CAM Job]
+--
+
+== Description
+
+The image:CAM_PostSelected.svg[width=24] xref:output/post-process-selected.adoc[CAM PostSelected] command (menu text: _Post Process Selected_; tooltip: _Post Processes the selected operations_) exports only the selected Operations of a xref:job/job.adoc[Job] to G-code, using the same Post-Processor flow as xref:output/post-process.adoc[CAM Post]. It is found in the menu:CAM[Post Process Selected] menu, in the *Project Setup* toolbar drop-down *Post process Operations*, and in the Tree View context menu of Operations.
+
+== Usage
+
+. Select one or more Operations (or Dressups) of the same Job in the Tree View. The command is inactive if a Job is selected.
+. Invoke the command:
+* Press the image:CAM_PostSelected.svg[width=16] *Post Process Selected* button in the *Post process Operations* toolbar drop-down.
+* Select the menu:CAM[Post Process Selected] option from the menu.
+* Use the keyboard shortcut: kbd:[P] then kbd:[O].
+. A *Post Process* message box asks _What needs to be exported?_ — press btn:[Only selected] to export just the selected Operations or btn:[All] (default) to export the whole Job. The box is skipped when the selection already equals the whole workplan.
+. Post-processing continues as for xref:output/post-process.adoc[CAM Post]: the Post Processing dialog (Job with Machine) or the legacy flow; in the dialog the selected Operations are pre-checked on the Operations tab.
+
+== Notes
+
+* Check that the exported subset is safe to run without the omitted Operations (the message box reminds you).
+* Operations inside an Array with several Tool Controllers are resolved to their parent Job through the Array's Base.
+* The command was added in [.since]#26.3#.

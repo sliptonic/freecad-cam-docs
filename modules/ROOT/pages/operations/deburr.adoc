@@ -6,6 +6,7 @@
 :page-menu: CAM → Deburr
 :page-workbench: CAM
 :page-since: 0.18
+:page-audit: applied
 :page-imported: true
 
 [.fcinfobox]
@@ -22,12 +23,14 @@ See also:: _None_
 
 == Description
 
-The image:CAM_Deburr.svg[width=24] xref:operations/deburr.adoc[CAM Deburr] command is primarily for deburring an edge.
+The image:CAM_Deburr.svg[width=24] xref:operations/deburr.adoc[CAM Deburr] command creates an Operation that runs a chamfer or V-bit cutter along selected edges or around selected faces to break the edge. The command tooltip reads "Creates a Deburr toolpath along Edges or around Faces". Base Geometry must belong to a Model of the Job.
+
+With a Tool Bit that has a *Cutting Edge Angle* (chamfer or v-bit Tool Shape) the cut depth is `Width / tan(angle / 2)` plus Extra Depth, and the Toolpath is offset by the tip radius (*Tip Diameter* or *Flat Radius*). With an end mill (no angle, or 180°) the Toolpath is offset inside the edge by Width and the depth equals Extra Depth. Messages in the Report view state which assumption was made.
 
 == Usage
 
 . There are several ways to invoke the command:
-* Press the image:CAM_Deburr.svg[width=16] xref:operations/deburr.adoc[Deburr] button.
+* Press the image:CAM_Deburr.svg[width=16] xref:operations/deburr.adoc[Deburr] button in the *Engraving Operations* group of the New Operations toolbar.
 * Select the menu:CAM[Deburr] option from the menu.
 . The menu:Deburr[] task panel opens. See <<options,Options>>.
 . Select menu:Base Geometry[].
@@ -36,22 +39,22 @@ The image:CAM_Deburr.svg[width=24] xref:operations/deburr.adoc[CAM Deburr] comma
 
 == Options
 
-After selecting the geometry in the menu:Base Geometry[] section of the task panel you can press btn:[Apply] to see the tool path as defined by the default options.
+After selecting the geometry in the menu:Base Geometry[] section of the task panel you can press btn:[Apply] to see the Toolpath as defined by the default options.
 
-Next you can check your depths/step down and heights, just like with other path commands.
+The menu:Heights[] section holds menu:Clearance[], menu:Retract[] and menu:Step down[], together with the Linking settings menu:Collision Avoidance Strategy[] and menu:Collision Clearance[] ([.since]#introduced in 26.3#). Start and Final depths are not editable for Deburr; the cut depth follows from the chamfer parameters.
 
-The Final step is to activate the menu:Operation[] section where you can specify the following:
+The menu:Tool Controller[] section holds menu:Tool controller[] (select the Tool Controller to use) and menu:Coolant[] (`None`, `Flood` or `Mist`).
 
-* menu:Tool controller[]: Select the tool to use.
-* menu:Coolant Mode[]: Select `None`, `Flood` or `Mist`.
-* menu:Directions[]: Select `CW` (clockwise) or `CCW` (counter-clockwise).
-* menu:W[]: The dimension of your edge.
-* menu:h[]: The offset from the bottom of the tool. It's a safety feature because if the tip gets above the edge it won't cut anymore.
+In the menu:Operation[] section you can specify the following, illustrated by the chamfer diagram:
 
-::
-  
+* menu:Direction[]: The direction in which the profile is performed, `CW` (clockwise) or `CCW` (counter-clockwise).
+* menu:W =[]: Width of chamfer cut.
+* menu:h =[]: Extra depth of tool immersion. It's a safety feature: if the tip gets above the edge it won't cut anymore.
 
 image::Path_Deburr_Operations-tab.png[Deburring interface with the options,300]
+
+[.caption]
+Above: the Operation section (screenshot predates the current version; the Join Round/Miter buttons shown are hidden on current versions)
 
 == Properties
 
@@ -62,18 +65,24 @@ image::Path_Deburr_Operations-tab.png[Deburring interface with the options,300]
 * *Label*: User name of the object (UTF-8)
 
 .Deburr
-* *Direction*: `CCW` or `CW`.
-* *Entry Point*: Entry point of the operation, if set to 2 it will go in 2 corners from the default.
-* *Extra depth*: Extra depth (menu:h[] in the task panel).
-* *Join*: How to join chamfer segments, `Round` or `Miter`.
-* *Side*: Side of the operation, `Outside` or `Inside`.
-* *Width*: The width of the chamfer (menu:W[] in the task panel).
+* *Direction*: Direction of toolpath, `CW` (default) or `CCW`.
+* *Entry Point*: The segment where the toolpath starts (index of the edge of each wire at which cutting begins). Default 0; negative values are reset to 0.
+* *Extra Depth*: The additional depth of the toolpath (menu:h =[] in the task panel). Default: 0.5 mm.
+* *Join* (hidden): How to join chamfer segments, `Round` (default) or `Miter`.
+* *Side* (hidden): Side of base object, `Outside` or `Inside`. Computed by the operation; set to `Inside` for angled faces whose top radius is larger than the bottom radius.
+* *Width*: The desired width of the chamfer (menu:W =[] in the task panel). Default: 1 mm.
 
 .Depth
 * *Clearance Height*: The height needed to clear clamps and obstructions (set by default to `OpStockZMax + SetupSheet.ClearanceHeightOffset`).
-* *Safe Height*: The height above which rapid motions are allowed. (set to `OpStockZMax + SetupSheet.SafeHeightOffset`).
-* *Start Depth*: Starting depth of of the tool, first cut depth in Z.
-* *Step Down*: Incremental step down of the tool.
+* *Safe Height*: The height above which rapid motions are allowed (set to `OpStockZMax + SetupSheet.SafeHeightOffset`).
+* *Start Depth* (read-only): internal value used for derived expressions; the cut depth comes from Width and Extra Depth.
+* *Step Down*: Incremental Step Down of Tool, default 0 mm (single pass).
+
+.Linking
+[.since]#introduced in 26.3#
+
+* *Collision Avoidance Strategy*: `Clearance Height`, `Retract Height`, `Line of Sight`, `Tool Diameter`, `Tool Shape`. Governs the moves between separate wires.
+* *Collision Clearance*: Distance for collision detection.
 
 .Op Values
 * *Op Stock ZMax*: The maximum Z value of the stock.
@@ -86,5 +95,32 @@ image::Path_Deburr_Operations-tab.png[Deburring interface with the options,300]
 * *Comment*: An optional comment for this operation.
 * *Coolant Mode*: Coolant mode for this operation.
 * *Cycle Time*: Estimated cycle time for this operation.
-* *Tool Controller*: The tool controller that will be used to calculate the path.
+* *Tool Controller*: The Tool Controller that will be used to calculate the Toolpath.
 * *User Label*: User assigned label.
+* *Workplane*: The orientation of the tool for this operation. Default is (0, 0, 1) for standard Z-up milling. [.since]#introduced in 26.3# (3+2 support).
+
+== Notes
+
+* Only edges and faces of the Job's Models are accepted as Base Geometry; whole 2D objects cannot be added.
+* [.since]#introduced in 26.3#: Wires are discretised as needed before offsetting so that complex edges no longer fail. Angled faces are handled by projecting the lower edge to the height of the upper edge. The segmentation precision follows the Job's *Geometry Tolerance* property (there is no per-operation tolerance property). Moves between wires use the Linking generator, so the tool retracts only to Safe Height when the move is clear.
+
+== Scripting
+
+See also: https://wiki.freecad.org/FreeCAD_Scripting_Basics[FreeCAD Scripting Basics].
+
+Example:
+
+[source,python]
+----
+import FreeCAD
+import Path.Op.Deburr as PathDeburr
+
+job = FreeCAD.ActiveDocument.getObject('Job')
+op = PathDeburr.Create('Deburr', parentJob=job)
+model = job.Model.Group[0]
+op.Base = [(model, ['Edge1', 'Edge2'])]
+op.Width = '1 mm'
+op.ExtraDepth = '0.5 mm'
+op.Direction = 'CW'
+FreeCAD.ActiveDocument.recompute()
+----

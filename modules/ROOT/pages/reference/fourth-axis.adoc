@@ -2,61 +2,51 @@
 :page-origin: https://wiki.freecad.org/CAM_fourth_axis
 :page-origin-revision: 3bfc2423dd 2025-07-04
 :page-imported: true
+:page-audit: applied
 
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+NOTE: This page is incomplete; it was marked as unfinished on the wiki. Requires FreeCAD 26.3 or later, with OpenCAMLib and experimental features enabled for the Rotary Surface operation.
 
 == Description
 
-These experimental features allow milling of four axis https://forum.freecad.org/viewtopic.php?f=15&t=36773[faces] and https://forum.freecad.org/viewtopic.php?f=15&t=35867[pockets]
+[.since]#Since 26.3#, rotary-axis support is built on Machine definitions. A Machine (`.fcm`) declares its rotary axes (name A/B/C, rotation vector, limits, table or head role and wrap strategy) and is assigned to the Job on the General tab. Operations then emit the required rotary positioning automatically, and dedicated operations and dressups generate continuous 4-axis toolpaths.
 
-These features are in early development. Bugs may exist. Thank you for your feedback and testing.
+== 3+2 indexed machining
 
-== Installation
+Every operation has a Workplane property. When it is not Z-up and the Job's Machine has rotary axes, the operation solves the A/B/C angles that bring the workplane normal to Z, emits a G0 rotary move before its toolpath, and computes depths and Base Geometry in the rotated frame. If no rotary machine is assigned, the operation produces an empty toolpath with the comment `(workplane rotation unavailable)`.
 
-Ideally, upgrade to version 0.19.16502, or higher.
+== Rotary Surface operation
 
-Download these scripts:
+The xref:operations/rotary-surface.adoc[Rotary Surface] operation (experimental, requires OpenCAMLib) machines a part mounted on a single rotary axis by dropping the cutter onto the model at successive angles.
 
-* PathProfileFaces.py https://forum.freecad.org/viewtopic.php?f=15&t=36773[available here] and
-* PathAreaOp.py is https://forum.freecad.org/viewtopic.php?f=15&t=35867[here]
-* PathPocketShape.py from https://forum.freecad.org/viewtopic.php?f=15&t=35867[here too] (for pocket operations)
+.Rotary
+Properties in this group: *Start X* and *Stop X* (axial extent), *Start Angle*, *Stop Angle*, *Step Over* (axial advance per revolution), *Angular Resolution* (default 5°), *Radial Stock To Leave*, *Cut Mode* (`Climb`/`Conventional`), *Cut Pattern* (`Spiral`, `Parallel`, `Rings`), *Feed Mode* (`Surface Speed` / `Axial Only`), *Max Feed* (feed clamp near the centreline), *Boundary From Faces* (restrict to selected faces).
 
-Place them in your FreeCAD/Mod/CAM/PathScripts directory, ++*++after++*++ renaming your originals for safe keeping. Rename the new scripts to the original script names. Restart FreeCAD and have fun.
+.Mesh
+Properties in this group: *Linear Deflection*, *Angular Deflection*.
 
-Use at your own risk.
+A cylindrical Stock is assumed.
+
+== 3D Surface rotational scan
+
+The xref:operations/surface.adoc[3D Surface] operation's *Scan Type* = `Rotational` produces a drop-cutter scan around *Rotation Axis* X or Y between *Start Index* and *Stop Index* (degrees), with *Cutter Tilt* and *Drop Cutter Dir* options; the result is emitted as A (or B) axis moves. Retract and recompute reliability were improved in 26.3.
+
+== Axis Map dressup
+
+The xref:dressups/axis-map.adoc[Axis Map dressup] wraps a flat toolpath onto a cylinder by converting one linear axis into a rotary axis: *Axis Map* (`X->A`, `Y->A`, `X->B`, `Y->B`, `X->C`, `Y->C`), *Radius* of the wrapped surface and *Reverse* (invert rotary direction, [.since]#introduced in 26.3#). Feed rates are converted to degrees per minute and the Job's centre of rotation is updated so the toolpath is drawn on the cylinder.
+
+== Display and post-processing of rotary moves
+
+Toolpaths with A/B/C words are drawn about `Path.Center` using the full angular travel [.since]#since 26.3#. Machine-based post-processors expand rotary moves according to the axis Wrap Strategy (unwound, wrapped, shortest) defined in the Machine; legacy post-processors output the angle words unchanged. Feed handling for rotary-only moves was fixed in 1.1.
 
 == Limitations
 
-Current 4th-axis capable operations do not handle complex/compound rotations: those involving X and Y simultaneously.
+* The simulators do not animate rotary axes.
+* 3+2 orientation requires a Machine with enough rotary axes to reach the workplane normal; otherwise the operation reports "Cannot solve workplane orientation".
+* Rotary Surface supports a single rotary axis only.
 
-There is currently no GUI integration of 4th-axis rotational settings in the release branch. All related settings are in the Data tab of the Properties View section for each individual operation supported.
+== See also
 
-== Usage
-
-=== Profile Faces
-
-* Select the face(s) for the operation as normal
-* Click on the xref:operations/profile.adoc#profile-face-operation[CAM Profile Faces] icon to start the operation
-* Change your settings as desired
-* Click OK to run the operation
-* In the properties list for the new operation, change the "Enable Rotation" setting as needed for the face(s)
-* Recompute the operation
-* Adjust start/final depths as needed. Final depth is coded to NOT go beyond the selected face used for the profile.
-
-=== Pocket Shape
-
-* Click on the xref:operations/pocket.adoc[CAM Pocket Shape] icon to start the operation.
-* Click the OK to create the operation - no faces selected
-* Select the new Pocket++_++Shape operation in task window
-* In the operation's Properties list, scroll to CAM section and change the "Enable Rotation" property to the desired 4th-axis setting.
-* Re-compute the operation
-* Double click on the same operation, to edit settings in the task window.
-* Open the 'Base Geometry' tab. Select one face (preferred at the moment) and click the 'Add' button, placing that face in the Base Geometry list.
-* Change the other operation settings as desired.
-* Click OK to save and apply the changes.
-
-== Troubleshooting
-
-* There is an "Inverse Angle" property. You may have to toggle this to get correct paths for some of your faces.
-* Set "Enable Rotation" to other than 'Off' to profile faces perpendicularly that are not normal to Z-axis.
-* Toggle the "Reverse Direction" property if the path appears to be off by 180 degrees.
+* xref:operations/rotary-surface.adoc[Rotary Surface]
+* xref:dressups/axis-map.adoc[Axis Map dressup]
+* xref:operations/surface.adoc[3D Surface]
+* Machine definitions: see xref:output/machine.adoc[Machine] and the Assets page of the xref:reference/preferences.adoc[CAM preferences]

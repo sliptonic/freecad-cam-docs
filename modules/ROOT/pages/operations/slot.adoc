@@ -6,6 +6,7 @@
 :page-menu: CAM → Slot
 :page-workbench: CAM
 :page-since: 0.19
+:page-audit: applied
 :page-imported: true
 
 [.fcinfobox]
@@ -22,50 +23,52 @@ See also:: _None_
 
 == Description
 
-The image:CAM_Slot.svg[width=24] xref:operations/slot.adoc[CAM Slot] command creates a simple slotting operation using various methods of input.
+The image:CAM_Slot.svg[width=24] xref:operations/slot.adoc[CAM Slot] command creates a single horizontal slot between two points. Points can be specified through selected geometry or custom points.
 
-Inputs include:
+Allowed selection, from one Model only:
 
-* selecting one or more faces or edges.
-* selecting two vertices.
-* entering two custom points.
+* two vertexes.
+* one or two edges.
+* one horizontal or vertical face. A single horizontal face must have exactly four edges.
+* one or two vertical faces.
+* *_nothing_*, to use two custom points.
 
 The CAM Slot object is made to be part of a image:CAM_Job.svg[width=24] xref:job/job.adoc[CAM Job].
 
 == Usage
 
 . Select the reference geometry on the model:
-* one or more faces or edges.
+* one or two faces or edges.
 * two vertices.
 * *_nothing_* to use two custom points entered in the https://wiki.freecad.org/Property_View[Property View] of the Data tab: Custom Point1 and Custom Point2.
 . Invoke the Slot command using several methods:
-* Pressing the image:CAM_Slot.svg[width=24] xref:operations/slot.adoc[Slot] button in the toolbar.
-
-.* Using the kbd:[CAM] → image:CAM_Slot.svg[width=24] xref:operations/slot.adoc[Slot] entry from the top menu.
-
+* Pressing the image:CAM_Slot.svg[width=24] xref:operations/slot.adoc[Slot] button on the New Operations toolbar.
+* Using the menu:CAM[Slot] entry from the top menu.
 . Adjust the desired properties. Descriptions of available properties are found below.
 
 === Usage Notes
 
 * All slots:
-** Both the beginning and end of a slot path can be extended or shortened. Use the *Extend Path Start* and *Extend Path End* properties.
-** Use the *Layer Mode* property to cut the slot in 'Single-pass' mode at final depth, or in 'Multi-pass' mode using the available *Step Down* property.
-** Toggle the *Reverse Direction* property to reverse the direction of the cut path.
+** Both the beginning and end of a slot Toolpath can be extended or shortened. Use the *Extend Path Start* and *Extend Path End* properties.
+** Toggle the *Reverse Direction* property to reverse the direction of the cut.
+** [.since]#introduced in 26.3#: The *Cut Pattern* property selects how successive step-down layers are cut: `Bidirectional` cuts each layer in the opposite direction of the previous one without a retract; `Directional` retracts to Safe Height and returns to the start so every layer is cut in the same direction. Slot operations saved before 26.3 are migrated automatically: `Line` becomes `Directional`, `ZigZag` becomes `Bidirectional`.
+** [.since]#introduced in 26.3#: The Toolpath begins with a rapid from Clearance Height to Safe Height before the first plunge. If a slot cannot be built from the selection, the Toolpath is cleared and an error is reported in the Report view instead of leaving a stale Toolpath.
+** [.since]#introduced in 26.3#: With two parallel edges or two vertical faces selected, `Start to End` orientation builds the slot centred between them using the longer feature's length, and `Perpendicular` builds a slot across them. Straight edges of any curve type (for example a straight B-spline) are accepted; non-horizontal arcs and circles are rejected with the message "Can not create slot from not horizontal circle".
 
 * Linear slots:
-** Currently there is no capability to offset linear slots laterally (parallel to path of travel). *_Example:_* Say you have a tool diameter smaller than the width of the slot area you are clearing. Current behavior of this operation is to create a set of paths on a plane down the center-line of the designated slot, which will result in the slot volume not being fully cleared. Some users would want the operation to create multiple paths that are offset laterally to clear the entire slot area; this not directly possible, though can be achieved through using "Custom Points", see "Vertical face milling" below. Alternatively use the Pocket operation for such clearing.
-** Create a custom linear slot using the *Custom Point1* and *Custom Point2* properties with no geometry selection. *_Example:_* Initiate a Slot operation in the GUI and click 'OK' to save. Now locate and edit the *Custom Point1* and *Custom Point2* properties in the Data tab of the newly created Slot operation. Recompute the operation to update the path.
+** Currently there is no capability to offset linear slots laterally (parallel to the direction of travel). *_Example:_* Say you have a Tool Bit diameter smaller than the width of the slot area you are clearing. Current behavior of this operation is to create a Toolpath on a plane down the center-line of the designated slot, which will result in the slot volume not being fully cleared. Some users would want the operation to create multiple passes that are offset laterally to clear the entire slot area; this is not directly possible, though it can be achieved through using "Custom Points", see "Vertical face milling" below. Alternatively use the Pocket operation for such clearing.
+** Create a custom linear slot using the *Custom Point1* and *Custom Point2* properties with no geometry selection. *_Example:_* Initiate a Slot operation in the GUI and click 'OK' to save. Now locate and edit the *Custom Point1* and *Custom Point2* properties in the Data tab of the newly created Slot operation. Recompute the operation to update the Toolpath.
 
 * Vertical face milling:
-** Most of the CAM tools cannot make a path on a single vertical plane since the projection onto horizontal plane has zero area (an internal limitation). The Slot operation makes this possible by selecting "Custom points" which define a line parallel to the vertical plane and suitable Depth parameters.
+** Most of the CAM operations cannot make a Toolpath on a single vertical plane since the projection onto the horizontal plane has zero area (an internal limitation). The Slot operation makes this possible by selecting "Custom points" which define a line parallel to the vertical plane and suitable Depth parameters.
 
 * Arc/Circular slots:
 ** Creating arc/circular slots
-. You will need to select one bottom arc of the slot. This will produce a path directly on the arc edge you selected.
+. You will need to select one bottom arc of the slot. This will produce a Toolpath directly on the arc edge you selected.
 . You will then need to edit the ++`++Extend Radius++`++ property in the Data tab of the operation. Using the expression editor, set it to either _OpToolDiameter / 2.0_ or the negative version _OpToolDiameter / -2.0_ as needed, depending on whether you selected the inside or outside arc of the slot.
 . Recompute the operation.
-. Keep in mind that if the toolbit diameter is not equal to the slot width, the path will *_not_* be in the correct location. In this case, adjust the value in the ++`++Extend Radius++`++ property mentioned above.
-** Currently users are unable to create a custom arc/circular path. A third _Custom Center_ property will need to be added, along with additional modifications to the code base.
+. Keep in mind that if the Tool Bit diameter is not equal to the slot width, the Toolpath will *_not_* be in the correct location. In this case, adjust the value in the ++`++Extend Radius++`++ property mentioned above.
+** Currently users are unable to create a custom arc/circular slot. A third _Custom Center_ property will need to be added, along with additional modifications to the code base.
 
 == Properties
 
@@ -86,11 +89,13 @@ Note: It is suggested that you do not edit the Placement property of path operat
 *** *Z*: Z-distance value
 * *Label*: User-provided name of the object (UTF-8)
 
+.Debug
+* *Show Temp Objects*: Show the temporary toolpath construction objects when module is in DEBUG mode. Hidden unless the module log level is DEBUG.
+
 .Depth
 * *Clearance Height*: The height needed to clear clamps and obstructions
 * *Final Depth*: Final Depth of Tool- lowest value in Z
-* *Finish Depth*: Maximum material removed on final pass. The height (thickness) of the last cutting level - _set for a better finish_.
-* *Safe Height*: The height above which Rapid motions are allowed. (Rapid safety height between locations)
+* *Safe Height*: Rapid Safety Height between locations. Shown as _Retract_ in the task panel.
 * *Start Depth*: Starting depth of Tool - _first cut depth in Z_
 * *Step Down*: Incremental step down of Tool during operation
 
@@ -99,34 +104,41 @@ image::Path-DepthsAndHeights.gif[width=500]
 [.caption]
 Visual reference for Depth properties (settings)
 
+.Op Values
+* *Op Final Depth*: Holds the calculated value for the FinalDepth. Read-only.
+* *Op Start Depth*: Holds the calculated value for the StartDepth. Read-only.
+* *Op Stock ZMax*: Holds the max Z value of Stock. Read-only.
+* *Op Stock ZMin*: Holds the min Z value of Stock. Read-only.
+* *Op Tool Diameter*: Holds the diameter of the tool. Read-only.
+
 .Path
 * *Active*: Make False, to prevent operation from generating code
 * *Base*: The base geometry for this operation
 * *Comment*: An optional comment for this Operation
 * *Coolant Mode*: The coolant mode for this operation.
 * *Cycle Time*: The cycle time estimation for this operation.
-* *Tool Controller*: Defines the Tool controller used in the Operation
+* *Tool Controller*: Defines the Tool Controller used in the Operation
 * *User Label*: User assigned label
+* *Workplane*: The orientation of the tool for this operation. Default is (0, 0, 1) for standard Z-up milling. [.since]#introduced in 26.3# Used for 3+2 positioning with a Job of type Multiaxis; can be set from the context menu entry *Set Workplane from Face*.
 
 .Slot
-* *Custom Point1*: Enter custom start point for slot path.
-* *Custom Point2*: Enter custom end point for slot path.
-* *Cut Pattern*: Set the geometric clearing pattern to use for the operation.
-* *Extend Path End*: Positive extends the end of the path, negative shortens.
-* *Extend Path Start*: Positive extends the beginning of the path, negative shortens.
-* *Extend Radius*: For arcs/circlular edges, offset the radius for the path.
-* *Layer Mode*: Complete the operation in a single pass at depth, or mulitiple passes to final depth.
-* *Path Orientation*: Choose the path orientation with regard to the feature(s) selected.
-* *Reference1*: Choose what point to use on the first selected feature.
-* *Reference2*: Choose what point to use on the second selected feature.
-* *Reverse Direction*: Enable to reverse the cut direction of the slot path.
+* *Custom Point1*: Enter custom start point for slot toolpath. Default: (0, 0, 0). Used, together with Custom Point2, when Base Geometry is empty. The two points must differ and share the same Z value; otherwise a warning is printed and no Toolpath is generated.
+* *Custom Point2*: Enter custom end point for slot toolpath. Default: (0, 0, 0).
+* *Cut Pattern* ([.since]#introduced in 26.3#): Set the cut pattern for the operation. Values: `Directional` (every layer cut in the same direction, retract between layers) or `Bidirectional` (alternate direction each layer, no retract). Default: `Bidirectional`.
+* *Extend Path End*: Positive extends the end of the toolpath, negative shortens. Default: 0.
+* *Extend Path Start*: Positive extends the beginning of the toolpath, negative shortens. Default: 0.
+* *Extend Radius*: For arcs/circular edges, offset the radius for the toolpath. Default: 0. Hidden when two features are selected (it only applies to a single arc or circle).
+* *Path Orientation*: Choose the toolpath orientation with regard to the feature(s) selected. Values: `Start to End` (default) or `Perpendicular`.
+* *Reference1*: Choose what point to use on the first selected feature. Values: `Center of Mass` (default), `Center of Bounding Box`, `Lowest Point`, `Highest Point`, `Long Edge`, `Short Edge`, `Vertex`. Only the values applicable to the selected feature type are offered. Hidden unless Base Geometry contains one or two features.
+* *Reference2*: Choose what point to use on the second selected feature. Values: `Center of Mass` (default), `Center of Bounding Box`, `Lowest Point`, `Highest Point`, `Vertex`. Hidden unless two features are selected.
+* *Reverse Direction*: Enable to reverse the cut direction of the slot toolpath. Default: false.
 
 .Start Point
-* *Start Point*: The custom start point for the path of this operation.
+* *Start Point*: The custom start point for the toolpath of this operation. When *Use Start Point* is true a rapid to this X/Y at Clearance Height is inserted before the slot. It can also be set with the context-menu command Start Point Selection.
 ** *X*: X-distance value
 ** *Y*: Y-distance value
 ** *Z*: Z-distance value
-* *Use Start Point*: Make True, if manually specifying a Start Point. Set the start point in the property data Start Point field.
+* *Use Start Point*: Make True, if specifying a Start Point.
 
 == Tasks Window Editor Layout
 
@@ -136,34 +148,32 @@ This section is simply a layout map of the settings in the window editor for the
 
 === Base Geometry
 
-* *Add*: Adds selected element(s) which should be the base(s) for the path(s)
-* *Delete*: Delete the selected item(s) in the Base Geometry list
-* *Clear*: Clear all items in the Base Geometry list
-
-=== Depths
-
-* *Start Depth*
-* *Final Depth*
-* *Step Down*
+* *Add*: Add selected features to the list of base geometries for this operation.
+* *Remove*: Remove the selected list items from the list of base geometries.
+* *Clear*: Clears list of base geometries.
+* *Import*: A combo box listing the operations of the current Job that have Base Geometry, with an Import button that copies the Base Geometry of the chosen operation.
 
 === Heights
 
-* *Safe Height*
-* *Clearance Height*
+* *Clearance*
+* *Retract* (the Safe Height property)
+* *Start* (Start Depth)
+* *Step down*
+* *Final* (Final Depth)
+
+=== Tool Controller
+
+* *Tool controller*: The Tool Controller to be used for this operation.
+* *Coolant*: Coolant mode for this operation.
 
 === Operation
 
-* *Tool Controller*: The tool and its settings to be used for this operation.
-* *Coolant Mode*: Coolant mode for this operation.
-* *Start Reference ***: Choose what point to use on the first selected feature.
-* *End Reference ***: Choose what point to use on the second selected feature.
-* *Extend Path End*: Positive extends the end of the path, negative shortens.
-* *Extend Path Start*: Positive extends the beginning of the path, negative shortens.
-* *Layer Mode*: Complete the operation in a single pass at depth, or mulitiple passes to final depth.
-* *Path Orientation ***: Choose the path orientation with regard to the feature(s) selected.
-* *Reverse Direction*: Enable to reverse the cut direction of the slot path.
-
-*++**++* Visibility changes depending on Base Geometry selected.
+* *Start feature reference* and *End Feature Reference*: Choose what point to use on the first and second selected feature. The labels are rewritten at run time to match the selection, for example "Reference: Edge1", "Start Reference: Edge1", "End Reference: Edge2". When Base Geometry is empty these widgets are replaced by the message "No base geometry selected" / "Currently using custom point inputs available in the property view of the data tab".
+* *Extend path start*: Positive extends the beginning of the toolpath, negative shortens.
+* *Extend Path End*: Positive extends the end of the toolpath, negative shortens.
+* *Layer mode* (sets the *Cut Pattern* property; [.since]#introduced in 26.3#): `Directional` or `Bidirectional`.
+* *Path orientation*: `Start to end` or `Perpendicular`.
+* *Reverse cut direction*: Enable to reverse the cut direction of the slot toolpath.
 
 == Scripting
 
@@ -173,5 +183,13 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import FreeCAD
+import Path.Op.Slot as PathSlot
+
+job = FreeCAD.ActiveDocument.getObject('Job')
+op = PathSlot.Create('Slot', parentJob=job)
+op.CustomPoint1 = FreeCAD.Vector(0, 0, 0)
+op.CustomPoint2 = FreeCAD.Vector(50, 0, 0)
+op.CutPattern = 'Bidirectional'
+FreeCAD.ActiveDocument.recompute()
 ----

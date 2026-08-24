@@ -7,8 +7,9 @@
 :page-workbench: CAM
 :page-since: 0.19
 :page-imported: true
+:page-audit: applied
 
-WARNING: This is an unfinished experimental feature. See xref:reference/experimental.adoc[Enable Experimental Features].
+WARNING: This operation requires xref:reference/opencamlib.adoc[OpenCamLib] and the preference menu:Edit[Preferences > CAM > Advanced > Enable OCL dependent features]. Enabling it requires a restart of FreeCAD.
 
 NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 
@@ -18,25 +19,25 @@ NOTE: This page is incomplete; it was marked as unfinished on the wiki.
 image:CAM_Surface.svg[CAM Surface,32] *CAM Surface*
 
 Menu location:: menu:CAM[3D Surface]
+Toolbar:: New Operations → 3D Surface (only shown when OCL dependent features are enabled)
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: 0.19
-See also:: _None_
+See also:: xref:operations/waterline.adoc[CAM Waterline], xref:operations/rotary-surface.adoc[CAM RotarySurface]
 --
 
 == Description
 
-The image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[CAM Surface] command creates a new 3D Surface operation which is capable of generating G-code paths for the entire top surface of a 3D model (or is able to work with selected faces) and allows for faces to be avoided. This operation offers multiple cut patterns: Line, Zigzag, Circular, Circular Zigzag, Offset, and Spiral (similar to an adaptive pattern). As of version 0.19, this operation offers many customizations to allow for greater productivity.
+The image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[CAM Surface] command creates a new 3D Surface operation which is capable of generating G-code paths for the entire top surface of a 3D model (or is able to work with selected faces) and allows for faces to be avoided. Its tooltip reads: _Create a 3D Surface Operation from a model_. This operation offers multiple cut patterns: Line, Zigzag, Circular, Circular Zigzag, Offset, and Spiral (similar to an adaptive pattern). This Operation offers many customizations through its properties; most are only accessible in the Property view.
 
 The 3D Surface command is also capable of generating basic rotational 3D surfacing paths. The rotational capabilities are limited to the entire model, and do not allow for specific faces or regions to be isolated. The rotational paths are also limited to line cut patterns.
 
-The command interfaces to OCL.pyd, a 3rd party Open Source module titled xref:reference/opencamlib.adoc[OpenCamLib], that generates tool paths from a 3D model. OpenCamLib is not integrated directly into FreeCAD.
+The command interfaces to OCL.pyd, a 3rd party Open Source module titled xref:reference/opencamlib.adoc[OpenCamLib], that generates Toolpaths from a 3D model. OpenCamLib is not integrated directly into FreeCAD.
 
 *Note:* In order to use the 3D Surface operation you must:
 
 . Properly install xref:reference/opencamlib.adoc[OpenCamLib].
-. Enable xref:reference/experimental.adoc[Experimental Features] for the CAM Workbench.
-. Check menu:Edit[Preferences > CAM > Advanced > Enable OCL dependent features].
+. Check menu:Edit[Preferences > CAM > Advanced > Enable OCL dependent features] and restart FreeCAD.
 
 == Usage
 
@@ -45,27 +46,27 @@ Usage instructions for multiple variations of the xref:operations/surface.adoc[3
 === Basic Operation
 
 . Press the image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[3D Surface] icon, or select menu:CAM[3D Surface] from the dropdown menu.
-. Select the tool controller for the Operation from the Tool controller dialogue pop up window, if presented.
+. On the Tool Controller tab select the Tool Controller and Coolant mode. [.since]#26.3 and later#
 . In the Base Geometry tab, select any specific faces you wish to focus on and/or avoid for the operation.
-. Adjust the operation depths as needed in the Depths tab: Start Depth, Finish Depth, Step Down.
-. Make adjustments in Heights tab if needed.
-. Configure settings in the Operations tab as needed:
-* Choose your Coolant Mode.
-* Choose the BoundBox: Stock or BaseBoundBox
-* Set the Scan Type for the operation: Planar or Rotational
-* Select the Layer Mode for the operation: Single-pass or Multi-pass
-.. Single-pass is for a finishing pass
-.. Multi-pass could be used for clearing in combination with the use of Depth Offset to leave a thin surface layer for a finish pass
-* Add additional BoundBox Extra Offset to X and Y as desired (_Rotational scans only_)
-* Set the Drop Cutter Direction: X or Y. This is the linear direction the cutter(spindle) will travel. (_Rotational scans only_)
-* Add a Depth Offset value if you wish to leave a specified thickness of material on the surface, for say a final finish pass
-* Set the Sample Interval used for the OCL scan.
-* Set the Step Over value as a percentage of the diameter of the Tool.
-* Check the Use Start Point box if you wish to provide a start point for the operation in the properties view of the data tab for the operation.
-* Boundary Enforcement is enabled by default. This forces the cutter to remain inside the boundaries of the feature geometry for the operation, like a pocketing operation. Disable to allow the cutter to extend to the outside of the feature geometry. The Boundary Adjustment property supersedes this property.
-* Optimize Linear Paths is enabled by default. Disabling will yield a longer gcode result and likely increase cut time.
-. If you wish to preview the result before accepting the settings, click btn:[Apply]
-. Click btn:[OK] button to confirm and generate paths.
+. On the Heights tab adjust Clearance, Retract, Start depth, Final depth and Step down. [.since]#26.3 and later# depths and heights share a single Heights tab.
+. Configure settings in the Operation tab as needed:
+* Choose the Bounding box: Stock or BaseBoundBox.
+* Set the Scan type for the operation: Planar or Rotational.
+* Select the Layer mode for the operation: Single-pass or Multi-pass.
+.. Single-pass is for a finishing pass.
+.. Multi-pass could be used for clearing in combination with the use of Depth offset to leave a thin surface layer for a finish pass.
+* Set the Cut pattern, Profile edges and Avoid last X faces (_Planar scans only_).
+* Add additional Bounding box extra offset to X and Y as desired (_Rotational scans only_).
+* Set the Drop cutter direction: X or Y. This is the linear direction the cutter (spindle) will travel. (_Rotational scans only_)
+* Add a Depth offset value if you wish to leave a specified thickness of material on the surface, for say a final finish pass.
+* Set the Sample interval used for the OCL scan (default 1 mm).
+* Set the Step over value as a percentage of the diameter of the Tool Bit (default 50).
+* Check the Use start point box if you wish to provide a start point for the operation in the properties view of the data tab for the operation.
+* Boundary enforcement is enabled by default. This forces the cutter to remain inside the boundaries of the feature geometry for the operation, like a pocketing operation. Disable to allow the cutter to extend to the outside of the feature geometry. The Boundary Adjustment property supersedes this property.
+* Optimize linear paths is enabled by default. Disabling will yield a longer G-code result and likely increase cut time.
+* Optimize stepover transitions (_Planar scans only_).
+. If you wish to preview the result before accepting the settings, click btn:[Apply].
+. Click btn:[OK] button to confirm and generate the Toolpath.
 
 To achieve different, or more complex, effects, adjust additional operation properties within the Data tab of the https://wiki.freecad.org/Property_View[Properties View] for the operation.
 
@@ -76,7 +77,7 @@ To achieve different, or more complex, effects, adjust additional operation prop
 . Locate the Data tab and Properties View for the new xref:operations/surface.adoc[3D Surface] operation. A *Rotation* section should be available with additional properties to adjust, listed below. +
 It is recommended that you set the desired rotation properties all at once before recomputing. This is done by clicking the ENTER key immediately after changing a property setting. This process will allow you to change and save multiple properties before recomputing the operation.
 . Adjust the following settings as needed:
-* Set *Cutter Tilt* to the offset index(angle) ++[++0-90++]++. (Used for ball mill cutters)
+* Set *Cutter Tilt* to the cutter tilt angle in degrees, range -90 to 90 (used with ball end Tool Bits).
 * Change *Drop Cutter Dir* to the axis of travel for the cutter (spindle).
 * Change *Drop Cutter Extra Offset* to extend the BoundBox in the X and Y directions.
 * Set *Rotation Axis* to the desired axis.
@@ -87,12 +88,12 @@ It is recommended that you set the desired rotation properties all at once befor
 
 ===== Notes About Rotational Scans
 
-* *Rotational* scans require much more time and processing than *Planar* scans. Factors affecting processing time include: Sample Interval, Step Over, tool diameter, and model size. Again, rotational scans can take a long time. Some might take 3, 5 or 10 minutes or longer.
+* *Rotational* scans require much more time and processing than *Planar* scans. Factors affecting processing time include: Sample Interval, Step Over, Tool Bit diameter, and model size. Again, rotational scans can take a long time. Some might take 3, 5 or 10 minutes or longer.
 * For time purposes, it is better that you not recompute a rotational scan after every property change; rather, consider one of the following:
 ** use the ' _change all settings with ENTER key_ ' technique mentioned in Step 2 above, then image:View-refresh.svg[width=16] https://wiki.freecad.org/Std_Refresh[Refresh] the operation.
 ** deactivate the operation with the image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Active] toggle tool, make your changes to the operation's properties, then click the image:CAM_OpActiveToggle.svg[width=16] xref:inspect/op-active-toggle.adoc[Active] icon again to re-activate the operation - which triggers a recompute internally.
-* The image:CAM_Surface.svg[width=16] xref:operations/surface.adoc[3D Surface] command is still considered an _experimental feature_ as of 2019-06-25. As such, it may contain a few bugs yet to be clearly identified. Please report bugs and issues in the https://forum.freecad.org/viewforum.php?f=15[FreeCAD CAM Forum].
-* The built in image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[CAM Simulator] does NOT support 4th-axis simulation. You will need to use a third party simulator to inspect or verify paths visually. See the <<resources,Resources>> section below for suggestions.
+* Rotational scans are less mature than planar scans; report issues in the https://forum.freecad.org/viewforum.php?f=15[FreeCAD CAM Forum].
+* Neither the image:CAM_SimulatorGL.svg[width=16] xref:inspect/simulator.adoc[CAM Simulator] nor the image:CAM_Simulator.svg[width=16] xref:inspect/simulator-legacy.adoc[Legacy CAM Simulator] simulates 4th-axis motion. Use xref:inspect/camotics.adoc[CAMotics] or another external simulator to verify rotational Toolpaths.
 * You will likely see red rotational lines around your model in the viewport. This is normal in FreeCAD for the time being.
 
 ===== Notes About Scans of complex models
@@ -106,11 +107,9 @@ To confirm this:
 . Create a new image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[3D Surface] command.
 . Switch to the Model tab and increase the *Linear Deflection* value. For example change from 2.5um to 20um.
 . Switch back to the Tasks tab to complete setting up the operation.
-. Click btn:[OK] button to confirm and generate paths. +
+. Click btn:[OK] button to confirm and generate the Toolpath. +
 
-To make this value the default for all new image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[3D Surface] commands, change the *GeometryTolerance* parameter. +
-menu:Tools[Edit Parameters > Preferences > Mod > CAM > GeometryTolerance]. +
-Note as of version 0.19 the *Linear Deflection* default = GeometryTolerance / 4
+*Linear Deflection* defaults to one quarter of the Job's *Geometry Tolerance* property. To change the default for all new Jobs (and thereby all new image:CAM_Surface.svg[width=24] xref:operations/surface.adoc[3D Surface] operations), edit menu:Edit[Preferences > CAM > Job Preferences > Default geometry tolerance].
 
 *_Invalid Geometry_* +
 If a model contains invalid geometry the scanning time can increase significantly. A model can be checked using the https://wiki.freecad.org/Part_CheckGeometry[Part CheckGeometry] function in image:Workbench_Part.svg[width=24] https://wiki.freecad.org/Part_Workbench[Part Workbench]. +
@@ -125,21 +124,20 @@ If the results includes items like _BOPAlgo SelfIntersect_ then the geometry is 
 
 ==== Available Tool (Cutter) Shapes
 
-This 3D Surface op currently uses xref:reference/opencamlib.adoc[OpenCamLib] to extract paths from the part base. As such, a tool setting translation is required between the FreeCAD tool controller and OCL in order to complete the scan with your chosen tool(cutter) shape.
+This 3D Surface op currently uses xref:reference/opencamlib.adoc[OpenCamLib] to extract Toolpaths from the part base. As such, a translation is required between the FreeCAD Tool Bit and OCL in order to complete the scan with your chosen Tool Shape.
 
-These tool shapes are respected and available for this 3D Surface operation:
+These Tool Shapes are respected and available for this 3D Surface operation:
 
-* End mill
-* Ball end mill
-* Bull nose end mill
-* Chamfer bit
-* Engraver
+* Endmill
+* Ballend
+* Bullnose
+* TaperedBallNose (treated as a ball end of the same diameter)
+* V-bit (treated as a cone with the cutting edge angle)
+* Drill (treated as a cone with the tip angle)
 
-Should you choose to run the path simulator in the CAM Workbench, it only uses the standard end mill to simulate paths. Therefore, you will not see tool-shape-specific material removal. Material removal is shown using the end mill shape.
+Chamfer, Dovetail, Radius, Reamer, Slitting saw, Tap, Thread-mill and Probe are not supported; the Operation reports _Failed to map selected tool to an OCL tool type._ Please post any feedback about the FreeCAD-to-OCL translation of non-endmill Tool Shapes to the https://forum.freecad.org/viewforum.php?f=15[CAM] section in the FreeCAD forums.
 
-NOTE: As of May 2019, only the End Mill has any type of testing to determine accuracy of the FreeCAD-to-OCL tool settings translation. Please post any feedback for non-end-mill usage to the https://forum.freecad.org/viewforum.php?f=15[CAM] section in the FreeCAD forums.
-
-== Properties: Version 0.19
+== Properties
 
 *_Note_*: Not all of these Properties are available in the Task Window Editor. Some are only accessible in the Data tab of the https://wiki.freecad.org/Property_View[Properties View] panel for this Operation.
 
@@ -159,71 +157,76 @@ Note: It is suggested that you do not edit the Placement property of path operat
 * *Label*: User-provided name of the object (UTF-8)
 
 .Clearing Options
-* *Bound Box*: Should the operation be limited by the stock object or by the bounding box of the base object
-* *Cut Mode*: The direction that the toolpath should go around the part: Climb (ClockWise/CW) or Conventional (CounterClockWise/CCW)
-* *Cut Pattern*: Clearing pattern to use
+* *Bound Box*: Select the overall boundary for the Operation. Values: BaseBoundBox (default), Stock
+* *Cut Mode*: Set the direction for the Tool Bit to engage the material: Climb (clockwise) or Conventional (counterclockwise). Default Conventional
+* *Cut Pattern*: Set the geometric clearing pattern to use for the Operation. Values: Circular, CircularZigZag, Line (default), Offset, Spiral, ZigZag. Hidden when Scan Type is Rotational
+* *Cut Pattern Angle*: The yaw angle used for the Line and ZigZag clearing patterns, in degrees. Default 0
 * *Cut Pattern Reversed*: Reverse the cut order of the stepover paths. For circular cut patterns, begin at the outside and work toward the center
 * *Depth Offset*: Z-axis offset from the surface of the object
-* *Layer Mode*: The completion mode for the operation: single or multi-pass
-* *Pattern Center At*: Choose location of the center point for starting the cut pattern
+* *Layer Mode*: Complete the Operation in a single pass at depth, or multiple passes to final depth. Values: Single-pass (default), Multi-pass
+* *Pattern Center At*: Choose location of the center point for starting the cut pattern. Values: CenterOfMass (default), CenterOfBoundBox, XminYmin, Custom. Only shown for the Circular, CircularZigZag and Spiral patterns
 * *Pattern Center Custom*: Set the start point for the cut pattern
 * *Profile Edges*: Profile the edges of the selection. There are the following options (images can be seen in this forum post: https://forum.freecad.org/viewtopic.php?p=676452#p676452):
-** *None*: Don't create a profile
-** *Only*: Create only a profile and no inner paths
-** *First*: Start with the profile and then do the rest
-** *Last*: Start with the rest and then do the profile
-* *Sample Interval*: The Sample Interval. Small values cause long wait times
-* *Step Over*: Step over percentage of the drop cutter path
+** _None_ (default): Don't create a profile
+** _Only_: Create only a profile and no inner paths
+** _First_: Start with the profile and then do the rest
+** _Last_: Start with the rest and then do the profile
+* *Sample Interval*: Set the sampling resolution. Smaller values quickly increase processing time. Default 1 mm; limited to 0.0001-25.4 mm
+* *Step Over*: Step over as a percentage of the Tool Bit diameter. Default 50, range 1-100
 
 .Depth
 * *Clearance Height*: The height needed to clear clamps and obstructions
 * *Final Depth*: Final Depth of Tool- lowest value in Z
-* *Safe Height*: The above which Rapid motions are allowed.
+* *Safe Height*: Rapid safety height between locations.
 * *Start Depth*: Starting Depth of Tool- first cut depth in Z
 * *Step Down*: Incremental Step Down of Tool
 
 .Mesh Conversion
-* *Angular Deflection*: Smaller values yield a finer, more accurate mesh. Smaller values increase processing time a lot
-* *Linear Deflection*: Smaller values yield a finer, more accurate mesh. Smaller values do not increase processing time much but can increase memory comsumption
+* *Angular Deflection*: Reserved; currently not used by the mesh conversion. Default 0.25
+* *Linear Deflection*: Smaller values yield a finer, more accurate mesh; they do not increase processing time much but can increase memory consumption. Default: Job Geometry Tolerance / 4 (0.001 mm if the tolerance is 0)
 
 .Optimization
 * *Circular Use G2 G3*: Convert co-planar arcs to G2/G3 gcode commands for 'Circular' and 'CircularZigZag' cut patterns
-* *Gap Sizes*: Feedback: three smallest gaps identified in the path geometry
-* *Gap Threshold*: Collinear and co-radial artifact gaps that are smaller than this threshold are closed in the path
+* *Gap Sizes*: Feedback only: the three smallest gaps identified in the Toolpath geometry (default "No gaps identified.")
+* *Gap Threshold*: Collinear and co-radial artifact gaps that are smaller than this threshold are closed in the Toolpath. Default 0.005 mm
 * *Optimize Linear Paths*: Enable optimization of linear paths (co-linear points). Removes unnecessary co-linear points from G-Code output
 * *Optimize Step Over Transitions*: Enable separate optimization of transitions between, and breaks within, each step over path
 
 .Path
 * *Active*: Make False, to prevent operation from generating code
 * *Base*: The base geometry for this operation
+* *Block Delete*: Enable post processor to add block delete commands. [.since]#introduced in 26.3#
 * *Comment*: An optional comment for this Operation
-* *Coolant Mode*: Coolant mode for this operation
+* *Coolant Mode*: Coolant mode for this Operation. Values: None, Flood, Mist
 * *Cycle Time*: Operations Cycle Time Estimation
-* *Tool Controller*: Defines the Tool controller used in the Operation
+* *Tool Controller*: The Tool Controller that will be used to calculate the Toolpath
 * *User Label*: User assigned label
+* *Workplane*: The orientation of the Tool Bit for this Operation; default (0, 0, 1) for Z-up milling. [.since]#introduced in 26.3#
 
 .Rotation
-* *Cutter Tilt*: Set the cutter (spindle) tilt angle.
-* *Drop Cutter Dir*: The direction along which dropcutter lines are created
+These properties are only visible when *Scan Type* is Rotational.
+
+* *Cutter Tilt*: Cutter tilt angle in degrees, -90 to 90, default 0
+* *Drop Cutter Dir*: Dropcutter lines are created parallel to this axis (X or Y)
 * *Drop Cutter Extra Offset*: Additional offset to the selected bounding box - use sub-properties to set values
 ** *X*: X-distance value
 ** *Y*: Y-distance value
 ** *Z*: Z-distance value
-* *Rotation Axis*: Set the axis for model rotation.
-* *Start Index*: Start index(angle) for rotation
-* *Stop Index*: Stop index(angle) for rotation
+* *Rotation Axis*: The Model will be rotated around this axis (X default, or Y)
+* *Start Index*: Start angle for the rotational scan, 0-360, default 0
+* *Stop Index*: Stop angle for the rotational scan, 0-360, default 360
 
 .Selected Geometry Settings
-* *Avoid Last X Faces*: Avoid cutting the last 'N' faces in the Base Geometry list of selected faces
+* *Avoid Last X Faces*: Avoid cutting the last 'N' faces in the Base Geometry list of selected faces. Default 0, maximum 100
 * *Avoid Last X Internal Features*: Do not cut internal features on avoided faces
 * *Boundary Adjustment*: Positive values push the cutter toward, or beyond, the boundary. Negative values retract the cutter away from the boundary
 * *Boundary Enforcement*: If true, the cutter will remain inside the boundaries of the model or selected face(s)
-* *Handle Multiple Features*: Choose how to process multiple Base Geometry features
+* *Handle Multiple Features*: Choose how to process multiple Base Geometry features. Values: Collectively (default), Individually
 * *Internal Features Adjustment*: Positive values push the cutter toward, or into, the feature. Negative values retract the cutter away from the feature
 * *Internal Features Cut*: Cut internal feature areas within a larger selected face
 
 .Start Point
-* *Start Point*: The custom start point for the path of this operation, set in sub-properties: X, Y, Z
+* *Start Point*: The custom start point for the Toolpath of this operation, set in sub-properties: X, Y, Z
 ** *X*: X-axis value
 ** *Y*: Y-axis value
 ** *Z*: Z axis value
@@ -232,10 +235,14 @@ Note: It is suggested that you do not edit the Placement property of path operat
 .Surface
 * *Scan Type*: Planar: Flat, 3D surface scan. Rotational: 4th-axis rotational scan.
 
-.Waste
-* *Ignore Waste*: Ignore areas that proceed below specified depth.
-* *Ignore Waste Depth*: Depth used to identify waste areas to ignore.
-* *Release From Waste*: Cut through waste to depth at model edge, releasing the model.
+.Op Values
+Read-only values computed by the Operation:
+
+* *Op Start Depth*: Holds the calculated value for the StartDepth
+* *Op Final Depth*: Holds the calculated value for the FinalDepth
+* *Op Tool Diameter*: Holds the diameter of the Tool Bit
+* *Op Stock Z Max*: Holds the max Z value of Stock
+* *Op Stock Z Min*: Holds the min Z value of Stock
 
 == Tasks Window Editor Layout
 
@@ -243,47 +250,67 @@ _Descriptions for the settings are provided in the Properties list above._
 
 This section is simply a layout map of the settings in the window editor for the Operation.
 
-=== Base Location
+=== Base Geometry
 
 * *Base Geometry import selection*: Use this list to select Base Geometry to be imported from the selected, existing operation
 * *Import*: Imports the selected operation's Base Geometry into the current operations Base Geometry list
 * *Base Geometry list for current operation*: List of Base Geometry for current operation, if any selected
-* *Add*: Adds selected element(s) which should be the base(s) for the path(s)
-* *Remove*: Remove the selected item(s) in the Base Location list
-* *Clear*: Clear all items in the Base Location list
+* *Add*: Adds selected element(s) which should be the base(s) for the Toolpath(s)
+* *Remove*: Remove the selected item(s) in the Base Geometry list
+* *Clear*: Clear all items in the Base Geometry list
 
-=== Depth
+=== Heights
 
+* *Clearance Height* (Clearance)
+* *Safe Height* (Retract)
 * *Start Depth*
-* *Final Depth*
 * *Step Down*
+* *Final Depth*
 
-=== Height
+=== Tool Controller
 
-* *Safe Height*
-* *Clearance Height*
-
-=== Operation
+[.since]#26.3 and later#
 
 * *Tool Controller*
 * *Coolant Mode*
+* The feeds and speeds of the selected Tool Controller
 
-* *BoundBox*
-* *Scan Type*
-* *Layer Mode*
-* *BoundBox extra offset X*
-* *BoundBox extra offset Y*
-* *Drop Cutter Direction*
-* *Depth Offset*
-* *Step Over*
-* *Sample Interval*
-* *Optimize Output Enabled*
+=== Operation
 
-* *Use Start Point*
-* *Boundary Enforcement*
-* *Optimize Linear Paths*
+* *Bounding box*
+* *Scan type*
+* *Layer mode*
+* *Cut pattern* +++*+++
+* *Profile edges* +++*+++
+* *Avoid last X faces* +++*+++
+* *Bounding box extra offset X, Y* +++**+++
+* *Drop cutter direction* +++**+++
+* *Depth offset*
+* *Step over*
+* *Sample interval*
+* *Use start point*
+* *Optimize linear paths*
+* *Boundary enforcement*
+* *Optimize stepover transitions* +++*+++
+
+(+++*+++ Planar only, +++**+++ Rotational only.)
+
+== Scripting
+
+[source,python]
+----
+import Path.Op.Surface as PathSurface
+
+op = PathSurface.Create('Surface')
+op.ToolController = job.Tools.Group[0]
+op.ScanType = 'Planar'
+op.CutPattern = 'ZigZag'
+op.StepOver = 30
+doc.recompute()
+----
 
 == Resources
 
+* xref:inspect/camotics.adoc[CAM Camotics]: runs CAMotics on the Job from within FreeCAD when CAMotics is installed.
 * G-code(path) simulator: https://ncviewer.com/[NCViewer]
 * G-code(path) simulator: https://www.camotics.org/[CAMotics]

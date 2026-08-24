@@ -1,0 +1,59 @@
+= CAM DressupMirror
+:page-command: CAM_DressupMirror
+:page-icon: CAM_DressupMirror.svg
+:page-menu: CAM → Path Dressup → Mirror
+:page-since: 26.3
+:page-workbench: CAM
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+image:CAM_DressupMirror.svg[CAM DressupMirror,32] *CAM DressupMirror*
+
+Menu location:: menu:CAM[Path Dressup > Mirror]
+Toolbar:: Path Modification → Dressup Operations dropdown
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 26.3
+See also:: _None_
+--
+
+== Description
+
+[.since]#introduced in 26.3# The image:CAM_DressupMirror.svg[width=24] xref:dressups/mirror.adoc[CAM DressupMirror] command creates a mirrored copy of an existing Toolpath about the X axis, the Y axis, both axes, or a reference edge or plane. X and Y coordinates and arc centre offsets are negated and the direction of arcs (G2, G3) is swapped so that the mirrored Toolpath cuts correctly. Optionally the original Toolpath is kept in front of the mirrored one. Its tooltip reads: _Creates mirror of a selected path_.
+
+== Usage
+
+. Select one Operation or Dressup (compound objects are rejected).
+. There are several ways to invoke the command:
+* Select the menu:CAM[Path Dressup > Mirror] option from the menu.
+* Select the *Dressup Operations* dropdown on the Path Modification toolbar.
+* Select the menu:Path Dressup[Mirror] option from the https://wiki.freecad.org/Tree_view[Tree view] context menu.
+. The dressup has no task panel; set *Mirror Axis* and the other properties in the property editor.
+
+== Properties
+
+.Path
+* *Base* (`Link`): The base Toolpath for mirroring.
+* *Mirror Axis* (`Enumeration`): `X` (negate Y coordinates), `Y` (negate X coordinates), `XY` (negate both), `None` (pass the Toolpath through unchanged); default `X`.
+* *Offset* (`VectorDistance`): Offset added to the mirrored Toolpath in X, Y and Z, which shifts the mirror axis.
+* *Center Model* (`Bool`): Mirror about the centre of the base Model's bounding box instead of the origin. The Model is taken from the first Base Geometry of the base Operation, or from the first object of the Job's Model group.
+* *Keep Base Path* (`Bool`): Add the Toolpath of the base Operation before the mirrored one.
+* *Reference Offset* (`LinkSubGlobal`): Edge or planar face whose bounding-box centre defines the mirror line. When the selected element has zero extent in X the *Mirror Axis* is set to `Y` automatically, and with zero extent in Y it is set to `X`. Hidden when *Center Model* is checked.
+
+== Notes
+
+* With *Mirror Axis* set to `X` or `Y` the direction of every arc is swapped (G2 ↔ G3); with `XY` (equivalent to a 180° rotation) the arc direction is unchanged.
+
+== Scripting
+
+[source,python]
+----
+import Path.Dressup.Gui.Mirror as Mirror
+
+obj = Mirror.Create(op)
+obj.MirrorAxis = "Y"
+obj.KeepBasePath = True
+FreeCAD.ActiveDocument.recompute()
+----

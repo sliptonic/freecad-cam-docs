@@ -6,6 +6,9 @@
 :page-menu: CAM → Path Modification → Array
 :page-workbench: CAM
 :page-imported: true
+:page-audit: applied
+
+IMPORTANT: This command is deprecated since [.since]#version 1.1#. Use the xref:dressups/array.adoc[Array dressup] instead, which provides the same patterns and keeps the result linked to the Operation. The command remains available in the Path Modification toolbar.
 
 [.fcinfobox]
 --
@@ -16,32 +19,56 @@ Menu location:: menu:CAM[Path Modification > Array]
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: -
-See also:: _None_
+See also:: xref:dressups/array.adoc[Array dressup]
 --
 
 == Description
 
-The image:CAM_Array.svg[width=24] xref:modify/array.adoc[CAM Array] command creates a new path by duplicating another path several times at a certain interval distance.
+The image:CAM_Array.svg[width=24] xref:modify/array.adoc[CAM Array] command creates a new toolpath by duplicating one or more Operations several times in a pattern.
 
 == Usage
 
-. Select the operation you want to repeat
-. Press the image:CAM_Array.svg[width=16] xref:modify/array.adoc[Array] button
-. Press btn:[Apply]
-. Adjust the desired properties at the data box
+. Select one or more Operations that share the same Tool Controller and have coolant mode `None`.
+. Press the image:CAM_Array.svg[width=16] xref:modify/array.adoc[Array] button, or use menu:CAM[Path Modification > Array], or the Tree View context menu.
+. Set the pattern properties in the property editor; the toolpath updates on recompute. There is no task panel.
+
+The command is enabled only if all selected objects are toolpaths with the same Tool Controller and with *CoolantMode* `None`; otherwise a warning ("Arrays of toolpaths having different tool controllers..." or "Arrays not compatible with coolant modes.") is printed and no toolpath is generated.
 
 == Properties
 
-* *Type*: The array type: `Linear1D`, `Linear2D` or `Polar`
-* *Offset*: The spacing between the array copies for each direction
-* *Copies*: The number of copies (not counting the original) for each direction
+Only the properties relevant for the selected *Type* are shown in the property editor.
+
+.Pattern
+* *Type* (`Enumeration`): Pattern method: `Linear1D`, `Linear2D`, `Polar` or `Points` ([.since]#introduced in 26.3#: positions and rotation taken from selected shapes).
+* *Copies* (`IntegerConstraint`): The number of copies in `Linear1D` and `Polar` pattern (not counting the original).
+* *CopiesX* (`IntegerConstraint`) and *CopiesY* (`IntegerConstraint`): The number of copies in X and Y direction in `Linear2D` pattern.
+* *Offset* (`VectorDistance`): The spacing between the array copies in linear pattern.
+* *Angle* (`Angle`): Total angle in polar pattern; for 360° the copies are distributed so that the last copy does not overlap the original ([.since]#introduced in 26.3#).
+* *Centre* (`Vector`): The centre of rotation in polar pattern.
+* *SwapDirection* (`Bool`): Make copies in X direction before Y in `Linear2D` pattern.
+* *ReverseDirection* (`Bool`): Start from farthest repeat. [.since]#introduced in 26.3#
+* *PointsSource* (`LinkSubListGlobal`): Define the offsets and angle of rotation for repeats from selected shapes (vertices, edges or faces; an object without sub-elements that contains only vertices gives one repeat per vertex, one that contains edges gives a single repeat). [.since]#introduced in 26.3#
+* *PointsOrigin* (`LinkSubGlobal`): Define the base offsets and angle of rotation from selected shape. [.since]#introduced in 26.3#
+* *PointsSorting* (`Enumeration`): `Automatic` (travel optimised) or `Manual` (selection order). [.since]#introduced in 26.3#
+
+.Random
+* *UseJitter* (`Bool`): Use random offset and rotation; the other Random properties are hidden while it is false.
+* *JitterMagnitude* (`VectorDistance`): Maximum random offset of copies (default 10, 10, 0).
+* *JitterAngle* (`Angle`): Max angle of rotation for jitter randomness (default 10°), rotation about the centre of the base toolpaths.
+* *JitterSeed* (`IntegerConstraint`): Seed value for jitter randomness.
 
 [.since]#introduced in 26.3#: The previous percentage-based jitter control has been replaced by *UseJitter*. Jitter can be applied to polar arrays, and random rotation jitter is available for all array types.
 
-* *UseJitter*: Enables random offsets and rotations for generated array copies
-* *JitterMagnitude*: The maximum random translation in each direction
-* *JitterAngle*: The maximum random rotation angle
-* *JitterSeed*: The seed value for repeatable jitter
+.Path
+* *Active* (`Bool`): Make False, to prevent operation from generating code.
+* *Base* (`LinkList`): The toolpaths to array.
+* *CycleTime* (`String`): Operations cycle time estimation (read-only).
+* *ToolController* (`Link`): hidden; taken from the first base Operation.
+
+== Notes
+
+* In `Linear2D` patterns the copies are ordered in a zig-zag sequence to shorten rapid moves; the original position is not duplicated.
+* An inactive Array shows the Toggle Operation icon in the Tree View.
 
 == Scripting
 
@@ -51,5 +78,16 @@ Example:
 
 [source,python]
 ----
-#Place code example here.
+import Path.Op.Gui.Array
+from PathScripts import PathUtils
+
+obj = FreeCAD.ActiveDocument.addObject("Path::FeaturePython", "Array")
+Path.Op.Gui.Array.ObjectArray(obj)
+obj.Base = [FreeCAD.ActiveDocument.Profile]
+Path.Op.Gui.Array.ViewProviderArray(obj.ViewObject)
+obj.Type = "Polar"
+obj.Copies = 5
+obj.Angle = 360
+PathUtils.addToJob(obj, PathUtils.findParentJob(obj.Base[0]).Name)
+FreeCAD.ActiveDocument.recompute()
 ----

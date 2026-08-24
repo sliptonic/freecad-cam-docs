@@ -2,12 +2,13 @@
 :page-origin: https://wiki.freecad.org/CAM_scripting
 :page-origin-revision: 5446a45b21 2025-11-05
 :page-imported: true
+:page-audit: applied
 
 == Introduction
 
 The CAM Workbench offers tools to import, create, manipulate and export https://en.wikipedia.org/wiki/G-code[machine toolpaths] in FreeCAD. With it, the user is able to import, visualize and modify existing G-code programs, generate toolpaths from 3D shapes, and export these toolpaths to G-code.
 
-The CAM Workbench is currently in early development, and does not offer all the advanced functions found in some commercial alternatives. However, the Python scripting interface makes it easy to modify or develop more powerful tools.
+The CAM Workbench exposes its C++ core (`Path.Command`, `Path.Path`, `Path.Area`, `Path.Voronoi`) and its Python layer (the `Path.*` packages: `Path.Main`, `Path.Op`, `Path.Tool`, `Path.Post`, `Path.Dressup`, `Path.Base`) to scripting. [.since]#Since 26.3# the C++ bindings ship typed stubs (`App/*.pyi`: `Command.pyi`, `Path.pyi`, `Area.pyi`, `Voronoi*.pyi`, `PathApp.module.pyi`) under `src/Mod/CAM/App`, so IDEs provide completion and signature checking; the stubs are the authoritative reference for argument names and return types.
 
 == Quickstart
 
@@ -29,7 +30,7 @@ FreeCAD's Path objects are made of a sequence of motion commands. A typical use 
 
 A preliminary concept is important to grasp. Most of the implementation below relies heavily on motion commands that have the same names as G-code commands, but aren't meant to be close to a particular controller's implementation. Names such as 'G0' to represent 'rapid' move or 'G1' were chosen to represent 'feed' move for performance (efficient file saving) and to minimize the work needed to translate to/from other G-code formats. Since the CNC world speaks thousands of G-code dialects, a very simplified subset of it was chosen. You could describe FreeCAD's G-code format as a "machine-agnostic" form of G-code.
 
-Inside .FCStd files, Path data is saved directly into that G-code form.
+Inside .FCStd files, toolpath data is saved directly into that G-code form.
 
 All translations to/from dialects to FreeCAD G-code are done through pre- and post- scripts. That means that if you want to work with a machine that uses a specific LinuxCNC, Fanuc, Mitusubishi, or HAAS controller etc, you will have to use (or write if nonexistent) a post processor for that particular controller (see the "Importing and exporting G-code" section below).
 
@@ -53,59 +54,62 @@ G90 (The command name is G90, there are no arguments)
 
 * For the numeric part of a G or M command, both "G1" or "G01" forms are supported.
 * Only commands starting with G or M are supported at the moment.
-* Only millimeters are accepted at the moment. G20/G21 are ignored.
+* Internal toolpaths are always stored in millimeters. When a G-code string is parsed with `Path.Path(gcode)` or `setFromGCode()`, a G20 switches the parser to inches and all following coordinates are multiplied by 25.4; G21 switches back. The G20/G21 commands themselves are not stored.
 * Arguments are always sorted alphabetically. This means that if you create a command with "G1 X2 Y4 F300", it will be stored as "G1 F300 X2 Y4"
 * Arguments cannot be repeated inside a same command. For example, "G1 X1 Y2 X2 Y3" will not work. You will need to split it into two commands, for example: "G1 X1 Y2, G1 X2 Y3"
 * X, Y, Z, A, B, C arguments are absolute or relative, depending on the current G90/G91 mode. Default (if not specified) is absolute.
 * I, J, K are always relative to the last point. K can be omitted.
 * X, Y, or Z (and A, B, C) can be omitted. In this case, the previous X-, Y- or Z-coordinates are maintained.
-* G-code commands other than the ones listed in the table below are supported, that is, they are saved inside the path data (as long as they comply to the rules above, of course), but they simply won't produce any visible result on screen. For example, you could add a G81 command, it will be stored, but not displayed.
+* G-code commands other than the ones listed in the table below are supported, that is, they are saved inside the toolpath data (as long as they comply to the rules above, of course). Commands that the segment walker does not understand (for example M-codes or G4) are stored in the toolpath but produce no visible segment in the 3D view.
 
 === List of currently supported G-code commands
 
 [cols=",,,",options="header",]
 |===
 |Command |Description |Supported Arguments |Displayed
-|G0 |rapid move |X,Y,Z,A,B,C |Red
-|G1 |normal move |X,Y,Z,A,B,C |Green
-|G2 |clockwise arc |X,Y,Z,A,B,C,I,J,K |Green
-|G3 |counterclockwise arc |X,Y,Z,A,B,C,I,J,K |Green
-|G81, G82, G83 |drill |X,Y,Z,R,Q |Red/Green
-|G38.2 |Straight probe move (used in probe operation) |Z,F |Yellow
+|G0, G00 |rapid move |X,Y,Z,A,B,C |Red
+|G1, G01 |normal move |X,Y,Z,A,B,C |Green
+|G2, G02 |clockwise arc |X,Y,Z,A,B,C,I,J,K |Green
+|G3, G03 |counterclockwise arc |X,Y,Z,A,B,C,I,J,K |Green
+|G17, G18, G19 |arc plane selection |(none) |not displayed
+|G38.2, G38.3, G38.4, G38.5 |probe moves |X,Y,Z,F |Yellow
+|G73, G74, G81, G82, G83, G84, G85, G86, G89 |canned drilling, tapping and boring cycles |X,Y,Z,R,Q,P,F |Red/Green (expanded for display)
 |G90 |absolute coordinates | |
 |G91 |relative coordinates | |
+|G90.1, G91.1 |absolute or incremental arc centers | |
+|G98, G99 |canned cycle retract mode | |
 |(Message) |comment | |
 |===
 
+NOTE: Rotary axis words A, B, C on G0/G1/G2/G3 are rendered using the full angular travel about `Path.Center` [.since]#introduced in 26.3#.
+
 == The Command object
 
-The Command object represents a G-code command. It has three attributes: Name, Parameters and Placement, and two methods: toGCode() and setFromGCode(). Internally, it contains only a name and a dictionary of parameters. The rest (placement and gcode) is computed to/from this data.
+The Command object represents a G-code command. It has four attributes: Name, Parameters, Annotations ([.since]#introduced in 26.3#) and Placement, and the methods `toGCode()`, `setFromGCode(gcode)`, `transform(placement)` (returns a transformed copy) and `addAnnotations(dict_or_string)` (returns self for chaining). Internally, it contains only a name and a dictionary of parameters. The rest (placement and gcode) is computed to/from this data.
 
 [source,python]
 ----
 >>> import Path
 >>> c=Path.Command()
 >>> c
-Command  ( )
+Command  [ ]
 >>> c.Name = "G1"
 >>> c
-Command G1 ( )
+Command G1 [ ]
 >>> c.Parameters= {"X":1,"Y":0}
 >>> c
-Command G1 ( X:1 Y:0 )
+Command G1 [ X:1 Y:0 ]
 >>> c.Parameters
-{'Y': 0.0, 'X': 1.0}
+{'X': 1.0, 'Y': 0.0}
 >>> c.Parameters= {"X":1,"Y":0.5}
 >>> c
-Command G1 ( X:1 Y:0.5 )
->>> c.toGCode()
-'G1X1Y0.5'
+Command G1 [ X:1 Y:0.5 ]
 >>> c2=Path.Command("G2")
 >>> c2
-Command G2 ( )
+Command G2 [ ]
 >>> c3=Path.Command("G1",{"X":34,"Y":1.2})
 >>> c3
-Command G1 ( X:34 Y:1.2 )
+Command G1 [ X:34 Y:1.2 ]
 >>> c3.Placement
 Placement [Pos=(34,1.2,0), Yaw-Pitch-Roll=(0,0,0)]
 >>> c3.toGCode()
@@ -139,6 +143,25 @@ Command G1 [ X:10 ]
 >>> c5
 Command G1 [ X:10 Y:2 ]
 ----
+
+The second argument of the constructor may be a dictionary of parameters or an `App.Placement`; the placement's Base is written into X, Y and Z. A plain `App.Vector` is not accepted.
+
+Any parameter can be read or written as a lower- or upper-case single-letter attribute (`c.x`, `c.F`). Reading a letter that is not present raises `AttributeError`.
+
+=== Annotations
+
+[.since]#introduced in 26.3#
+
+Annotations attach machine-independent metadata to a command without changing its G-code semantics. They are a dictionary of string keys to string or number values, given as the third constructor argument, via the Annotations attribute, or with `addAnnotations()`:
+
+[source,python]
+----
+>>> c = Path.Command('G0', {'Z': 10}, {'type': 'retract'})
+>>> c.toGCode()
+"G0Z10; type:'retract'"
+----
+
+`toGCode()` writes the annotations after the command as a comment. Post-processors and dressups can read Annotations to decide how to treat a move (for example drilling retracts or rigid tapping).
 
 == The Path object
 
@@ -187,7 +210,7 @@ p = Path.Path()
 p.setFromGCode(lines)
 ----
 
-As a shortcut, a Path object can also be created directly from a full G-code sequence. It will be divided into a sequence of commands automatically.
+As a shortcut, a Path object can also be created directly from a full G-code sequence. It will be divided into a sequence of commands automatically. `Path.Path()` accepts either a list of Commands or a G-code string.
 
 [source,python]
 ----
@@ -196,9 +219,11 @@ As a shortcut, a Path object can also be created directly from a full G-code seq
 Path [ size:2 length:2 ]
 ----
 
+Other members: `Size` (number of commands), `BoundBox`, `Center` (the centre used for rotary-axis rendering, [.since]#introduced in 26.3#), `insertCommand(cmd, pos=-1)`, `deleteCommand(pos=-1)`, `copy()`, `getCycleTime(h_feed, v_feed, h_rapid, v_rapid)` returning seconds, and `getClearedArea()`.
+
 == The Path feature
 
-The Path feature is a FreeCAD document object, that holds a path, and represents it in the 3D View.
+The Path feature is a FreeCAD document object, that holds a toolpath, and represents it in the 3D View.
 
 [source,python]
 ----
@@ -210,58 +235,38 @@ The Path feature is a FreeCAD document object, that holds a path, and represents
 Path [ size:2 length:2 ]
 ----
 
-The Path feature also holds a Placement property. Changing the value of that placement will change the position of the Feature in the 3D View, although the Path information itself won't be modified. The transformation is purely visual. This allows you, for example, to create a Path around a face that has a particular orientation on your model, that is not the same orientation as your cutting material will have on the CNC machine.
+The Path feature also holds a Placement property. Changing the value of that placement will change the position of the Feature in the 3D View, although the toolpath information itself won't be modified. The transformation is purely visual. This allows you, for example, to create a toolpath around a face that has a particular orientation on your model, that is not the same orientation as your cutting material will have on the CNC machine.
 
 However, Path Compounds can make use of the Placement of their children (see below).
 
-== The Tool and Tooltable objects
+== Tool Bits and Tool Controllers
 
-*NOTE:* This type of tool usage is depreciated as of the 0.19 official release. In 0.19 the new ToolBit tool system was implemented to supersede this older, Legacy, system. Therefore, coding has changed from what is represented below. Please visit xref:tools/index.adoc[CAM Tools] page for more information.
+[.obsolete]#obsolete since 1.0# The `Path.Tool` and `Path.Tooltable` classes of version 0.18 and earlier were removed; scripts using them raise `AttributeError`. Tools are now Tool Bits (`.fctb`) referenced by Tool Controllers; see xref:tools/index.adoc[CAM Tools].
 
-===Scripting ++<++= 0.18===
-
-The Tool object contains the definitions of a CNC tool. The Tooltable object contains an ordered list of tools. Tooltables are attached as a property to Path Project features, and can also be edited via the GUI, by double-clicking a project in the Tree View, and clicking the "Edit tooltable" button in the task views that opens.
-
-From that dialog, tooltables can be imported from FreeCAD's .xml and HeeksCad's .tooltable formats, and exported to FreeCAD's .xml format.
+A Tool Bit is described by a `.fctb` JSON file and a Tool Shape (`.fcstd`). The `ToolBit` class lives in `Path.Tool.toolbit` (`Path.Tool.Bit` is a compatibility alias) and offers the factory methods `from_shape_id()`, `from_file()` and `from_dict()`:
 
 [source,python]
 ----
->>> import Path
->>> t1=Path.Tool()
->>> t1
-Tool Default tool
->>> t1.Name = "12.7mm Drill Bit"
->>> t1
-Tool 12.7mm Drill Bit
->>> t1.ToolType
-'Undefined'
->>> t1.ToolType = "Drill"
->>> t1.Diameter= 12.7
->>> t1.LengthOffset = 127
->>> t1.CuttingEdgeAngle = 59
->>> t1.CuttingEdgeHeight = 50.8
->>> t2 = Path.Tool("my other tool",tooltype="EndMill",diameter=10)
->>> t2
-Tool my other tool
->>> t2.Diameter
-10.0
->>> table = Path.Tooltable()
->>> table
-Tooltable containing 0 tools
->>> table.addTools(t1)
-Tooltable containing 1 tools
->>> table.addTools(t2)
-Tooltable containing 2 tools
->>> table.Tools
-{1: Tool 12.7mm Drill Bit, 2: Tool my other tool}
->>> 
+from Path.Tool.toolbit import ToolBit
+import Path.Tool.Controller as TC
+
+bit = ToolBit.from_shape_id('endmill.fcstd')
+bit.set_property('Diameter', 6.0)
+tool_obj = bit.attach_to_doc(doc=App.ActiveDocument)
+tc = TC.Create('TC: 6mm Endmill', tool=tool_obj, toolNumber=3)
+job.Proxy.addToolController(tc)
 ----
+
+`Path.Tool.Controller.Create(name='TC: 5mm Endmill', tool=None, toolNumber=1, assignViewProvider=True, assignTool=True)` creates a Tool Controller; append it to the Job with `job.Proxy.addToolController(tc)`.
+
+Tool Bits, Tool Libraries (`.fctl`), Tool Shapes and Machines are stored in the asset directory (CamAssets) and accessed through `Path.Tool.cam_assets`, an AssetManager with `get(uri)`, `get_or_none(uri)`, `list_assets(asset_type)`, `add(asset)`, `add_file(asset_type, path)` and `exists(uri)`. Libraries are `Path.Tool.library.Library` objects with `add_bit(bit, bit_no)`, `get_bits()` and `remove_bit(bit)`.
 
 == Features
 
+[#the-path-compound-feature]
 === The Path Compound feature
 
-The aim of this feature is to gather one or more toolpaths and associate it (them) with a tooltable. The Compound feature also behaves like a standard FreeCAD group, so you can add or remove objects to/from it directly from the Tree View. You can also reorder items by double-clicking the Compound object in the Tree View, and reorder its elements in the Task view that opens.
+The aim of this feature is to gather one or more toolpaths. The Compound feature also behaves like a standard FreeCAD group, so you can add or remove objects to/from it directly from the Tree View. You can also reorder items by double-clicking the Compound object in the Tree View, and reorder its elements in the Task view that opens.
 
 [source,python]
 ----
@@ -276,35 +281,61 @@ The aim of this feature is to gather one or more toolpaths and associate it (the
 >>> o3.Group=[o1,o2]
 ----
 
-An important feature of Path Compounds is the possibility to take into account the Placement of their child paths or not, by setting their UsePlacements property to True or False. If not, the Path data of their children will simply be added sequentially. If True, each command of the child paths, if containing position information (G0, G1, etc..) will first be transformed by the Placement before being added.
+An important feature of Path Compounds is the possibility to take into account the Placement of their child paths or not, by setting their UsePlacements property to True or False. If not, the toolpath data of their children will simply be added sequentially. If True, each command of the child paths, if containing position information (G0, G1, etc..) will first be transformed by the Placement before being added.
 
-Creating a compound with just one child path allows you therefore to turn the child path's Placement "real" (it affects the Path data).
+Creating a compound with just one child path allows you therefore to turn the child path's Placement "real" (it affects the toolpath data).
 
-=== The Path Project feature
+=== The Job
 
-The Path project is an extended kind of Compound, that has a couple of additional machine-related properties such as a tooltable. It is made mainly to be the main object type you'll want to export to G-code once your whole path setup is ready. The Project object is now coded in Python, so its creation mechanism is a bit different:
-
-[source,python]
-----
->>> from PathScripts import PathProject
->>> o4 = App.ActiveDocument.addObject("Path::FeatureCompoundPython","prj")
->>> PathProject.ObjectPathProject(o4)
->>> o4.Group = [o3]
->>> o4.Tooltable
-Tooltable containing 0 tools
-----
-
-The Path module also features a GUI tooltable editor that can be called from Python, giving it an object that has a ToolTable property:
+The Path Project feature of versions up to 0.18 (`PathScripts.PathProject`, `Path::FeatureCompoundPython`) no longer exists. Its replacement is the xref:job/job.adoc[Job], which gathers the models, Stock, Tool Controllers, Operations and output settings:
 
 [source,python]
 ----
->>> from PathScripts import TooltableEditor
->>> TooltableEditor.edit(o4)
+import Path.Main.Job as PathJob
+job = PathJob.Create('Job', [App.ActiveDocument.Body], templateFile=None)
 ----
+
+`Create(name, base, templateFile=None)` accepts a list of model objects or of object names and returns a `Path::FeaturePython` with `App::GroupExtensionPython`. In the GUI use `Path.Main.Gui.Job.Create(base, template=None, openTaskPanel=True)`, which also attaches the view provider and opens the task panel.
+
+Job properties include: Model, Stock, Tools, Operations, SetupSheet, Fixtures, OrderOutputBy, SplitOutput, PostProcessor, PostProcessorArgs, PostProcessorOutputFile, PostProcessorPropertyOverrides, Machine ([.since]#introduced in 26.3#), GeometryTolerance, Description, JobType, CycleTime, LastPostProcessDate and LastPostProcessOutput.
+
+==== Stock
+
+Stock is created with `Path.Main.Stock.CreateFromBase(job, neg=None, pos=None, placement=None)` (bounding box of the models extended by the neg/pos vectors), `CreateBox(job, extent=None, placement=None)` or `CreateCylinder(job, radius=None, height=None, placement=None)`; assign the result to `job.Stock`. `CreateFromTemplate(job, template)` rebuilds stock from a Job Template dictionary.
+
+=== Creating operations
+
+Every operation module in `Path.Op` exposes `Create(name, obj=None, parentJob=None)`:
+
+[source,python]
+----
+import Path.Op.Profile as PathProfile
+op = PathProfile.Create('Profile')
+op.Base = [(App.ActiveDocument.Body, ('Face6',))]
+op.Side = 'Outside'
+App.ActiveDocument.recompute()
+----
+
+When `parentJob` is omitted the operation is added to the single Job in the document (`PathScripts.PathUtils.addToJob`). Available modules: Profile, PocketShape, Pocket (3D), MillFacing, Drilling (Strategy includes Tapping, [.since]#introduced in 26.3#), Helix, Adaptive, Slot, Engrave, Deburr, Vcarve, ThreadMilling, Surface, Waterline, RotarySurface ([.since]#introduced in 26.3#), Custom and Probe. The GUI command objects live in `Path.Op.Gui.<Name>.Command`.
+
+Custom operations subclass `Path.Op.Base.ObjectOp`, declare their properties in `opPropertyDefinitions()` (with `opPropertyEnumerations()` and `opPropertyDefaults()`), select capabilities with `opFeatures()` (FeatureTool, FeatureDepths, FeatureHeights, FeatureStartPoint, FeatureBaseFaces, FeatureCoolant, ...) and generate commands in `opExecute(obj)` by appending `Path.Command` objects to `self.commandlist`. See `Path/Op/Slot.py` for a compact example.
 
 === Getting Path from Shape
 
-Assign the shape of wire Part to a normal Path object, using Path.fromShape() script function (or more powerful Path.fromShapes()). By giving as parameter a wire Part object, its path will be automatically calculated from the shape. Note that in this case the placement is automatically set to the first point of the wire, and the object is therefore not movable anymore by changing its placement. To move it, the underlying shape itself must be moved.
+[.since]#26.3 and later:# `Path.fromShape(shape)` is deprecated and scheduled for removal in 27.2; use `Path.fromShapes()`:
+
+[source,python]
+----
+Path.fromShapes(shapes, start=None, return_end=False, arc_plane=1, sort_mode=1,
+                abscissa=3.0, nearest_k=3, orientation=0, direction=0, threshold=0.0,
+                retract_axis=2, retraction=0.0, resume_height=0.0, segmentation=0.0,
+                feedrate=0.0, feedrate_v=0.0, verbose=True, abs_center=False,
+                preamble=True, deflection=0.01)
+----
+
+`shapes` may be one Shape or a sequence; with `return_end=True` a `(Path, end_vector)` tuple is returned. `Path.sortWires(shapes, start=None, ...)` returns the sorted wires and end position without building a toolpath.
+
+By giving a wire Part object, its toolpath will be automatically calculated from the shape. Note that in this case the placement is automatically set to the first point of the wire, and the object is therefore not movable anymore by changing its placement. To move it, the underlying shape itself must be moved.
 
 [source,python]
 ----
@@ -316,23 +347,42 @@ Assign the shape of wire Part to a normal Path object, using Path.fromShape() sc
 >>> v4 = FreeCAD.Vector(3,3,0)
 >>> wire = Part.makePolygon([v1,v2,v3,v4])
 >>> o = FreeCAD.ActiveDocument.addObject("Path::Feature","myPath2")
->>> o.Path = Path.fromShape(wire)
+>>> o.Path = Path.fromShapes(wire)
 >>> FreeCAD.ActiveDocument.recompute()
 >>> p =  o.Path
 >>> print(p.toGCode())
 ----
 
+=== Module-level helpers
+
+`Path.show(p, 'MyPath')` creates a `Path::Feature` for a standalone Path object; `Path.read(filename, docname)` imports raw internal-format G-code into a document; `Path.write(obj, filename)` writes a Path feature's G-code to disk.
+
+=== Path.Area and Path.Voronoi
+
+`Path.Area` wraps libarea for 2D offsetting and pocketing:
+
+[source,python]
+----
+a = Path.Area()
+a.add(face)
+a.setParams(Offset=-3)
+wire_shape = a.getShape()
+----
+
+Further methods: `setPlane()`, `makeOffset()`, `makePocket()`, `makeSections()`, `getRestArea()`, `toTopoShape()`, `setParams()`, `getParams()`. Parameter names are listed by `Path.Area.getParamsDesc()`. `Path.Voronoi` is used by the V-carve operation.
+
+[#python-features]
 === Python features
 
-Both Path::Feature and Path::FeatureShape features have a Python version, respectively named Path::FeaturePython and Path::FeatureShapePython, that can be used in Python code to create more advanced parametric objects derived from them.
+Python-extensible variants exist for every feature type: `Path::FeaturePython` (used by Jobs, operations, dressups and Tool Controllers), `Path::FeatureShapePython`, `Path::FeatureCompoundPython`, `Path::FeatureAreaPython` and `Path::FeatureAreaViewPython`. They can be used in Python code to create more advanced parametric objects derived from them.
 
 == Importing and exporting G-code
 
 === Native format
 
-G-code files can be directly imported and exported via the GUI, by using the "open", "insert" or "export" menu items. After the file name is acquired, a dialog pops up to ask which processing script must be used. It can also be done from Python:
+Opening or importing a G-code file (`*.nc`, `*.gc`, `*.ncc`, `*.ngc`, `*.cnc`, `*.tap`, `*.gcode`) shows a pre-processor chooser. Choosing none reads the file as internal-format G-code into a new document with `Path.read()`. Choosing `gcode_pre` imports the file into the active Job as Custom operations, one per tool change, matching Tool Controllers by tool number; a Job must exist first. Export is done by post-processing the Job (xref:output/post-process.adoc[CAM Post Process]) rather than by a generic export menu entry.
 
-Path information is stored into Path objects using a subset of G-code described in the "FreeCAD's internal G-code format"section above. This subset can be imported or exported "as is", or converted to/from a particular version of G-code suited for your machine.
+Toolpath information is stored into Path objects using a subset of G-code described in the "FreeCAD's internal G-code format" section above. This subset can be imported or exported "as is", or converted to/from a particular version of G-code suited for your machine.
 
 If you have a very simple and standard G-code program, that complies to the rules described in the "FreeCAD's internal G-code format" section above, for example the boomerang from https://www.cnccookbook.com/g-code-examples-files/[cnccookbook], it can be imported directly into a Path object, without translation (this is equivalent to using the "None" option of the GUI dialog):
 
@@ -346,15 +396,14 @@ o = App.ActiveDocument.addObject("Path::Feature","boomerang")
 o.Path = p
 ----
 
-In the same manner, you can obtain the path information as "agnostic" G-code, and store it manually in a file:
+In the same manner, you can obtain the toolpath information as "agnostic" G-code, and store it manually in a file:
 
 [source,python]
 ----
 text = o.Path.toGCode()
-print text
-myfile = open("/path/to/newfile.ngc")
-myfile.write(text)
-myfile.close()
+print(text)
+with open("/path/to/newfile.ngc", "w") as myfile:
+    myfile.write(text)
 ----
 
 If you need a different output, though, you will need to convert this agnostic G-code into a format suited for your machine. That is the job of post-processing scripts.
@@ -363,27 +412,38 @@ If you need a different output, though, you will need to convert this agnostic G
 
 If you have a G-code file written for a particular machine, which doesn't comply to the internal rules used by FreeCAD, described in the "FreeCAD's internal G-code format" section above, it might fail to import and/or render properly in the 3D View. To remedy to this, you must use a pre-processing script, which will convert from your machine-specific format to the FreeCAD format.
 
-If you know the name of the pre-processing script to use, you can import your file using it, from the Python Console like this:
+The shipped pre-processors live in the `Path.Post.scripts` package:
 
 [source,python]
 ----
-import example_pre
-example_pre.insert("/path/to/myfile.ncc","DocumentName")
+from Path.Post.scripts import gcode_pre
+gcode_pre.insert("/path/to/myfile.ngc", App.ActiveDocument.Name)  # requires an existing Job
 ----
 
-In the same manner, you can output a Path object to G-code, using a post++_++processor script like this:
+In the same manner, you can output a Job to G-code using a post-processor. Legacy scripts (`*_legacy_post.py`) expose `export(objectslist, filename, argstring)`:
 
 [source,python]
 ----
-import example_post
-example_post.export (myObjectName,"/path/to/outputFile.ncc")
+from Path.Post.scripts import linuxcnc_legacy_post
+linuxcnc_legacy_post.export([job], "/tmp/out.ngc", "--no-show-editor")
 ----
+
+New-style posts subclass `Path.Post.Processor.PostProcessor` and are driven through the factory:
+
+[source,python]
+----
+from Path.Post.Processor import PostProcessorFactory
+post = PostProcessorFactory.get_post_processor(job, 'linuxcnc')
+sections = post.export()   # each item is a (name, gcode) tuple
+----
+
+Use `post.export2()` for the machine-based flow ([.since]#introduced in 26.3#). The GUI command (`Path/Post/Command.py`) selects the post-processor from the Job's Machine when one is assigned, otherwise from the Job's PostProcessor property.
 
 === Writing processing scripts
 
-Pre- and post-processing scripts behave like other common FreeCAD imports/exporters. When choosing a pre/post processing script from the dialog, the import/export process will be redirected to the specified given script. Preprocessing scripts must contain at least the following methods open(filename) and insert(filename,docname). Postprocessing scripts need to implement export(objectslist,filename).
+Pre- and post-processing scripts behave like other common FreeCAD imports/exporters. When choosing a pre/post processing script from the dialog, the import/export process will be redirected to the specified given script. Preprocessing scripts must contain at least the following methods open(filename) and insert(filename,docname). Legacy postprocessing scripts need to implement export(objectslist,filename,argstring).
 
-Scripts are placed into either the Mod/Path/Path/Post/scripts folder or the user's macro path directory. You can give them any name you like but by convention, and to be picked by the GUI dialog, pre-processing scripts names must end with "++_++pre", post-processing scripts with "++_++post" (make sure to use the underscore, not the hyphen, otherwise Python cannot import it). This is an example of a very, very simple preprocessor. More complex examples are found in the Mod/Path/Path/Post/scripts folder:
+Post-processors are searched in: the CAM "Default path" output folder, the user macro directory, directories registered by add-ons with `Path.Preferences.addAddonPostPath(path)` ([.since]#introduced in 26.3#), and `Mod/CAM/Path/Post/scripts`. File names must end in `_post.py` (legacy scripts ship as `*_legacy_post.py`) or `_pre.py` (make sure to use the underscore, not the hyphen, otherwise Python cannot import it). Pre-processors are only discovered from `Path/Post/scripts` and the macro directory. This is an example of a very, very simple preprocessor. More complex examples are found in the `Mod/CAM/Path/Post/scripts` folder:
 
 [source,python]
 ----
@@ -413,19 +473,21 @@ def open(filename):
 
 Pre- and post-processors work exactly the same way. They just do the contrary: The pre scripts convert from specific G-code to FreeCAD's "agnostic" G-code, while post scripts convert from FreeCAD's "agnostic" G-code to machine-specific G-code.
 
-== Adding all faces of a ShapeString to the BaseFeature's list of a ProfileFromFaces operation
+A machine-based post-processor ([.since]#introduced in 26.3#) is a module with `POST_TYPE = 'machine'` defining a class derived from `Path.Post.Processor.PostProcessor`. Override `get_common_property_schema()` or `get_property_schema()` to declare options (file_extension, preamble, postamble, supports_tool_radius_compensation, ...); the base class handles argument parsing, header generation, canned-cycle expansion, tool changes, rotary moves and unit conversion. Defaults are merged with the Machine (`.fcm`) output options. See xref:output/postprocessor-customization.adoc[Postprocessor Customization].
+
+== Adding all faces of a ShapeString to the Base Geometry of a Profile operation
 
 This example is based on a https://forum.freecad.org/viewtopic.php?f=13&t=33310&p=279991#p279959[discussion in the german forum].
 
 === Prerequisites
 
 * Create a solid with ShapeString as Cutout
-* Create a Job using this solid as its BaseObject
-* Create a ProfileFromFaces operation named "Profile++_++Faces" with empty BaseGeometry.
+* Create a Job using this solid as its model
+* Create a xref:operations/profile.adoc[Profile] operation named "Profile++_++Faces" with empty Base Geometry.
 
 === The code
 
-The following code will then add all faces from ShapeString and create the paths:
+The following code will then add all faces from ShapeString and create the toolpaths:
 
 [source,python]
 ----
@@ -437,3 +499,34 @@ for i, face in enumerate(doc.ShapeString.Shape.Faces):
 doc.Profile_Faces.Base = [(doc.ShapeString, tuple(list_of_all_element_faces))]
 doc.recompute()
 ----
+
+== Legacy PathScripts module
+
+Since 1.0 the Python layer lives in the `Path` package (`Path.Main`, `Path.Op`, `Path.Tool`, `Path.Post`, `Path.Dressup`, `Path.Base`). Only `PathScripts.PathUtils` (helpers such as `findParentJob`, `addToJob`, `GetJobs`, `getEnvelope`, `depth_params`, `sort_locations_tsp`) and `PathScripts.PathPropertyBag` remain for compatibility. Imports like `PathScripts.PathJob`, `PathScripts.PathProfile` or `PathScripts.PathProject` raise `ImportError`; use `Path.Main.Job`, `Path.Op.Profile`, etc.
+
+== Logging and preferences
+
+`import Path` re-exports the C++ module plus `Path.Log`, `Path.Geom` and `Path.Preferences`. Enable debug output for a module with `Path.Log.setLevel(Path.Log.Level.DEBUG, Path.Log.thisModule())`. `Path.Preferences` exposes asset paths (`getAssetPath()`, `getToolBitPath()`, `getTemplateDirectory()`), post-processor lookup (`allEnabledPostProcessors()`, `searchPathsPost()`) and feature switches (`experimentalFeaturesEnabled()`, `advancedOCLFeaturesEnabled()`).
+
+== MachineState
+
+[.since]#introduced in 26.3#
+
+`Path.Base.MachineState.MachineState` tracks modal state while walking a command list:
+
+[source,python]
+----
+from Path.Base.MachineState import MachineState
+ms = MachineState()
+ms.addCommands(path.Commands)
+ms.getPosition()   # the current XYZ
+ms.getState()      # the modal dictionary (units, plane, G90/G91, feed, return mode)
+----
+
+Dressups and post-processors use it to expand drilling cycles accurately.
+
+== See also
+
+* xref:output/postprocessor-customization.adoc[Postprocessor Customization]
+* xref:tools/index.adoc[CAM Tools] (Tool Bit file format)
+* xref:reference/faq.adoc[CAM FAQ]

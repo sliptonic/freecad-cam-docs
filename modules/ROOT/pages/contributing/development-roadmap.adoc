@@ -2,10 +2,66 @@
 :page-origin: https://wiki.freecad.org/CAM_Development_Roadmap
 :page-origin-revision: 5409cb9cb3 2025-11-05
 :page-imported: true
+:page-audit: applied
 
 == Purpose
 
-This page will discuss the strategic objectives for the xref:index.adoc[CAM Workbench]. This shouldn't be a list of features to implement but broader objectives that will steer the overall direction of CAM development.
+This page discusses the strategic objectives for the xref:index.adoc[CAM Workbench]. This shouldn't be a list of features to implement but broader objectives that will steer the overall direction of CAM development.
+
+The authoritative roadmap is maintained in the source tree at `src/Mod/CAM/Roadmap/` (`README.md`, `Functionality/`, `Epics/`, `ADR/`). This page summarizes it; propose changes as pull requests against those files. This page reflects `src/Mod/CAM/Roadmap` as of FreeCAD 26.3dev.
+
+== Vision
+
+A robust, intuitive and industry-ready CAM solution that integrates with the FreeCAD modeling workflow, unit schemas and translation; supports professional CNC workflows; is usable by hobbyists; embraces open standards; and is extensible through Python.
+
+== Functionality areas
+
+The roadmap organizes the workbench into these functionality areas:
+
+* Tool Management
+* Stock and Work-piece Setup
+* Job Management
+* Operation Configuration
+* Simulation and Verification
+* Output Generation
+* Scripting and automation
+
+== Initiatives (Epics)
+
+* Fixing user pain points (active)
+* Better Tool Library (active)
+* Improve Circular Holes (active)
+* Improve Core Dressups (active)
+* Clipper 2 Upgrade (active)
+* Improve Postprocessors (active)
+* Feeds and Speeds (proposed)
+* Improve Adaptive Operation (closed)
+
+== Pain points
+
+* Climb vs conventional terminology not consistent
+* Safe Height vs Clearance Height confusing
+* First rapid move visualization suggests a return to origin
+* Arrays of similar G-code
+* Lack of feeds and speeds calculation (addressed by the Feeds and Speeds Wizard in 26.3)
+* Selecting Tool Controllers is cumbersome
+
+== Pull request priorities
+
+. Regression fixes.
+. Changes related to active epics.
+. Other bug fixes.
+. Other new features (receive additional scrutiny).
+
+== Architecture Decision Records
+
+Kept in `src/Mod/CAM/Roadmap/ADR/`:
+
+* ADR-000 Ubiquitous Language (glossary of Job, Operation, Strategy, Base Geometry, Tool Bit, Tool Controller, Machine and related terms)
+* ADR-002 Internal representation of tool path (Legacy)
+* ADR-007 Add semantic information to Path Command (Draft)
+* ADR-008 Terminology for heights and depths offsets (Draft)
+* ADR-009 Terminology consistency for Material Allowance (Draft)
 
 == Core Objectives
 
@@ -25,6 +81,8 @@ The goal is a workflow that is efficient and resists human errors. However, the 
 CAM is optimized for 2.5D milling. It needs the concept of job 'types' to handle other kinds of workflows like Lathe, 4th Axis, and pure 2D machines. Additional job types would help narrow the choices a user must make and eliminate the visual noise and confusion that comes from options that don't apply to the desired task.
 
 Selection of Job Type should be something the user can add to a Job Template so that the selection can be automatic.
+
+Since 26.3 a Job references a xref:output/machine.adoc[Machine] definition that describes axes and rotary kinematics; job-type specialization (lathe, pure 2D) remains open.
 
 === 2D workflow
 
@@ -64,7 +122,7 @@ Multi-axis can be broken into two more narrow categories.
 
 *Indexed Multi-axis* is where the part is rotated to a specific orientation and then held in place while traditional 2.5D operations are performed. 4th axis rotation means a single additional degree-of-freedom is added to allow the part to rotate, usually around the X-axis (A rotation) or Y-axis (B rotation).
 
-*Continuous 4 and 5 axis* rotations mean that the part is rotating while the cutter is engaged in the material. These kinds of operations will need to visualize the toolpath relative to the part. Continuous 4/5 axis operations will require vastly new operations and toolpath generation logic. As a result, continuous 4/5 operations are out of scope at this time.
+*Continuous 4 and 5 axis* rotations mean that the part is rotating while the cutter is engaged in the material. These kinds of operations will need to visualize the toolpath relative to the part. Continuous 4/5 axis operations will require vastly new operations and toolpath generation logic. Indexed 3+2 positioning is provided by the Machine-driven rotation solver (`Path/Base/Generator/rotation.py`). Continuous 4-axis surfacing is available experimentally through xref:operations/rotary-surface.adoc[Rotary Surface]; continuous 5-axis remains out of scope.
 
 === 2.5D (milling) workflow
 
@@ -72,9 +130,9 @@ This is CAM's strongest area. But there's room to improve.
 
 Additional strategies
 
-* Threading
+* Threading - xref:operations/thread-milling.adoc[Thread Milling] and the xref:operations/drilling.adoc[Drilling] _Tapping_ Strategy now cover this
 * Boring - Straightline Boring Canned operation (G85/G89)
-* Slitting Saw - Slot cutting with saw tool on the side of the work
+* Slitting Saw - Slot cutting with saw tool on the side of the work; a dedicated slitting-saw Operation is still missing although the `slittingsaw` Tool Shape ships
 
 === 3D surface milling
 
@@ -101,7 +159,7 @@ Commercial CNC users usually produce a document called a https://www.cnccookbook
 * gcode program name
 * Fixtures and workholding information
 
-CAM Sanity is CAM's solution to the 'setup sheet' CAM Sanity is currently an experimental feature. Moving this to production should be a priority.
+CAM Sanity is CAM's solution to the 'setup sheet'. xref:job/sanity-check.adoc[Sanity Check] is a standard command and the Post Process dialog can include its HTML report.
 
 == Low Level Libraries
 
@@ -109,19 +167,21 @@ CAM makes use of several libraries to generate toolpaths based on part geometry.
 
 https://github.com/Jack000/Deepnest[Deepnest] or an equivalent nesting/bin packing library would allow us to efficiently arrange parts in a cut-sheet to minimize stock usage.
 
-https://github.com/jbuckmccready/cavalier_contours[Cavalier Contours] is a modern 2D offsetting library. It is fast and actively developed and should be considered as a replacement ot libarea. It is written in Rust so additional involvement of the development community is needed to support its use.
+The active Clipper 2 Upgrade epic replaces the obsolete Clipper 1, libarea and kurve dependencies. https://github.com/jbuckmccready/cavalier_contours[Cavalier Contours], a modern 2D offsetting library written in Rust, was considered as an alternative.
 
 == CAM Modifications
 
 Some of the operations/strategies offer features and tools that are useful but not available for other op/strategies. We should work to make things more consistent.
 
-Pocket/3D Pocket has a boundary extension tool. This should be available to all operations where it makes sense. For example adaptive, surface, waterline,
+Extensions (the boundary extension tool) are available in Pocket Shape and Adaptive; extending them to Surface and Waterline remains open.
 
 == Representation of remaining material
 
-CAM should have a more robust state for the remaining material. This would be useful for visualization, collision avoidance, and REST milling.
+CAM should have a more robust state for the remaining material. This would be useful for visualization, collision avoidance, and rest milling. Adaptive supports rest machining (_UseRestMachining_, [.since]#introduced in 26.3#); a general remaining-material model for visualization and collision avoidance is still open.
 
 == Post Processing & Advanced Gcode
+
+Post-processing moved to a machine-based framework in 26.3 (`Path/Post/Processor.py` with MachineState); legacy scripts remain as `*_legacy_post.py`. Open items:
 
 * modular output for older machines with limited memory.
 
@@ -141,11 +201,10 @@ When 2D cutting (laser/waterjet/plasma) of material supported on a grating, smal
 
 The following list is not individual bugs but shows how CAM is inconsistent in its application of concepts.
 
-* Inconsistent use of cut direction. We should be talking about climb/conventional everywhere and not using language like CW/CCW. (I'm not sure I agree with this. What if you got a really good deal on left-hand end mills? What if you're using a plasma cutter? An EDM machine? A lathe? -KimK)
-* Inconsistent use of stepover. I wish we had used the terminology of DOC/WOC (depth of cut / width of cut) from the beginning but we didn't. We use 'stepdown' and 'stepover' but inconsistently apply it. Sometimes it is an absolute value and other times a percent of cutter diameter.
-* Inconsistent implementation of the ObjectOp class hierarchy. Some of the ops can't be toggled off.
+* Inconsistent use of cut direction. We should be talking about climb/conventional everywhere and not using language like CW/CCW.
+* Inconsistent use of stepover. We use 'stepdown' and 'stepover' but inconsistently apply it: sometimes it is an absolute value and other times a percent of cutter diameter. Terminology for depths, heights and material allowance is being standardized in ADR-000, ADR-008 and ADR-009.
 * Finishing Passes. I think we should add an additional ObjectOp.Feature for FeatureFinishPass. This would give a new tab where a user could configure the final finishing pass with a different tool controller, direction, etc.
 * Inconsistent control of performance vs. accuracy. Many operations have poorly named or inconsistent controls for tolerance. At a minimum these could be grouped into a consistently named property group.
 * Inconsistent use of stock shapes and extensions.
 * No high level path optimization / automatic grouping of disjunct cutting areas.
-* G17, G18, G19 not supported, G17 is active by default (circles and arcs must be in XY-plane). This not only prevents milling in G18 and G19 modes (circles and arcs in XZ-plane and YZ-plane, respectively), but is an obstacle to lathe CAM, which requires G18. (This bullet point is according to the list of supported g-codes here: https://wiki.freecad.org/CAM_scripting -KimK)
+* G17, G18, G19 not supported, G17 is active by default (circles and arcs must be in XY-plane). This not only prevents milling in G18 and G19 modes (circles and arcs in XZ-plane and YZ-plane, respectively), but is an obstacle to lathe CAM, which requires G18 (see the list of supported G-codes in xref:reference/scripting.adoc[CAM scripting]).

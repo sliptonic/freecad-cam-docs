@@ -2,51 +2,60 @@
 :page-origin: https://wiki.freecad.org/CAM_Postprocessor_Customization
 :page-origin-revision: 8b09057daf 2026-02-04
 :page-imported: true
-
-NOTE: This page is incomplete; it was marked as unfinished on the wiki.
+:page-audit: applied
 
 == Introduction
 
-FreeCAD uses as internal representation for the generated paths, so called G-codes. They can describe such things as: speed and feed rates, stopping the motor etc... But the most important thing is the movements they describe. These movements are rather simple: They can be straight lines or they can be circular arcs. More sophisticated curves such as B-splines are already approximated by FreeCAD's image:Workbench_CAM.svg[width=24] xref:index.adoc[CAM Workbench].
+FreeCAD uses as internal representation for the generated Toolpaths so called G-codes. They can describe such things as: speed and feed rates, stopping the motor etc... But the most important thing is the movements they describe. These movements are rather simple: They can be straight lines or they can be circular arcs. More sophisticated curves such as B-splines are already approximated by FreeCAD's image:Workbench_CAM.svg[width=24] xref:index.adoc[CAM Workbench].
 
-== What the postprocessor can do for you
+== Two kinds of Post-Processor
 
-Many mills use G-codes as well to control the milling process. They may look almost like the internal codes, but there may be some differences:
+FreeCAD has *legacy argument-based* Post-Processors (a script exposing `export(objectslist, filename, argstring)` and an argparse parser; selected in the Job's Processor field and configured with command-line style arguments) and, since [.since]#26.3#, *machine-based* Post-Processors (a class deriving from `Path.Post.Processor.PostProcessor` with the module constant `POST_TYPE = "machine"`; selected by a xref:output/machine.adoc[Machine] and configured through the machine's `.fcm` options and a property schema). The sections below are marked accordingly.
+
+== What the Post-Processor can do for you
+
+Many machines use G-codes as well to control the machining process. They may look almost like the internal codes, but there may be some differences:
 
 * the machine can have a special startup sequence
 * it can have a special stop sequence
 * arcs can be defined with a relative or an absolute center
 * it may require line numbers in a certain format
-* it can used so called canned cycles for predefined subprocesses such as drilling
+* it can use so called canned cycles for predefined subprocesses such as drilling
 * you might prefer your G-code output in either metric or imperial units.
 * it might be useful to perform a set of moves prior to calling for a tool change to make the action easier for the operator
 * you might wish to include comments for readability or suppress them to keep the program small
 * you might wish to include a custom header to identify or document the program for future reference.
 * ...
 
-Furthermore there are other languages to control a mill, such as HPGL, DXF, or others.
+Furthermore there are other languages to control a machine, such as HPGL, DXF, or others.
 
-The postprocessor is a program which translates the internal codes into a complete file, that can be uploaded to your machine.
+The Post-Processor is a program which translates the internal codes into a complete file, that can be uploaded to your machine.
 
-== Preparation for writing your own postprocessor
+== Preparation for writing your own Post-Processor
 
 You may start with a very simple model showing how your machine reads straight lines and arcs. Prepare it with any program suitable for your machine.
 
-A file for such paths starting at (0,0,0) and going towards Y would be helpful. Make sure it is the tool itself moving along this path, i.e. no tool radius compensation must be applied.
+A file for such Toolpaths starting at (0,0,0) and going towards Y would be helpful. Make sure it is the tool itself moving along this Toolpath, i.e. no tool radius compensation must be applied.
 
 image:Path_PostProcessorSketch.png[]
 
-The path in FreeCAD would look like this. Please note the small blue arrow, it indicates the starting direction. For a very first go you may provide only one level in the XY-plane.
+[.caption]
+Sketch of the test geometry (screenshot from the Path era of the CAM Workbench)
+
+The Toolpath in FreeCAD would look like this. Please note the small blue arrow, it indicates the starting direction. For a very first go you may provide only one level in the XY-plane.
 
 image:Path_PostProcessorModel.png[]
 
-You can then have a look at the file and compare it to the output of existing postprocessors such as `linux_cnc_post.py` or `grbl_post.py` and try yourself to adapt them or you upload your to the https://forum.freecad.org/viewforum.php?f=15[Path/CAM forum] to get some help.
+[.caption]
+The resulting Toolpath (screenshot from the Path era of the CAM Workbench)
+
+You can then have a look at the file and compare it to the output of existing Post-Processors such as `linuxcnc_legacy_post.py` (legacy) or `grbl_post.py` and try yourself to adapt them, or you upload yours to the https://forum.freecad.org/viewforum.php?f=15[Path/CAM forum] to get some help.
 
 == Naming convention
 
-The postprocessor can be placed in your FreeCAD macro directory. For a prefix `<filename>` the postprocessor should get the name `<filename>_post.py`. Please note that the postfix and extension, `_post.py`, have to be lower case.
+The file must be named `<name>_post.py`. Please note that the postfix and extension, `_post.py`, have to be lower case. A script post defines `export()` at module level. A class post defines a class whose name is the title-cased file prefix (e.g. `class Mymachine(PostProcessor)` in `mymachine_post.py`; linuxcnc → Linuxcnc, mach3_mach4 → Mach3_Mach4, masso_g3 → Masso_G3) and sets `POST_TYPE = "machine"` to be offered in the Machine Editor; without that constant the post is treated as legacy and offered in the Job's Processor list.
 
-The new name should be reflected at the head of the parser arguments list in the `<filename>_post.py` file, e.g.:
+(Legacy scripts only) set `prog` of the argparse parser to the post name so the argument help shown in the Job's Arguments tooltip is correct, e.g.:
 
 [source,text]
 ----
@@ -55,15 +64,15 @@ parser = argparse.ArgumentParser(prog="grbl", add_help=False)
 
 If you are testing, place it in your macro directory. If it functions well, please consider providing it for others to benefit (post it to the FreeCAD Path/CAM forum) so that it can be included in the FreeCAD distribution going forward.
 
-== Other existing postprocessors
+== Other existing Post-Processors
 
-For comparison you may look at the postprocessors which come with your FreeCAD installation. They are located under the directory ++<++path++_++to++_++your++_++FreeCAD++_++distro++>++/Mod/CAM/Path/Post/scripts. Widely used are the http://linuxcnc.org/[linuxcnc] and the https://github.com/grbl/grbl[grbl] postprocessors. Studying their code can give helpful insights.
+For comparison you may look at the Post-Processors which come with your FreeCAD installation. They are located under the directory `<path_to_your_FreeCAD_distro>/Mod/CAM/Path/Post/scripts`. Widely used are the http://linuxcnc.org/[linuxcnc] and the https://github.com/grbl/grbl[grbl] Post-Processors (`linuxcnc_legacy_post.py`, `grbl_post.py`, and the machine-based `linuxcnc_post.py`). Studying their code can give helpful insights.
 
-== Programming your own postprocessor
+== Programming a legacy script Post-Processor
 
-This post discusses some internals from the linuxcnc postprocessors. The same strucure is used in other postprocessors as well.
+This section discusses some internals of the legacy linuxcnc Post-Processor (`linuxcnc_legacy_post.py`); it applies to `*_legacy_post.py` and other script posts. The same structure is used in other script Post-Processors as well.
 
-Looking at linux++_++cnc++_++post.py, you'll see the export function (as of 0.19.20514 it's at line 156)
+Looking at `linuxcnc_legacy_post.py`, you'll see the export function:
 
 [source,python]
 ----
@@ -75,7 +84,7 @@ def export(objectslist, filename, argstring):
     ...
 ----
 
-it collects step by step in the variable "gcode" the processed G-codes and handles the overall exporting of post-processable objects (operations, tools, jobs ,etc). Export handles the high level stuff like comments and coolant but any objects that have multiple CAM commands (tool changes and operations) it delegates to the parse function (as of 0.19.20514 it's at line 288).
+it collects step by step in the variable "gcode" the processed G-codes and handles the overall exporting of post-processable objects (Operations, Tool Controllers, Jobs, etc.). Export handles the high level stuff like comments and coolant but any objects that have multiple CAM commands (tool changes and Operations) it delegates to the parse function.
 
 [source,python]
 ----
@@ -87,7 +96,7 @@ def parse(pathobj):
     ...
 ----
 
-Similarly to the "export" function collects parse the G-codes in the variable "out". In the variable "command" the commands as seen in the CAM workbench's "inspect G-code" function are stored and can be investigated for further processing.
+Similarly to the "export" function, parse collects the G-codes in the variable "out". In the variable "command" the commands as seen in the CAM workbench's "inspect G-code" function are stored and can be investigated for further processing.
 
 [source,python]
 ----
@@ -102,21 +111,75 @@ Both parse and export are just formatting strings and concatenating them togethe
 
 You'll see that both functions also call the "linenumber()" function. If the user wants line numbers, the linenumber function returns the string to stick in to the appropriate spot, otherwise it returns an empty string so nothing is added.
 
-== Adding a custom post-processor
+Class-based posts that still use arguments do not implement `parse()` themselves; they call the shared helpers `Path.Post.UtilsArguments.init_shared_arguments`, `Path.Post.UtilsExport.export_common` and `Path.Post.UtilsParse.parse_a_path` and override `init_values()` and `init_argument_defaults()` to change defaults.
 
-{empty}1. *Access the Macro Path*:
+=== Common arguments
 
-Go to the menu menu:Edit[Preferences > Python > Macro]. Note the path listed in the _Macro Path_ field (e.g., `/home/user/snap/freecad/common`).
+Class-based legacy posts accept these arguments in the Job's Arguments field (pairs are shown as --x/--no-x): `--metric`/`--inches`, `--axis-modal`, `--axis-precision N`, `--bcnc`, `--chipbreaking_amount`, `--command_space`, `--comments`, `--comment_symbol`, `--enable_coolant`/`--disable_coolant`, `--enable_machine_specific_commands`, `--end_of_line_characters`, `--feed-precision N`, `--finish_label`, `--header`, `--line_number_increment`, `--line_number_start`, `--line-numbers`, `--list_tools_in_preamble`, `--modal`, `--output_all_arguments`, `--output_machine_name`, `--output_path_labels`, `--output_visible_arguments`, `--postamble`, `--post_operation`, `--preamble`, `--precision N`, `--return-to=x,y,z`, `--show-editor`, `--split-arcs`, `--tlo`, `--tool_change`, `--translate_drill`, `--wait-for-spindle S`.
 
-{empty}2. *Copy the Post-Processor File*:
+Pure script posts define their own subset (e.g. linuxcnc_legacy: `--no-header`, `--no-comments`, `--line-numbers`, `--no-show-editor`, `--precision`, `--preamble`, `--postamble`, `--inches`, `--modal`, `--axis-modal`, `--no-tlo`, `--rigid-tap`).
 
-Place your file (e.g., `new_post.py`) *directly* into the _Macro Path_ folder noted in the previous step (e.g., `/home/user/snap/freecad/common/new_post.py`).
+== Writing a machine-based Post-Processor
+
+[.since]#introduced in 26.3#
+
+Start from `generic_post.py`. Minimal form:
+
+[source,python]
+----
+from Path.Post.Processor import PostProcessor
+POST_TYPE = "machine"
+
+class Mymachine(PostProcessor):
+    @classmethod
+    def get_common_property_schema(cls):
+        props = super().get_common_property_schema()
+        for p in props:
+            if p["name"] == "file_extension":
+                p["default"] = "ngc"
+            elif p["name"] == "preamble":
+                p["default"] = "G17 G54 G40 G49 G80 G90"
+        return props
+
+    @classmethod
+    def get_property_schema(cls):
+        return [{"name": "blend_mode", "type": "choice", "runtime": True,
+                 "label": "Path Blending Mode", "default": "BLEND",
+                 "choices": ["EXACT_PATH", "EXACT_STOP", "BLEND"], "help": "..."}]
+
+    def __init__(self, job, tooltip="My machine post processor", tooltipargs=[], units="Metric"):
+        super().__init__(job=job, tooltip=tooltip, tooltipargs=tooltipargs, units=units)
+
+    def init_values(self, values):
+        super().init_values(values)
+        values["PARAMETER_ORDER"] = "XYZABCIJFSTQRLHDP"
+----
+
+The common property schema covers file_extension, supports_tool_radius_compensation, supported_commands, drill_cycles_to_translate, preamble, postamble, safetyblock, pre_job, post_job, pre_fixture_change, post_fixture_change, pre_operation, post_operation, pre_tool_change, post_tool_change, tool_return, pre_rotary_move, post_rotary_move, show_dialog, parameter_order, output_tool_length_offset, translate_drill_cycles, tool_change, output_units, axis_precision, feed_precision, spindle_decimals and f_for_rapid_moves.
+
+Schema entries have name, type (string, bool, choice, int, float), label, default, help and optionally choices, min, max, decimals and runtime (runtime properties are shown on the Overview tab of the Post Processing dialog, others on its Options tab and in the Machine Editor). Values are stored in the Machine's `.fcm` under `postprocessor.properties` and merged with Job and dialog overrides by `apply_configuration_bundle()`.
+
+Hooks: override `_expand_prefix()` and other `_expand_*` stages, `_convert_drill_cycle()`, `get_sanity_checks(job)` (return squawks shown on the Warnings tab and by Quick Validate) and `pre_processing_dialog()`. The pipeline entry point is `export2()`: pre-processing dialog, ordering (PostList by Fixture/Tool/Operation), command expansion (canned cycles, arc splitting, rapids, tool length offset, bCNC blocks), conversion, optimisation (modal suppression, line numbers) and output.
+
+=== Machine output options
+
+For machine-based posts the legacy module flags are replaced by the Machine's output options: units, output_tool_length_offset, output_header and header items (date, description, document name, machine name, project file, units, tool list, fixture list), comments (enabled, symbol, operation labels, blank lines, bCNC comments), formatting (line numbers, start, prefix, increment, command space, end-of-line characters), precision (axis, feed, spindle), duplicates (commands, parameters) and processing (early tool prep, filter inefficient moves, split arcs, tool change, translate drill cycles, translate rapid moves, XY before Z after tool change, return-to). They are edited in the xref:output/machine.adoc[Machine Editor].
+
+== Adding a custom Post-Processor
+
+Place the file in the macro directory (menu:Edit[Preferences > Python > Macro > Macro path], e.g. `/home/user/snap/freecad/common`), in the CAM file path (menu:Edit[Preferences > CAM > Job preferences]), or distribute it as an add-on whose `package.xml` lists a Postprocessor item. Make sure the post is enabled in menu:Edit[Preferences > CAM > Job preferences > Post processor > Post processors selection].
 
 === Notes
 
-* Ensure the file has the necessary read/write permissions.
-* Restart FreeCAD to apply the changes.
+* Ensure the file has the necessary read permissions.
+* Re-open the Job task panel (or restart FreeCAD if the file was already loaded) to see it.
+
+== Testing
+
+Unit tests for posts live in `Mod/CAM/Tests/` (TestPostCore, TestLinuxCNCPost, etc.) and run with `FreeCADCmd -t TestCAMApp`; `test_post.py` is a minimal post used by the tests.
 
 == Related
 
-* image:CAM_Post.svg[width=24] xref:output/post-process.adoc[CAM PostProcess]
+* image:CAM_Post.svg[width=24] xref:output/post-process.adoc[CAM Post]
+* image:CAM_Machine.svg[width=24] xref:output/machine.adoc[CAM Machine]
+* image:CAM_PostSelected.svg[width=24] xref:output/post-process-selected.adoc[CAM PostSelected]

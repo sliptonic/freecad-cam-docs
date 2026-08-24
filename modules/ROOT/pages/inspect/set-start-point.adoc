@@ -1,0 +1,33 @@
+= CAM SetStartPoint
+:page-command: CAM_SetStartPoint
+:page-menu: Tree View context menu → Start Point Selection
+:page-since: 1.1
+:page-workbench: CAM
+:page-audit: applied
+
+[.fcinfobox]
+--
+[.fcTitle]
+*CAM SetStartPoint*
+
+Menu location:: Tree View context menu → menu:Start Point Selection[]
+Workbenches:: xref:index.adoc[CAM]
+Default shortcut:: _None_
+Introduced in version:: 1.1
+See also:: xref:operations/profile.adoc[CAM Profile], xref:operations/pocket.adoc[CAM Pocket Shape]
+--
+
+== Description
+
+The Start Point Selection command (tooltip: "Selects the start point") lets you pick the start point of an Operation in the https://wiki.freecad.org/3D_View[3D View]. It is available in the https://wiki.freecad.org/Tree_View[Tree View] context menu of Operations that have a *StartPoint* property (for example Profile, Pocket Shape, Helix, Adaptive). It is not on any toolbar or menu.
+
+== Usage
+
+. Select one Operation in the Tree View.
+. Right-click and choose menu:Start Point Selection[].
+. Click a point in the 3D View; the Draft snapper is used, so snapping to vertices and edges works.
+. The X and Y of the picked point are written to *StartPoint*, Z is set to the Operation's *ClearanceHeight*, *UseStartPoint* is set to true and the Operation is recomputed. The chosen coordinates are printed in the https://wiki.freecad.org/Report_view[Report view].
+
+== Notes
+
+* [.since]#introduced in 26.3#: the start point can also be picked from the task panel of the xref:operations/profile.adoc[Profile] and xref:operations/pocket.adoc[Pocket Shape] operations.
