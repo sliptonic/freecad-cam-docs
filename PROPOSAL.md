@@ -48,3 +48,25 @@ Post Process — each exists in both versions, and Drilling shows a real behavio
 
 The Audit version shows all the flagged content changes mechanically applied.  This is a starting point
 for more human-centric review and edit of the content in preparation for release.
+
+## Decisions
+
+### ASCIIDOC rather than markdown
+
+The choice of AsciiDoc over Markdown follows KiCad's reasoning, and it is a translation and structure 
+decision more than a syntax preference. Documentation of this shape needs facilities Markdown does not 
+standardize: include:: for shared definitions and generated property tables, document attributes for values 
+that vary by version, conditional text, real tables, and admonitions — in Markdown each of these is a 
+dialect-specific extension chosen by the site generator, so the content becomes coupled to the tool that 
+renders it. 
+
+The decisive factor is translation: po4a's AsciiDoc module has extracted gettext strings from 
+KiCad's manuals across twelve languages for a decade, giving translators per-sentence change tracking through 
+the same .po workflow FreeCAD's Crowdin already handles, while Markdown's po4a support is weaker and fragments 
+across dialects. 
+
+Conversion cost does not separate the two — pandoc emits either from the wiki's MediaWiki 
+markup — and the contributor-familiarity argument for Markdown is blunted by the fact that today's authors write 
+MediaWiki markup, so any migration asks them to learn a new syntax once. Markdown remains the right choice where 
+the project already uses it — the Hugo website and lens-docs are untouched by this decision — but for versioned, 
+translated, per-command reference documentation, AsciiDoc is the format with the proven pipeline behind it.
