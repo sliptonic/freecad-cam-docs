@@ -55,7 +55,7 @@ The expressions may reference these read-only properties of the Operation:
 
 == Referencing Setup Sheet values
 
-Other Setup Sheet properties are referenced by the object's internal name, e.g. `SetupSheet.ClearanceHeightOffset` or `SetupSheet001.SafeHeightOffset` for the second Job in a document. In exported Job Templates the reference is stored as `${SetupSheet}` and resolved on import.
+Other Setup Sheet properties are referenced by the object's internal name, e.g. `SetupSheet.ClearanceHeightOffset` or `SetupSheet001.SafeHeightOffset` for the second Job in a document. In exported Job Templates the reference is stored as `$\{SetupSheet}` and resolved on import.
 
 == Per-operation defaults
 
