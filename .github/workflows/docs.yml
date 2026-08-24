@@ -2,7 +2,7 @@ name: docs
 
 on:
   push:
-    branches: [DEV, wiki]
+    branches: [DEV, wiki, audit]
   pull_request:
   workflow_dispatch:
 
@@ -28,7 +28,7 @@ jobs:
       # available as a local branch (actions/checkout only creates one).
       - name: Materialize content branches
         run: |
-          for b in wiki DEV; do
+          for b in wiki audit DEV; do
             git show-ref --verify --quiet "refs/heads/$b" || git branch "$b" "origin/$b" || true
           done
           git branch -a
