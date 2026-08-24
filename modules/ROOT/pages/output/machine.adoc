@@ -14,12 +14,12 @@ Menu location:: menu:Edit[Preferences > CAM > Assets > Machines]; btn:[New Machi
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: _None_
 Introduced in version:: 26.3
-See also:: xref:job/job.adoc[CAM Job], xref:output/post-process.adoc[CAM Post], xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization]
+See also:: xref:job/job.adoc[CAM Job], xref:output/post-process.adoc[CAM Post], xref:output/machine-configuration.adoc[Machine Configuration], xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization]
 --
 
 == Description
 
-A *Machine* is a definition of a CNC machine (axes, kinematics, toolheads, and the machine-based xref:output/post-process.adoc[Post-Processor] with its output options) stored as a `.fcm` file in the CAM asset directory. Assigning a Machine to a xref:job/job.adoc[Job] switches the Job to machine-based post-processing. [.since]#introduced in 26.3#
+A *Machine* is a definition of a CNC machine (axes, kinematics, toolheads, and the machine-based xref:output/post-process.adoc[Post-Processor] with its output options) stored as a `.fcm` file in the CAM asset directory. Assigning a Machine to a xref:job/job.adoc[Job] switches the Job to machine-based post-processing. [.since]#introduced in 26.3# Full documentation of the editor, the file format and Job integration is on the xref:output/machine-configuration.adoc[Machine Configuration] page; developers writing a post for this system should read xref:output/mbpp-postprocessor.adoc[Writing a Machine-Based Post-Processor].
 
 == Machine library
 

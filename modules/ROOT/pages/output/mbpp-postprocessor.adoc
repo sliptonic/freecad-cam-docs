@@ -1,0 +1,347 @@
+= Writing a Machine-Based Post-Processor
+:page-since: 26.3
+:page-audit: applied
+
+[.since]#Introduced in 26.3.# A machine-based Post-Processor (MBPP) is a Python class deriving from `Path.Post.Processor.PostProcessor`. Unlike a legacy script post, it doesn't parse argument strings and it doesn't format most of the output itself — the base class runs a staged pipeline driven by the xref:output/machine-configuration.adoc[Machine configuration], and your subclass only supplies what the configuration can't express. Many controllers need no subclass at all.
+
+This page is the developer reference: the class contract, the property schema, where each property surfaces in the UI, the pipeline and its hooks, and testing. For configuring machines as a user, see xref:output/machine-configuration.adoc[Machine Configuration]. The legacy script system is documented in xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization].
+
+== Architecture
+
+Three layers share the work:
+
+. *The machine file* (`.fcm`) — physical description plus output formatting and processing options. Pure data.
+. *The Post-Processor class* — G-code dialect behavior the configuration can't express: command remapping, parameter renaming, custom cycles, framing bytes.
+. *The base pipeline* (`Processor.py`) — ordering, expansion, conversion, and optimization, configured by the first layer and hooked by the second.
+
+The split matters because it moves work out of code. Comment style, modality, line numbers, precision, preambles, pre/post blocks — all configuration. A post that used to reimplement those in a 1500-line script now declares defaults and overrides a hook or two.
+
+Legacy posts keep working unchanged. A file is treated as machine-based only when it sets the module constant `POST_TYPE = "machine"`; those posts appear in the Machine Editor's Post-Processor combo. Everything else stays a legacy post, offered in the Job's Processor field. The migrated posts keep their legacy version alongside under a `_legacy_post.py` name.
+
+Machine-based posts shipped with FreeCAD: `generic`, `generic_plasma`, `centroid`, `linuxcnc`, `mach3_mach4`, `marlin`, `opensbp`, `smoothie`.
+
+== Do you need a subclass at all?
+
+Work through the differences between your controller and plain G-code. If every one of them is on this list, you don't need code — create a `.fcm` file that uses `generic` and you're done:
+
+* comment on/off, symbol, formatting
+* modal output and duplicate suppression
+* line numbering format, start, increment
+* precision per value class
+* preamble, postamble, safety block
+* pre/post blocks around jobs, operations, tool changes, fixture changes, rotary moves
+* tool length offset (G43) on or off
+* arc splitting, rapid translation, drill cycle expansion
+* early tool prep, XY-before-Z after tool change
+* file extension and the supported-command list
+
+You need a subclass when the dialect itself differs:
+
+* command remapping (`G54` → `E01`)
+* parameter renaming (`Q` → `K` in canned cycles)
+* absolute arc centers instead of incremental I/J
+* computed output (dwell scaled by RPM, tapping feed from pitch)
+* framing or EOF markers around the file
+* interactive pre-processing, remote posting
+* controller-specific sanity checks
+
+== Files and naming
+
+The rules are load-bearing — the factory finds your code by name:
+
+* File: `<name>_post.py`, lowercase suffix, in one of the post search paths (the CAM module's `Path/Post/scripts/`, the user macro directory, the paths from menu:Edit[Preferences > CAM > Job preferences], or an add-on's declared post directory).
+* Class: the title-cased file stem. `mymachine_post.py` must contain `class Mymachine`. Underscores title-case each part: `mach3_mach4_post.py` → `Mach3_Mach4`, `masso_g3_post.py` → `Masso_G3`.
+* Module constant: `POST_TYPE = "machine"`.
+* Machine files refer to the stem: `"postprocessor": {"file_name": "mymachine"}`.
+
+A `_post.py` file with no matching class is loaded as a legacy script through a wrapper; that's the compatibility path, not an error.
+
+== A minimal post
+
+[source,python]
+----
+from typing import Any, Dict
+from Path.Post.Processor import PostProcessor
+import FreeCAD
+
+translate = FreeCAD.Qt.translate
+Values = Dict[str, Any]
+
+POST_TYPE = "machine"
+
+
+class Mymachine(PostProcessor):
+
+    @classmethod
+    def get_common_property_schema(cls):
+        props = super().get_common_property_schema()
+        for p in props:
+            if p["name"] == "file_extension":
+                p["default"] = "ngc"
+            elif p["name"] == "preamble":
+                p["default"] = "G17 G54 G40 G49 G80 G90"
+            elif p["name"] == "postamble":
+                p["default"] = "M05\nG17 G90 M2"
+        return props
+
+    @classmethod
+    def get_property_schema(cls):
+        return []          # no post-specific properties yet
+
+    def __init__(self, job):
+        super().__init__(
+            job=job,
+            tooltip=translate("CAM", "My machine post processor"),
+            tooltipargs=[],
+            units="Metric",
+        )
+
+    def init_values(self, values: Values) -> None:
+        super().init_values(values)
+        values["POSTPROCESSOR_FILE_NAME"] = __name__
+----
+
+That's a complete, working post. `generic_post.py` is the reference for this shape; `linuxcnc_post.py` shows a post with custom properties and hooks.
+
+== The property schema
+
+Every configurable knob of a post is declared as a schema entry — a plain dict. The UI builds its widgets from these declarations, defaults are applied from them, and the configuration bundle validates override keys against them. Adding a property is one dict in one list; no UI code.
+
+[cols="1,1,4",options="header"]
+|===
+|Key |Required |Meaning
+|`name` |yes |Internal key. Stored in `postprocessor.properties`, surfaced to your code as `values["NAME"]` (uppercased).
+|`type` |yes |`bool`, `int`, `float`, `string`, `text` (multi-line), or `choice`.
+|`label` |yes |UI label. Wrap in `translate("CAM", ...)`.
+|`default` |yes |Value used when neither the machine file nor an override sets one.
+|`help` |yes |Tooltip text.
+|`runtime` |no |`True` makes this a per-run parameter: shown on the Post Processing dialog's Overview tab, hidden from the Machine Editor, not persisted in the `.fcm`. See <<property-visibility>>.
+|`min`, `max` |no |Range for `int` and `float`.
+|`decimals` |no |Spinbox precision for `float`.
+|`choices` |no |For `choice`: a list of values, or of `(label, value)` tuples.
+|===
+
+Widget mapping: `bool` → checkbox, `int`/`float` → spinbox, `choice` → combo, `text` → multi-line editor, anything else → line edit.
+
+Three classmethods carry the schema:
+
+`get_common_property_schema()`::
+The base class defines the properties every post shares (table below). Override it to *change defaults* — iterate the inherited list and edit entries in place, as in the minimal example. Don't remove entries; the pipeline reads them.
+
+`get_property_schema()`::
+Your post's own properties. The base returns an empty list.
+
+`get_full_property_schema()`::
+Common plus specific; what the Machine Editor renders. Don't override.
+
+=== Common properties
+
+Everything below is available to every machine-based post out of the box:
+
+[cols="2,1,2,4",options="header"]
+|===
+|Name |Type |Default |Purpose
+|`file_extension` |string |`nc` |Output file extension, without the dot.
+|`supports_tool_radius_compensation` |bool |false |Whether G41/G42 may be emitted.
+|`supported_commands` |text |the full built-in list |Commands this post accepts, one per line. See <<command-filtering>>.
+|`drill_cycles_to_translate` |text |G73 G81 G82 G83 G85 |Canned cycles to expand into moves when drill translation runs.
+|`preamble` |text |empty |Commands after the header, at program start.
+|`postamble` |text |empty |Commands at program end.
+|`safetyblock` |text |empty |Reset-to-safe-state commands (G40 G49 G80).
+|`pre_job` / `post_job` |text |empty |Around each Job.
+|`pre_fixture_change` / `post_fixture_change` |text |empty |Around fixture changes.
+|`pre_operation` / `post_operation` |text |empty |Around each Operation.
+|`pre_tool_change` / `post_tool_change` |text |empty |Around tool changes.
+|`tool_return` |text |empty |After tool changes, for returning to position.
+|`pre_rotary_move` / `post_rotary_move` |text |empty |Around rotary-axis moves.
+|`show_dialog` |bool |true |Allow interactive dialogs during post-processing; off for automation.
+|`parameter_order` |text |`XYZABCFSIJTQRPH` |Parameter output order within a line.
+|`output_tool_length_offset` |bool |true |G43 after M6.
+|`tool_change` |bool |true |Unchecked suppresses M6.
+|`output_units` |string |metric |Unit command in output.
+|`axis_precision` |int |2 |Decimals for axis words.
+|`feed_precision` |int |3 |Decimals for F.
+|`spindle_decimals` |int |1 |Decimals for S.
+|`f_for_rapid_moves` |bool |false |Emit F on G0 lines.
+|===
+
+=== Adding your own properties
+
+Declare them in `get_property_schema()` and read them in `init_values()`. From the plasma post:
+
+[source,python]
+----
+@classmethod
+def get_property_schema(cls):
+    return [
+        {
+            "name": "pierce_delay",
+            "type": "int",
+            "label": translate("CAM", "Pierce Delay"),
+            "default": 1000,
+            "min": 0,
+            "max": 10000,
+            "help": translate("CAM", "Milliseconds to wait after the torch "
+                                     "ignites (M3) before moving"),
+        },
+        {
+            "name": "force_rapid_feeds",
+            "type": "bool",
+            "runtime": True,
+            "label": translate("CAM", "Force Rapid Feeds"),
+            "default": False,
+            "help": translate("CAM", "Dry-run: run every move at rapid feed"),
+        },
+    ]
+
+def init_values(self, values):
+    super().init_values(values)
+    props = self._machine.postprocessor_properties if self._machine else {}
+    values["PIERCE_DELAY"] = props.get("pierce_delay", 1000)
+----
+
+The bundle also uppercases every property into `self.values` automatically, so `values["PIERCE_DELAY"]` is populated either way; reading it explicitly in `init_values()` keeps the default visible in code.
+
+[#property-visibility]
+== Where properties appear
+
+The `runtime` flag decides which UI owns a property. This is the whole visibility mechanism — one boolean per schema entry:
+
+[cols="3,2,2",options="header"]
+|===
+|Surface |`runtime` absent or false |`runtime: true`
+|Machine Editor, Postprocessor tab |shown; changed values persist to the `.fcm` |hidden
+|Post Processing dialog, Overview tab ("Postprocessor Parameters") |hidden |shown; value applies to this run only
+|Post Processing dialog, Options tab |not shown footnote:[The Options tab shows the machine's output and processing option groups, not schema properties.] |not shown
+|===
+
+Use `runtime` for choices that vary run to run — a dry-run switch, blend mode, marking-only output. Use plain properties for machine facts — delays, extensions, command blocks. The dialog also lists the runtime values it collected as overrides, so they take highest priority for that export without touching the machine file or the Job.
+
+Two related switches: the common property `show_dialog` gates any interactive dialogs a post raises during processing, and the parameter `Mod/CAM/EnableMachinePostprocessor` (default true) hides the Machine Editor's Postprocessor and Options tabs entirely when false.
+
+== How values reach your code
+
+At export time the base class builds the *configuration bundle* — one flat dict merged in priority order:
+
+. `machine.postprocessor_properties` from the `.fcm` file
+. schema defaults for every key the file doesn't set
+. Job document values (`job_author`, `comment`, `selected_fixtures`)
+. overrides — the Job's *PostProcessorPropertyOverrides* JSON, or the dialog's widget values when exporting from the dialog
+
+Override keys that don't exist in the bundle are warned about and ignored. The result is written back onto the machine object and synced into `self.values` with uppercased keys, alongside the values `_merge_machine_config()` maps from the machine's output options (`OUTPUT_COMMENTS`, `COMMENT_SYMBOL`, `AXIS_PRECISION`, `OUTPUT_LINE_NUMBERS`, and the rest). Explicit overrides win even over the machine model. Everything downstream — expansion, conversion, sanity checks — reads `self.values`, so there's a single source of truth per run.
+
+`build_configuration_bundle()` is a pure function of its inputs, which makes it easy to unit-test; `apply_configuration_bundle()` is the side-effecting version the pipeline calls.
+
+== The export2 pipeline
+
+`export2()` returns a list of `(section_name, gcode)` tuples — one per output file. Its stages:
+
+. *Pre-processing dialog* — `pre_processing_dialog()` runs unless the unified dialog already collected input.
+. *Ordering* — `buildPostList()` turns the Job into an ordered list of *postables* (fixtures, tool changes, operations), honoring the Job's *OrderOutputBy*, *SplitOutput*, and *Fixtures* properties and the machine's `early_tool_prep`. Then `_expand_postprocessor_commands(postables)` runs — your first hook, with the complete ordered plan and nothing yet expanded.
+. *Command expansion* — a fixed sequence of passes rewrites the postables: preamble/safety block, per-item pre blocks, drill-cycle translation, canned cycles, arc splitting, spindle wait, coolant delay, rapid translation, XY-before-Z, bCNC blocks, tool length offset, per-item post blocks, tool-change suppression, rotary wrapping. Each pass is a `_expand_*` method; each reads its switch from `self.values`, so a disabled feature is a no-op.
+. *Command conversion* — each `Path.Command` becomes a G-code line: parameter ordering and precision applied, unsupported commands filtered, comments formatted.
+. *Optimization* — modal/duplicate suppression and line numbering.
+. *Output production and remote posting.*
+
+Section names come from the postable structure; the Post Processing dialog turns them into filenames through the Job's output template.
+
+== Hooks
+
+Override only what your dialect needs; delegate the rest with `super()`.
+
+[cols="2,4",options="header"]
+|===
+|Hook |Use it for
+|`init_values(values)` |Set or override entries in the values dict. Always call `super().init_values(values)` first, then set `POSTPROCESSOR_FILE_NAME` and read your custom properties.
+|`_expand_postprocessor_commands(postables)` |Inject, remove, or rewrite commands after ordering, before expansion. The broadest hook.
+|`_expand_prefix(postables)` and the other `_expand_*` passes |Change one expansion stage. Example: LinuxCNC appends its blend command (G61/G64 P…) to the preamble here.
+|`_convert_drill_cycle(command)` |Reformat canned cycles: rename parameters, inject reference planes, compute tapping feeds.
+|`_merge_machine_config()` |Change how machine output options map into `self.values`.
+|`export2()` |Wrap the finished output — EOF markers, framing. Call `super().export2()` and transform the returned sections.
+|`pre_processing_dialog()` |Collect interactive input before processing. Return `False` to cancel. Respect `values["SHOW_DIALOG"]`.
+|`get_sanity_checks(job)` |Controller-specific validation; see below.
+|`tooltip` (property) |The description shown in the Machine Editor.
+|===
+
+=== MachineState
+
+During conversion the pipeline maintains a `MachineState` object (`Path.Base.MachineState`) tracking the abstract machine: X Y Z A B C position, F (with G0's F held separately as `G0F`), S, T, coolant, the active work coordinate system, and the drill return mode (G98/G99). Conversion passes consult it instead of re-deriving state, and its snapshot resets per output section. If your override emits or rewrites motion the tracker didn't see, update the state — the next pass trusts it.
+
+[#command-filtering]
+=== Command filtering and annotations
+
+Conversion checks every command against the post's `supported_commands` list (seeded from the lists in `Constants.py`: moves, drill cycles, probing, offsets, spindle and coolant M-codes, plus the non-conforming set — cutter compensation, distance mode, units, return mode — that operations shouldn't emit but posts may). Commands outside the list are rejected rather than silently passed through.
+
+A `Path.Command` can carry annotations that alter this. `allow_unsupported` (set by the Custom operation) exempts a command from the check, so users can hand-write dialect G-code that flows through untouched. `NoEngagementFeed` marks G0 moves that rapid translation may convert to G1 at the no-engagement feed rate.
+
+== Sanity checks
+
+Return squawks from `get_sanity_checks(job)` and they appear on the Post Processing dialog's Warnings tab and in xref:job/quick-validate.adoc[Quick Validate], next to the generic checks. Use `self._create_squawk(type, note)` to format them; types are `WARNING` (critical), `CAUTION`, `NOTE`, and `TIP`.
+
+[source,python]
+----
+def get_sanity_checks(self, job):
+    squawks = []
+    if self.values["PIERCE_DELAY"] < 300:
+        squawks.append(self._create_squawk(
+            "WARNING", "Pierce delay may be too short to pierce the material"))
+    return squawks
+----
+
+The base pipeline already validates toolpaths against machine axis limits and toolhead RPM range; write checks only for what's specific to your controller.
+
+== Testing
+
+Post tests live in `Mod/CAM/CAMTests/` and run with `FreeCADCmd -t TestCAMApp` (or a single module: `-t CAMTests.TestLinuxCNCPost`). Prefer the mock-based pattern — `PostTestMocks.create_default_job_with_operation()` builds a Job stand-in without a document, and you drive the pipeline directly:
+
+[source,python]
+----
+import Path
+import CAMTests.PathTestUtils as PathTestUtils
+import CAMTests.PostTestMocks as PostTestMocks
+from Path.Post.Processor import PostProcessorFactory
+from Machine.models.machine import Machine
+
+
+class TestMymachinePost(PathTestUtils.PathTestBase):
+    @classmethod
+    def setUpClass(cls):
+        cls.job, cls.op, cls.tc = PostTestMocks.create_default_job_with_operation()
+        cls.post = PostProcessorFactory.get_post_processor(cls.job, "mymachine")
+
+    def setUp(self):
+        self.post.reinitialize()
+        self.post._machine = Machine.create_3axis_config()
+        self.post._machine.output.output_header = False
+        self.post._machine.output.comments.enabled = False
+
+    def test_rapid(self):
+        self.op.Path = Path.Path([Path.Command("G0", {"X": 10.0, "Y": 5.0})])
+        gcode = self.post.export2()[0][1]
+        self.assertIn("G0 X10.000 Y5.000", gcode)
+----
+
+Turn header and comments off in `setUp` so assertions stay byte-stable. Test at minimum: empty path (preamble + postamble), file extension, precision, comment formatting, modal suppression, drill cycle handling, and every dialect quirk your subclass exists for. Register the module in `CAMTests/__init__.py` so the runner discovers it.
+
+== Shipping a post
+
+For your own machine, drop the file in the macro directory or a folder listed in menu:Edit[Preferences > CAM > Job preferences]; make sure it's enabled under *Post processors selection* there. An add-on can distribute posts by declaring them in its `package.xml`, next to its machine files — the community *FreeCAD/Machines* add-on takes both. A post contributed to FreeCAD itself goes in `src/Mod/CAM/Path/Post/scripts/` with an entry in the CAM module's `CMakeLists.txt`, tests, and ideally a matching `.fcm` template.
+
+== Reference implementations
+
+[cols="1,3",options="header"]
+|===
+|Post |Worth reading for
+|`generic_post.py` |The minimal shape: base pipeline, no overrides.
+|`linuxcnc_post.py` |Schema default overrides, a runtime `choice` property (blend mode), an `_expand_prefix` hook, rigid-tapping conversion.
+|`generic_plasma_post.py` |A property-rich post: pierce/cooling/marking delays, torch Z-axis control, runtime dry-run flags.
+|`opensbp_post.py` |A non-G-code dialect (ShopBot OpenSBP) plus probe support.
+|`mach3_mach4_post.py`, `marlin_post.py`, `centroid_post.py`, `smoothie_post.py` |Straightforward migrations to compare against their `_legacy_post.py` siblings.
+|===
+
+== Related
+
+* xref:output/machine-configuration.adoc[Machine Configuration]
+* image:CAM_Machine.svg[width=24] xref:output/machine.adoc[CAM Machine]
+* image:CAM_Post.svg[width=24] xref:output/post-process.adoc[CAM Post]
+* xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization] — the legacy script system

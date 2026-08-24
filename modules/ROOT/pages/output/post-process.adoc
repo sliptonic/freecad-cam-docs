@@ -19,7 +19,7 @@ Menu location:: menu:CAM[Post Process]; also in the Tree View context menu of a 
 Workbenches:: xref:index.adoc[CAM]
 Default shortcut:: kbd:[P] kbd:[P]
 Introduced in version:: -
-See also:: xref:output/post-process-selected.adoc[CAM PostSelected], xref:output/machine.adoc[CAM Machine], xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization]
+See also:: xref:output/post-process-selected.adoc[CAM PostSelected], xref:output/machine.adoc[CAM Machine], xref:output/machine-configuration.adoc[Machine Configuration], xref:output/postprocessor-customization.adoc[CAM Postprocessor Customization]
 --
 
 == Description
