@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM Engrave :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/engrave.html">
-    <link rel="prev" href="drilling.html">
+    <link rel="prev" href="thread-milling.html">
     <link rel="next" href="deburr.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="mill-face.html">Face</a>
+    <a class="nav-link" href="mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -403,7 +433,7 @@
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><em>None</em></p>
+<p><a href="vcarve.html" class="xref page">CAM Vcarve</a></p>
 </dd>
 </dl>
 </div>
@@ -415,7 +445,10 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_Engrave.svg" alt="CAM Engrave" width="24"></span> <a href="#">CAM Engrave</a> command is primarily for engraving a <span class="image"><img src="../_images/Draft_ShapeString.svg" alt="Draft ShapeString" width="16"></span> <a href="https://wiki.freecad.org/Draft_ShapeString">Draft ShapeString</a> onto a part. It can also be used with other flat 2D geometry, for example imported SVG-based shapes.</p>
+<p>The <span class="image"><img src="../_images/CAM_Engrave.svg" alt="CAM Engrave" width="24"></span> <a href="#">CAM Engrave</a> command is primarily for engraving a <span class="image"><img src="../_images/Draft_ShapeString.svg" alt="Draft ShapeString" width="16"></span> <a href="https://wiki.freecad.org/Draft_ShapeString">Draft ShapeString</a> onto a part. It can also be used with other flat 2D geometry, for example imported SVG-based shapes. The command tooltip reads "Creates an Engraving toolpath around a Draft ShapeString".</p>
+</div>
+<div class="paragraph">
+<p><span class="since">introduced in 26.3</span>: Any Model whose shape has no volume (a sketch, a Draft ShapeString, an imported SVG) can be engraved as a whole; edges and faces of solid Models can also be selected. If no Base Geometry is given, every zero-volume Model of the Job is engraved.</p>
 </div>
 </div>
 </div>
@@ -429,7 +462,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Press the <span class="image"><img src="../_images/CAM_Engrave.svg" alt="CAM Engrave" width="16"></span> <a href="#">Engrave</a> button.</p>
+<p>Press the <span class="image"><img src="../_images/CAM_Engrave.svg" alt="CAM Engrave" width="16"></span> <a href="#">Engrave</a> button in the <strong>Engraving Operations</strong> group of the New Operations toolbar.</p>
 </li>
 <li>
 <p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Engrave</b></span> option from the menu.</p>
@@ -454,7 +487,7 @@
 </div>
 </li>
 <li>
-<p>In the <b class="menuref">Depths</b> section, check and adjust the depth settings as required.</p>
+<p>In the <b class="menuref">Heights</b> section, check and adjust the height and depth settings as required.</p>
 </li>
 <li>
 <p>Confirm the operation.</p>
@@ -466,13 +499,50 @@
 <div class="sect1">
 <h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The task panel has the following sections:</p>
+</div>
 <div class="ulist">
+<div class="title">Base Geometry</div>
 <ul>
 <li>
-<p><strong>Base</strong>: The geometry to engrave.</p>
+<p><strong>Add</strong>: Add selected features to the list of base geometries for this operation.</p>
 </li>
 <li>
-<p><strong>Clear</strong>: Clears the current geometry selection.</p>
+<p><strong>Remove</strong>: Remove the selected list items from the list of base geometries.</p>
+</li>
+<li>
+<p><strong>Clear</strong>: Clears list of base geometries.</p>
+</li>
+<li>
+<p><strong>Import</strong>: copies the Base Geometry of another operation of the Job.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Heights</div>
+<ul>
+<li>
+<p><strong>Clearance</strong>, <strong>Retract</strong>, <strong>Start</strong>, <strong>Step down</strong>, <strong>Final</strong>.</p>
+</li>
+<li>
+<p><strong>Collision Avoidance Strategy</strong> and <strong>Collision Clearance</strong> (Linking group, <span class="since">introduced in 26.3</span>).</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Tool Controller</div>
+<ul>
+<li>
+<p><strong>Tool controller</strong>, <strong>Coolant</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Operation</div>
+<ul>
+<li>
+<p><strong>Start at vertex</strong>: Specify the vertex number of the underlying shape string at which engraving should start.</p>
 </li>
 </ul>
 </div>
@@ -501,16 +571,38 @@
 <p><strong>Clearance Height</strong>: The height needed to clear clamps and obstructions</p>
 </li>
 <li>
-<p><strong>Final Depth</strong>: Final Depth of Tool- lowest value in Z</p>
+<p><strong>Final Depth</strong>: Final Depth of Tool- lowest value in Z. <span class="since">introduced in 26.3</span>: the default is the top Z of the selected Base Geometry or Base Shapes, or the Stock top if nothing is selected, so a newly created Engrave operation cuts at the surface of the engraved shape.</p>
 </li>
 <li>
-<p><strong>Safe Height</strong>: The above which Rapid motions are allowed.</p>
+<p><strong>Safe Height</strong>: Rapid Safety Height between locations. Shown as <em>Retract</em> in the task panel.</p>
 </li>
 <li>
 <p><strong>Start Depth</strong>: Starting Depth of Tool- first cut depth in Z</p>
 </li>
 <li>
-<p><strong>Step Down</strong>: Incremental Step Down of Tool</p>
+<p><strong>Step Down</strong>: Incremental Step Down of Tool; each layer repeats the wire.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Linking</div>
+<p><span class="since">introduced in 26.3</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Collision Avoidance Strategy</strong>: <code>Clearance Height</code>, <code>Retract Height</code>, <code>Line of Sight</code>, <code>Tool Diameter</code>, <code>Tool Shape</code>. Used for the moves between wires; the first entry always starts from Clearance Height.</p>
+</li>
+<li>
+<p><strong>Collision Clearance</strong>: Distance for collision detection.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Op Values</div>
+<ul>
+<li>
+<p><strong>Op Final Depth</strong>, <strong>Op Start Depth</strong>, <strong>Op Stock ZMax</strong>, <strong>Op Stock ZMin</strong>, <strong>Op Tool Diameter</strong>. All read-only.</p>
 </li>
 </ul>
 </div>
@@ -519,6 +611,9 @@
 <ul>
 <li>
 <p><strong>Active</strong>: Make False, to prevent operation from generating code</p>
+</li>
+<li>
+<p><strong>Approximation</strong> (<span class="since">introduced in 26.3</span>): Approximate complex curves to arcs and lines. Produces G2/G3 output for B-splines and reduces the command count.</p>
 </li>
 <li>
 <p><strong>Base</strong>: The base geometry for this operation</p>
@@ -530,10 +625,16 @@
 <p><strong>Coolant Mode</strong>: Coolant mode for this operation</p>
 </li>
 <li>
-<p><strong>Cycle Time</strong>: Estimated cycle time for this operation</p>
+<p><strong>Cut Pattern</strong> (<span class="since">introduced in 26.3</span>): Set the cut pattern for the operation. <code>Bidirectional</code> (default) alternates the direction on each step-down layer of an open wire so no retract is needed; <code>Directional</code> retracts and re-enters so every layer runs the same way. (The release notes call this property <em>Pattern</em>.)</p>
 </li>
 <li>
-<p><strong>Start Vertex</strong>: The vertex index to start the path from</p>
+<p><strong>Cycle Time</strong>: Operations Cycle Time Estimation (read-only)</p>
+</li>
+<li>
+<p><strong>Reverse</strong> (<span class="since">introduced in 26.3</span>): Reverse milling direction.</p>
+</li>
+<li>
+<p><strong>Start Vertex</strong>: The vertex index to start the toolpath from. Integer 0–999999; for closed wires the edge list is rotated to start at that index, for open wires it is ignored.</p>
 </li>
 <li>
 <p><strong>Tool Controller</strong>: The tool controller that will be used to calculate the path</p>
@@ -541,16 +642,36 @@
 <li>
 <p><strong>User Label</strong>: User assigned label</p>
 </li>
+<li>
+<p><strong>Workplane</strong>: The orientation of the tool for this operation. Default is (0, 0, 1) for standard Z-up milling.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Sorting</div>
+<ul>
+<li>
+<p><strong>Sorting Mode</strong>: Order processing of the wires. <code>Automatic</code> (default) sorts wires by the nearest-neighbour method, further improved with 2-opt; <code>Manual</code> uses the order of selection without sorting.</p>
+</li>
+<li>
+<p><strong>Start Point</strong>: The start point for sorting.</p>
+</li>
+<li>
+<p><strong>End Point</strong>: The end point for sorting.</p>
+</li>
+<li>
+<p><strong>Use End Point</strong>: Use end point for sorting.</p>
+</li>
+<li>
+<p>The three point properties are hidden while Sorting Mode is <code>Manual</code>.</p>
+</li>
 </ul>
 </div>
 <div class="ulist">
 <div class="title">Hidden</div>
 <ul>
 <li>
-<p><strong>Base Object</strong>:</p>
-</li>
-<li>
-<p><strong>Base Shapes</strong>:</p>
+<p><strong>Base Shapes</strong>: Additional base objects to be engraved.</p>
 </li>
 <li>
 <p><strong>Expression Engine</strong>:</p>
@@ -579,6 +700,21 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><span class="since">introduced in 26.3</span>: The precision used to segment complex curves into G-code is the <strong>Geometry Tolerance</strong> property of the CAM Job; there is no per-operation tolerance property.</p>
+</li>
+<li>
+<p><span class="since">introduced in 26.3</span>: Moves between wires use the Linking generator: the tool retracts only to Safe Height (<em>Retract</em>) when the Collision Avoidance Strategy finds the move clear, instead of always returning to Clearance Height.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -589,13 +725,24 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import FreeCAD
+import Path.Op.Engrave as PathEngrave
+
+job = FreeCAD.ActiveDocument.getObject('Job')
+op = PathEngrave.Create('Engrave', parentJob=job)
+op.BaseShapes = [FreeCAD.ActiveDocument.getObject('ShapeString')]
+op.StartVertex = 0
+op.CutPattern = 'Bidirectional'
+FreeCAD.ActiveDocument.recompute()</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The ShapeString must be a Model of the Job.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="drilling.html">Drilling</a></span>
+  <span class="prev"><a href="thread-milling.html">Thread Milling</a></span>
   <span class="next"><a href="deburr.html">Deburr</a></span>
 </nav>
 </article>

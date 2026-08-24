@@ -6,7 +6,7 @@
     <title>CAM Waterline :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/waterline.html">
     <link rel="prev" href="surface.html">
-    <link rel="next" href="../dressups/axis-map.html">
+    <link rel="next" href="rotary-surface.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="mill-face.html">Face</a>
+    <a class="nav-link" href="mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -385,7 +415,7 @@
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This is an unfinished experimental feature. See <a href="../reference/experimental.html" class="xref page">Enable Experimental Features</a>.
+This operation requires <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a> and the preference <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Advanced</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Enable OCL dependent features</b></span>. Enabling it requires a restart of FreeCAD.
 </td>
 </tr>
 </table>
@@ -413,6 +443,10 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <dd>
 <p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Waterline</b></span></p>
 </dd>
+<dt class="hdlist1">Toolbar</dt>
+<dd>
+<p>New Operations → Waterline (shown only when OCL dependent features are enabled)</p>
+</dd>
 <dt class="hdlist1">Workbenches</dt>
 <dd>
 <p><a href="../index.html" class="xref page">CAM</a></p>
@@ -427,7 +461,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><em>None</em></p>
+<p><a href="surface.html" class="xref page">CAM Surface</a>, <a href="rotary-surface.html" class="xref page">CAM RotarySurface</a></p>
 </dd>
 </dl>
 </div>
@@ -439,7 +473,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_Waterline.svg" alt="CAM Waterline" width="24"></span> <a href="#">CAM Waterline</a> command creates a new Waterline operation. As of 0.19_pre, the operation works on the entire model to generate G-code for the Job. Currently, within the operation&#8217;s settings there is no functionality to select specific areas, faces, or regions of the model.</p>
+<p>The <span class="image"><img src="../_images/CAM_Waterline.svg" alt="CAM Waterline" width="24"></span> <a href="#">CAM Waterline</a> command creates a new Waterline operation. Its tooltip reads: <em>Create a Waterline toolpath from a model</em>. The Operation works on the whole Model by default. Faces can be added as Base Geometry on the Base Geometry tab to limit the scan (verify the behaviour for your chosen algorithm); the OCL Adaptive algorithm ignores Waterline boundaries, use a <a href="../dressups/path-boundary.html" class="xref page">Boundary Dressup</a> if required.</p>
 </div>
 <div class="paragraph">
 <p>The Waterline operation has three algorithms: OCL Dropcutter, OCL Adaptive, and Experimental.</p>
@@ -447,7 +481,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="ulist">
 <ul>
 <li>
-<p>The OCL Dropcutter and OCL Adaptive algorithms interface to OCL.pyd, a 3rd party Open Source module titled <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a>, that generates tool paths from a 3D Model. OpenCamLib is not integrated directly into FreeCAD.</p>
+<p>The OCL Dropcutter and OCL Adaptive algorithms interface to OCL.pyd, a 3rd party Open Source module titled <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a>, that generates Toolpaths from a 3D Model. OpenCamLib is not integrated directly into FreeCAD.</p>
 </li>
 <li>
 <p><span class="since">introduced in 26.3</span>: The OCL Adaptive algorithm is available. It can generate smoother paths more quickly for suitable models. It is not restricted by Waterline boundaries; use a <a href="../dressups/path-boundary.html" class="xref page">Boundary Dressup</a> if required.</p>
@@ -466,10 +500,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>Properly install <a href="../reference/opencamlib.html" class="xref page">OpenCamLib</a>.</p>
 </li>
 <li>
-<p>Enable <a href="../reference/experimental.html" class="xref page">Experimental Features</a> for the CAM Workbench.</p>
-</li>
-<li>
-<p>Check <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Advanced</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Enable OCL dependent features</b></span>.</p>
+<p>Check <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Advanced</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Enable OCL dependent features</b></span> and restart FreeCAD.</p>
 </li>
 </ol>
 </div>
@@ -489,13 +520,10 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>Press the <span class="image"><img src="../_images/CAM_Waterline.svg" alt="CAM Waterline" width="24"></span> <a href="#">Waterline</a> icon, or select the <a href="#">Waterline</a> tool from the <strong>CAM</strong> menu.</p>
 </li>
 <li>
-<p>Select the tool controller for the Operation from the Tool controller dialogue pop up window.</p>
+<p>On the Tool Controller tab select the Tool Controller and Coolant mode. <span class="since">26.3 and later</span></p>
 </li>
 <li>
-<p>Adjust the operation depths as needed in the Depths tab: Start Depth, Final Depth, Step Down.</p>
-</li>
-<li>
-<p>Make adjustments in Heights tab if needed.</p>
+<p>On the Heights tab adjust Clearance, Retract, Start depth, Final depth and Step down. <span class="since">26.3 and later</span> depths and heights share a single Heights tab.</p>
 </li>
 <li>
 <p>Configure settings in the Operations tab based on the Algorithm selected:</p>
@@ -547,6 +575,9 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>Set the Cut Pattern if clearing is desired at each layer.</p>
 </li>
 <li>
+<p>Set the Step over percentage (shown when a Cut Pattern other than None is selected).</p>
+</li>
+<li>
 <p>Set the Boundary Adjustment (material allowance).</p>
 </li>
 </ol>
@@ -559,7 +590,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>If you wish to preview the result before accepting the settings, click Apply</p>
 </li>
 <li>
-<p>Click <strong>OK</strong> button to confirm and generate paths.</p>
+<p>Click <strong>OK</strong> button to confirm and generate the Toolpath.</p>
 </li>
 </ol>
 </div>
@@ -574,13 +605,13 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>It does not handle overhangs correctly.</p>
 </li>
 <li>
-<p>It only returns paths for an End Mill type cutter (tool bit).</p>
+<p>It only returns paths for an End Mill type cutter (Tool Bit).</p>
 </li>
 <li>
 <p>It might not correctly catch all interior features.</p>
 </li>
 <li>
-<p>It is just that, experimental, and not ready for mainstream integration. Please inspect paths with the built-in <span class="image"><img src="../_images/CAM_Simulator.svg" alt="CAM Simulator" width="16"></span> <a href="../inspect/simulator-legacy.html" class="xref page">CAM Simulator</a>, or other 3rd-party G-code inspection tools, before cutting with your machine.</p>
+<p>It is just that, experimental, and not ready for mainstream integration. Please inspect Toolpaths with the built-in <span class="image"><img src="../_images/CAM_SimulatorGL.svg" alt="CAM SimulatorGL" width="16"></span> <a href="../inspect/simulator.html" class="xref page">CAM Simulator</a>, or other 3rd-party G-code inspection tools, before cutting with your machine.</p>
 </li>
 </ul>
 </div>
@@ -588,26 +619,32 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="sect3">
 <h4 id="available-tool-cutter-shapes"><a class="anchor" href="#available-tool-cutter-shapes"></a>Available Tool (Cutter) Shapes</h4>
 <div class="paragraph">
-<p>When using the <strong><em>OCL Dropcutter</em></strong> algorithm, the Waterline operation uses <a href="../reference/opencamlib.html" class="xref page"> OpenCamLib OCL</a> to extract paths from the part base. As such, a tool translation is required between the FreeCAD tool controller and OCL in order to complete the scan with your chosen tool(cutter) shape. These tool shapes are(should be) respected and available for the OCL Dropcutter so long as the built-in tool shapes are used, whether Legacy or ToolBit tools:</p>
+<p>With the <strong><em>OCL Dropcutter</em></strong> and <strong><em>OCL Adaptive</em></strong> algorithms, the Waterline operation uses <a href="../reference/opencamlib.html" class="xref page">OpenCamLib OCL</a> to extract Toolpaths from the part base. As such, the Tool Bit is translated to an OpenCamLib cutter. Supported Tool Shapes:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>End mill</p>
+<p>Endmill</p>
 </li>
 <li>
-<p>Ball end mill</p>
+<p>Ballend</p>
 </li>
 <li>
-<p>Bull nose end mill</p>
+<p>Bullnose</p>
 </li>
 <li>
-<p>Chamfer bit</p>
+<p>TaperedBallNose (treated as a ball end of the same diameter)</p>
 </li>
 <li>
-<p>Engraver</p>
+<p>V-bit (treated as a cone with the cutting edge angle)</p>
+</li>
+<li>
+<p>Drill (treated as a cone with the tip angle)</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Chamfer and the remaining shapes are not supported; the Operation reports <em>Failed to map selected tool to an OCL tool type.</em></p>
 </div>
 </div>
 <div class="sect3">
@@ -615,10 +652,10 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="ulist">
 <ul>
 <li>
-<p>Should you choose to run the path simulator, <span class="image"><img src="../_images/CAM_Simulator.svg" alt="CAM Simulator" width="16"></span> <a href="../inspect/simulator-legacy.html" class="xref page">CAM Simulator</a>, in the CAM Workbench, you might not see tool-shape-specific material removal. Be cautious. A small trial job using foam or other very non-dense material is recommended to verify paths are correct with your selected tool controller.</p>
+<p>A small trial job using foam or other very non-dense material is recommended to verify the Toolpath is correct with your selected Tool Controller before cutting real stock.</p>
 </li>
 <li>
-<p>As of May 2020, only the End Mill has any type of testing to determine accuracy of the FreeCAD-to-OCL tool settings translation. Please post any feedback for non-end-mill usage to the <a href="https://forum.freecad.org/viewforum.php?f=15">CAM</a> section in the FreeCAD forums.</p>
+<p>Please post any feedback about the FreeCAD-to-OCL translation of non-endmill Tool Shapes to the <a href="https://forum.freecad.org/viewforum.php?f=15">CAM</a> section in the FreeCAD forums.</p>
 </li>
 </ul>
 </div>
@@ -689,37 +726,52 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="title">Clearing Options</div>
 <ul>
 <li>
-<p><strong>Algorithm</strong>: The library to use to generate the path</p>
+<p><strong>Algorithm</strong>: Select the algorithm to use: OCL Dropcutter (default), OCL Adaptive (<span class="since">introduced in 26.3</span>) or Experimental (not OCL based)</p>
 </li>
 <li>
-<p><strong>BoundBox</strong>: Should the operation be limited by the stock object or by the bounding box of the base object</p>
+<p><strong>Bound Box</strong>: Select the overall boundary for the Operation. Values: BaseBoundBox, Stock. Not used by OCL Adaptive</p>
 </li>
 <li>
-<p><strong>Clear Last Layer</strong>: Set to clear last layer in `Multi-pass` operation.</p>
+<p><strong>Clear Last Layer</strong>: Pattern used to clear the last layer of a Multi-pass Experimental Operation. Values: Off (default), Circular, CircularZigZag, Line, Offset, Spiral, ZigZag. Only visible with the Experimental algorithm</p>
 </li>
 <li>
-<p><strong>Cut Mode</strong>: The direction that the toolpath should go around the part: Climb (ClockWise) or Conventional (CounterClockWise)</p>
+<p><strong>Cut Mode</strong>: The direction that the Toolpath should go around the part: Climb (ClockWise) or Conventional (CounterClockWise)</p>
 </li>
 <li>
-<p><strong>Cut Pattern</strong>: Clearing pattern to use</p>
+<p><strong>Cut Pattern</strong>: Clearing pattern applied at each layer (Experimental algorithm only). Values: None (default), Circular, CircularZigZag, Line, Offset, Spiral, ZigZag</p>
 </li>
 <li>
-<p><strong>Depth Offset</strong>:</p>
+<p><strong>Cut Pattern Angle</strong>: The yaw angle used for the Line and ZigZag patterns. Only visible with the Experimental algorithm and a matching Cut Pattern</p>
 </li>
 <li>
-<p><strong>Ignore Outer Above</strong>:</p>
+<p><strong>Cut Pattern Reversed</strong>: Reverse the cut order of the stepover paths; for circular patterns begin at the outside and work toward the center. Only visible with the Experimental algorithm and a matching Cut Pattern</p>
+</li>
+<li>
+<p><strong>Depth Offset</strong>: Set the Z-axis depth offset from the target surface. Default 0</p>
+</li>
+<li>
+<p><strong>Ignore Outer Above</strong>: Ignore outer waterlines above this height. Defaults to the top of the Stock. Experimental algorithm only</p>
 </li>
 <li>
 <p><strong>Layer Mode</strong>: The completion mode for the operation: single or multi-pass</p>
 </li>
 <li>
-<p><strong>Min Sample Interval</strong>: Minimum sampling resolution for the OCL Adaptive algorithm</p>
+<p><strong>Min Sample Interval</strong>: Minimum sampling resolution for the OCL Adaptive algorithm. Smaller values quickly increase processing time. Default 0.005 mm, limited to 0.0001-25.4 mm. <span class="since">introduced in 26.3</span></p>
 </li>
 <li>
-<p><strong>Optimize Linear Paths</strong>: Remove unnecessary co-linear points from G-code output</p>
+<p><strong>Optimize Linear Paths</strong>: Remove unnecessary co-linear points from G-code output. Default on. Editable in the task panel for the OCL Adaptive algorithm (<span class="since">introduced in 26.3</span>)</p>
 </li>
 <li>
-<p><strong>Step Over</strong>:</p>
+<p><strong>Pattern Center At</strong>: Center point for circular and spiral patterns. Values: CenterOfMass, CenterOfBoundBox, XminYmin, Custom. Only visible with the Experimental algorithm and a matching Cut Pattern</p>
+</li>
+<li>
+<p><strong>Pattern Center Custom</strong>: Custom center point for the cut pattern. Only visible with the Experimental algorithm and a matching Cut Pattern</p>
+</li>
+<li>
+<p><strong>Sample Interval</strong>: Set the sampling resolution. Smaller values quickly increase processing time. Default 1 mm; OCL algorithms only</p>
+</li>
+<li>
+<p><strong>Step Over</strong>: Step over as a percentage of the Tool Bit diameter for the clearing pattern. Default 100, range 1-100. Experimental algorithm only</p>
 </li>
 </ul>
 </div>
@@ -733,13 +785,58 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p><strong>Final Depth</strong>: Final Depth of Tool- lowest value in Z</p>
 </li>
 <li>
-<p><strong>Safe Height</strong>: The above which Rapid motions are allowed.</p>
+<p><strong>Safe Height</strong>: Rapid safety height between locations.</p>
 </li>
 <li>
 <p><strong>Start Depth</strong>: Starting Depth of Tool- first cut depth in Z</p>
 </li>
 <li>
 <p><strong>Step Down</strong>: Incremental Step Down of Tool</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Mesh Conversion</div>
+<ul>
+<li>
+<p><strong>Angular Deflection</strong>: Smaller values yield a finer, more accurate mesh but increase processing time a lot. Default 0.25</p>
+</li>
+<li>
+<p><strong>Linear Deflection</strong>: Smaller values yield a finer, more accurate mesh. Default: the Job Geometry Tolerance (0.0001 mm if the tolerance is 0)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Both are hidden for the OCL Adaptive algorithm, which overrides them.</p>
+</div>
+<div class="ulist">
+<div class="title">Optimization</div>
+<ul>
+<li>
+<p><strong>Optimize Linear Paths</strong>: See Clearing Options above</p>
+</li>
+<li>
+<p><strong>Optimize Step Over Transitions</strong>: Hidden; reserved for the Experimental algorithm</p>
+</li>
+<li>
+<p><strong>Gap Threshold</strong>: Hidden; reserved for the Experimental algorithm</p>
+</li>
+<li>
+<p><strong>Gap Sizes</strong>: Hidden; reserved for the Experimental algorithm</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Selected Geometry Settings</div>
+<p>These properties are hidden in the Property view.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Boundary Adjustment</strong>: Positive values push the cutter toward or beyond the boundary, negative values retract it (material allowance); set it in the task panel with the Experimental algorithm</p>
+</li>
+<li>
+<p>The remaining properties (<strong>Avoid Last X Faces</strong>, <strong>Avoid Last X Internal Features</strong>, <strong>Boundary Enforcement</strong>, <strong>Handle Multiple Features</strong>, <strong>Internal Features Adjustment</strong>, <strong>Internal Features Cut</strong>) mirror the <a href="surface.html" class="xref page">3D Surface</a> operation</p>
 </li>
 </ul>
 </div>
@@ -753,19 +850,48 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p><strong>Base</strong>: The base geometry for this operation</p>
 </li>
 <li>
+<p><strong>Block Delete</strong>: Enable post processor to add block delete commands. <span class="since">introduced in 26.3</span></p>
+</li>
+<li>
 <p><strong>Comment</strong>: An optional comment for this Operation</p>
 </li>
 <li>
-<p><strong>Coolant Mode</strong>:</p>
+<p><strong>Coolant Mode</strong>: Coolant mode for this Operation (None, Flood, Mist)</p>
 </li>
 <li>
-<p><strong>Cycle Time</strong>:</p>
+<p><strong>Cycle Time</strong>: Read-only estimate of the Operation cycle time</p>
 </li>
 <li>
-<p><strong>Tool Controller</strong>: Defines the Tool controller used in the Operation</p>
+<p><strong>Tool Controller</strong>: Defines the Tool Controller used in the Operation</p>
 </li>
 <li>
 <p><strong>User Label</strong>: User assigned label</p>
+</li>
+<li>
+<p><strong>Workplane</strong>: The orientation of the Tool Bit for this Operation; default (0, 0, 1). <span class="since">introduced in 26.3</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Op Values</div>
+<p>Read-only values computed by the Operation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Op Start Depth</strong>: Holds the calculated value for the StartDepth</p>
+</li>
+<li>
+<p><strong>Op Final Depth</strong>: Holds the calculated value for the FinalDepth</p>
+</li>
+<li>
+<p><strong>Op Tool Diameter</strong>: Holds the diameter of the Tool Bit</p>
+</li>
+<li>
+<p><strong>Op Stock Z Max</strong>: Holds the max Z value of Stock</p>
+</li>
+<li>
+<p><strong>Op Stock Z Min</strong>: Holds the min Z value of Stock</p>
 </li>
 </ul>
 </div>
@@ -773,7 +899,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="title">Start Point</div>
 <ul>
 <li>
-<p><strong>Start Point</strong>: The custom start point for the path of this operation.</p>
+<p><strong>Start Point</strong>: The custom start point for the Toolpath of this operation.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -805,33 +931,20 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>This section is simply a layout map of the settings in the window editor for the Operation.</p>
 </div>
 <div class="sect2">
-<h3 id="base-location"><a class="anchor" href="#base-location"></a>Base Location</h3>
+<h3 id="base-geometry"><a class="anchor" href="#base-geometry"></a>Base Geometry</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add</strong>: Adds selected element(s) which should be the base(s) for the path(s).</p>
+<p><strong>Import</strong>: Imports the Base Geometry of another Operation.</p>
 </li>
 <li>
-<p><strong>Remove</strong>: Remove the selected item(s) in the Base Location list.</p>
+<p><strong>Add</strong>: Adds the selected faces.</p>
 </li>
 <li>
-<p><strong>Edit</strong>: Clear all items in the Base Location list.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="depths"><a class="anchor" href="#depths"></a>Depths</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Start Depth</strong></p>
+<p><strong>Remove</strong>: Removes the selected list items.</p>
 </li>
 <li>
-<p><strong>Final Depth</strong></p>
-</li>
-<li>
-<p><strong>Step Down</strong></p>
+<p><strong>Clear</strong>: Clears the list.</p>
 </li>
 </ul>
 </div>
@@ -841,10 +954,35 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Safe Height</strong></p>
+<p><strong>Clearance Height</strong> (Clearance)</p>
 </li>
 <li>
-<p><strong>Clearance Height</strong></p>
+<p><strong>Safe Height</strong> (Retract)</p>
+</li>
+<li>
+<p><strong>Start Depth</strong></p>
+</li>
+<li>
+<p><strong>Step Down</strong></p>
+</li>
+<li>
+<p><strong>Final Depth</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tool-controller"><a class="anchor" href="#tool-controller"></a>Tool Controller</h3>
+<div class="paragraph">
+<p><span class="since">26.3 and later</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tool Controller</strong></p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong></p>
 </li>
 </ul>
 </div>
@@ -854,39 +992,52 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Tool Controller</strong></p>
-</li>
-<li>
-<p><strong>Coolant Mode</strong></p>
-</li>
-<li>
 <p><strong>Algorithm</strong></p>
 </li>
 <li>
-<p><strong>BoundBox</strong></p>
+<p><strong>BoundBox</strong> (OCL Dropcutter, Experimental)</p>
 </li>
 <li>
 <p><strong>Layer Mode</strong></p>
 </li>
 <li>
-<p><strong>Cut Pattern</strong>~</p>
+<p><strong>Cut Pattern</strong> (Experimental)</p>
 </li>
 <li>
-<p><strong>Boundary Adjustment</strong>~</p>
+<p><strong>Boundary Adjustment</strong> (Experimental)</p>
 </li>
 <li>
-<p><strong>Sample Interval</strong>~</p>
+<p><strong>Step Over</strong> (Experimental, Cut Pattern not None)</p>
 </li>
 <li>
-<p><strong>Min Sample Interval</strong>~</p>
+<p><strong>Sample Interval</strong> (OCL Dropcutter, OCL Adaptive)</p>
 </li>
 <li>
-<p><strong>Optimize Linear Paths</strong>~</p>
+<p><strong>Min Sample Interval</strong> (OCL Adaptive)</p>
+</li>
+<li>
+<p><strong>Optimize Linear Paths</strong> (OCL Adaptive)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>~Visibility changes with other settings.</p>
+<p>Note: the task panel tooltip for Boundary adjustment repeats the Depth offset text; Boundary adjustment actually controls the boundary: positive values push the cutter toward or beyond the boundary, negative values leave material (allowance).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path.Op.Waterline as PathWaterline
+
+op = PathWaterline.Create('Waterline')
+op.ToolController = job.Tools.Group[0]
+op.Algorithm = 'OCL Adaptive'
+op.LayerMode = 'Multi-pass'
+doc.recompute()</code></pre>
 </div>
 </div>
 </div>
@@ -911,7 +1062,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </div>
 <nav class="pagination">
   <span class="prev"><a href="surface.html">3D Surface</a></span>
-  <span class="next"><a href="../dressups/axis-map.html">Axis Map</a></span>
+  <span class="next"><a href="rotary-surface.html">Rotary Surface</a></span>
 </nav>
 </article>
   </div>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM Area :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/misc/area.html">
-    <link rel="prev" href="../operations/thread-milling.html">
+    <link rel="prev" href="../modify/simple-copy.html">
     <link rel="next" href="area-workplane.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -385,19 +415,7 @@
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This is an unfinished experimental feature. See <a href="../reference/experimental.html" class="xref page">Enable Experimental Features</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This page is incomplete; it was marked as unfinished on the wiki.
+This is an experimental feature. See <a href="../reference/experimental.html" class="xref page">Enable Experimental Features</a>. The command appears in the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Area</b></span> menu and on the <em>Helpful Tools</em> toolbar only when experimental features are enabled.
 </td>
 </tr>
 </table>
@@ -427,7 +445,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><em>None</em></p>
+<p><a href="area-workplane.html" class="xref page">CAM Area Workplane</a></p>
 </dd>
 </dl>
 </div>
@@ -439,23 +457,25 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Empty</p>
+<p>The Area command (tooltip: "Creates a feature area from the selected objects") creates a <code>Path::FeatureArea</code> object, a 2D geometry processor based on the libarea/Clipper2 engine that the Profile, Pocket and other Operations use internally. It performs boolean operations, offsets, pocket patterns and Z sections on planar faces or wires linked in its <strong>Sources</strong> property and exposes the result as a Part shape. It is a developer and debugging aid rather than a machining Operation: it produces no toolpath and is not post-processed.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Empty</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Empty</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select one or more planar objects, faces or edges in the 3D View or Tree View (edges are expanded to the wire containing them; 3D sub-shapes are rejected with "Selected shape is not 2D").</p>
+</li>
+<li>
+<p>Press the <span class="image"><img src="../_images/CAM_Area.svg" alt="CAM Area" width="16"></span> Area button. A <em>FeatureArea</em> is created whose <strong>Sources</strong> property links the selected objects (sub-elements are first extracted into helper <code>Part::Feature</code> objects named <code>&lt;object&gt;_&lt;Face n&gt;</code>). The source objects are hidden; drag and drop in the Tree View adds or removes sources.</p>
+</li>
+<li>
+<p>Selecting a single existing FeatureArea and pressing the button instead creates a <em>FeatureAreaView</em> object showing individual sections of that area (<strong>Source</strong>; <strong>SectionIndex</strong>: start index of the section to show, negative for reverse index from bottom; <strong>SectionCount</strong>: number of sections to show, 0 for all).</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -468,34 +488,31 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="title">Area</div>
 <ul>
 <li>
-<p><strong>Operation</strong>: -</p>
+<p><strong>Operation</strong> (<code>Enumeration</code>): Boolean operation: <code>Union</code>, <code>Difference</code>, <code>Intersection</code>, <code>Xor</code>, <code>Compound</code> (<code>Compound</code> = no operation, used for wire sorting).</p>
 </li>
 <li>
-<p><strong>Fill</strong>: -</p>
+<p><strong>Fill</strong> (<code>Enumeration</code>): <code>None</code>, <code>Face</code>, <code>Auto</code> — fill the output wires to make a face; <code>Auto</code> makes a face if any child has a face.</p>
 </li>
 <li>
-<p><strong>Coplanar</strong>: -</p>
+<p><strong>Coplanar</strong> (<code>Enumeration</code>): <code>None</code>, <code>Check</code>, <code>Force</code> — <code>Force</code> discards non-coplanar shapes, <code>Check</code> only warns.</p>
 </li>
 <li>
-<p><strong>Reorient</strong>: -</p>
+<p><strong>Reorient</strong> (<code>Bool</code>): Re-orient closed wires so that inner wires become holes.</p>
 </li>
 <li>
-<p><strong>Outline</strong>: -</p>
+<p><strong>Outline</strong> (<code>Bool</code>): Remove all inner wires (holes) before output.</p>
 </li>
 <li>
-<p><strong>Explode</strong>: -</p>
+<p><strong>Explode</strong> (<code>Bool</code>): Explode the first shape into open edges so that <code>Difference</code> behaves like wire cutting.</p>
 </li>
 <li>
-<p><strong>OpenMode</strong>: -</p>
+<p><strong>OpenMode</strong> (<code>Enumeration</code>): <code>None</code>, <code>Union</code>, <code>Edges</code> — how open wires are handled.</p>
 </li>
 <li>
-<p><strong>Deflection</strong>: -</p>
+<p><strong>Deflection</strong> (<code>Precision</code>): Deflection for non-circular curve discretization.</p>
 </li>
 <li>
-<p><strong>SubjectFill</strong>: -</p>
-</li>
-<li>
-<p><strong>ClipFill</strong>: -</p>
+<p><strong>SubjectFill</strong> (<code>Enumeration</code>) and <strong>ClipFill</strong> (<code>Enumeration</code>): Clipper2 fill rules <code>EvenOdd</code>, <code>NonZero</code>, <code>Positive</code>, <code>Negative</code>.</p>
 </li>
 </ul>
 </div>
@@ -503,13 +520,13 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="title">Base</div>
 <ul>
 <li>
-<p><strong>Sources</strong>: -</p>
+<p><strong>Sources</strong> (<code>LinkList</code>): The input shapes.</p>
 </li>
 <li>
-<p><strong>Placement</strong>: -</p>
+<p><strong>WorkPlane</strong> (<code>PartShape</code>): The workplane shape, set by <a href="area-workplane.html" class="xref page">Area Workplane</a>.</p>
 </li>
 <li>
-<p><strong>Label</strong>: -</p>
+<p><strong>Placement</strong>, <strong>Label</strong>: generic properties.</p>
 </li>
 </ul>
 </div>
@@ -517,28 +534,25 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="title">Offset</div>
 <ul>
 <li>
-<p><strong>Offset</strong>: -</p>
+<p><strong>Offset</strong> (<code>Distance</code>): Offset value, positive for expansion, negative for shrinking.</p>
 </li>
 <li>
-<p><strong>ExtraPass</strong>: -</p>
+<p><strong>ExtraPass</strong> (<code>Integer</code>): Number of extra offset passes to generate.</p>
 </li>
 <li>
-<p><strong>Stepover</strong>: -</p>
+<p><strong>Stepover</strong> (<code>Length</code>): Cutter diameter to step over on each pass; 0 uses <strong>Offset</strong>.</p>
 </li>
 <li>
-<p><strong>LastStepover</strong>: -</p>
+<p><strong>JoinType</strong> (<code>Enumeration</code>): <code>Round</code>, <code>Square</code>, <code>Miter</code>.</p>
 </li>
 <li>
-<p><strong>JoinType</strong>: -</p>
+<p><strong>EndType</strong> (<code>Enumeration</code>): <code>Round</code>, <code>Polygon</code>, <code>Joined</code>, <code>Square</code>, <code>Butt</code>.</p>
 </li>
 <li>
-<p><strong>EndType</strong>: -</p>
+<p><strong>MiterLimit</strong> (<code>Float</code>): Miter limit for join type <code>Miter</code>.</p>
 </li>
 <li>
-<p><strong>MiterLimit</strong>: -</p>
-</li>
-<li>
-<p><strong>RoundPrecision</strong>: -</p>
+<p><strong>RoundPrecision</strong> (<code>Precision</code>): Round joint precision; 0 defaults to <strong>Accuracy</strong>.</p>
 </li>
 </ul>
 </div>
@@ -546,34 +560,34 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="title">Pocket</div>
 <ul>
 <li>
-<p><strong>PocketMode</strong>: -</p>
+<p><strong>PocketMode</strong> (<code>Enumeration</code>): <code>None</code>, <code>ZigZag</code>, <code>Offset</code>, <code>Spiral</code>, <code>ZigZagOffset</code>, <code>Line</code>, <code>Grid</code>, <code>Triangle</code> — pocket toolpath pattern.</p>
 </li>
 <li>
-<p><strong>ToolRadius</strong>: -</p>
+<p><strong>ToolRadius</strong> (<code>Length</code>): Tool radius for pocketing.</p>
 </li>
 <li>
-<p><strong>PocketExtraOffset</strong>: -</p>
+<p><strong>PocketExtraOffset</strong> (<code>Distance</code>): Extra offset for pocketing.</p>
 </li>
 <li>
-<p><strong>PocketStepover</strong>: -</p>
+<p><strong>PocketStepover</strong> (<code>Length</code>): Cutter diameter to step over on each pass; 0 uses <strong>ToolRadius</strong>.</p>
 </li>
 <li>
-<p><strong>PocketLastStepover</strong>: -</p>
+<p><strong>FromCenter</strong> (<code>Bool</code>): Start pocketing from center.</p>
 </li>
 <li>
-<p><strong>FromCenter</strong>: -</p>
+<p><strong>Angle</strong> (<code>Angle</code>): Pattern angle in degrees.</p>
 </li>
 <li>
-<p><strong>Angle</strong>: -</p>
+<p><strong>AngleShift</strong> (<code>Angle</code>): Pattern angle shift for each section.</p>
 </li>
 <li>
-<p><strong>AngleShift</strong>: -</p>
+<p><strong>Shift</strong> (<code>Distance</code>): Pattern shift distance for each section (<code>Offset</code>, <code>Grid</code> and <code>Triangle</code> only).</p>
 </li>
 <li>
-<p><strong>Shift</strong>: -</p>
+<p><strong>ForceMaxStepover</strong> (<code>Bool</code>): Force maximum stepover even if not all area is cleared; otherwise large stepovers are reduced to ensure full coverage. <span class="since">introduced in 26.3</span></p>
 </li>
 <li>
-<p><strong>Thicken</strong>: -</p>
+<p><strong>Thicken</strong> (<code>Bool</code>): Thicken the resulting wires with <strong>ToolRadius</strong>.</p>
 </li>
 </ul>
 </div>
@@ -581,22 +595,22 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="title">Section</div>
 <ul>
 <li>
-<p><strong>SectionCount</strong>: -</p>
+<p><strong>SectionCount</strong> (<code>Integer</code>): Number of sections to generate; -1 means full sections.</p>
 </li>
 <li>
-<p><strong>Stepdown</strong>: -</p>
+<p><strong>Stepdown</strong> (<code>Distance</code>): Step down distance for each section; positive from top down, negative upward.</p>
 </li>
 <li>
-<p><strong>SectionOffset</strong>: -</p>
+<p><strong>SectionOffset</strong> (<code>Distance</code>): Offset for the first section.</p>
 </li>
 <li>
-<p><strong>SectionTolerance</strong>: -</p>
+<p><strong>SectionTolerance</strong> (<code>Precision</code>): Offset added when hitting the boundary.</p>
 </li>
 <li>
-<p><strong>SectionMode</strong>: -</p>
+<p><strong>SectionMode</strong> (<code>Enumeration</code>): <code>Absolute</code>, <code>BoundBox</code>, <code>Workplane</code> — section offset coordinate mode.</p>
 </li>
 <li>
-<p><strong>Project</strong>: -</p>
+<p><strong>Project</strong> (<code>Bool</code>): Produce the section by projecting the outline of all shapes to the section plane instead of slicing.</p>
 </li>
 </ul>
 </div>
@@ -604,61 +618,42 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="title">libarea</div>
 <ul>
 <li>
-<p><strong>Tolerance</strong>: -</p>
+<p><strong>Tolerance</strong> (<code>Precision</code>): Point coincidence tolerance.</p>
 </li>
 <li>
-<p><strong>FitArcs</strong>: -</p>
+<p><strong>FitArcs</strong> (<code>Bool</code>): Enable arc fitting.</p>
 </li>
 <li>
-<p><strong>Simplify</strong>: -</p>
+<p><strong>Simplify</strong> (<code>Bool</code>): Simplify polygons after operation.</p>
 </li>
 <li>
-<p><strong>CleanDistance</strong>: -</p>
+<p><strong>CleanDistance</strong> (<code>Length</code>): Clean polygons smaller than this distance.</p>
 </li>
 <li>
-<p><strong>Accuracy</strong>: -</p>
+<p><strong>Accuracy</strong> (<code>Precision</code>): Arc fitting accuracy.</p>
 </li>
 <li>
-<p><strong>Unit</strong>: -</p>
+<p><strong>Unit</strong> (<code>Float</code>): Scaling factor for conversion to inch.</p>
 </li>
 <li>
-<p><strong>MinArcPoints</strong>: -</p>
+<p><strong>MinArcPoints</strong> (<code>Integer</code>): Minimum segments for arc discretization.</p>
 </li>
 <li>
-<p><strong>MaxArcPoints</strong>: -</p>
+<p><strong>MaxArcPoints</strong> (<code>Integer</code>): Maximum segments for arc discretization (currently ignored).</p>
 </li>
 <li>
-<p><strong>ClipperScale</strong>: -</p>
+<p><strong>ClipperScale</strong> (<code>Float</code>): Scale factor to convert floating points to Clipper integers.</p>
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="hidden"><a class="anchor" href="#hidden"></a>Hidden</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>ExpressionEngine</strong>: -</p>
-</li>
-<li>
-<p><strong>Label2</strong>: -</p>
-</li>
-<li>
-<p><strong>Shape</strong>: -</p>
-</li>
-<li>
-<p><strong>Visibility</strong>: -</p>
-</li>
-<li>
-<p><strong>WorkPlane</strong>: -</p>
-</li>
-</ul>
-</div>
+<div class="paragraph">
+<p><span class="until">1.1 and earlier</span>: The <strong>LastStepover</strong> (Offset group) and <strong>PocketLastStepover</strong> (Pocket group) properties were removed in 26.3.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="view"><a class="anchor" href="#view"></a>View</h3>
 <div class="paragraph">
-<p>Empty</p>
+<p>The view provider hides the source objects while they are linked, claims them as children in the Tree View, and shows them again when the FeatureArea is deleted. A FeatureAreaView uses the icon <span class="image"><img src="../_images/CAM_Area_View.svg" alt="CAM Area View" width="16"></span>.</p>
 </div>
 </div>
 </div>
@@ -670,17 +665,26 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>See also: <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">FreeCAD Scripting Basics</a>.</p>
 </div>
 <div class="paragraph">
+<p>The same parameters listed above are the keyword arguments of <code>Path.Area.setParams()</code>, and the defaults can be set with <code>Path.Area.setDefaultParams()</code>.</p>
+</div>
+<div class="paragraph">
 <p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path, Part
+
+area = Path.Area()
+area.add(FreeCAD.ActiveDocument.Sketch.Shape)
+area.setParams(Offset=-2.0)
+shape = area.getShape()
+Part.show(shape)</code></pre>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../operations/thread-milling.html">Thread Milling</a></span>
+  <span class="prev"><a href="../modify/simple-copy.html">Simple Copy</a></span>
   <span class="next"><a href="area-workplane.html">Area Workplane</a></span>
 </nav>
 </article>

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM ThreadMilling :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/thread-milling.html">
-    <link rel="prev" href="../modify/simple-copy.html">
-    <link rel="next" href="../misc/area.html">
+    <link rel="prev" href="drilling.html">
+    <link rel="next" href="engrave.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="mill-face.html">Face</a>
+    <a class="nav-link" href="mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -356,7 +386,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FreeCAD CAM</a></li>
-    <li>Specialty Operations</li>
+    <li>Basic Operations</li>
     <li><a href="thread-milling.html">Thread Milling</a></li>
   </ul>
 </nav>
@@ -378,18 +408,6 @@
 <h1 class="page">CAM ThreadMilling</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This page is incomplete; it was marked as unfinished on the wiki.
-</td>
-</tr>
-</table>
-</div>
 <div class="openblock fcinfobox">
 <div class="content">
 <div class="paragraph fcTitle">
@@ -399,7 +417,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <dl>
 <dt class="hdlist1">Menu location</dt>
 <dd>
-<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Specialty Operations</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Thread Milling</b></span></p>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Thread Milling</b></span></p>
 </dd>
 <dt class="hdlist1">Workbenches</dt>
 <dd>
@@ -411,11 +429,11 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </dd>
 <dt class="hdlist1">Introduced in version</dt>
 <dd>
-<p>-</p>
+<p>1.1</p>
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><em>None</em></p>
+<p><a href="drilling.html" class="xref page">CAM Drilling</a></p>
 </dd>
 </dl>
 </div>
@@ -426,36 +444,249 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="sect1">
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>The CAM Thread Milling command creates an Operation that mills internal or external threads in circular holes or on cylindrical bosses with a thread-milling cutter. The command tooltip reads "Creates a Thread Milling toolpath from features of a base object".</p>
+</div>
+<div class="paragraph">
+<p>The Toolpath is a helical G2/G3 move at the thread pitch, repeated for the number of passes; the radial depth of each pass is computed so that every pass removes the same area. The Tool Controller must use a Tool Bit with the <code>thread-mill</code> Tool Shape (properties <strong>Diameter</strong> and <strong>Crest</strong>; the shipped <code>5mm-thread-cutter</code> is an example). Base Geometry is selected like in <a href="drilling.html" class="xref page">CAM Drilling</a> (circular faces, edges or vertexes, with Auto-select).</p>
+</div>
+<div class="paragraph">
+<p><span class="until">1.1 and earlier</span>: only available when <em>Enable experimental features</em> is checked in the CAM preferences. <span class="since">26.3 and later</span>: available by default.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
 <div class="sectionbody">
-
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Optionally select hole faces or edges on the Model.</p>
+</li>
+<li>
+<p>Press the <span class="image"><img src="../_images/CAM_ThreadMilling.svg" alt="CAM ThreadMilling" width="16"></span> Thread Milling button in the <strong>Drilling Operations</strong> group of the New Operations toolbar, or select <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Thread Milling</b></span> from the menu.</p>
+</li>
+<li>
+<p>In the <b class="menuref">Base Geometry</b> section add or Auto-select the holes; use Sorting to order them.</p>
+</li>
+<li>
+<p>In the <b class="menuref">Heights</b> section set Clearance, Retract, Start and Final.</p>
+</li>
+<li>
+<p>In the <b class="menuref">Tool Controller</b> section pick a Tool Controller with a thread-mill Tool Bit; the error "This operation requires a tool controller with a threadmilling tool" is shown otherwise.</p>
+</li>
+<li>
+<p>In the <b class="menuref">Operation</b> section choose Orientation, Type, the thread name (standard threads) or enter Major diameter, Minor diameter and Pitch or TPI (custom threads), and adjust Fit, Passes, Direction and Lead in/out.</p>
+</li>
+<li>
+<p>Press <b class="button">OK</b>.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
 <div class="sectionbody">
-
+<div class="ulist">
+<div class="title">Thread group</div>
+<ul>
+<li>
+<p><strong>Orientation</strong>: <code>LeftHand</code> or <code>RightHand</code>.</p>
+</li>
+<li>
+<p><strong>Type</strong>: see the Thread Type property values below.</p>
+</li>
+<li>
+<p>Thread name combo box, filled from the data tables shipped with the workbench (metric-internal-6H, metric-external-6G, metric-external-4G6G, imperial-internal-2B, imperial-internal-3B, imperial-external-2A, imperial-external-3A).</p>
+</li>
+<li>
+<p><strong>Fit</strong>: slider 0–100.</p>
+</li>
+<li>
+<p><strong>Major diameter</strong>, <strong>Minor diameter</strong>, <strong>Pitch</strong>, <strong>TPI</strong>.</p>
+</li>
+<li>
+<p>For <code>Custom</code> types the name and Fit are disabled and the diameters, Pitch and TPI are entered directly. For metric standards Pitch is filled and TPI disabled; for imperial standards TPI is filled and Pitch disabled; the diameters are interpolated between the standard&#8217;s minimum and maximum according to Fit.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Operation group</div>
+<ul>
+<li>
+<p><strong>Passes</strong>: number of passes used to cut the thread.</p>
+</li>
+<li>
+<p><strong>Direction</strong>: <code>Climb</code> or <code>Conventional</code>.</p>
+</li>
+<li>
+<p><strong>Lead in/out</strong>: add lead-in and lead-out arcs.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="properties"><a class="anchor" href="#properties"></a>Properties</h2>
 <div class="sectionbody">
-
+<div class="ulist">
+<div class="title">Thread</div>
+<ul>
+<li>
+<p><strong>Thread Orientation</strong>: Set thread orientation. <code>LeftHand</code> or <code>RightHand</code> (default).</p>
+</li>
+<li>
+<p><strong>Thread Type</strong>: <code>Custom External</code>, <code>Custom Internal</code>, <code>Imperial External (2A)</code>, <code>Imperial External (3A)</code>, <code>Imperial Internal (2B)</code>, <code>Imperial Internal (3B)</code>, <code>Metric External (4G6G)</code>, <code>Metric External (6G)</code>, <code>Metric Internal (6H)</code> (default). (The source tooltip still reads "Currently only internal", which is stale; external types are implemented.)</p>
+</li>
+<li>
+<p><strong>Thread Name</strong>: Defines which standard thread was chosen.</p>
+</li>
+<li>
+<p><strong>Major Diameter</strong>: Set thread&#8217;s major diameter.</p>
+</li>
+<li>
+<p><strong>Minor Diameter</strong>: Set thread&#8217;s minor diameter.</p>
+</li>
+<li>
+<p><strong>Pitch</strong>: Set thread&#8217;s pitch - used for metric threads. Default: 1 mm.</p>
+</li>
+<li>
+<p><strong>TPI</strong>: Set thread&#8217;s TPI (turns per inch) - used for imperial threads. Default: 0; when greater than 0 it overrides Pitch.</p>
+</li>
+<li>
+<p><strong>Thread Fit</strong>: Override to control how loose or tight the threads are milled (0–100). Default: 50.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Operation</div>
+<ul>
+<li>
+<p><strong>Passes</strong>: Set how many passes are used to cut the thread. Default: 1.</p>
+</li>
+<li>
+<p><strong>Direction</strong>: Direction of thread cutting operation, <code>Climb</code> (default) or <code>Conventional</code>.</p>
+</li>
+<li>
+<p><strong>Lead In Out</strong>: Set to True to get lead in and lead out arcs at the start and end of the thread cut. Default: false.</p>
+</li>
+<li>
+<p><strong>Clearance Op</strong>: Operation to clear the inside of the thread (link to another operation; defined but currently unused by the operation).</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Base</div>
+<ul>
+<li>
+<p><strong>Disabled</strong>: List of disabled features (holes unchecked in the Base Geometry table).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Sorting</div>
+<p><span class="since">introduced in 26.3</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Sorting Mode</strong>: <code>Automatic</code> or <code>Manual</code>.</p>
+</li>
+<li>
+<p><strong>Start Point</strong>, <strong>Use End Point</strong>, <strong>End Point</strong>: points for automatic sorting; hidden when Sorting Mode is <code>Manual</code>.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Depth</div>
+<ul>
+<li>
+<p><strong>Clearance Height</strong>, <strong>Safe Height</strong>, <strong>Start Depth</strong>, <strong>Final Depth</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Linking</div>
+<p><span class="since">introduced in 26.3</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Collision Avoidance Strategy</strong>, <strong>Collision Clearance</strong>: inherited from the circular-hole base; the thread milling Toolpath retracts to Clearance Height between holes.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Active</strong>, <strong>Base</strong>, <strong>Comment</strong>, <strong>Coolant Mode</strong>, <strong>Cycle Time</strong>, <strong>Tool Controller</strong>, <strong>User Label</strong>, <strong>Workplane</strong>.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Op Values</div>
+<ul>
+<li>
+<p><strong>Op Final Depth</strong>, <strong>Op Start Depth</strong>, <strong>Op Stock ZMax</strong>, <strong>Op Stock ZMin</strong>, <strong>Op Tool Diameter</strong>. All read-only.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The radii of the passes are derived from the major and minor diameters and the Tool Bit diameter; the cutter <strong>Crest</strong> is compensated (<span class="since">introduced in 26.3</span>: crest handling fixed).</p>
+</li>
+<li>
+<p>Internal threads are milled from the inside out, external threads from the outside in. Between passes the tool retracts to Clearance Height.</p>
+</li>
+<li>
+<p>If the Tool Bit is larger than the minor diameter an error is reported.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>See also: <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">FreeCAD Scripting Basics</a>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import FreeCAD
+import Path.Op.ThreadMilling as PathThreadMilling
 
+job = FreeCAD.ActiveDocument.getObject('Job')
+op = PathThreadMilling.Create('ThreadMilling', parentJob=job)
+op.Proxy.findAllHoles(op)
+op.ThreadType = 'MetricInternal6H'
+op.ThreadName = 'M8 x 1.25'
+op.MajorDiameter = 8.0
+op.MinorDiameter = 6.647
+op.Pitch = 1.25
+op.Passes = 2
+FreeCAD.ActiveDocument.recompute()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note: in scripting the enumeration data values are the identifiers without spaces or parentheses: <code>MetricInternal6H</code>, <code>ImperialInternal2B</code>, <code>CustomInternal</code>, and so on.</p>
+</div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../modify/simple-copy.html">Simple Copy</a></span>
-  <span class="next"><a href="../misc/area.html">Area</a></span>
+  <span class="prev"><a href="drilling.html">Drilling</a></span>
+  <span class="next"><a href="engrave.html">Engrave</a></span>
 </nav>
 </article>
   </div>

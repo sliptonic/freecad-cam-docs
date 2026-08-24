@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CAM Machine :: FreeCAD CAM documentation (experiment)</title>
+    <link rel="prev" href="post-process-selected.html">
+    <link rel="next" href="../job/sanity-check.html">
+    <meta name="generator" content="Antora 3.1.15">
+<link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/freecad.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://sliptonic.github.io/freecad-cam-docs">FreeCAD CAM documentation (experiment)</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item fc-version">
+          <label class="fc-version-label" for="fc-version-select">Version</label>
+          <select id="fc-version-select" class="fc-version-select" aria-label="Documentation version" onchange="if (this.value) window.location.href = this.value">
+            <option value="machine.html" selected>Audit (26.3dev)</option>
+            <option value="../../DEV/index.html">DEV (pre-release) (page not in this version)</option>
+            <option value="../../wiki-2026-08/index.html">Wiki (Aug 2026) (page not in this version)</option>
+          </select>
+        </div>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs">Repository</a>
+        <a class="navbar-item" href="https://github.com/sliptonic/freecad-cam-docs/blob/DEV/PROPOSAL.md">About this experiment</a>
+        <a class="navbar-item" href="https://wiki.freecad.org/CAM_Workbench">FreeCAD wiki</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="cam" data-version="audit-2026-08">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FreeCAD CAM</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">CAM Workbench</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/job.html">New Job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="post-process.html">Post Process</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/export-template.html">Export Template</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tool Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/inspect.html">Inspect Toolpath</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator-legacy.html">Legacy CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/profile.html">Profile</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/helix.html">Helix</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/adaptive.html">Adaptive</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/slot.html">Slot</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/engrave.html">Engrave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/deburr.html">Deburr</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/vcarve.html">Vcarve</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3D Operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/pocket-3d.html">3D Pocket</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/surface.html">3D Surface</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/waterline.html">Waterline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Path Dressup</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/path-boundary.html">Boundary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/dogbone.html">Dogbone</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/drag-knife.html">Drag Knife</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/tag.html">Tag</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/zcorrect.html">Z Depth Correction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Supplemental Commands</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/comment.html">Comment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/stop.html">Stop</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/custom.html">Custom</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/probe.html">Probe</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Path Modification</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/array.html">Array</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Miscellaneous</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area.html">Area</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">ToolBit architecture</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/index.html">Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Additional</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/preferences.html">Preferences</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/scripting.html">Scripting</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Other pages</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/artwork.html">Artwork CAM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../contributing/development-roadmap.html">CAM Development Roadmap</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/faq.html">CAM FAQ</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/fixture.html">CAM Fixture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="postprocessor-customization.html">CAM Postprocessor Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/setup-sheet.html">CAM SetupSheet</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tutorials/walkthrough-for-the-impatient.html">CAM Walkthrough for the Impatient</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/experimental.html">CAM experimental</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../about/import-report.html">Import report</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FreeCAD CAM</span>
+    <span class="version">Audit (26.3dev)</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../wiki-2026-08/index.html">FreeCAD CAM</a></div>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../index.html">Audit (26.3dev)</a>
+        </li>
+        <li class="version">
+          <a href="../../DEV/index.html">DEV (pre-release)</a>
+        </li>
+        <li class="version is-latest">
+          <a href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../wiki-2026-08/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FreeCAD CAM</a></li>
+    <li>Project Commands</li>
+    <li><a href="machine.html">Machine</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">Audit (26.3dev)</button>
+  <div class="version-menu">
+    <a class="version is-current" href="machine.html">Audit (26.3dev)</a>
+    <a class="version is-missing" href="../../DEV/index.html">DEV (pre-release)</a>
+    <a class="version is-missing" href="../../wiki-2026-08/index.html">Wiki (Aug 2026)</a>
+  </div>
+</div>
+<div class="edit-this-page"><a href="https://github.com/sliptonic/freecad-cam-docs/edit/audit/modules/ROOT/pages/output/machine.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CAM Machine</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="openblock fcinfobox">
+<div class="content">
+<div class="paragraph fcTitle">
+<p><span class="image"><img src="../_images/CAM_Machine.svg" alt="CAM Machine" width="32"></span> <strong>CAM Machine</strong></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Menu location</dt>
+<dd>
+<p><span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Assets</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Machines</b></span>; <b class="button">New Machine</b> on the General tab of the Job task panel</p>
+</dd>
+<dt class="hdlist1">Workbenches</dt>
+<dd>
+<p><a href="../index.html" class="xref page">CAM</a></p>
+</dd>
+<dt class="hdlist1">Default shortcut</dt>
+<dd>
+<p><em>None</em></p>
+</dd>
+<dt class="hdlist1">Introduced in version</dt>
+<dd>
+<p>26.3</p>
+</dd>
+<dt class="hdlist1">See also</dt>
+<dd>
+<p><a href="../job/job.html" class="xref page">CAM Job</a>, <a href="post-process.html" class="xref page">CAM Post</a>, <a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>Machine</strong> is a definition of a CNC machine (axes, kinematics, toolheads, and the machine-based <a href="post-process.html" class="xref page">Post-Processor</a> with its output options) stored as a <code>.fcm</code> file in the CAM asset directory. Assigning a Machine to a <a href="../job/job.html" class="xref page">Job</a> switches the Job to machine-based post-processing. <span class="since">introduced in 26.3</span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="machine-library"><a class="anchor" href="#machine-library"></a>Machine library</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Assets</b></span> shows a <strong>Machines</strong> group listing the <code>.fcm</code> files in <code>&lt;asset path&gt;/Machines</code> with <b class="button">Add</b>, <b class="button">Edit</b> and <b class="button">Delete</b>. The Machine Editor is also opened by <b class="button">New Machine</b> on the General tab of the Job task panel. The <a href="post-process.html" class="xref page">Post Processing</a> dialog lets you pick any machine for a single export.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Assets preference page still shows an "experimental feature" warning; machine definitions do affect post-processing when assigned to a Job.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="machine-editor"><a class="anchor" href="#machine-editor"></a>Machine Editor</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="machine-tab"><a class="anchor" href="#machine-tab"></a>Machine tab</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Name</strong>, <strong>Manufacturer</strong>, <strong>Description</strong>.</p>
+</li>
+<li>
+<p><strong>Template</strong>: load settings from a built-in or add-on machine template.</p>
+</li>
+<li>
+<p><strong>Units</strong>: Metric or Imperial for the values entered.</p>
+</li>
+<li>
+<p><strong>Type</strong>: Custom Machine, 2-Axis Lathe (X, Z), 3-Axis Mill (XYZ), 4-Axis Mill (XYZ + A), 4-Axis Mill (XYZ + B), 5-Axis Mill (XYZ + A, C), 5-Axis Mill (XYZ + B, C).</p>
+</li>
+<li>
+<p><strong>Kinematics</strong>: TCP Supported, DWO Supported, Notes.</p>
+</li>
+<li>
+<p><strong>Axes</strong>: for each linear axis Role (table_linear, head_linear), Parent, Sequence, Direction, Min Limit, Max Limit, Max Velocity, Joint Origin; for each rotary axis Role (table_rotary, head_rotary), Parent, Sequence, Rotation Axis, limits, velocity, Joint Origin, Solution Preference (shortest, positive, negative), Allow Flip and Wrap Strategy (unwound, modulo, rezero).</p>
+</li>
+<li>
+<p><strong>Toolheads</strong>: <b class="button">Add Toolhead</b>; type rotary, laser, waterjet or plasma; min/max rpm, power, tool change mode, coolant flood/mist, coolant delay, toolhead wait.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="postprocessor-tab"><a class="anchor" href="#postprocessor-tab"></a>Postprocessor tab</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Post Processor</strong>: one of the enabled machine-based Post-Processors (centroid, generic, generic_plasma, linuxcnc, mach3_mach4, marlin, opensbp, smoothie or an add-on post).</p>
+</li>
+<li>
+<p>Below it the <strong>Postprocessor Properties</strong> declared by that post: file extension, preamble, postamble, safety block, pre/post blocks for job, fixture change, operation, tool change, rotary moves, tool return, supported commands, drill cycles to translate, parameter order, precision, plus post-specific entries such as LinuxCNC&#8217;s Path Blending Mode. See <a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="options-tab"><a class="anchor" href="#options-tab"></a>Options tab</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Output Units</strong></p>
+</li>
+<li>
+<p><strong>Output Header</strong> and <strong>Header Options</strong>: Include Date, Description, Document Name, Machine Name, Project File, Units, Tool List, Fixture List.</p>
+</li>
+<li>
+<p><strong>Comment Options</strong>: Enable Comments, Comment Symbol, Include Operation Labels, Include Blank Lines, Output bCNC Comments.</p>
+</li>
+<li>
+<p><strong>Formatting Options</strong>: Line Numbers, Line Number Start, Prefix, Increment, Command Space, End of Line Chars.</p>
+</li>
+<li>
+<p><strong>Precision Options</strong>: Axis, Feed, Toolhead.</p>
+</li>
+<li>
+<p><strong>Duplicate Output Options</strong>: Duplicate Commands, Duplicate Parameters (unchecked = modal suppression).</p>
+</li>
+<li>
+<p>Processing options: Early tool prep, Filter inefficient moves, Split Arcs, Tool change, Translate Drill Cycles, Translate Rapid Moves, XY before Z after tool change, Return to, Output Tool Length Offset, Enable Remote Posting.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Postprocessor and Options tabs are hidden when the parameter <code>Mod/CAM/EnableMachinePostprocessor</code> is false. <b class="button">Edit as Text</b> toggles a JSON text editor of the whole file; <b class="button">Save</b> writes the <code>.fcm</code>, <b class="button">Close</b> discards.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="machine-file-fcm"><a class="anchor" href="#machine-file-fcm"></a>Machine file (.fcm)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A JSON file named after the machine (spaces replaced by underscores) in <code>&lt;asset path&gt;/Machines</code>. Top-level keys: <code>freecad_version</code>, <code>version</code>, <code>machine</code> (name, manufacturer, description, units, kinematics, axes, toolheads), <code>postprocessor</code> (file_name, properties), <code>output</code> (units, output_tool_length_offset, remote_post, header, comments, formatting, precision, duplicates) and <code>processing</code>. The Job stores only the machine&#8217;s display name in its <strong>Machine</strong> property; the file is looked up by name (case-insensitive).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="templates-and-add-ons"><a class="anchor" href="#templates-and-add-ons"></a>Templates and add-ons</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Template combo offers the machine types above plus machine templates from add-ons. Any installed add-on whose <code>package.xml</code> declares a machine content item (for example the <strong>FreeCAD/Machines</strong> add-on from the Addon Manager) contributes the <code>.fcm</code> files of its <code>machines/</code> folder as read-only templates, grouped by add-on name; selecting one copies it into your own machine, so later add-on updates do not change your machine. Add-ons can likewise ship Post-Processors in a <code>posts/</code> folder. Placing a file named <code>ADDON_DISABLED</code> in an add-on folder, or <code>ALL_ADDONS_DISABLED</code> in the Mod folder, hides them.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-a-machine"><a class="anchor" href="#using-a-machine"></a>Using a Machine</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Select the machine on the General tab of the <a href="../job/job.html" class="xref page">Job</a> task panel (or set the Job&#8217;s <strong>Machine</strong> property). <a href="post-process.html" class="xref page">Post Process</a> then opens the Post Processing dialog, uses the machine&#8217;s Post-Processor and options, and runs the machine&#8217;s sanity checks. Per-Job overrides of Post-Processor properties are kept in <strong>PostProcessorPropertyOverrides</strong>; per-export overrides are made in the dialog.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from Machine.models.machine import MachineFactory, Machine
+m = Machine.create_3axis_config()
+m.name = 'My Router'
+m.postprocessor_file_name = 'grbl'
+MachineFactory.save_configuration(m)
+job.Machine = 'My Router'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="post-process-selected.html">Post Process Selected</a></span>
+  <span class="next"><a href="../job/sanity-check.html">Sanity Check</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

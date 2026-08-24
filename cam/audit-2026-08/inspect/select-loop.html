@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM SelectLoop :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/inspect/select-loop.html">
-    <link rel="prev" href="simulator.html">
+    <link rel="prev" href="camotics.html">
     <link rel="next" href="op-active-toggle.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -89,6 +98,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="simulator.html">CAM Simulator</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camotics.html">CAMotics</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="select-loop.html">Finish Selecting Loop</a>
   </li>
@@ -96,10 +108,13 @@
     <a class="nav-link" href="op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -395,7 +425,7 @@
 </dd>
 <dt class="hdlist1">Default shortcut</dt>
 <dd>
-<p><kbd>kbd:[P</kbd> <kbd>L</kbd>]</p>
+<p><kbd>P</kbd> then <kbd>L</kbd></p>
 </dd>
 <dt class="hdlist1">Introduced in version</dt>
 <dd>
@@ -415,7 +445,7 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_SelectLoop.svg" alt="CAM SelectLoop" width="24"></span> <a href="#">CAM SelectLoop</a> command completes a selection of edges that form a loop.</p>
+<p>The <span class="image"><img src="../_images/CAM_SelectLoop.svg" alt="CAM SelectLoop" width="24"></span> <a href="#">Finish Selecting Loop</a> command extends the current selection to a complete loop of edges or a set of faces, depending on what is selected. It handles vertical and horizontal faces, one or two edges, several objects at once, and whole objects without sub-elements; modifier keys force a specific search mode.</p>
 </div>
 </div>
 </div>
@@ -425,28 +455,44 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Select an edge.</p>
-</li>
-<li>
-<p>There are several ways to invoke the command:</p>
+<p>Make a selection in the <a href="https://wiki.freecad.org/3D_View">3D View</a>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Press the <span class="image"><img src="../_images/CAM_SelectLoop.svg" alt="CAM SelectLoop" width="16"></span> <a href="#">Finish Selecting Loop</a> button.</p>
+<p>One edge: the horizontal loop of edges containing it is selected.</p>
 </li>
 <li>
-<p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Finish Selecting Loop</b></span> option from the menu.</p>
+<p>Two edges: the wire of the shape containing both, or the chain of tangent edges between them; <kbd>Ctrl</kbd> forces the tangent search.</p>
 </li>
 <li>
-<p>Use the keyboard shortcut: <kbd>P</kbd> then <kbd>L</kbd>.</p>
+<p>Several edges with <kbd>Alt</kbd>: all horizontal wires containing the selected edges. <span class="since">introduced in 26.3</span></p>
+</li>
+<li>
+<p>Vertical face(s): the faces forming the same wall loop are selected; <kbd>Shift</kbd> selects vertical faces with the same center height.</p>
+</li>
+<li>
+<p>Horizontal face: <kbd>Ctrl</kbd> selects its inner edges, <kbd>Ctrl</kbd>+<kbd>Alt</kbd> its outer edges, <kbd>Shift</kbd> the horizontal faces at the same height (<span class="since">introduced in 26.3</span>); without modifier the inner edges are tried first, then the wall loop, then the faces at the same height.</p>
+</li>
+<li>
+<p>Any face with <kbd>Alt</kbd>: all edges of the face.</p>
+</li>
+<li>
+<p>Object without sub-elements: all edges of the object (<span class="since">introduced in 26.3</span>); <kbd>Alt</kbd> selects all faces, <kbd>Ctrl</kbd> all vertices.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>The remaining edges of the loop are added to the selection.</p>
+<p>Invoke the command: the toolbar button, <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Finish Selecting Loop</b></span>, or <kbd>P</kbd> then <kbd>L</kbd>. The modifier keys are read when the command is activated, so they must be held while pressing the button or shortcut.</p>
+</li>
+<li>
+<p>If no other method succeeds, the wire containing the selected edges is selected. <span class="since">introduced in 26.3</span>
+Selected vertices are removed from the selection. Several objects can be processed in one call. <span class="since">introduced in 26.3</span></p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>If no loop can be found a warning ("Closed loop detection failed in model &#8230;&#8203;") is printed in the <a href="https://wiki.freecad.org/Report_view">Report view</a> and the selection is left unchanged.</p>
 </div>
 </div>
 </div>
@@ -456,14 +502,20 @@
 <div class="ulist">
 <ul>
 <li>
-<p>This command can also be very useful in other workbenches.</p>
+<p>The command can be used while an Operation&#8217;s task panel is open, for example to complete the Base Geometry selection before pressing <b class="button">Add</b>.</p>
+</li>
+<li>
+<p>The command only affects the selection, so once the CAM Workbench has been loaded it can also be used from other workbenches via the shortcut.</p>
+</li>
+<li>
+<p><span class="since">26.3 and later</span>: the expanded behaviour described above (whole objects, multiple edges, face modifier keys, wire fallback, multiple objects) was introduced in 26.3.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="simulator.html">CAM Simulator</a></span>
+  <span class="prev"><a href="camotics.html">CAMotics</a></span>
   <span class="next"><a href="op-active-toggle.html">Toggle Operation</a></span>
 </nav>
 </article>

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM MillFace :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/mill-face.html">
-    <link rel="prev" href="pocket.html">
-    <link rel="next" href="helix.html">
+    <link rel="prev" href="../reference/fourth-axis.html">
+    <link rel="next" href="../reference/opencamlib.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -113,8 +128,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pocket.html">Pocket Shape</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="mill-face.html">Face</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -305,8 +329,14 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face (obsolete)</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -356,8 +386,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FreeCAD CAM</a></li>
-    <li>Basic Operations</li>
-    <li><a href="mill-face.html">Face</a></li>
+    <li>Other pages</li>
+    <li><a href="mill-face.html">Face (obsolete)</a></li>
   </ul>
 </nav>
 <div class="page-versions">
@@ -385,7 +415,7 @@
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and later</span>.
+<span class="obsolete">obsolete since 26.3</span> This command was replaced by <a href="mill-facing.html" class="xref page">Mill Facing</a> in 26.3 and is no longer in the toolbar or menu. Existing Face operations in saved documents keep working and can still be created from Python with <code>FreeCADGui.runCommand('CAM_MillFace')</code> or <code>Path.Op.MillFace.Create()</code>. They are not converted to Mill Facing automatically.
 </td>
 </tr>
 </table>
@@ -399,7 +429,7 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <dl>
 <dt class="hdlist1">Menu location</dt>
 <dd>
-<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Face</b></span></p>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Face</b></span> <span class="until">1.1 and earlier</span></p>
 </dd>
 <dt class="hdlist1">Workbenches</dt>
 <dd>
@@ -415,7 +445,7 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><em>None</em></p>
+<p><a href="mill-facing.html" class="xref page">CAM Mill Facing</a></p>
 </dd>
 </dl>
 </div>
@@ -427,7 +457,7 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_MillFace.svg" alt="CAM MillFace" width="24"></span> <a href="#">CAM MillFace</a> command creates a path to perform a facing operation on a horizontal surface. This operation is generally used:</p>
+<p>The <span class="image"><img src="../_images/CAM_MillFace.svg" alt="CAM MillFace" width="24"></span> <a href="#">CAM MillFace</a> command creates a Toolpath to perform a facing operation on a horizontal surface. The command&#8217;s menu text is "Face" and its tooltip reads "Create a Facing Operation from a model or face"; in the source the command uses the <code>CAM_Face.svg</code> icon. This operation is generally used:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -443,7 +473,10 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 </ul>
 </div>
 <div class="paragraph">
-<p>This operation contains a <strong>BoundaryShape</strong> property that allows for a modified selection area based upon the selected face(s).</p>
+<p>This operation contains a <strong>Boundary Shape</strong> property that allows for a modified selection area based upon the selected face(s).</p>
+</div>
+<div class="paragraph">
+<p>For 26.3 and later use <a href="mill-facing.html" class="xref page">Mill Facing</a>, which faces the Stock cross-section at the Final Depth and does not use Base Geometry.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -455,6 +488,9 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <div class="sect1">
 <h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><span class="until">1.1 and earlier</span></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -474,7 +510,7 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 </div>
 </li>
 <li>
-<p>Select the correct <strong>BoundaryShape</strong> setting to modify the milling area based on the face(s) selected as <b class="menuref">Base Geometry</b>.</p>
+<p>Select the correct <strong>Boundary Shape</strong> setting to modify the milling area based on the face(s) selected as <b class="menuref">Base Geometry</b>.</p>
 </li>
 <li>
 <p>Adjust the other properties as needed. They are listed further below.</p>
@@ -486,13 +522,16 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <div class="sect1">
 <h2 id="caveats"><a class="anchor" href="#caveats"></a>Caveats</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The following caveats apply to this legacy operation. The replacement <a href="mill-facing.html" class="xref page">Mill Facing</a> operation faces the whole Stock top without a face selection, so the issues around inclined planes and unmachined corners below do not apply to it.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Using it on an inclined plane may produce unexpected results: it will still produce a path to cut a horizontal surface. The extent of the cut will be the vertical projection of the inclined plane, performed at a height corresponding to the lowest point in that plane.</p>
+<p>Using it on an inclined plane may produce unexpected results: it will still produce a Toolpath to cut a horizontal surface. The extent of the cut will be the vertical projection of the inclined plane, performed at a height corresponding to the lowest point in that plane.</p>
 </li>
 <li>
-<p>Since the CAM tools work on the geometry of the selected edges/faces only, and do not relate to the rest of the 3D model, the paths will not go beyond the bounds of the chosen plane, even if it is surrounded by unused stock or air. This will leave unmachined corners. These can sometimes removed with one of the dress-up tools to be found on the <em>CAM</em> menu.</p>
+<p>Since the CAM operations work on the geometry of the selected edges/faces only, and do not relate to the rest of the 3D model, the Toolpaths will not go beyond the bounds of the chosen plane, even if it is surrounded by unused stock or air. This will leave unmachined corners. These can sometimes be removed with one of the Dressups found on the <em>CAM</em> menu.</p>
 </li>
 </ul>
 </div>
@@ -504,7 +543,7 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <div class="ulist">
 <ul>
 <li>
-<p>This tool will not work on a <strong>vertical plane</strong> or vertical non planar surface. Vertical operations can be achieved by using the <a href="profile.html" class="xref page">face profile</a> tool or <a href="profile.html" class="xref page">edge profile</a> tool. These will need the selection of a face or closed loop of edges <em>including the top or bottom edge of the vertical surface desired</em>). The extent of the path can then be reduced using the <a href="../dressups/path-boundary.html" class="xref page">Boundary Dress-up</a> tool to be found on the <em>CAM</em> menu. With the Dress-up tool, select <em>Create Box</em> option and reduce the size to limit the scope of the profile path. These settings will not allow the origin of the boundary box to be moved, however. This must be done by adjusting the Placement settings in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>.</p>
+<p>This operation will not work on a <strong>vertical plane</strong> or vertical non planar surface. Vertical operations can be achieved by using the <a href="profile.html" class="xref page">face profile</a> or <a href="profile.html" class="xref page">edge profile</a> operation. These will need the selection of a face or closed loop of edges <em>including the top or bottom edge of the vertical surface desired</em>). The extent of the Toolpath can then be reduced using the <a href="../dressups/path-boundary.html" class="xref page">Boundary Dress-up</a> found on the <em>CAM</em> menu. With the Dressup, select <em>Create Box</em> option and reduce the size to limit the scope of the profile Toolpath. These settings will not allow the origin of the boundary box to be moved, however. This must be done by adjusting the Placement settings in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>.</p>
 </li>
 <li>
 <p>This will work on compound surfaces such as several vertical planes or cylindrical surfaces joined together, so long as they form one continuous surface.</p>
@@ -581,19 +620,19 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <p><strong>Clearance Height</strong>: The height needed to clear clamps and obstructions</p>
 </li>
 <li>
-<p><strong>Final Depth</strong>: Final Depth of Tool- lowest value in Z</p>
+<p><strong>Final Depth</strong>: Final Depth of Tool Bit - lowest value in Z</p>
 </li>
 <li>
 <p><strong>Finish Depth</strong>: Maximum material removed on final pass.</p>
 </li>
 <li>
-<p><strong>Safe Height</strong>: The above which Rapid motions are allowed.</p>
+<p><strong>Safe Height</strong>: The height above which rapid moves are allowed.</p>
 </li>
 <li>
-<p><strong>Start Depth</strong>: Starting Depth of Tool- first cut depth in Z</p>
+<p><strong>Start Depth</strong>: Starting Depth of Tool Bit - first cut depth in Z</p>
 </li>
 <li>
-<p><strong>Step Down</strong>: Incremental Step Down of Tool</p>
+<p><strong>Step Down</strong>: Incremental Step Down of Tool Bit</p>
 </li>
 </ul>
 </div>
@@ -601,16 +640,13 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <div class="title">Face</div>
 <ul>
 <li>
-<p><strong>BoundaryShape</strong>: Shape to use for calculating Boundary</p>
+<p><strong>Boundary Shape</strong>: Shape to use for calculating the boundary: <code>Boundbox</code>, <code>Face Region</code>, <code>Perimeter</code> or <code>Stock</code>.</p>
 </li>
 <li>
-<p><strong>ClearEdges</strong>: Clear edges of surface (Only applicable to BoundBox)</p>
+<p><strong>Clear Edges</strong>: Clear edges of surface (Only applicable to Boundbox)</p>
 </li>
 <li>
-<p><strong>ExcludeRaisedAreas</strong>: Exclude milling raised areas inside the face.</p>
-</li>
-<li>
-<p><strong>Offset Pattern</strong>: Clearing pattern to use. (Select in which manner the horizontal movements should be done.)</p>
+<p><strong>Exclude Raised Areas</strong>: Exclude milling raised areas inside the face.</p>
 </li>
 </ul>
 </div>
@@ -624,19 +660,45 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <p><strong>Base</strong>: The base geometry for this operation</p>
 </li>
 <li>
+<p><strong>Block Delete</strong>: <span class="since">introduced in 26.3</span> Enable the Post-Processor to add block delete commands</p>
+</li>
+<li>
 <p><strong>Comment</strong>: An optional comment for this Operation</p>
 </li>
 <li>
-<p><strong>Coolant Mode</strong>: The coolant mode for this operation.</p>
+<p><strong>Coolant Mode</strong>: The coolant mode for this operation: <code>None</code>, <code>Flood</code> or <code>Mist</code></p>
 </li>
 <li>
-<p><strong>Cycle Time</strong>: The cycle time estimation for this operation.</p>
+<p><strong>Cycle Time</strong>: (read-only) The cycle time estimation for this operation.</p>
 </li>
 <li>
-<p><strong>Tool Controller</strong>: Defines the Tool controller used in the Operation</p>
+<p><strong>Sorting Mode</strong>: <span class="since">introduced in 26.3</span> <code>Automatic</code> sorts shapes with a nearest-neighbour algorithm; <code>Manual</code> follows the selection order.</p>
+</li>
+<li>
+<p><strong>Tool Controller</strong>: Defines the Tool Controller used in the Operation</p>
 </li>
 <li>
 <p><strong>User Label</strong>: User assigned label</p>
+</li>
+<li>
+<p><strong>Workplane</strong>: <span class="since">introduced in 26.3</span> The orientation of the Tool Bit for this operation; default (0, 0, 1) for standard Z-up milling.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Op Values</div>
+<p>These read-only properties hold values calculated by the operation. They are useful as sources for expressions.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Op Start Depth</strong>, <strong>Op Final Depth</strong>: the calculated default depths</p>
+</li>
+<li>
+<p><strong>Op Tool Diameter</strong>: the diameter of the Tool Bit</p>
+</li>
+<li>
+<p><strong>Op Stock ZMax</strong>, <strong>Op Stock ZMin</strong>: the Z extent of the Stock</p>
 </li>
 </ul>
 </div>
@@ -644,48 +706,34 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <div class="title">Pocket</div>
 <ul>
 <li>
-<p><strong>Cut Mode</strong>: The direction that the toolpath should go around the part ClockWise (CW) or CounterClockWise (CCW)</p>
+<p><strong>Angle</strong>: <span class="since">introduced in 26.3</span> (formerly <strong>Zig Zag Angle</strong>) Angle of the grid, line and zigzag patterns. Hidden when the pattern is <code>Offset</code>.</p>
+</li>
+<li>
+<p><strong>Clearing Pattern</strong>: <span class="since">introduced in 1.1</span> (formerly <strong>Offset Pattern</strong>) Clearing pattern to use: <code>ZigZag</code>, <code>Offset</code>, <code>ZigZagOffset</code>, <code>Line</code> or <code>Grid</code>.</p>
+</li>
+<li>
+<p><strong>Cut Mode</strong>: <code>Climb</code> or <code>Conventional</code>.</p>
 </li>
 <li>
 <p><strong>Extra Offset</strong>: Extra offset to apply to the operation. Direction is operation dependent.</p>
 </li>
 <li>
-<p><strong>StartAt</strong>: Start pocketing at center or boundary</p>
+<p><strong>Force Max Step Over</strong>: <span class="since">introduced in 26.3</span> Force the maximum stepover even if not all area is cleared.</p>
 </li>
 <li>
-<p><strong>Step Over</strong>: Percent of cutter diameter to step over on each pass</p>
+<p><strong>Min Travel</strong>: Use 3D Sorting of the Toolpath</p>
 </li>
 <li>
-<p><strong>Zig Zag Angle</strong>: Angle of the zigzag pattern</p>
+<p><strong>Retract Threshold</strong>: <span class="since">introduced in 26.3</span> Repositioning moves shorter than this distance stay down. Replaces <strong>Keep Tool Down</strong> <span class="until">1.1 and earlier</span>.</p>
 </li>
 <li>
-<p><strong>Offset Pattern</strong>: Clearing pattern to use</p>
+<p><strong>Start At</strong>: Start pocketing at center or boundary</p>
 </li>
 <li>
-<p><strong>Min Travel</strong>: Use 3D Sorting of Path</p>
+<p><strong>Step Over</strong>: Percent of Tool Bit diameter to step over on each pass (a value of 0 is reset to 1 %)</p>
 </li>
 <li>
-<p><strong>Keep Tool Down</strong>: Attempts to avoid unnecessary retractions.</p>
-</li>
-</ul>
-</div>
-<div class="ulist">
-<div class="title">Rotation</div>
-<ul>
-<li>
-<p><strong>Attempt Inverse Angle</strong>: Automatically attempt Inverse Angle if initial rotation is incorrect.</p>
-</li>
-<li>
-<p><strong>Enable Rotation</strong>: Enable rotation to gain access to pockets or areas not normal to Z axis.</p>
-</li>
-<li>
-<p><strong>Inverse Angle</strong>: Inverse the angle of the rotation. <em>*Example:* change a rotation from -22.5 to 22.5 degrees.</em></p>
-</li>
-<li>
-<p><strong>Limit Depth To Face</strong>: Enforce the Z-depth of the selected face as the lowest value for final depth. Higher user values for final depth will be observed.</p>
-</li>
-<li>
-<p><strong>Reverse Direction</strong>: Reverse orientation of Operation by 180 degrees.</p>
+<p><strong>Use Rest Machining</strong>: Skip regions already cleared by previous operations.</p>
 </li>
 </ul>
 </div>
@@ -693,7 +741,7 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 <div class="title">Start Point</div>
 <ul>
 <li>
-<p><strong>Start Point</strong>: The custom start point for the path of this operation.</p>
+<p><strong>Start Point</strong>: The custom start point for the Toolpath of this operation.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -716,9 +764,21 @@ THIS COMMAND IS OBSOLETE It is not available in <span class="since">26.3 and lat
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The legacy Heidenhain Post-Processor (<code>heidenhain_legacy_post.py</code>) still special-cases Face operations when labelling the output. It does not recognise the newer <a href="mill-facing.html" class="xref page">Mill Facing</a> operation, so users of that Post-Processor who rely on the FACE labelling should be aware of the difference.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="pocket.html">Pocket Shape</a></span>
-  <span class="next"><a href="helix.html">Helix</a></span>
+  <span class="prev"><a href="../reference/fourth-axis.html">CAM fourth axis</a></span>
+  <span class="next"><a href="../reference/opencamlib.html">OpenCamLib</a></span>
 </nav>
 </article>
   </div>

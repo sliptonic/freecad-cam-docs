@@ -6,7 +6,7 @@
     <title>CAM SimpleCopy :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/modify/simple-copy.html">
     <link rel="prev" href="array.html">
-    <link rel="next" href="../operations/thread-milling.html">
+    <link rel="next" href="../misc/area.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="copy.html">Copy oOperation</a>
+    <a class="nav-link" href="copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="array.html">Array</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -356,7 +386,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FreeCAD CAM</a></li>
-    <li>CAM Modification</li>
+    <li>Path Modification</li>
     <li><a href="simple-copy.html">Simple Copy</a></li>
   </ul>
 </nav>
@@ -403,7 +433,7 @@
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><a href="copy.html" class="xref page">CAM Copy</a></p>
+<p><a href="copy.html" class="xref page">CAM Copy</a>, <a href="../operations/custom.html" class="xref page">CAM Custom</a></p>
 </dd>
 </dl>
 </div>
@@ -415,10 +445,10 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_SimpleCopy.svg" alt="CAM SimpleCopy" width="24"></span> <a href="#">CAM SimpleCopy</a> command creates a non-parametric copy of a given path.</p>
+<p>The <span class="image"><img src="../_images/CAM_SimpleCopy.svg" alt="CAM SimpleCopy" width="24"></span> <a href="#">CAM SimpleCopy</a> command creates a non-parametric copy of one or more Operations. The copy is a <a href="../operations/custom.html" class="xref page">Custom</a> operation named <code>&lt;operation&gt;_SimpleCopy</code> (or <code>SimpleCopy</code> for several Operations) that contains the G-code of the originals and uses their Tool Controller and coolant mode. It is not linked to the originals.</p>
 </div>
 <div class="paragraph">
-<p><span class="since">introduced in 26.3</span>: The command can combine multiple selected operations into one simple copy.</p>
+<p><span class="since">introduced in 26.3</span>: Simple Copy accepts any toolpath object, including dressups, Arrays and other copies, and several Operations can be combined into one copy.</p>
 </div>
 </div>
 </div>
@@ -428,10 +458,23 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Select one or more <a href="../index.html" class="xref page">CAM</a> objects.</p>
+<p>Select one or more Operations (dressups are accepted). All selected Operations must use the same Tool Controller and the same coolant mode, otherwise the command is disabled.</p>
 </li>
 <li>
-<p>Press the <span class="image"><img src="../_images/CAM_SimpleCopy.svg" alt="CAM SimpleCopy" width="16"></span> <a href="#">Simple Copy</a> button</p>
+<p>There are several ways to invoke the command:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Press the <span class="image"><img src="../_images/CAM_SimpleCopy.svg" alt="CAM SimpleCopy" width="16"></span> <a href="#">Simple Copy</a> button.</p>
+</li>
+<li>
+<p>Use <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Path Modification</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Simple Copy</b></span>.</p>
+</li>
+<li>
+<p>Use <span class="menuseq"><b class="menu">Path Modification</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Simple Copy</b></span> in the Tree View context menu.</p>
+</li>
+</ul>
+</div>
 </li>
 </ol>
 </div>
@@ -443,21 +486,63 @@
 <div class="ulist">
 <ul>
 <li>
-<p>The simple copy is not bound anymore to the path that was used to make the copy, and is not parametric. Therefore, when edited with the <a href="../inspect/inspect.html" class="xref page">CAM Inspect</a> tool, any change made to its G-code will be retained.</p>
+<p>The simple copy is not bound anymore to the toolpath that was used to make the copy, and is not parametric. The G-code of the copy can be edited in the <a href="../operations/custom.html" class="xref page">Custom</a> task panel (double-click the copy) or in its <strong>Gcode</strong> property; the changes are kept because the copy is not recomputed from the original.</p>
 </li>
 <li>
-<p>Multiple selected operations must use the same <strong>Coolant Mode</strong> and <strong>Tool Controller</strong>.</p>
-</li>
-<li>
-<p><span class="since">introduced in 26.3</span>: SimpleCopy can also copy operations that contain commands without using the standard CAM operation base class.</p>
+<p>Multiple selected Operations must use the same <strong>Coolant Mode</strong> and <strong>Tool Controller</strong>.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="properties"><a class="anchor" href="#properties"></a>Properties</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The copy is a Custom operation; see <a href="../operations/custom.html#properties" class="xref page">CAM Custom</a>. <strong>Source</strong> is <code>Text</code> and <strong>Gcode</strong> contains one entry per command.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>An inactive copy (its <strong>Active</strong> property set to false) shows the Toggle Operation icon in the Tree View.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See also: <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">FreeCAD Scripting Basics</a>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path.Op.Custom, Path.Base.Util
+from PathScripts import PathUtils
+
+src = FreeCAD.ActiveDocument.Profile
+job = PathUtils.findParentJob(src)
+obj = Path.Op.Custom.Create(src.Name + "_SimpleCopy", parentJob=job)
+obj.ToolController = Path.Base.Util.toolControllerForOp(src)
+obj.CoolantMode = Path.Base.Util.coolantModeForOp(src)
+obj.Gcode = [c.toGCode() for c in PathUtils.getPathWithPlacement(src).Commands]
+FreeCAD.ActiveDocument.recompute()</code></pre>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="array.html">Array</a></span>
-  <span class="next"><a href="../operations/thread-milling.html">Thread Milling</a></span>
+  <span class="next"><a href="../misc/area.html">Area</a></span>
 </nav>
 </article>
   </div>

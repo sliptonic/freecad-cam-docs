@@ -6,7 +6,7 @@
     <title>CAM Post :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/output/post-process.html">
     <link rel="prev" href="../job/job.html">
-    <link rel="next" href="../job/sanity-check.html">
+    <link rel="next" href="post-process-selected.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -387,7 +417,7 @@
 <dl>
 <dt class="hdlist1">Menu location</dt>
 <dd>
-<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Post Process</b></span></p>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Post Process</b></span>; also in the Tree View context menu of a Job or Operation</p>
 </dd>
 <dt class="hdlist1">Workbenches</dt>
 <dd>
@@ -395,7 +425,7 @@
 </dd>
 <dt class="hdlist1">Default shortcut</dt>
 <dd>
-<p><kbd>kbd:[P</kbd> <kbd>P</kbd>]</p>
+<p><kbd>P</kbd> <kbd>P</kbd></p>
 </dd>
 <dt class="hdlist1">Introduced in version</dt>
 <dd>
@@ -403,7 +433,7 @@
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><em>None</em></p>
+<p><a href="post-process-selected.html" class="xref page">CAM PostSelected</a>, <a href="machine.html" class="xref page">CAM Machine</a>, <a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a></p>
 </dd>
 </dl>
 </div>
@@ -415,114 +445,55 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="24"></span> <a href="#">CAM Post</a> command exports the selected <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Job</a> to a G-code file.</p>
+<p>The <span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="24"></span> <a href="#">CAM Post</a> command (tooltip: <em>Post Processes the selected Job</em>) exports the selected <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Job</a> to a G-code file. The toolbar button is part of the <strong>Post process Operations</strong> drop-down group in the <strong>Project Setup</strong> toolbar, together with <span class="image"><img src="../_images/CAM_PostSelected.svg" alt="CAM PostSelected" width="16"></span> <a href="post-process-selected.html" class="xref page">Post Process Selected</a>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Each CNC Controller speaks a specific G-code dialect, requiring a Dialect-correct Postprocessor to translate the final output from the agnostic internal FreeCAD G-code dialect.</strong></p>
+<p><strong>Each CNC controller speaks a specific G-code dialect, requiring a dialect-correct Post-Processor to translate the final output from the agnostic internal FreeCAD G-code dialect</strong> (see <a href="../reference/scripting.html#the-freecad-internal-g-code-format" class="xref page">FreeCAD&#8217;s internal G-code format</a>).</p>
 </div>
 <div class="sect2">
-<h3 id="typical-functions-of-the-postprocessor-include"><a class="anchor" href="#typical-functions-of-the-postprocessor-include"></a>Typical functions of the Postprocessor include</h3>
+<h3 id="typical-functions-of-the-post-processor-include"><a class="anchor" href="#typical-functions-of-the-post-processor-include"></a>Typical functions of the Post-Processor include</h3>
 <div class="ulist">
 <ul>
 <li>
 <p>Using a correct Job output G-code file extension.</p>
 </li>
 <li>
-<p>Selecting the G-code commands. CNC controllers typically support a subset of available G-code commands. The super-set of G-code commands contains powerful and specialized commands that otherwise must be processed using multiple simpler commands. Postprocessors are written to select the best G-code for an Operation, available on the target.</p>
+<p>Selecting the G-code commands. CNC controllers typically support a subset of available G-code commands. The super-set of G-code commands contains powerful and specialized commands that otherwise must be processed using multiple simpler commands. Post-Processors are written to select the best G-code for an Operation, available on the target.</p>
 </li>
 <li>
 <p>Formatting the G-code syntax by reordering the Feed, X, Y, Z, A, and B inputs, and the precision.</p>
 </li>
 <li>
-<p>Inserting a Pre-amble to set units, units format, Work plane, coordinate system, etc&#8230;&#8203;</p>
+<p>Inserting a preamble to set units, units format, work plane, coordinate system, etc.</p>
 </li>
 <li>
-<p>Inserting a Post-amble to park the machine, stop it, process any arguments.</p>
+<p>Inserting a postamble to park the machine, stop it, process any arguments.</p>
 </li>
 <li>
-<p>Inserting Tool changes, or suppressing them between subsequent operations using the same tool.</p>
+<p>Inserting tool changes, or suppressing them between subsequent Operations using the same Tool Controller.</p>
 </li>
 <li>
-<p>Formatting the Feed and Speed rate information to revolutions per minute, or per second.</p>
+<p>Formatting the feed and speed rate information to revolutions per minute, or per second.</p>
 </li>
 <li>
-<p>Formatting Function Call Naming and Calling.</p>
+<p>Formatting function call naming and calling.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Typical CNC machine controller targets include CNC mills, CNC lathes, 3D printers, drag-knife cutters, laser cutters, engravers and plasma torch cutters.</p>
+</div>
+<div class="paragraph">
+<p>If you want to write your own Post-Processor, have a look at the <a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a> page. Several provided Post-Processors generate suitable code for many CNC controllers, or can be used as templates for modification.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="postprocessor-customization"><a class="anchor" href="#postprocessor-customization"></a>Postprocessor Customization</h3>
+<h3 id="two-flows-machine-based-and-legacy"><a class="anchor" href="#two-flows-machine-based-and-legacy"></a>Two flows: machine-based and legacy</h3>
 <div class="paragraph">
-<p>If you want to write your own postprocessor, have a look at the <a href="postprocessor-customization.html" class="xref page">CAM Postprocessor Customization</a> page.</p>
-</div>
-<div class="paragraph">
-<p><strong>Note:</strong> Several provided Postprocessors generate suitable code for many CNC controllers, or can be used as templates for modification</p>
+<p>If the Job&#8217;s <strong>Machine</strong> property is set (<span class="since">introduced in 26.3</span>), the machine definition decides the Post-Processor (its <em>postprocessor</em> entry) and the output options, and the Job&#8217;s <strong>PostProcessor</strong> property is ignored. Machine-based Post-Processors cannot be selected in the Job&#8217;s Processor combo; legacy ones cannot be assigned to a Machine. See <a href="machine.html" class="xref page">CAM Machine</a>.</p>
 </div>
 <div class="paragraph">
-<p>Postprocessors contain configuration flags and are designed to be tuned by adding G-codes and M-codes to provided definitions for:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Machine initialization</p>
-</li>
-<li>
-<p>Job finalization</p>
-</li>
-<li>
-<p>Tool-Changes</p>
-</li>
-<li>
-<p>Cooling on /off</p>
-</li>
-<li>
-<p>Etc&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Postprocessors use <a href="../reference/scripting.html#the-freecad-internal-g-code-format" class="xref page">FreeCAD&#8217;s internal G-code dialect</a> in conjunction with the Postprocessor configuration definitions, to generate Dialect-Correct G-code for target machines. This allows the CAM workbench to generate correct G-code to target various CNC machine controllers by invoking different Postprocessors.</p>
-</div>
-<div class="paragraph">
-<p>CNC Machine Controller types include:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>CNC mills</p>
-</li>
-<li>
-<p>CNC lathes</p>
-</li>
-<li>
-<p>3D Printers</p>
-</li>
-<li>
-<p>DragKnife Cutters</p>
-</li>
-<li>
-<p>Laser Cutters</p>
-</li>
-<li>
-<p>Engravers</p>
-</li>
-<li>
-<p>Plasma Torch Cutters</p>
-</li>
-<li>
-<p>Wire Benders</p>
-</li>
-<li>
-<p>EDM Cutters</p>
-</li>
-<li>
-<p>Etc&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If only one CNC machine is used, or if all CNC machines share a common Postprocesor, the CAM workbench would need to include only a single Postprocessor. If a single Postprocessor is inadequate to output G-code for all target CNC controllers, then multiple Postprocessors must be installed.</p>
+<p>For legacy argument-based Post-Processors, the settings are module-level flags of the script, usually changed through the Job&#8217;s <strong>Arguments</strong> field (e.g. <code>--no-header --line-numbers --precision 4</code>; hover the Arguments field for the list). For machine-based Post-Processors the same settings are <strong>Output options</strong> of the Machine (<code>.fcm</code>) edited in the <a href="machine.html" class="xref page">Machine Editor</a> or overridden per export on the Options tab of the Post Processing dialog.</p>
 </div>
 </div>
 </div>
@@ -533,17 +504,20 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Select a <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Job</a> in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>.</p>
+<p>Select the <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Job</a> (or any of its Operations) in the <a href="https://wiki.freecad.org/Tree_View">Tree View</a>.</p>
 </li>
 <li>
 <p>There are several ways to invoke the command:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Press the <span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="16"></span> <a href="#">Post Process</a> button.</p>
+<p>Press the <span class="image"><img src="../_images/CAM_Post.svg" alt="CAM Post" width="16"></span> <a href="#">Post Process</a> button in the <strong>Post process Operations</strong> toolbar drop-down.</p>
 </li>
 <li>
 <p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Post Process</b></span> option from the menu.</p>
+</li>
+<li>
+<p>Select <strong>Post Process</strong> from the context menu of the Job.</p>
 </li>
 <li>
 <p>Use the keyboard shortcut: <kbd>P</kbd> then <kbd>P</kbd>.</p>
@@ -552,135 +526,146 @@
 </div>
 </li>
 <li>
-<p>Confirm the <b class="menuref">Output File</b> name and directory</p>
+<p>If the Job has no Machine (legacy flow): the G-code is generated with the Job&#8217;s legacy Post-Processor (or the default from preferences, or a <strong>Post Processor</strong> selection dialog if none is set). Most legacy posts show the G-code in an editor with line numbers (<span class="since">line numbers introduced in 26.3</span>) where you may edit or cancel; the file is then written according to the File save policy (see below).</p>
+</li>
+<li>
+<p>If the Job has a Machine (<span class="since">introduced in 26.3</span>, machine-based flow): the <strong>Post Processing</strong> dialog opens (see below); press <b class="button">Generate Output</b>, review the files on the Output tab and press <b class="button">Save to Disk</b>.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>If neither the Job nor the preferences define a Post-Processor, a <strong>Post Processor</strong> dialog lists the enabled ones; double-click to choose.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
+<h2 id="post-processing-dialog"><a class="anchor" href="#post-processing-dialog"></a>Post Processing dialog</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Output file and Postprocessor properties can be set in the <a href="../job/job.html" class="xref page">Job</a>, at any time, prior to invoking the Postprocessor.</p>
+<p><span class="since">introduced in 26.3</span></p>
 </div>
 <div class="paragraph">
-<p>The provided Postprocessors are written with comments indicating areas containing Flags, Configuration Variables, and Sections of G-Codes and M-Codes that are to be used by the Postprocessor to configure the output.</p>
-</div>
-<div class="paragraph">
-<p>Typical Configuration True/False Flags include:</p>
+<p>When the Job has a Machine, post-processing opens the dialog titled <em>Post Processing - Job: &lt;name&gt;</em>. Its tabs are:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>OUTPUT_COMMENTS</strong> (True = Allow, False = Suppress): Used to insert Text Comments in the output G-code file.</p>
+<p><strong>Overview</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Machine</strong>: the <code>.fcm</code> machine to use; defaults to the Job&#8217;s Machine, <em>(none)</em> falls back to the legacy Post-Processor.</p>
 </li>
 <li>
-<p><strong>OUTPUT_HEADER</strong> (True = Allow, False = Suppress): Used to insert Text Headers in the output G-code file.</p>
+<p><strong>Fixtures</strong>: check the work coordinate systems to include.</p>
 </li>
 <li>
-<p><strong>OUTPUT_LINE_NUMBERS</strong> (True = Allow, False = Suppress): Used to insert Line Numbers in the output G-code file.</p>
+<p><strong>Job Details</strong>: Author and Comment written into the G-code header.</p>
 </li>
 <li>
-<p><strong>SHOW_EDITOR</strong> (True = Allow, False = Suppress): Used to show the output G-code in a Pop-up window when invoking the Postprocessor.</p>
+<p><strong>Options</strong>: <strong>Generate HTML sanity report</strong>.</p>
 </li>
 <li>
-<p><strong>MODAL</strong> (True = Allow, False = Suppress): Used to reduce the number of output G-code lines by stripping Mode information when the Mode is not changing.</p>
+<p><strong>Post Processor Parameters</strong>: runtime properties declared by the machine&#8217;s Post-Processor, e.g. LinuxCNC path blending.</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p><strong>Operations</strong>: check the Operations to export (inactive Operations are not listed); <b class="button">Select All</b>, <b class="button">Select None</b>, <b class="button">Workplan</b> (shows the ordered list of postable items with estimated times).</p>
+</li>
+<li>
+<p><strong>Options</strong>: the machine&#8217;s output options (units, header, comments, formatting, precision, duplicates, processing) and the non-runtime Post-Processor properties; changes apply to this export only.</p>
+</li>
+<li>
+<p><strong>Output</strong>: <strong>Output folder</strong> with <b class="button">Browse…</b>, <strong>Filename template</strong> (%j job name, %d document, %T tool, %W fixture, %O operation; <b class="button">Apply</b> renames the generated files), the list of generated files (rename via the context menu) and an editable G-code view. <b class="button">Save to Disk</b> writes every file and closes the dialog.</p>
+</li>
+<li>
+<p><strong>Warnings</strong>: result of the <a href="../job/sanity-check.html" class="xref page">sanity checks</a> (Severity, Note); the tab label shows the count.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="output-file-name"><a class="anchor" href="#output-file-name"></a>Output file name</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Typical Configuration Variables include:</p>
+<p>In the legacy flow the file name comes from the Job&#8217;s <strong>PostProcessorOutputFile</strong>, otherwise from the preference <strong>Output File → Default path</strong>, otherwise the document name in the document&#8217;s folder. Whether a file dialog appears depends on the File save policy preference. Placeholders: %D document directory, %d document name, %M macro directory, %j Job label; in the file name, when output is split: %T tool number, %t Tool Controller label, %W fixture, %O operation label, %S sequence number. Without an extension <code>.nc</code> is used; machine-based Post-Processors apply their own extension (e.g. <code>.ngc</code> for LinuxCNC).</p>
+</div>
+<div class="paragraph">
+<p><span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Job preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Post processor</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">File save policy</b></span> offers: <strong>Open file dialog</strong> (always ask), <strong>Open file dialog on conflict</strong>, <strong>Overwrite existing file</strong>, <strong>Append Unique ID on conflict</strong> (adds -1 to the name). The policy applies to the legacy flow; the Post Processing dialog always writes the files listed on its Output tab.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="preferences"><a class="anchor" href="#preferences"></a>Preferences</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Job preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Post processor</b></span>: enable or disable installed Post-Processors, choose the default Post-Processor and default arguments, the default output path and the file save policy.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="header"><a class="anchor" href="#header"></a>Header</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Machine-based output starts with a comment header that can include exporter, machine name, Post-Processor, project file, document name, description, author, date, units, tool list and fixture list; each item can be switched off in the Machine&#8217;s Header Options.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="included-post-processors"><a class="anchor" href="#included-post-processors"></a>Included Post-Processors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Included Post-Processors live in <code>&lt;FreeCAD&gt;/Mod/CAM/Path/Post/scripts</code>.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>LINENR</strong> (Line Number): Used to Set the Line Number index.</p>
+<p>Machine-based (<span class="since">introduced in 26.3</span>, used through a <a href="machine.html" class="xref page">Machine</a>): centroid, generic, generic_plasma, <a href="http://linuxcnc.org/docs/html/gcode/g-code.html#gcode:g17-g19.1">linuxcnc</a>, mach3_mach4, marlin, opensbp, smoothie.</p>
 </li>
 <li>
-<p><strong>UNITS</strong> (G20 or G21): Used to explicitly communicate to the target CNC controller what Units to use to interpret the final output file.</p>
+<p>Class-based, selectable as legacy posts in the Job: grbl (with support for bCNC header blocks using the argument <code>--bcnc</code>), masso_g3, svg, test.</p>
 </li>
 <li>
-<p><strong>MACHINE_NAME</strong> (Name of Target CNC Mill): Used to Insert a machine name label in the final output file.</p>
+<p>Legacy argument-based scripts (<span class="since">renamed with the <code>_legacy</code> suffix in 26.3</span>): centroid_legacy, dxf, dynapath_legacy, dynapath_4060_legacy, estlcam_legacy, fablin_legacy, fangling_legacy, fanuc_legacy, grbl_legacy, heidenhain_legacy, jtech_legacy (laser), KineticNCBeamicon2_legacy, linuxcnc_legacy, mach3_mach4_legacy, marlin_legacy, nccad_legacy, opensbp_legacy, philips_legacy, rml_legacy, rrf_legacy, snapmaker_legacy, uccnc_legacy, wedm_legacy.</p>
 </li>
 <li>
-<p><strong>PRECISION</strong>: Used to Set the number of digits to include after the decimal place in final output file</p>
+<p>Pre-processors for importing G-code: gcode_pre, opensbp_pre, slic3r_pre.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Typical Configuration Sections include:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>PREAMBLE</strong>: Code configuration inserted at beginning of the Job.</p>
-</li>
-<li>
-<p><strong>POSTAMBLE</strong>: Code configuration appended to the Job, providing for parking the machine, etc&#8230;&#8203;</p>
-</li>
-<li>
-<p><strong>TOOL_CHANGE</strong>: Code inserted with each tool change in the Job.</p>
-</li>
-</ul>
+<p>snapmaker, masso_g3 and svg were added in <span class="since">1.1</span>; fanuc, dynapath_4060, generic, generic_plasma and the machine-based versions in <span class="since">26.3</span>.</p>
 </div>
 <div class="paragraph">
-<p>The <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Job Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Post Processor tab</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Post Processor</b></span> is used to set the default Postprocessor selected on Job creation. This allows CAM workbench to be configured to only display desired Postprocessors, and to set a default.</p>
+<p>Additional Post-Processors are found in the macro directory, in the CAM file path preference, and in any installed add-on whose <code>package.xml</code> declares a Postprocessor content item (e.g. the FreeCAD/Machines add-on).</p>
 </div>
 <div class="paragraph">
-<p>Post-processing settings can be taken either from the Job&#8217;s selected postprocessor or from a selected machine configuration. If a machine configuration is used, it can define the postprocessor and related output options.</p>
+<p>To post-process only some Operations of a Job, use <a href="post-process-selected.html" class="xref page">CAM PostSelected</a> (<span class="since">introduced in 26.3</span>).</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="job-properties"><a class="anchor" href="#job-properties"></a>Job properties</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Included Postprocessors are saved in <strong>FreeCAD/Mod/CAM/CAM/Post/scripts</strong> by default:</p>
+<p>See <a href="../job/job.html#_properties" class="xref page">CAM Job</a>: Output File, Post Processor, Arguments, Machine (<span class="since">26.3</span>), Fixtures, Order Output By, Split Output and Post Processor Property Overrides (<span class="since">26.3</span>). After a successful export the hidden <strong>LastPostProcessDate</strong> and <strong>LastPostProcessOutput</strong> properties are updated and used by <a href="../job/sanity-check.html" class="xref page">CAM Sanity</a>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>centroid</p>
-</li>
-<li>
-<p>comparams</p>
-</li>
-<li>
-<p>dxf</p>
-</li>
-<li>
-<p>dynapath</p>
-</li>
-<li>
-<p>grbl, including support for bCNC header blocks using Job output argument --bcnc</p>
-</li>
-<li>
-<p>jtech (laser)</p>
-</li>
-<li>
-<p><a href="http://linuxcnc.org/docs/html/gcode/g-code.html#gcode:g17-g19.1">linuxcnc</a></p>
-</li>
-<li>
-<p>mach3_mach4</p>
-</li>
-<li>
-<p>nccad</p>
-</li>
-<li>
-<p>opensbp</p>
-</li>
-<li>
-<p>phillips</p>
-</li>
-<li>
-<p>refactored* (These postprocessors are works-in-progress and will be changing a lot)</p>
-</li>
-<li>
-<p>rml</p>
-</li>
-<li>
-<p>smoothie</p>
-</li>
-<li>
-<p>uccnc</p>
-</li>
-</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from Path.Post.Processor import PostProcessorFactory
+post = PostProcessorFactory.get_post_processor(job, 'linuxcnc')
+sections = post.export2()   # machine-based; use post.export() for legacy posts
+for name, gcode in sections:
+    print(name, len(gcode))</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -698,7 +683,7 @@
 </div>
 <nav class="pagination">
   <span class="prev"><a href="../job/job.html">New Job</a></span>
-  <span class="next"><a href="../job/sanity-check.html">Sanity Check</a></span>
+  <span class="next"><a href="post-process-selected.html">Post Process Selected</a></span>
 </nav>
 </article>
   </div>

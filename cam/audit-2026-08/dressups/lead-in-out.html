@@ -6,7 +6,7 @@
     <title>CAM DressupLeadInOut :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/dressups/lead-in-out.html">
     <link rel="prev" href="drag-knife.html">
-    <link rel="next" href="ramp-entry.html">
+    <link rel="next" href="mirror.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -356,7 +386,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FreeCAD CAM</a></li>
-    <li>CAM Dressup</li>
+    <li>Path Dressup</li>
     <li><a href="lead-in-out.html">Lead In/Out</a></li>
   </ul>
 </nav>
@@ -389,6 +419,10 @@
 <dd>
 <p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Path Dressup</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Lead In/Out</b></span></p>
 </dd>
+<dt class="hdlist1">Toolbar</dt>
+<dd>
+<p>Path Modification → Dressup Operations dropdown</p>
+</dd>
 <dt class="hdlist1">Workbenches</dt>
 <dd>
 <p><a href="../index.html" class="xref page">CAM</a></p>
@@ -415,7 +449,7 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_DressupLeadInOut.svg" alt="CAM DressupLeadInOut" width="24"></span> <a href="#">CAM DressupLeadInOut</a> command dresses up an existing path by adding lead-in and lead-out moves at the beginning and end of the toolpath.</p>
+<p>The <span class="image"><img src="../_images/CAM_DressupLeadInOut.svg" alt="CAM DressupLeadInOut" width="24"></span> <a href="#">CAM DressupLeadInOut</a> command dresses up an existing Toolpath by adding lead-in and lead-out moves at the beginning and end of the Toolpath. Its tooltip reads: <em>Creates entry and exit motions for a selected path</em>.</p>
 </div>
 </div>
 </div>
@@ -425,17 +459,20 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Select an existing path object.</p>
+<p>Select one Operation or Dressup (Profile, Pocket or similar; compound objects are rejected).</p>
 </li>
 <li>
 <p>There are several ways to invoke the command:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Press the <span class="image"><img src="../_images/CAM_DressupLeadInOut.svg" alt="CAM DressupLeadInOut" width="16"></span> <a href="#">Lead In/Out</a> button.</p>
+<p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Path Dressup</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Lead In/Out</b></span> option from the menu.</p>
 </li>
 <li>
-<p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Path Dressup</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Lead In/Out</b></span> option from the menu.</p>
+<p>Select the <strong>Dressup Operations</strong> dropdown on the Path Modification toolbar.</p>
+</li>
+<li>
+<p>Select the <span class="menuseq"><b class="menu">Path Dressup</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Lead In/Out</b></span> option from the <a href="https://wiki.freecad.org/Tree_view">Tree view</a> context menu.</p>
 </li>
 </ul>
 </div>
@@ -444,7 +481,7 @@
 <p>Adjust the lead-in and lead-out settings in the task panel.</p>
 </li>
 <li>
-<p>Confirm the dressup.</p>
+<p>Press <b class="button">OK</b>.</p>
 </li>
 </ol>
 </div>
@@ -453,16 +490,158 @@
 <div class="sect1">
 <h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The task panel contains a <strong>Lead In</strong> and a <strong>Lead Out</strong> checkable group (properties <strong>Lead In</strong> and <strong>Lead Out</strong>), each with:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Lead in</strong>: Controls the entry move added before the main cutting path.</p>
+<p><strong>Style</strong>: The style of the lead motion, see below.</p>
 </li>
 <li>
-<p><strong>Lead out</strong>: Controls the exit move added after the main cutting path.</p>
+<p><strong>Radius/length</strong>: Radius or length of the lead move; the label changes with the style.</p>
 </li>
 <li>
-<p><strong>Feed rate</strong>: <span class="since">introduced in 26.3</span> The corresponding lead-in and lead-out moves use the feed rates defined for these moves in the tool controller. By default these follow the horizontal feed rate.</p>
+<p><strong>Angle</strong>: Angle of the lead move.</p>
+</li>
+<li>
+<p><strong>Extend</strong>: Extends the lead distance; only used for the styles <code>Arc</code>, <code>Line</code>, <code>Perpendicular</code> and <code>Tangent</code>.</p>
+</li>
+<li>
+<p><strong>Offset Entrance Location</strong> / <strong>Offset Exit Location</strong>: Move the start or end point along the Toolpath.</p>
+</li>
+<li>
+<p><strong>Invert Direction</strong>: Invert the lead direction.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Below the groups:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Rapid plunge</strong>: Perform plunges with G0.</p>
+</li>
+<li>
+<p><strong>Retract Threshold</strong>: Distance below which the tool is kept down between segments instead of retracting.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Fields that do not apply to the selected style are hidden.</p>
+</div>
+<div class="sect2">
+<h3 id="styles"><a class="anchor" href="#styles"></a>Styles</h3>
+<div class="paragraph">
+<p>Available styles: <code>Arc</code>, <code>Line</code>, <code>Perpendicular</code>, <code>Tangent</code>, <code>Arc3d</code>, <code>ArcZ</code>, <code>ArcZFollow</code>, <code>Helix</code>, <code>Line3d</code>, <code>LineZ</code>, <code>LineZFollow</code>, <code>No Retract</code>, <code>Vertical</code>. <code>ArcZFollow</code> <span class="since">introduced in 26.3</span> and <code>LineZFollow</code> <span class="since">introduced in 26.3</span> follow the Z of the Toolpath while leading in; <code>LineZFollow</code> is a simpler alternative to <code>ArcZFollow</code> that needs less computation.</p>
+</div>
+<div class="paragraph">
+<p>Field visibility per style:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Angle</strong> is hidden for <code>No Retract</code>, <code>Perpendicular</code>, <code>Tangent</code> and <code>Vertical</code>.</p>
+</li>
+<li>
+<p><strong>Extend</strong> is only shown for <code>Arc</code>, <code>Line</code>, <code>Perpendicular</code> and <code>Tangent</code>.</p>
+</li>
+<li>
+<p><strong>Radius/length</strong> is hidden for <code>No Retract</code> and <code>Vertical</code>.</p>
+</li>
+<li>
+<p><strong>Invert Direction</strong> is hidden for <code>No Retract</code>, <code>ArcZ</code>, <code>ArcZFollow</code>, <code>LineZ</code>, <code>LineZFollow</code>, <code>Vertical</code> and <code>Tangent</code>.</p>
+</li>
+<li>
+<p>The offset fields are hidden for <code>No Retract</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="properties"><a class="anchor" href="#properties"></a>Properties</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Base</strong> (<code>Link</code>): The base Toolpath to modify.</p>
+</li>
+<li>
+<p><strong>Lead In</strong>, <strong>Lead Out</strong> (<code>Bool</code>): Modify the lead in to, or the lead out from, the Toolpath.</p>
+</li>
+<li>
+<p><strong>Style In</strong>, <strong>Style Out</strong> (<code>Enumeration</code>): <span class="since">introduced in 1.1</span> The style of motion into or out of the Toolpath (they replace <strong>Style On</strong> and <strong>Style Off</strong> of version 1.0; files are migrated).</p>
+</li>
+<li>
+<p><strong>Rapid Plunge</strong> (<code>Bool</code>): Perform plunges with G0.</p>
+</li>
+<li>
+<p><strong>Retract Threshold</strong> (<code>Length</code>): <span class="since">introduced in 1.1</span> Distance below which the tool is kept down between segments instead of retracting (replaces the 1.0 <strong>Keep Tool Down</strong> property).</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Path Lead-in</div>
+<ul>
+<li>
+<p><strong>Angle In</strong> (<code>Angle</code>): <span class="since">introduced in 1.1</span> Angle of the lead-in move; default <code>45°</code>. Values are clamped to 0–180° (a 0.1° minimum applies to the arc and Z styles; the maximum is 179° for the <code>ArcZ</code> styles and 89° for <code>LineZFollow</code>).</p>
+</li>
+<li>
+<p><strong>Radius In</strong> (<code>Length</code>): <span class="since">introduced in 1.1</span> Radius or length of the lead-in move. The default is an expression: 1.5 times the Tool Bit radius of the base Operation&#8217;s Tool Controller (replaces <strong>Length</strong> of version 1.0).</p>
+</li>
+<li>
+<p><strong>Invert In</strong> (<code>Bool</code>): <span class="since">introduced in 1.1</span> Invert the lead-in direction.</p>
+</li>
+<li>
+<p><strong>Offset In</strong> (<code>Distance</code>): <span class="since">introduced in 1.1</span> Move the start point along the Toolpath.</p>
+</li>
+<li>
+<p><strong>Extend In</strong> (<code>Length</code>): <span class="since">introduced in 26.3</span> Extend the lead-in distance; only for the styles <code>Arc</code>, <code>Line</code>, <code>Perpendicular</code> and <code>Tangent</code> (version 1.0 had <strong>Extend Lead In</strong>; 1.1 had no extend property).</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Path Lead-out</div>
+<ul>
+<li>
+<p><strong>Angle Out</strong> (<code>Angle</code>): <span class="since">introduced in 1.1</span> Angle of the lead-out move; default <code>45°</code>; clamped like <strong>Angle In</strong>.</p>
+</li>
+<li>
+<p><strong>Radius Out</strong> (<code>Length</code>): <span class="since">introduced in 1.1</span> Radius or length of the lead-out move; default as for <strong>Radius In</strong> (replaces <strong>Length Out</strong> of version 1.0).</p>
+</li>
+<li>
+<p><strong>Invert Out</strong> (<code>Bool</code>): <span class="since">introduced in 1.1</span> Invert the lead-out direction.</p>
+</li>
+<li>
+<p><strong>Offset Out</strong> (<code>Distance</code>): <span class="since">introduced in 1.1</span> Move the end point along the Toolpath.</p>
+</li>
+<li>
+<p><strong>Extend Out</strong> (<code>Length</code>): <span class="since">introduced in 26.3</span> Extend the lead-out distance; only for the styles <code>Arc</code>, <code>Line</code>, <code>Perpendicular</code> and <code>Tangent</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="until">1.0 and earlier</span>: <strong>Include Layers</strong>, <strong>Keep Tool Down</strong>, <strong>Style On</strong>, <strong>Style Off</strong>, <strong>Length</strong>, <strong>Length Out</strong>, <strong>Extend Lead In</strong> and <strong>Extend Lead Out</strong> no longer exist; documents are migrated on load.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Feed rate: <span class="since">introduced in 26.3</span> lead-in moves use the <strong>Lead In Feed</strong> and lead-out moves the <strong>Lead Out Feed</strong> of the base Operation&#8217;s Tool Controller. When these are zero, lead-in falls back to the vertical feed rate and lead-out to the horizontal feed rate.</p>
+</li>
+<li>
+<p>The side (<code>Inside</code> or <code>Outside</code>) and direction (<code>CW</code> or <code>CCW</code>) of the leads are taken from the base Operation&#8217;s <strong>Side</strong> and <strong>Direction</strong> properties; Operations without them are treated as <code>Inside</code> and <code>CCW</code>.</p>
+</li>
+<li>
+<p><strong>Clearance Height</strong> and <strong>Safe Height</strong> are taken from the base Operation or, when absent, from the first two rapid Z moves of the Toolpath. The dressup emits nothing and prints a warning when these parameters cannot be determined.</p>
 </li>
 </ul>
 </div>
@@ -474,13 +653,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>This dressup modifies the start and end of an existing path.</p>
+<p>Lead In/Out cannot be applied to compound Toolpath objects.</p>
 </li>
 <li>
-<p>The exact result depends on the selected path and the chosen lead-in and lead-out settings.</p>
-</li>
-<li>
-<p><span class="since">introduced in 26.3</span> <span class="image"><img src="../_images/CAM_DressupRampEntry.svg" alt="CAM DressupRampEntry" width="16"></span> <a href="ramp-entry.html" class="xref page">CAM DressupRampEntry</a> can also be applied to a path that already has a Lead In/Out dressup.</p>
+<p><span class="since">introduced in 26.3</span> <span class="image"><img src="../_images/CAM_DressupRampEntry.svg" alt="CAM DressupRampEntry" width="16"></span> <a href="ramp-entry.html" class="xref page">CAM DressupRampEntry</a> can be applied on top of a Lead In/Out dressup.</p>
 </li>
 </ul>
 </div>
@@ -491,14 +667,25 @@
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">Add python code here</code></pre>
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path.Dressup.Gui.LeadInOut as LeadInOut
+
+obj = LeadInOut.Create(op)          # shows the task panel
+obj = LeadInOut.Create(op, mode=2)  # no task panel
+
+obj.StyleIn = "Arc"
+obj.RadiusIn = 3
+obj.AngleIn = 90
+obj.LeadOut = False</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><span class="since">introduced in 26.3</span> The moves are produced by the generator <code>Path.Base.Generator.leadinout.LeadInOut(**args).generate()</code>, which can be used without a document.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="drag-knife.html">Drag Knife</a></span>
-  <span class="next"><a href="ramp-entry.html">Ramp Entry</a></span>
+  <span class="next"><a href="mirror.html">Mirror</a></span>
 </nav>
 </article>
   </div>

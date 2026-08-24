@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM DressupRampEntry :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/dressups/ramp-entry.html">
-    <link rel="prev" href="lead-in-out.html">
+    <link rel="prev" href="mirror.html">
     <link rel="next" href="tag.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mirror.html">Mirror</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -356,7 +386,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FreeCAD CAM</a></li>
-    <li>CAM Dressup</li>
+    <li>Path Dressup</li>
     <li><a href="ramp-entry.html">Ramp Entry</a></li>
   </ul>
 </nav>
@@ -389,6 +419,10 @@
 <dd>
 <p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Path Dressup</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Ramp Entry</b></span></p>
 </dd>
+<dt class="hdlist1">Toolbar</dt>
+<dd>
+<p>Path Modification → Dressup Operations dropdown</p>
+</dd>
 <dt class="hdlist1">Workbenches</dt>
 <dd>
 <p><a href="../index.html" class="xref page">CAM</a></p>
@@ -415,7 +449,7 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_DressupRampEntry.svg" alt="CAM DressupRampEntry" width="24"></span> <a href="#">CAM DressupRampEntry</a> command dresses up an existing path to add a ramp entry.</p>
+<p>The <span class="image"><img src="../_images/CAM_DressupRampEntry.svg" alt="CAM DressupRampEntry" width="24"></span> <a href="#">CAM DressupRampEntry</a> command dresses up an existing Toolpath by replacing each vertical plunge with a ramp or helix entry, so that the Tool Bit enters the material at an angle instead of plunging straight down. Its tooltip reads: <em>Creates a ramp entry dress-up object from a selected toolpath</em>.</p>
 </div>
 </div>
 </div>
@@ -425,10 +459,26 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Select a contour or profile path objects.</p>
+<p>Select one Operation or Dressup (compound objects are rejected; <span class="since">introduced in 26.3</span> a Lead In/Out dressup may be selected).</p>
 </li>
 <li>
+<p>There are several ways to invoke the command:</p>
+<div class="ulist">
+<ul>
+<li>
 <p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Path Dressup</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Ramp Entry</b></span> option from the menu.</p>
+</li>
+<li>
+<p>Select the <strong>Dressup Operations</strong> dropdown on the Path Modification toolbar.</p>
+</li>
+<li>
+<p>Select the <span class="menuseq"><b class="menu">Path Dressup</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Ramp Entry</b></span> option from the <a href="https://wiki.freecad.org/Tree_view">Tree view</a> context menu.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The dressup has no task panel; edit its properties in the property editor.</p>
 </li>
 </ol>
 </div>
@@ -438,37 +488,43 @@
 <h2 id="properties"><a class="anchor" href="#properties"></a>Properties</h2>
 <div class="sectionbody">
 <div class="ulist">
+<div class="title">Path</div>
 <ul>
 <li>
-<p><strong>Ramp Feed Rate</strong> : Can either be the current vertical or horizontal feed rate or some other custom value</p>
+<p><strong>Base</strong> (<code>Link</code>): The base Toolpath to modify.</p>
 </li>
 <li>
-<p><strong>Angle</strong> : Angle of the ramp against the vertical axis. A smaller value makes the ramp steeper.</p>
+<p><strong>Angle</strong> (<code>Angle</code>): Angle of the ramp; default <code>60°</code>; values are clamped to 0.1–89.9°. Documents from earlier versions, where the angle was measured against the vertical axis (a smaller value making the ramp steeper), are restored with the hidden <strong>Ramp Vertical</strong> property set, which preserves that interpretation.</p>
 </li>
 <li>
-<p><strong>Method</strong> : Used to select different modes of ramping:</p>
+<p><strong>Method</strong> (<code>Enumeration</code>), default <code>RampMethod3</code>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><em>RampMethod1</em>: goes down at the ramp angle and the moves horizontal to the target point</p>
+<p><code>Helix</code>: Helix-like entry; only for closed Toolpaths.</p>
 </li>
 <li>
-<p><em>RampMethod2</em>: goes horizontal first and then down at the ramp angle to the target point</p>
+<p><code>RampMethod1</code>: Ramp down along the Toolpath after the plunge, then return backwards along the Toolpath to the original plunge end point.</p>
 </li>
 <li>
-<p><em>RampMethod3</em>: goes down in a zigzag way</p>
+<p><code>RampMethod2</code>: Travel at start depth along the Toolpath, then ramp backwards at the ramp angle, arriving exactly at the plunge end point.</p>
 </li>
 <li>
-<p><em>Helix</em>: goes down spiraling</p>
+<p><code>RampMethod3</code>: Ramp down along the Toolpath until half the Z distance is travelled, change direction and ramp backwards to the plunge end point.</p>
 </li>
 </ul>
 </div>
 </li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">StartDepth</div>
+<ul>
 <li>
-<p><strong>Dressup Start Depth</strong> : The distance above the target level where ramping starts</p>
+<p><strong>Use Start Depth</strong> (<code>Bool</code>): Ignore motion commands above <strong>Dressup Start Depth</strong>. When <code>false</code>, the first ramp may start from the clearance or safe height and be steeper than expected.</p>
 </li>
 <li>
-<p><strong>Use Start Depth</strong> : Indicates that the ramping does not start above the stock level. If it is not set to true the first ramp can be steeper than expected.</p>
+<p><strong>Dressup Start Depth</strong> (<code>Distance</code>): The depth at which the ramp dressup is enabled. Above this depth ramps are not generated and motion commands are passed through unchanged. By default it is bound by expression to the <strong>Start Depth</strong> of the base Operation. Only shown when <strong>Use Start Depth</strong> is <code>true</code>.</p>
 </li>
 </ul>
 </div>
@@ -486,8 +542,43 @@
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Feed rate: <span class="since">introduced in 26.3</span> ramp moves use the <strong>Ramp Feed</strong> of the base Operation&#8217;s Tool Controller. <span class="until">1.1 and earlier</span>: the <strong>Ramp Feed Rate</strong> property selected the vertical, horizontal or a <strong>Custom Feed Rate</strong>; these properties were removed and files are migrated on load.</p>
+</li>
+<li>
+<p><span class="since">introduced in 26.3</span> The ramp is generated by <code>Path.Base.Generator.ramp_entry</code>; the spurious initial move to X0 Y0 of earlier versions is no longer emitted, and Operations with several plunges per profile are handled.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path.Dressup.Gui.RampEntry as RampEntry
+
+obj = RampEntry.Create(op)
+obj.Method = "Helix"
+obj.Angle = 45
+
+# without a document:
+import math
+from Path.Base.Generator.ramp_entry import RampEntry
+
+cmds = RampEntry(commands, method=3, angle_rad=math.radians(30), tc=toolController).generate()</code></pre>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="lead-in-out.html">Lead In/Out</a></span>
+  <span class="prev"><a href="mirror.html">Mirror</a></span>
   <span class="next"><a href="tag.html">Tag</a></span>
 </nav>
 </article>

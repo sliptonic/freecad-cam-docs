@@ -6,7 +6,7 @@
     <title>CAM Pocket Shape :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/pocket.html">
     <link rel="prev" href="profile.html">
-    <link rel="next" href="mill-face.html">
+    <link rel="next" href="mill-facing.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="mill-face.html">Face</a>
+    <a class="nav-link" href="mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -381,7 +411,7 @@
 <div class="openblock fcinfobox">
 <div class="content">
 <div class="paragraph fcTitle">
-<p><span class="image"><img src="../_images/CAM_Pocket_Shape.svg" alt="CAM Pocket Shape" width="32"></span> <strong>CAM Pocket Shape</strong></p>
+<p><span class="image"><img src="../_images/CAM_Pocket.svg" alt="CAM Pocket Shape" width="32"></span> <strong>CAM Pocket Shape</strong></p>
 </div>
 <div class="dlist">
 <dl>
@@ -415,7 +445,7 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_Pocket_Shape.svg" alt="CAM Pocket Shape" width="24"></span> <a href="#">CAM Pocket Shape</a> command creates a pocketing operation from selected bottom faces, or walls, of one or more pockets of the jobs base object.</p>
+<p>The <span class="image"><img src="../_images/CAM_Pocket.svg" alt="CAM Pocket" width="24"></span> <a href="#">CAM Pocket Shape</a> command creates a pocketing operation from selected bottom faces, or walls, of one or more pockets of the Job Model. It is found on the New Operations toolbar and in the CAM menu; its tooltip reads "Creates a pocket toolpath from a face or faces".</p>
 </div>
 <div class="paragraph">
 <p>The CAM Pocket Shape object is made to be part of a <span class="image"><img src="../_images/CAM_Job.svg" alt="CAM Job" width="16"></span> <a href="../job/job.html" class="xref page">CAM Job</a>.</p>
@@ -436,14 +466,14 @@
 <p>Select the bottom or the wall(s) of a pocket. While it is usually easier to select the bottom, the walls have to be selected when a pocket goes through all.</p>
 </li>
 <li>
-<p><span class="since">introduced in 26.3</span>: Horizontal edges can also be selected. Edges are combined into wires, and a closed horizontal wire is converted into a pocket face.</p>
+<p><span class="since">introduced in 26.3</span>: Horizontal edges can also be selected; connected edges are combined into wires, and a closed horizontal wire is converted into a pocket face. Open wires or vertical walls whose projection forms a closed area can be closed with <strong>Close Open Paths</strong>.</p>
 </li>
 <li>
 <p>There are several ways to invoke the command:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Press the <span class="image"><img src="../_images/CAM_Pocket_Shape.svg" alt="CAM Pocket Shape" width="16"></span> <a href="#">Pocket Shape</a> button.</p>
+<p>Press the <span class="image"><img src="../_images/CAM_Pocket.svg" alt="CAM Pocket" width="16"></span> <a href="#">Pocket Shape</a> button on the New Operations toolbar. The command uses the <code>CAM_Pocket.svg</code> icon.</p>
 </li>
 <li>
 <p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Pocket Shape</b></span> option from the menu.</p>
@@ -524,19 +554,19 @@
 <p><strong>Clearance Height</strong>: The height needed to clear clamps and obstructions</p>
 </li>
 <li>
-<p><strong>Final Depth</strong>: Final Depth of Tool- lowest value in Z</p>
+<p><strong>Final Depth</strong>: Final Depth of Tool Bit - lowest value in Z</p>
 </li>
 <li>
 <p><strong>Finish Depth</strong>: Maximum material removed on final pass. The height (thickness) of the last cutting level - <em>set for a better finish</em>.</p>
 </li>
 <li>
-<p><strong>Safe Height</strong>: The height above which Rapid motions are allowed. (Rapid safety height between locations)</p>
+<p><strong>Safe Height</strong>: (<em>Retract</em> in the task panel) The height above which rapid moves are allowed between locations.</p>
 </li>
 <li>
-<p><strong>Start Depth</strong>: Starting depth of Tool - <em>first cut depth in Z</em></p>
+<p><strong>Start Depth</strong>: Starting depth of Tool Bit - <em>first cut depth in Z</em></p>
 </li>
 <li>
-<p><strong>Step Down</strong>: Incremental step down of Tool during operation</p>
+<p><strong>Step Down</strong>: Incremental step down of Tool Bit during operation</p>
 </li>
 </ul>
 </div>
@@ -555,15 +585,10 @@
 <p><strong>Extension Corners</strong>: When enabled connected extension edges are combined to wires.</p>
 </li>
 <li>
-<p><strong>Extension Length Default</strong>: Default length of extensions.</p>
+<p><strong>Extension Length Default</strong>: Default length of extensions (default expression: <code>OpToolDiameter / 2.0</code>, half the Tool Bit diameter).</p>
 </li>
-</ul>
-</div>
-<div class="ulist">
-<div class="title">Face</div>
-<ul>
 <li>
-<p><strong>Offset Pattern</strong>: Clearing pattern to use. (Select in which manner the horizontal movements should be done.)</p>
+<p><strong>Extension Feature</strong>: (hidden) List of features to extend.</p>
 </li>
 </ul>
 </div>
@@ -574,13 +599,54 @@
 <p><strong>Active</strong>: Make False, to prevent operation from generating code</p>
 </li>
 <li>
+<p><strong>Base</strong>: The base geometry for this operation</p>
+</li>
+<li>
+<p><strong>Block Delete</strong>: <span class="since">introduced in 26.3</span> Enable the Post-Processor to add block delete commands</p>
+</li>
+<li>
 <p><strong>Comment</strong>: An optional comment for this Operation</p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong>: The coolant mode for this operation: <code>None</code>, <code>Flood</code> or <code>Mist</code></p>
+</li>
+<li>
+<p><strong>Cycle Time</strong>: (read-only) The cycle time estimation for this operation.</p>
+</li>
+<li>
+<p><strong>Locations</strong>: Base locations for this operation (not editable in the task panel; the Extensions tab replaces the Base Location tab)</p>
+</li>
+<li>
+<p><strong>Sorting Mode</strong>: <span class="since">introduced in 26.3</span> <code>Automatic</code> sorts shapes with a nearest-neighbour algorithm; <code>Manual</code> follows the selection order.</p>
+</li>
+<li>
+<p><strong>Split Arcs</strong>: Split arcs into discrete segments</p>
+</li>
+<li>
+<p><strong>Tool Controller</strong>: Defines the Tool Controller used in the Operation</p>
 </li>
 <li>
 <p><strong>User Label</strong>: User assigned label</p>
 </li>
 <li>
-<p><strong>Tool Controller</strong>: Defines the Tool controller used in the Operation</p>
+<p><strong>Workplane</strong>: <span class="since">introduced in 26.3</span> The orientation of the Tool Bit for this operation; default (0, 0, 1) for standard Z-up milling. Set with the <em>Set Workplane from Face</em> context menu command for 3+2 machining.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Op Values</div>
+<p>These read-only properties hold values calculated by the operation. They are useful as sources for expressions.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Op Start Depth</strong>, <strong>Op Final Depth</strong>: the calculated default depths</p>
+</li>
+<li>
+<p><strong>Op Tool Diameter</strong>: the diameter of the Tool Bit</p>
+</li>
+<li>
+<p><strong>Op Stock ZMax</strong>, <strong>Op Stock ZMin</strong>: the Z extent of the Stock</p>
 </li>
 </ul>
 </div>
@@ -588,51 +654,40 @@
 <div class="title">Pocket</div>
 <ul>
 <li>
-<p><strong>Cut Mode</strong>: Specifies a CW or CCW move for the cut</p>
+<p><strong>Angle</strong>: <span class="since">introduced in 26.3</span> (formerly <strong>Zig Zag Angle</strong>) Angle of the grid, line and zigzag patterns relative to the X axis (default 45°). Hidden, and disabled in the task panel, when the pattern is <code>Offset</code>.</p>
 </li>
 <li>
-<p><strong>Extra Offset</strong>: Extra offset to apply to the operation. Direction is operation dependent. (Extra value to stay away from final profile <em>good for roughing toolpath</em>)</p>
+<p><strong>Clearing Pattern</strong>: <span class="since">introduced in 1.1</span> (formerly <strong>Offset Pattern</strong>; <em>Pattern</em> in the task panel) Clearing pattern to use: <code>ZigZag</code>, <code>Offset</code> (default), <code>ZigZagOffset</code>, <code>Line</code> or <code>Grid</code>. Old documents are migrated automatically.</p>
 </li>
 <li>
-<p><strong>Min Travel</strong>: Use 3D Sorting of Path (when multiple base geometries used).</p>
+<p><strong>Close Open Paths</strong>: <span class="since">introduced in 26.3</span> Close an open area formed by edges or vertical faces with a straight line so it can be pocketed.</p>
 </li>
 <li>
-<p><strong>Retract Threshold</strong>: Distance below which the operation can stay down for repositioning moves. A value of <code>0</code> disables this behavior. <span class="since">introduced in 26.3</span>: This replaces <strong>Keep Tool Down</strong>.</p>
+<p><strong>Cut Mode</strong>: <code>Climb</code> or <code>Conventional</code>. Climb moves the Tool Bit into the cut on each rotation; in conventional mode the Tool Bit&#8217;s rotation and lateral movement are in the same direction.</p>
 </li>
 <li>
-<p><strong>Start At</strong>: Start pocketing at center or boundary.</p>
+<p><strong>Extra Offset</strong>: Extra offset to apply to the operation - radial stock to leave on the walls. Shown as <em>Radial stock to leave</em> in the task panel.</p>
 </li>
 <li>
-<p><strong>Step Over</strong>: Select the horizontal step over (<strong>Percent</strong> of tool diameter: 100% = tool diameter).</p>
+<p><strong>Force Max Step Over</strong>: <span class="since">introduced in 26.3</span> Force the maximum stepover even if not all area is cleared. Without it the stepover may be reduced (for stepovers above 50 %) to ensure full coverage.</p>
 </li>
 <li>
-<p><strong>Use Outline</strong>: Uses the outline of the base geometry.</p>
+<p><strong>Min Travel</strong>: Use 3D sorting of the Toolpath to minimise travel; only applied when <strong>Use Start Point</strong> is enabled.</p>
 </li>
 <li>
-<p><strong>Angle</strong>: Angle of the clearing pattern relative to the X-axis. This property was formerly named <strong>Zig Zag Angle</strong>. It is hidden when <strong>Offset Pattern</strong> is set to <code>Offset</code>.</p>
+<p><strong>Retract Threshold</strong>: <span class="since">introduced in 26.3</span> Repositioning moves shorter than this distance stay down. Replaces <strong>Keep Tool Down</strong>; documents with <strong>Keep Tool Down</strong> checked get the expression <code>1 * OpToolDiameter</code>.</p>
 </li>
 <li>
-<p><strong>SortingMode</strong>: Controls how multiple selected base geometries are ordered. <code>Automatic</code> uses automatic sorting. <code>Manual</code> follows the selection order.</p>
-</li>
-</ul>
-</div>
-<div class="ulist">
-<div class="title">Rotation</div>
-<ul>
-<li>
-<p><strong>Attempt Inverse Angle</strong>: Automatically attempt Inverse Angle if initial rotation is incorrect.</p>
+<p><strong>Start At</strong>: Start pocketing at <code>Center</code> or <code>Edge</code>.</p>
 </li>
 <li>
-<p><strong>B_Axis Error Override</strong>: Visually orient B(y) rotations to model (error in FreeCAD rendering).</p>
+<p><strong>Step Over</strong>: Percent of Tool Bit diameter to step over on each pass (default 50 %).</p>
 </li>
 <li>
-<p><strong>Enable Rotation</strong>: Enable rotation to gain access to pockets or areas not normal to Z axis.</p>
+<p><strong>Use Outline</strong>: (<em>Ignore holes</em> in the task panel) Uses the outline of the Base Geometry and ignores all holes.</p>
 </li>
 <li>
-<p><strong>Inverse Angle</strong>: Inverse the angle of the rotation. <em>*Example:* change a rotation from -22.5 to 22.5 degrees.</em></p>
-</li>
-<li>
-<p><strong>Reverse Direction</strong>: Reverse orientation of Operation by 180 degrees.</p>
+<p><strong>Use Rest Machining</strong>: Skip regions that have already been cleared by previous operations of the Job.</p>
 </li>
 </ul>
 </div>
@@ -640,7 +695,7 @@
 <div class="title">Start Point</div>
 <ul>
 <li>
-<p><strong>Start Point</strong>: The start point of this path.</p>
+<p><strong>Start Point</strong>: The start point of this Toolpath.</p>
 </li>
 <li>
 <p><strong>Use Start Point</strong>: Make True, if manually specifying a Start Point, then enter Start Points in the property data Start Points field.</p>
@@ -656,20 +711,23 @@
 <p><em>Descriptions for the settings are provided in the Properties list above.</em></p>
 </div>
 <div class="paragraph">
-<p>This section is simply a layout map of the settings in the window editor for the Operation.</p>
+<p>This section is simply a layout map of the settings in the window editor for the Operation. The task panel has five tabs: Base Geometry, Extensions, Heights, Tool Controller <span class="since">introduced in 26.3</span> and Operation.</p>
 </div>
 <div class="sect2">
 <h3 id="base-geometry"><a class="anchor" href="#base-geometry"></a>Base Geometry</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add</strong>: Adds selected element(s) which should be the base(s) for the path(s)</p>
+<p><strong>Add</strong>: Adds selected element(s) which should be the base(s) for the Toolpath(s)</p>
 </li>
 <li>
-<p><strong>Delete</strong>: Delete the selected item(s) in the Base Geometry list</p>
+<p><strong>Remove</strong>: Remove the selected item(s) in the Base Geometry list</p>
 </li>
 <li>
 <p><strong>Clear</strong>: Clear all items in the Base Geometry list</p>
+</li>
+<li>
+<p>The drop-down and <strong>Import</strong> button copy the Base Geometry of another operation in the Job.</p>
 </li>
 </ul>
 </div>
@@ -679,38 +737,19 @@
 <div class="ulist">
 <ul>
 <li>
+<p><strong>Enable extensions</strong>: turn the feature on</p>
+</li>
+<li>
 <p><strong>Show All</strong>: If selected, all potential extensions are visualized. Enabled extensions in purple, disabled extensions in yellow.</p>
 </li>
 <li>
-<p><strong>Extension Corners</strong></p>
+<p><strong>Extend corners</strong>: combine selected adjacent edges</p>
 </li>
 <li>
-<p><strong>Extension Length Default</strong></p>
+<p><strong>Default length</strong>: extent of new extensions (default half the Tool Bit diameter)</p>
 </li>
 <li>
-<p><strong>Enable</strong></p>
-</li>
-<li>
-<p><strong>Disable</strong></p>
-</li>
-<li>
-<p><strong>Clear</strong></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="depths"><a class="anchor" href="#depths"></a>Depths</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Start Depth</strong></p>
-</li>
-<li>
-<p><strong>Final Depth</strong></p>
-</li>
-<li>
-<p><strong>Step Down</strong></p>
+<p><strong>Enable</strong> / <strong>Disable</strong> / <strong>Clear</strong>: act on the selected tree items</p>
 </li>
 </ul>
 </div>
@@ -720,10 +759,35 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Safe Height</strong></p>
+<p><strong>Clearance</strong></p>
 </li>
 <li>
-<p><strong>Clearance Height</strong></p>
+<p><strong>Retract</strong></p>
+</li>
+<li>
+<p><strong>Start</strong></p>
+</li>
+<li>
+<p><strong>Step down</strong></p>
+</li>
+<li>
+<p><strong>Finish step down</strong></p>
+</li>
+<li>
+<p><strong>Final</strong></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tool-controller"><a class="anchor" href="#tool-controller"></a>Tool Controller</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Tool controller</strong></p>
+</li>
+<li>
+<p><strong>Coolant mode</strong></p>
 </li>
 </ul>
 </div>
@@ -733,24 +797,39 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Tool Controller</strong></p>
-</li>
-<li>
 <p><strong>Cut Mode</strong></p>
 </li>
 <li>
-<p><strong>Pattern</strong> (Offset Pattern)</p>
+<p><strong>Pattern</strong> (Clearing Pattern)</p>
 </li>
 <li>
-<p><strong>Angle</strong></p>
+<p><strong>Angle</strong> (disabled for <code>Offset</code>)</p>
 </li>
 <li>
-<p><strong>Step Over Percent</strong> (Step Over)</p>
+<p><strong>Step over</strong> (%)</p>
 </li>
 <li>
-<p><strong>Pass Extension</strong>: The distance the facing operation will extend beyond the boundary shape (base geometry)</p>
+<p><strong>Radial stock to leave</strong> (Extra Offset)</p>
+</li>
+<li>
+<p><strong>Ignore holes</strong> (Use Outline)</p>
+</li>
+<li>
+<p><strong>Min travel</strong></p>
+</li>
+<li>
+<p><strong>Use rest machining</strong></p>
+</li>
+<li>
+<p><strong>Retract threshold</strong></p>
+</li>
+<li>
+<p><strong>Use start point</strong> and the <strong>Set picked point as start point</strong> button <span class="since">introduced in 26.3</span></p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>The Boundary Shape and Clear edges widgets in the shared pocket panel are hidden for Pocket Shape.</p>
 </div>
 </div>
 </div>
@@ -763,14 +842,20 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path.Op.PocketShape as PathPocketShape
+
+op = PathPocketShape.Create('Pocket_Shape')
+op.Base = [(doc.Body, ['Face3'])]
+op.ClearingPattern = 'Offset'
+op.StepOver = 50
+doc.recompute()</code></pre>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="profile.html">Profile</a></span>
-  <span class="next"><a href="mill-face.html">Face</a></span>
+  <span class="next"><a href="mill-facing.html">Mill Facing</a></span>
 </nav>
 </article>
   </div>

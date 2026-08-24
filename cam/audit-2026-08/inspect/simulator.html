@@ -6,7 +6,7 @@
     <title>CAM SimulatorGL :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/inspect/simulator.html">
     <link rel="prev" href="simulator-legacy.html">
-    <link rel="next" href="select-loop.html">
+    <link rel="next" href="camotics.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -389,13 +419,17 @@
 <dd>
 <p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">CAM Simulator</b></span></p>
 </dd>
+<dt class="hdlist1">Toolbar</dt>
+<dd>
+<p>Tool Commands → Simulators → CAM Simulator (default entry)</p>
+</dd>
 <dt class="hdlist1">Workbenches</dt>
 <dd>
 <p><a href="../index.html" class="xref page">CAM</a></p>
 </dd>
 <dt class="hdlist1">Default shortcut</dt>
 <dd>
-<p><kbd>kbd:[P</kbd> <kbd>N</kbd>]</p>
+<p><kbd>P</kbd> <kbd>N</kbd></p>
 </dd>
 <dt class="hdlist1">Introduced in version</dt>
 <dd>
@@ -415,7 +449,7 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_SimulatorGL.svg" alt="CAM SimulatorGL" width="24"></span> <a href="#">CAM SimulatorGL</a> command is a new alternative to <a href="simulator-legacy.html" class="xref page">Legacy CAM Simulator</a>. It&#8217;s based on low-level OpenGL functions. To eliminate interference with the 3D View of FreeCAD, it works in a separate window with a separate OpenGL context. It&#8217;s meant to be faster and more precise than the old simulator.</p>
+<p>The <span class="image"><img src="../_images/CAM_SimulatorGL.svg" alt="CAM SimulatorGL" width="24"></span> <a href="#">CAM SimulatorGL</a> command is the default simulator and an alternative to the <a href="simulator-legacy.html" class="xref page">Legacy CAM Simulator</a>, which remains available in the same toolbar group (the parameter <code>DefaultSimulatorLegacy</code> swaps the order). Its tooltip reads: <em>Simulates G-code on stock</em>. It renders with low-level OpenGL in its own view and is meant to be faster and more precise than the old simulator. <span class="since">26.3 and later</span>: the view opens as a tab in the main window next to the 3D view, follows the navigation style set in the Preferences, and accepts the standard view commands (orthographic/perspective, zoom in/out, fit all).</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -437,7 +471,7 @@
 <p>Press the <span class="image"><img src="../_images/CAM_SimulatorGL.svg" alt="CAM SimulatorGL" width="16"></span> <a href="#">CAM Simulator</a> button.</p>
 </li>
 <li>
-<p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">CAM Simulator</b></span> option from the menu.</p>
+<p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem"><span class="image"><img src="../_images/CAM_SimulatorGL.svg" alt="CAM SimulatorGL" width="16</b></span> CAM Simulator"></span> option from the menu.</p>
 </li>
 <li>
 <p>Use the keyboard shortcut: <kbd>P</kbd> then <kbd>N</kbd>.</p>
@@ -446,63 +480,74 @@
 </div>
 </li>
 <li>
-<p>De-select any <b class="menuref">Operations</b> that are not to be simulated</p>
+<p>Select the Job in the Job drop-down (the Job of the current selection is preselected, <span class="since">26.3 and later</span> also from a selected Operation).</p>
 </li>
 <li>
-<p>Tune the <b class="menuref">Accuracy</b> setting.</p>
+<p>Uncheck Operations that should not be simulated; with <strong>Follow operations visibility</strong> checked, hidden Operations start unchecked. <span class="since">introduced in 26.3</span></p>
 </li>
 <li>
-<p>Select the <b class="menuref">Job</b> for simulation from the drop menu.</p>
+<p>Set Accuracy (Low, Medium, High).</p>
 </li>
 <li>
-<p>Press the <span class="image"><img src="../_images/CAM_BPlay.svg" alt="CAM BPlay" width="24"></span> (Activate / resume simulation) button</p>
+<p>Press the <span class="image"><img src="../_images/CAM_BPlay.svg" alt="CAM BPlay" width="24"></span> (Activate / resume simulation) button to open the simulator view. Play is disabled when no Operation is checked.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A separate window with the simulator will open.</p>
+<p>Use the buttons below the view, left to right: Play simulation, Single step simulation, Decrease simulation speed (<span class="since">introduced in 1.1</span>), Increase simulation speed (current multiplier shown as xN), Reset camera (<span class="since">introduced in 1.1</span>), Toggle view simulation/model, Toggle turn table animation, Show/hide tool path, Toggle ambient occlusion.</p>
 </li>
 <li>
-<p>Use the left-side buttons: Play, Single-Step, Decrease/Increase simulation speed and the slider to control the animation.</p>
+<p>The slider above the buttons scrubs through the Toolpath.</p>
 </li>
 <li>
-<p>Use the right-side buttons to: Reset camera, Show/hide overlay of base model, Orbit the model, Display the path and Enable/disable Ambient Occlusion.</p>
-</li>
-<li>
-<p>Control the 3D View with the following mouse controls:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Zoom: use the mouse wheel or hold <kbd>Ctrl</kbd> and <kbd>Shift</kbd> and move the cursor to zoom in and out</p>
-</li>
-<li>
-<p>Pan: hold the middle mouse button or <kbd>Shift</kbd> and move the cursor</p>
-</li>
-<li>
-<p>Rotate: hold the middle mouse button, then press and hold the left mouse button and move the cursor or hold <kbd>Alt</kbd> and move the cursor</p>
+<p>Navigate the view with the same mouse and keyboard controls as the <a href="https://wiki.freecad.org/3D_view">3D view</a> (see <a href="https://wiki.freecad.org/Mouse_navigation">Mouse navigation</a>). <span class="since">26.3 and later</span></p>
 </li>
 </ul>
 </div>
 </li>
-</ul>
-</div>
+<li>
+<p>Close the task panel with <b class="button">Close</b>.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="properties"><a class="anchor" href="#properties"></a>Properties</h2>
+<h2 id="task-panel"><a class="anchor" href="#task-panel"></a>Task panel</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Accuracy</strong>: The accuracy of the simulation expressed as a percentage indicating the simulations deviation from the Job. For interactive simulation, reducing accuracy to 0.3 works much faster.</p>
+<p><strong>Accuracy</strong>: simulation quality, Low, Medium or High; lower quality is faster.</p>
 </li>
 <li>
-<p><strong>Job</strong>: The Job used as the basis of the simulation.</p>
+<p><strong>Job</strong>: the Job to simulate.</p>
 </li>
 <li>
-<p><strong>Operation List</strong>: The list of Operations selected for inclusion in the simulation.</p>
+<p><strong>Follow operations visibility</strong>: preselect Operations according to their visibility in the 3D view (stored in the preference SimulatorFollowsVisibility). <span class="since">introduced in 26.3</span></p>
+</li>
+<li>
+<p><strong>Operations list</strong>: Active Operations to include.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The simulator builds a revolved profile from the Tool Bit solid of each Tool Controller, so all Tool Shapes are represented; the Tool Bit objects themselves are not modified (<span class="since">26.3 and later</span>).</p>
+</li>
+<li>
+<p>Drilling cycles including G84 retract are expanded.</p>
+</li>
+<li>
+<p>Rotary axis words are not simulated. Use <a href="camotics.html" class="xref page">CAMotics</a> or another external simulator for rotary Toolpaths.</p>
+</li>
+<li>
+<p><span class="since">introduced in 1.1</span>: Reset camera and Decrease simulation speed buttons were added.</p>
 </li>
 </ul>
 </div>
@@ -510,7 +555,7 @@
 </div>
 <nav class="pagination">
   <span class="prev"><a href="simulator-legacy.html">Legacy CAM Simulator</a></span>
-  <span class="next"><a href="select-loop.html">Finish Selecting Loop</a></span>
+  <span class="next"><a href="camotics.html">CAMotics</a></span>
 </nav>
 </article>
   </div>

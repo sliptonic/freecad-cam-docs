@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM Helix :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/helix.html">
-    <link rel="prev" href="mill-face.html">
+    <link rel="prev" href="mill-facing.html">
     <link rel="next" href="adaptive.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="mill-face.html">Face</a>
+    <a class="nav-link" href="mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -378,18 +408,6 @@
 <h1 class="page">CAM Helix</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This page is incomplete; it was marked as unfinished on the wiki.
-</td>
-</tr>
-</table>
-</div>
 <div class="openblock fcinfobox">
 <div class="content">
 <div class="paragraph fcTitle">
@@ -427,7 +445,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> <a href="#">CAM Helix</a> command appends a helical clearing operation to the Job. Clockwise Helix outputs (G2) G-Code commands. Counterclockwise outputs (G3) G-Code commands. Step Over percentage specifies the concentric step-over as a percentage of the Tool diameter. One or more helical paths will be created at progressively different diameters, to clear the hole.</p>
+<p>The <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> <a href="#">CAM Helix</a> command creates helical (and optionally spiral) Toolpaths to clear or profile circular holes and bosses. It is found on the New Operations toolbar and in the CAM menu; its tooltip reads "Creates a Helical toolpath from the features of a base object". The rotation direction (G2 or G3) is computed from <strong>Cut Mode</strong>, <strong>Side</strong> and <strong>Start At</strong>. <strong>Step Over</strong> sets the concentric step as a percentage of the Tool Bit diameter; successive helices are generated at increasing or decreasing radius until the hole is cleared.</p>
 </div>
 </div>
 </div>
@@ -440,28 +458,28 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>Select the <span class="image"><img src="../_images/Workbench_CAM.svg" alt="Workbench CAM" width="16"></span> <a href="../index.html" class="xref page">CAM Workbench</a>.</p>
 </li>
 <li>
-<p>Select the <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> icon or <kbd>CAM</kbd> → <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> Helix from the top menu. This opens the <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> Helix configuration panel.</p>
+<p>Select the <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> icon or <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Helix</b></span> from the top menu. This opens the Helix configuration panel.</p>
 </li>
 <li>
-<p>You will be prompted with a <strong>Choose a Tool Controller</strong> pop-up window to select a Tool Controller. In older versions, in the <span class="image"><img src="../_images/CAM_Helix.svg" alt="CAM Helix" width="24"></span> Operation tab, choose a Tool controller and confirm by pressing <b class="button">Apply</b>.</p>
+<p><span class="since">introduced in 26.3</span>: Choose the Tool Controller and coolant mode on the Tool Controller tab, which also lets you edit the selected Tool Controller&#8217;s feeds and speeds in place. In older versions you were prompted with a <em>Choose a Tool Controller</em> pop-up window.</p>
 </li>
 <li>
-<p>Open the Base Geometry tab. All available holes compatible with the Helix tool in the Job Model will be selectable for processing. In the <a href="https://wiki.freecad.org/3D_View">3D View</a> select the holes by their edge or wall face and add them with the <b class="button">Add</b> button. Check that they appear in the list. Confirm that the list matches the holes that are intended for processing.</p>
+<p>Open the Base Geometry tab. <b class="button">Auto-select</b> fills the table with every drillable circular feature of the Job Model; <b class="button">Add</b> appends features selected in the 3D view <span class="since">introduced in 26.3</span> (faces or edges); <b class="button">Remove</b> deletes the selected rows; <b class="button">Clear All</b> empties the list. Untick a row to disable it without removing it.</p>
 </li>
 <li>
-<p>To remove holes select them in the list and press the <b class="button">Remove</b> button.</p>
+<p><span class="since">introduced in 26.3</span>: The table shows position and whether a cylinder is blind (columns #, Feature, Diameter, X, Y, Blind). Choose <em>Sorting</em> = <code>Manual</code> to drag rows into the desired machining order, or <code>Automatic</code> to let the automatic sorter order them (optionally from <strong>Start Point</strong> to <strong>End Point</strong>).</p>
 </li>
 <li>
-<p>Ensure Start Depth, Final Depth and the helix pitch and ramp limits are correct, and adjust if not.</p>
+<p>On the Heights tab set Start depth, Final depth and Step down. By default the operation makes one pass from Start to Final (<strong>Step Down</strong> defaults to the expression <code>StartDepth - FinalDepth</code>); set a smaller Step down for multiple depth passes.</p>
 </li>
 <li>
 <p>Ensure Safe and Clearance Heights are correct.</p>
 </li>
 <li>
-<p>In the Operation tab, specify the helix Starting surface (outside/inside), cutting Direction (climb/conventional), and Step Over percentage.</p>
+<p>On the Operation tab set <em>Side</em> (Inside for holes, Outside for bosses), <em>Start from</em> (Inside or Outside), <em>Cut mode</em> (Climb or Conventional), <em>Max pitch</em>, <em>Max ramp angle</em>, <em>Step over</em> and <em>Radial stock to leave (outer)</em>.</p>
 </li>
 <li>
-<p>Click <b class="button">Apply</b> to create or update the path, <b class="button">OK</b> to apply and close the panel, or <b class="button">Cancel</b> to abort and close the panel.</p>
+<p>Click <b class="button">Apply</b> to create or update the Toolpath, <b class="button">OK</b> to apply and close the panel, or <b class="button">Cancel</b> to abort and close the panel.</p>
 </li>
 </ul>
 </div>
@@ -471,22 +489,22 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Extra Offset</strong> adds a margin of material to be left unmachined. This is typically to allow a light finishing pass as a separate operation.</p>
+<p><strong>Radial Stock To Leave Outer</strong> <span class="since">introduced in 26.3</span> (formerly <strong>Offset Extra</strong>) adds a margin of material left on the outer wall unmachined. This is typically to allow a light finishing pass as a separate operation.</p>
 </div>
 <div class="paragraph">
-<p><span class="since">introduced in 26.3</span>: <strong>Max Pitch</strong> replaces <em>Pitch</em> of Helix and limits the maximum helix pitch when non-zero.</p>
+<p><strong>Helix Max Pitch</strong> <span class="since">introduced in 26.3</span> (replaces <em>Helix Pitch</em>) limits the maximum descent per revolution; 0 disables the limit.</p>
 </div>
 <div class="paragraph">
-<p>Helix <strong>Max Ramp Angle</strong> limits the ramp-entry angle when non-zero. The pitch is calculated for each helix radius.</p>
+<p><strong>Helix Max Ramp Angle</strong> <span class="since">introduced in 26.3</span> limits the ramp entry angle (0-90°); 0 disables the limit. The effective pitch is computed per helix radius from both limits.</p>
 </div>
 <div class="paragraph">
-<p><strong>Start Radius</strong> is not available in the <em>Helix</em> task panel but can be edited directly in the <a href="https://wiki.freecad.org/Property_View">Property View</a>.</p>
+<p><strong>Radial Stock To Leave Inner</strong> <span class="since">introduced in 26.3</span> (formerly <strong>Start Radius</strong>) is not available in the <em>Helix</em> task panel but can be edited directly in the <a href="https://wiki.freecad.org/Property_View">Property View</a>.</p>
 </div>
 <div class="paragraph">
-<p>This is the radius of material remaining at the center. By default it is zero, giving a path where the tool just touches the axis of the hole. This produces a central path cutting a hole twice the size of the tool diameter.</p>
+<p>This is the stock left at the centre. The default inner radius for an inside profile is the Tool Bit radius; by default (zero) the Tool Bit just touches the axis of the hole, producing a central Toolpath cutting a hole twice the size of the Tool Bit diameter.</p>
 </div>
 <div class="paragraph">
-<p>If this parameter is set to a negative value, it can allow a smaller helix radius. For example, a negative radius equal to the tool radius will produce a zero radius helix: a.k.a. plunge cut with the endmill, should the tool be suitable. This will work as a first cut in a multi-pass operation but attempting to make a helix path with a tool the same size as the hole in the model is rejected.</p>
+<p>If this parameter is set to a negative value, it can allow a smaller helix radius; it cannot be less than minus the Tool Bit radius. A negative value equal to minus the Tool Bit radius will produce a zero radius helix: a.k.a. plunge cut with the endmill, should the Tool Bit be suitable. This will work as a first cut in a multi-pass operation, but attempting to make a helix Toolpath with a Tool Bit the same size as the hole in the model is rejected. For outside profiles the reference is the profile radius.</p>
 </div>
 </div>
 </div>
@@ -496,7 +514,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="ulist">
 <ul>
 <li>
-<p>The helix pitch limit is not respected exactly. It is always rounded to give a complete number of turns from Start Depth to Final Depth.</p>
+<p>The helix pitch limit is not respected exactly. It is always rounded to give a complete number of turns from Start Depth to Final Depth (<span class="since">introduced in 26.3</span>: the helix Toolpath is produced by a rewritten generator).</p>
 </li>
 <li>
 <p>Similarly Step Over is not respected exactly. It is always rounded to give a number of equal steps.</p>
@@ -504,10 +522,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </ul>
 </div>
 <div class="paragraph">
-<p>The feedrate parameter is constant across all cuts and is based on the position of the tool&#8217;s axis, thus actual feedrate of the cutting edge of the tool can vary considerably between the inner most cut and the outside surface. If the job dimensions produce a path diameter smaller than the tool diameter, this can lead to much faster cutting speeds than the feedrate given for the tool in the tool controller. This may need to considered when selecting "feed and speeds" in the <a href="../tools/tool-controller.html" class="xref page">tool controller</a> for the job.</p>
-</div>
-<div class="paragraph">
-<p>Also the current implementation only uses the horizontal tool speed for helix paths, even in the case where a tight spiral maybe nearly a vertical cut.</p>
+<p>By default <strong>Override Arc Feed Rate</strong> (hidden property, default checked) adjusts the feed of each helical arc from the Tool Controller&#8217;s horizontal and vertical feeds so the cutting-edge speed stays constant between inner and outer passes; disable it in the Property View to keep the raw Tool Controller feed. Consider this behavior when selecting feeds and speeds in the <a href="../tools/tool-controller.html" class="xref page">Tool Controller</a> for the Job.</p>
 </div>
 </div>
 </div>
@@ -516,15 +531,185 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="data"><a class="anchor" href="#data"></a>Data</h3>
+<div class="ulist">
+<div class="title">Helix Drill</div>
+<ul>
+<li>
+<p><strong>Side</strong>: <code>Inside</code> (default, for holes) or <code>Outside</code> (for bosses).</p>
+</li>
+<li>
+<p><strong>Start At</strong>: (formerly <strong>Start Side</strong>) Start cutting from the <code>Inside</code> or <code>Outside</code>.</p>
+</li>
+<li>
+<p><strong>Cut Mode</strong>: <code>Climb</code> or <code>Conventional</code> (default).</p>
+</li>
+<li>
+<p><strong>Direction</strong>: (read-only) The computed <code>CW</code> / <code>CCW</code> rotation of the circular cuts.</p>
+</li>
+<li>
+<p><strong>Step Over</strong>: Percent of Tool Bit diameter to step over on each pass (default 50).</p>
+</li>
+<li>
+<p><strong>Radial Stock To Leave Inner</strong>, <strong>Radial Stock To Leave Outer</strong>: see <a href="#options">Options</a>.</p>
+</li>
+<li>
+<p><strong>Helix Max Pitch</strong>, <strong>Helix Max Ramp Angle</strong>: see <a href="#options">Options</a>.</p>
+</li>
+<li>
+<p><strong>Helix Cone Angle</strong>: Cone angle of the helix (0 = cylindrical); positive for inside profiles, mirrored for outside profiles.</p>
+</li>
+<li>
+<p><strong>Start Cone From Bottom</strong>: <span class="since">introduced in 26.3</span> (visible only with a non-zero cone angle) Process the cone helix from bottom to top.</p>
+</li>
+<li>
+<p><strong>Single Helix</strong>: (hidden) Create only one helix.</p>
+</li>
+<li>
+<p><strong>Spiral Mill</strong>: Cut a spiral instead of concentric helices.</p>
+</li>
+<li>
+<p><strong>Finish Helix Circle</strong>, <strong>Finish Spiral Circle</strong>: (hidden, default True) Add a full finishing circle for the helix or spiral.</p>
+</li>
+<li>
+<p><strong>Retract From Wall</strong>: (hidden, default True) Move away from the wall before retracting, if there is free space.</p>
+</li>
+<li>
+<p><strong>Override Arc Feed Rate</strong>: (hidden, default True) Override arc feed rates to get constant cutting speed at the Tool Bit&#8217;s edge.</p>
+</li>
+<li>
+<p><strong>Override Profile Diameter</strong>: (hidden) Use this diameter for every hole instead of the detected one, to get identical hole sizes; cannot be less than the Tool Bit diameter.</p>
+</li>
+<li>
+<p><strong>Rotation Angle</strong>: (hidden, default -1 = automatic) Angular position of the start and end points; 0 places them along the X axis.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Sorting</div>
+<ul>
+<li>
+<p><strong>Sorting Mode</strong>: <span class="since">introduced in 26.3</span> <code>Automatic</code> (default) sorts the holes automatically; <code>Manual</code> uses the table order.</p>
+</li>
+<li>
+<p><strong>Start Point</strong>, <strong>End Point</strong>, <strong>Use End Point</strong>: <span class="since">introduced in 26.3</span> Start and optional end of the automatic sorting (X and Y used, Z ignored); hidden in Manual mode.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Base</div>
+<ul>
+<li>
+<p><strong>Disabled</strong>: List of Base Geometry features that are unchecked in the table.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Linking</div>
+<ul>
+<li>
+<p><strong>Collision Avoidance Strategy</strong>: <span class="since">introduced in 26.3</span> How moves between areas are checked: <code>Clearance Height</code> (no collision detection, rapids at Clearance Height), <code>Retract Height</code> (no collision detection, rapids at Safe Height), <code>Line of Sight</code> (fastest - checks the Toolpath centerline), <code>Tool Diameter</code> (balanced - checks clearance using the Tool Bit diameter), <code>Tool Shape</code> (safest - checks clearance using the cross section of the Tool Shape).</p>
+</li>
+<li>
+<p><strong>Collision Clearance</strong>: <span class="since">introduced in 26.3</span> Minimum clearance distance between the Tool Bit and any solid during linking moves (default expression: <code>OpToolDiameter</code>).</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Depth</div>
+<ul>
+<li>
+<p><strong>Clearance Height</strong>: The height needed to clear clamps and obstructions</p>
+</li>
+<li>
+<p><strong>Final Depth</strong>: Final Depth of Tool Bit - lowest value in Z</p>
+</li>
+<li>
+<p><strong>Safe Height</strong>: (<em>Retract</em> in the task panel) The height above which rapid moves are allowed between locations.</p>
+</li>
+<li>
+<p><strong>Start Depth</strong>: Starting depth of Tool Bit - first cut depth in Z</p>
+</li>
+<li>
+<p><strong>Step Down</strong>: Incremental step down of Tool Bit during operation (default expression: <code>StartDepth - FinalDepth</code>, one pass)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Active</strong>: Make False, to prevent operation from generating code</p>
+</li>
+<li>
+<p><strong>Base</strong>: The base geometry for this operation</p>
+</li>
+<li>
+<p><strong>Block Delete</strong>: <span class="since">introduced in 26.3</span> Enable the Post-Processor to add block delete commands</p>
+</li>
+<li>
+<p><strong>Comment</strong>: An optional comment for this Operation</p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong>: The coolant mode for this operation: <code>None</code>, <code>Flood</code> or <code>Mist</code></p>
+</li>
+<li>
+<p><strong>Cycle Time</strong>: (read-only) The cycle time estimation for this operation.</p>
+</li>
+<li>
+<p><strong>Tool Controller</strong>: Defines the Tool Controller used in the Operation</p>
+</li>
+<li>
+<p><strong>User Label</strong>: User assigned label</p>
+</li>
+<li>
+<p><strong>Workplane</strong>: <span class="since">introduced in 26.3</span> The orientation of the Tool Bit for this operation; default (0, 0, 1) for standard Z-up milling.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>Empty</p>
+<div class="title">Op Values</div>
+<p>These read-only properties hold values calculated by the operation. They are useful as sources for expressions.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Op Start Depth</strong>, <strong>Op Final Depth</strong>: the calculated default depths</p>
+</li>
+<li>
+<p><strong>Op Tool Diameter</strong>: the diameter of the Tool Bit</p>
+</li>
+<li>
+<p><strong>Op Stock ZMax</strong>, <strong>Op Stock ZMin</strong>: the Z extent of the Stock</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="view"><a class="anchor" href="#view"></a>View</h3>
 <div class="paragraph">
-<p>Empty</p>
+<p>The Helix operation has no additional View properties beyond the standard Toolpath display properties.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Holes whose radius is too small for the Tool Bit and the configured stock-to-leave are skipped with a warning in the Report view <span class="since">introduced in 26.3</span>.</p>
+</li>
+<li>
+<p>Coincident holes keep only the largest diameter.</p>
+</li>
+<li>
+<p>If Safe Height is above Clearance Height, Clearance Height is used.</p>
+</li>
+<li>
+<p>Step Down is split into equal passes; with <strong>Retract From Wall</strong> the Tool Bit steps away from the wall before each retract.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -539,13 +724,20 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path.Op.Helix as PathHelix
+
+op = PathHelix.Create('Helix', parentJob=job)
+op.Base = [(doc.Body, ['Face8'])]
+op.Side = 'Inside'
+op.CutMode = 'Climb'
+op.StepOver = 50
+doc.recompute()</code></pre>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="mill-face.html">Face</a></span>
+  <span class="prev"><a href="mill-facing.html">Mill Facing</a></span>
   <span class="next"><a href="adaptive.html">Adaptive</a></span>
 </nav>
 </article>

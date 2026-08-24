@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM Preferences :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/reference/preferences.html">
-    <link rel="prev" href="../tools/tool-controller.html">
+    <link rel="prev" href="../tools/feeds-speeds.html">
     <link rel="next" href="scripting.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -383,15 +413,65 @@
 <p>After selecting the <a href="../index.html" class="xref page">CAM Workbench</a> the preferences screen is found in the <a href="https://wiki.freecad.org/Preferences_Editor">Preferences Editor</a>, <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">CAM</b></span>.</p>
 </div>
 <div class="paragraph">
-<p>There are five pages: <a href="#gui">GUI</a>, <a href="#assets">Assets</a>, <a href="#job-preferences">Job preferences</a>, <a href="#dressups">Dressups</a>, and <a href="#advanced">Advanced</a>.</p>
+<p>There are five pages: <a href="#gui">GUI</a>, <a href="#assets">Assets</a> (<span class="since">introduced in 1.1</span>), <a href="#job-preferences">Job Preferences</a>, <a href="#dressups">Dressups</a>, and <a href="#advanced">Advanced</a>. All settings are stored under <span class="menuseq"><b class="menu">Tools</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Edit parameters</b></span> → <code>BaseApp/Preferences/Mod/CAM</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="gui"><a class="anchor" href="#gui"></a>GUI</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><span class="image"><img src="../_images/Preference_Path_Tab_03_V020.png" alt="Preference Path Tab 03 V020"></span></p>
+<div class="sect2">
+<h3 id="default-path-colors"><a class="anchor" href="#default-path-colors"></a>Default Path Colors</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Default pathline width</strong> (1 to 9).</p>
+</li>
+<li>
+<p><strong>Default normal path color</strong>.</p>
+</li>
+<li>
+<p><strong>Rapid path color</strong>.</p>
+</li>
+<li>
+<p><strong>Path highlight color</strong>.</p>
+</li>
+<li>
+<p><strong>Probe path color</strong>.</p>
+</li>
+<li>
+<p><strong>Default path marker color</strong>.</p>
+</li>
+<li>
+<p><strong>Bounding box normal color</strong>.</p>
+</li>
+<li>
+<p><strong>Bounding box selection color</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ui-settings"><a class="anchor" href="#ui-settings"></a>UI Settings</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Path selection style</strong>: Shape, Bounding box or None; default behaviour when selecting Toolpaths in the 3D view.</p>
+</li>
+<li>
+<p><strong>Task panel layout</strong>: Classic, Classic - reversed, Multi-panel or Multi-panel - reversed; layout of the operation task panels.</p>
+</li>
+<li>
+<p><strong>Hide first rapid move</strong> <span class="since">introduced in 26.3</span>: hide the initial rapid move in the Toolpath display.</p>
+</li>
+<li>
+<p><strong>Show editor before writing G-code</strong> <span class="since">introduced in 26.3</span>: open the G-code editor for review before the post-processor output file is written.</p>
+</li>
+<li>
+<p><strong>Maximum lines of G-code to use highlighter</strong> <span class="since">introduced in 26.3</span> (default 1000): larger files are shown without syntax highlighting; set to zero to disable the highlighter.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -399,35 +479,94 @@
 <h2 id="assets"><a class="anchor" href="#assets"></a>Assets</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TBD</p>
+<p><span class="since">introduced in 1.1</span></p>
+</div>
+<div class="sect2">
+<h3 id="asset-location"><a class="anchor" href="#asset-location"></a>Asset Location</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Default path</strong>: the CAM asset directory holding the <code>Tools</code> folder (<code>Bit</code>, <code>Shape</code> and <code>Library</code> subfolders), the <code>Machines</code> folder and the <code>Templates</code> folder for Job Templates. Use the folder button to pick a directory and <b class="button">Reset</b> to return to the default (<code>CamAssets</code> in the user application data directory). The directory must be writable. Changing it resets the remembered last tool library. See <a href="../tools/index.html" class="xref page">CAM Tools</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="machines"><a class="anchor" href="#machines"></a>Machines</h3>
+<div class="paragraph">
+<p><span class="since">introduced in 26.3</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>List of Machine templates (<code>.fcm</code> files in the <code>Machines</code> folder plus templates provided by add-ons). <b class="button">Add</b> creates a new machine in the Machine Editor, <b class="button">Edit</b> (or double-click) opens the selected machine in the Machine Editor, <b class="button">Delete</b> removes the file after confirmation. See <a href="../output/machine.html" class="xref page">CAM Machine</a>.</p>
+</li>
+<li>
+<p>The page shows the note <em>Warning: Machine definition is an experimental feature.</em></p>
+</li>
+<li>
+<p><strong>Check for tool updates from the library when opening a document</strong> <span class="since">introduced in 26.3</span>: when enabled (default), opening a document compares the Tool Bits embedded in its Jobs with the library and offers to update them (see <a href="../tools/toolbit.html" class="xref page">CAM ToolBit</a>).</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><span class="since">introduced in 26.3</span>: machine assets can be managed from the CAM preferences. The Machine Library and Machine Editor create and edit <code>*.fcm</code> machine configuration files used by machine-based postprocessing.</p>
+<p>Machine templates created here are selected per Job in the Job task panel (General tab → Machine) and used by machine-based post-processors; see <a href="../output/machine.html" class="xref page">CAM Machine</a> and <a href="../job/job.html" class="xref page">CAM Job</a>.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="job-preferences"><a class="anchor" href="#job-preferences"></a>Job preferences</h2>
+<h2 id="job-preferences"><a class="anchor" href="#job-preferences"></a>Job Preferences</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>There are four sections: General, Post processor, Setup and Tools.</p>
+<p>There are three tabs: General, Post processor and Setup.</p>
 </div>
 <div class="sect2">
 <h3 id="general"><a class="anchor" href="#general"></a>General</h3>
-<div class="paragraph">
-<p><span class="image"><img src="../_images/Preference_Path_Tab_01_01_V020.png" alt="Preference Path Tab 01 01 V020"></span></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Defaults → <strong>Template</strong>: Job Template preselected when creating a new Job; leave empty for none.</p>
+</li>
+<li>
+<p>Geometry → <strong>Default geometry tolerance</strong>: default tolerance of new Jobs used when computing Toolpaths; smaller values increase accuracy and computation time.</p>
+</li>
+<li>
+<p>Geometry → <strong>Default curve accuracy</strong> <span class="since">introduced in 26.3</span>: accuracy used when arcs are approximated; smaller values increase accuracy and computation time.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="post-processor"><a class="anchor" href="#post-processor"></a>Post processor</h3>
-<div class="paragraph">
-<p><span class="image"><img src="../_images/Preference_Path_Tab_01_02_V020.png" alt="Preference Path Tab 01 02 V020"></span></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Output File → <strong>Default path</strong>: default directory and optional file name for the G-code output. Substitutions: <code>%D</code> directory of the active document, <code>%d</code> name of the active document, <code>%M</code> user macro directory, <code>%j</code> name of the Job; when output is split: <code>%T</code> Tool Number, <code>%t</code> Tool Controller label, <code>%W</code> work coordinate system, <code>%O</code> Operation label, <code>%S</code> sequence number.</p>
+</li>
+<li>
+<p>Output File → <strong>File save policy</strong>: Open file dialog, Open file dialog on conflict, Overwrite existing file, or Append Unique ID on conflict.</p>
+</li>
+<li>
+<p>Post Processor → <strong>Post processors selection</strong>: check the post-processors that should be offered in Jobs; unchecked ones are blacklisted.</p>
+</li>
+<li>
+<p>Post Processor → <strong>Default post processor</strong> and <strong>Default arguments</strong>: preselected for new Jobs.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="setup"><a class="anchor" href="#setup"></a>Setup</h3>
-<div class="paragraph">
-<p><span class="image"><img src="../_images/Preference_Path_Tab_01_03_V020.png" alt="Preference Path Tab 01 03 V020"></span></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Stock</strong>: default Stock for new Jobs: Create box (Length, Width, Height), Create cylinder (Radius, Height) or Extend model&#8217;s bounding box (Ext. X, Ext. Y, Ext. Z, negative and positive).</p>
+</li>
+<li>
+<p><strong>Placement</strong> (optional): Angle, Axis and Position applied to the default Stock.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -436,20 +575,83 @@
 <h2 id="dressups"><a class="anchor" href="#dressups"></a>Dressups</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image"><img src="../_images/Preference_Path_Tab_02_V020.png" alt="Preference Path Tab 02 V020"></span></p>
+<p>Defaults for the <a href="../dressups/tag.html" class="xref page">Tag</a> dressup.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tag Parameters: <strong>Default width</strong>, <strong>Default height</strong>, <strong>Default angle</strong> (plunge angle of the tag flanks), <strong>Default radius</strong> (fillet on the tag&#8217;s top edge).</p>
+</li>
+<li>
+<p>Tag Generation: <strong>Initial # tags</strong>: number of tags created when a new dressup is added.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="advanced"><a class="anchor" href="#advanced"></a>Advanced</h2>
 <div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Warnings: <strong>Suppress all missing speeds warning</strong>, <strong>Suppress missing rapid speeds warning</strong> (ignored if all speed warnings are suppressed), <strong>Suppress selection mode warning</strong>.</p>
+</li>
+<li>
+<p>OpenCAMLib: <strong>Enable OCL dependent features</strong> (requires a restart; enables the Surface, Waterline and, with experimental features, Rotary Surface operations and the Camotics command) and <strong>Suppress openCAMlib warning</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="parameters-without-a-preferences-page"><a class="anchor" href="#parameters-without-a-preferences-page"></a>Parameters without a preferences page</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><span class="image"><img src="../_images/Preference_Path_Tab_04_V020.png" alt="Preference Path Tab 04 V020"></span></p>
+<p>Under <code>BaseApp/Preferences/Mod/CAM</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>EnableExperimentalFeatures</code> (Bool): enables the Helpful Tools toolbar (Area, Area Workplane), Rotary Surface (with OCL) and Path Shape with Tool Controller; requires a restart.</p>
+</li>
+<li>
+<p><code>DefaultSimulatorLegacy</code> (Bool): makes the legacy CAM Simulator the default entry of the simulator toolbar button.</p>
+</li>
+<li>
+<p><code>PostProcessorBlacklist</code> (JSON list, maintained by the Post processors selection list).</p>
+</li>
+<li>
+<p><code>DefaultStockTemplate</code> (String): stock defaults written by the Setup tab.</p>
+</li>
+<li>
+<p><code>CheckAssetPathWritable</code> (Bool, default true): skip the writability check of the asset path when disabled.</p>
+</li>
+<li>
+<p><code>DefaultFilePath</code> (String): legacy tool/template directory, migrated into the asset path on first use.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Under <code>BaseApp/Preferences/Mod/CAM/Tools</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ToolPath</code>: the asset directory.</p>
+</li>
+<li>
+<p><code>LastToolLibrary</code>, <code>LastToolLibrarySortKey</code>: library and sort order remembered by the Library Manager and Toolbit Selector.</p>
+</li>
+<li>
+<p><code>ToolUpdateOnLoad</code>: the Assets page checkbox.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../tools/tool-controller.html">ToolController</a></span>
+  <span class="prev"><a href="../tools/feeds-speeds.html">Feeds and Speeds</a></span>
   <span class="next"><a href="scripting.html">Scripting</a></span>
 </nav>
 </article>

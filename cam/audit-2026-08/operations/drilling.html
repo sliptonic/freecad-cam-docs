@@ -6,7 +6,7 @@
     <title>CAM Drilling :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/drilling.html">
     <link rel="prev" href="slot.html">
-    <link rel="next" href="engrave.html">
+    <link rel="next" href="thread-milling.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="mill-face.html">Face</a>
+    <a class="nav-link" href="mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -403,7 +433,7 @@
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><em>None</em></p>
+<p><a href="thread-milling.html" class="xref page">CAM ThreadMilling</a>, <a href="tapping.html" class="xref page">CAM Tapping (obsolete)</a></p>
 </dd>
 </dl>
 </div>
@@ -415,7 +445,10 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_Drilling.svg" alt="CAM Drilling" width="24"></span> <a href="#">CAM Drilling</a> command generates a drilling Operation in the Job.</p>
+<p>The <span class="image"><img src="../_images/CAM_Drilling.svg" alt="CAM Drilling" width="24"></span> <a href="#">CAM Drilling</a> command generates a drilling Operation in the Job. The command tooltip reads "Creates a Drilling toolpath from the features of a base object".</p>
+</div>
+<div class="paragraph">
+<p><span class="since">introduced in 26.3</span>: The operation has a <strong>Strategy</strong> property with the values <code>Drilling</code> and <code>Tapping</code>. The former experimental <a href="tapping.html" class="xref page">CAM Tapping</a> operation was consolidated into Drilling; select Strategy <code>Tapping</code> with a Tool Controller that uses a tap-shaped Tool Bit to generate G84/G74 tapping cycles.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -423,7 +456,7 @@
 </div>
 </div>
 <div class="paragraph caption">
-<p>Above: CAM Drilling operation sample</p>
+<p>Above: CAM Drilling operation sample (screenshot predates 26.3; the current task panel shows the Strategy combo box and the hole table with X/Y/Blind columns)</p>
 </div>
 </div>
 </div>
@@ -437,16 +470,23 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Press the <span class="image"><img src="../_images/CAM_Drilling.svg" alt="CAM Drilling" width="16"></span> <a href="#">Drilling</a> button.</p>
+<p>Press the <span class="image"><img src="../_images/CAM_Drilling.svg" alt="CAM Drilling" width="16"></span> <a href="#">Drilling</a> button in the <strong>Drilling Operations</strong> group of the New Operations toolbar.</p>
 </li>
 <li>
 <p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Drilling</b></span> option from the menu.</p>
 </li>
-<li>
-<p>Currently, any faces or edges selected before invoking the Drilling operation are ignored during initial hole selection.</p>
+</ul>
+</div>
 </li>
 <li>
+<p><span class="since">26.3 and later</span>: Holes can be selected manually. Select cylindrical wall faces, circular bottom faces, circular or arc edges, or vertexes and press <b class="button">Add</b> in the Base Geometry section. <b class="button">Auto-select</b> fills the list with every drillable hole of the Job Models, or only of the Models selected in the 3D view. Partial arcs and cylinder faces with more than three edges are accepted.</p>
+<div class="ulist">
+<ul>
+<li>
 <p>It is best to ensure a suitable drill is already included in the Job Tools before starting. This improves initial hole selection.</p>
+</li>
+<li>
+<p>Accepted Base Geometry: vertexes (diameter 0), circular edges, cylindrical or conical faces, and flat circular faces. For other shapes the centre of mass is used and the diameter may be inaccurate.</p>
 </li>
 </ul>
 </div>
@@ -456,41 +496,50 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Select a <b class="menuref">ToolController</b>.</p>
-</li>
-<li>
-<p>Select a <b class="menuref">Coolant Mode</b>.</p>
+<p>Choose the <b class="menuref">Strategy</b> (<code>Drilling</code> or <code>Tapping</code>).</p>
 </li>
 <li>
 <p>Optionally enable and adjust the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><b class="menuref">Peck</b> set the <b class="menuref">Depth</b>.</p>
+<p><b class="menuref">Keep tool down</b> (G99 retraction between holes).</p>
 </li>
 <li>
-<p><b class="menuref">Dwell</b> set the <b class="menuref">Time</b> in seconds.</p>
+<p><b class="menuref">Peck</b> and set the <b class="menuref">Depth</b>.</p>
 </li>
 <li>
-<p><b class="menuref">Extended Depth</b>.</p>
+<p><b class="menuref">Chip break</b> (only enabled when Peck is checked).</p>
+</li>
+<li>
+<p><b class="menuref">Feed retract</b> (G85: retract from the hole at the given feedrate instead of a rapid move).</p>
+</li>
+<li>
+<p><b class="menuref">Dwell</b> and set the <b class="menuref">Time</b> in seconds.</p>
+</li>
+<li>
+<p><b class="menuref">Extend depth</b> (<code>None</code>, <code>Drill tip</code>, <code>2x drill tip</code>).</p>
 </li>
 </ul>
 </div>
 </li>
+<li>
+<p>Peck, Dwell and Feed retract are mutually exclusive; the panel disables the others when one is enabled.</p>
+</li>
 </ul>
 </div>
 </li>
 <li>
-<p>In the <b class="menuref">Base Geometry</b> section confirm that the list matches the holes that are intended for processing, and adjust add, enable, or disable, as necessary. Holes can be added by selecting the wall faces of the Holes.</p>
+<p>In the <b class="menuref">Base Geometry</b> section confirm that the list matches the holes that are intended for processing, and add, enable, or disable holes as necessary. <span class="since">introduced in 26.3</span>: The section shows a table with the columns #, Feature, Diameter, X, Y and Blind. A <b class="menuref">Sorting</b> combo box selects <code>Automatic</code> (holes ordered by the built-in travelling-salesman solver) or <code>Manual</code> (drag rows or edit the # column to set the order). <b class="menuref">Select All</b> and a <b class="menuref">Filter</b> field act on the checkboxes that enable or disable individual holes.</p>
 </li>
 <li>
-<p>In the <b class="menuref">Depths</b> section check, and if required adjust, the <b class="menuref">Start Depth</b> and <b class="menuref">Final Depth</b>.</p>
+<p>In the <b class="menuref">Heights</b> section check, and if required adjust, <b class="menuref">Clearance</b>, <b class="menuref">Retract</b> (Safe Height), <b class="menuref">Start</b> (Start Depth) and <b class="menuref">Final</b> (Final Depth). The same section holds the Linking settings <b class="menuref">Collision Avoidance Strategy</b> and <b class="menuref">Collision Clearance</b> (<span class="since">introduced in 26.3</span>).</p>
 </li>
 <li>
-<p>In the <b class="menuref">Heights</b> section check, and if required adjust, the <b class="menuref">Safe Height</b> and the <b class="menuref">Clearance Height</b>.</p>
+<p>In the <b class="menuref">Tool Controller</b> section select a <b class="menuref">Tool controller</b> and a <b class="menuref">Coolant</b> mode.</p>
 </li>
 <li>
-<p>Press the <b class="button">OK</b> button to generate the drilling path(s).</p>
+<p>Press the <b class="button">OK</b> button to generate the drilling Toolpath.</p>
 </li>
 </ol>
 </div>
@@ -505,13 +554,44 @@
 <p>When using edges for Base Geometry, always select the bottom edge of the hole.</p>
 </li>
 <li>
-<p>Always verify the tool chosen is the correct diameter for the hole(s) selected.</p>
+<p>Always verify the Tool Bit chosen is the correct diameter for the hole(s) selected.</p>
 </li>
 <li>
-<p><strong>Peck disabled</strong> generates (G81 canned drill cycles). <strong>Peck enabled</strong> generates (G83 canned drill cycles).</p>
+<p>Generated cycles:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Peck disabled</strong> generates G81 cycles.</p>
 </li>
 <li>
-<p><strong>Dwell enabled</strong> is currently unsupported, but is intended to generate (G82 canned drill cycles).</p>
+<p><strong>Peck enabled</strong> generates G83 cycles, or G73 when <strong>Chip break</strong> is also enabled.</p>
+</li>
+<li>
+<p><strong>Dwell enabled</strong> generates G82 cycles with the dwell time as P.</p>
+</li>
+<li>
+<p><strong>Feed retract</strong> generates G85 cycles.</p>
+</li>
+<li>
+<p>Peck, Dwell and Feed retract cannot be combined.</p>
+</li>
+<li>
+<p>Strategy <code>Tapping</code> generates G84 (right-hand) or G74 (left-hand, Tool Bit Spindle Direction <code>Reverse</code>) cycles with F set to the tap pitch and S to the Tool Controller spindle speed.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><span class="since">introduced in 26.3</span>: <strong>Keep Tool Down</strong> false emits G98 (retract to the Z before the cycle); true emits G99 (retract only to Start Depth between holes). Every cycle command carries <code>RetractMode</code> and <code>operation</code> annotations used by post-processors and the CAM simulator. Between holes the Linking settings decide whether the tool can travel at Safe Height or must return to Clearance Height.</p>
+</li>
+<li>
+<p>Machines without canned cycles: enable <strong>Expand drill-cycles</strong> in the post-processing options to expand G81/G82/G83/G73 into plain G0/G1 moves. G84/G74 tapping cycles are not expanded.</p>
+</li>
+<li>
+<p>Strategy <code>Tapping</code> requires a Tool Bit with a non-zero <strong>Pitch</strong> (tap shape, for example the shipped M8x1.25_Tap or 375-16_Tap) and a Tool Controller with a non-zero spindle speed; otherwise an error is reported and no Toolpath is generated. Peck, Chip break and Feed retract are hidden for this strategy; Dwell, Keep tool down and Extend depth apply to both strategies.</p>
+</li>
+<li>
+<p>The former <a href="tapping.html" class="xref page">CAM Tapping</a> command (<span class="until">1.1 and earlier</span>, experimental) is superseded by Strategy <code>Tapping</code>. Tapping operations in existing files continue to work but new ones cannot be created.</p>
 </li>
 </ul>
 </div>
@@ -575,7 +655,7 @@
 <p><strong>Label</strong>: User-provided name of the object (UTF-8)</p>
 </li>
 <li>
-<p><strong>Disabled</strong>: List of disabled features</p>
+<p><strong>Disabled</strong>: List of disabled features (holes unchecked in the Base Geometry table). <span class="since">introduced in 26.3</span>: holes at duplicate X/Y positions are disabled automatically, keeping the larger diameter.</p>
 </li>
 </ul>
 </div>
@@ -589,7 +669,7 @@
 <p><strong>Final Depth</strong>: Final Depth of Tool- lowest value in Z</p>
 </li>
 <li>
-<p><strong>Safe Height</strong>: The height above which Rapid motions are allowed. (Rapid safety height between locations)</p>
+<p><strong>Safe Height</strong>: Rapid Safety Height between locations. Shown as <em>Retract</em> in the task panel. It is the R plane of the canned cycle.</p>
 </li>
 <li>
 <p><strong>Start Depth</strong>: Starting depth of Tool - <em>first cut depth in Z</em></p>
@@ -603,22 +683,65 @@
 <p><strong>Add Tip Length</strong>: Calculate the tip length and subtract from final depth</p>
 </li>
 <li>
+<p><strong>Chip Break Enabled</strong>: Use chipbreaking (G73 instead of G83; only with Peck)</p>
+</li>
+<li>
 <p><strong>Dwell Enabled</strong>: Enable dwell</p>
 </li>
 <li>
-<p><strong>Dwell Time</strong>: The time to dwell between peck cycles</p>
+<p><strong>Dwell Time</strong>: The time to dwell between peck cycles (seconds). Default: Setup Sheet DwellTime if defined, otherwise 1.</p>
 </li>
 <li>
-<p><strong>Peck Depth</strong>: Incremental Drill depth before retracting to clear chips</p>
+<p><strong>Extra Offset</strong>: How far the drilling depth is extended. Values <code>None</code> (default), <code>Drill Tip</code> (adds the computed tip length of the Tool Bit), <code>2x Drill Tip</code>.</p>
+</li>
+<li>
+<p><strong>Feed Retract Enabled</strong>: Use G85 boring cycle with feed out</p>
+</li>
+<li>
+<p><strong>Keep Tool Down</strong>: Apply G99 retraction: only retract to StartDepth between holes in this operation. Default: false.</p>
+</li>
+<li>
+<p><strong>Peck Depth</strong>: Incremental Drill depth before retracting to clear chips. Default: Setup Sheet PeckDepth if defined, otherwise the expression <code>OpToolDiameter*0.75</code>.</p>
 </li>
 <li>
 <p><strong>Peck Enabled</strong>: Enable pecking</p>
 </li>
 <li>
-<p><strong>Retract Height</strong>: The height where feed starts and height during retract tool when path is finished</p>
+<p><strong>Strategy</strong> (<span class="since">introduced in 26.3</span>): Hole-making strategy. Values <code>Drilling</code> (default) or <code>Tapping</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Linking</div>
+<p><span class="since">introduced in 26.3</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Collision Avoidance Strategy</strong>: Method of collision detection used for moves between holes. Values <code>Clearance Height</code> (default; no detection, rapids at Clearance Height), <code>Retract Height</code> (no detection, rapids at Safe Height), <code>Line of Sight</code> (fastest, checks the path centerline), <code>Tool Diameter</code> (checks clearance using the Tool Bit diameter), <code>Tool Shape</code> (safest, checks the cross section of the Tool Shape).</p>
 </li>
 <li>
-<p><strong>Return Level</strong>: Controls how tool retracts Default=G98</p>
+<p><strong>Collision Clearance</strong>: Distance for collision detection.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Op Values</div>
+<ul>
+<li>
+<p><strong>Op Final Depth</strong>: Holds the calculated value for the FinalDepth. Read-only.</p>
+</li>
+<li>
+<p><strong>Op Start Depth</strong>: Holds the calculated value for the StartDepth. Read-only.</p>
+</li>
+<li>
+<p><strong>Op Stock ZMax</strong>: Holds the max Z value of Stock. Read-only.</p>
+</li>
+<li>
+<p><strong>Op Stock ZMin</strong>: Holds the min Z value of Stock. Read-only.</p>
+</li>
+<li>
+<p><strong>Op Tool Diameter</strong>: Holds the diameter of the tool. Read-only.</p>
 </li>
 </ul>
 </div>
@@ -629,36 +752,51 @@
 <p><strong>Active</strong>: Make False, to prevent operation from generating code</p>
 </li>
 <li>
+<p><strong>Base</strong>: The base geometry for this operation</p>
+</li>
+<li>
 <p><strong>Comment</strong>: An optional comment for this Operation</p>
+</li>
+<li>
+<p><strong>Coolant Mode</strong>: Coolant mode for this operation (<code>None</code>, <code>Flood</code>, <code>Mist</code>)</p>
+</li>
+<li>
+<p><strong>Cycle Time</strong>: Operations Cycle Time Estimation (read-only)</p>
+</li>
+<li>
+<p><strong>Locations</strong>: Base locations for this operation (list of X/Y points edited in the Base Location section)</p>
+</li>
+<li>
+<p><strong>Tool Controller</strong>: Defines the Tool Controller used in the Operation</p>
 </li>
 <li>
 <p><strong>User Label</strong>: User assigned label</p>
 </li>
 <li>
-<p><strong>Tool Controller</strong>: Defines the Tool controller used in the Operation</p>
+<p><strong>Workplane</strong>: The orientation of the tool for this operation. Default is (0, 0, 1) for standard Z-up milling. Multi-axis positioning of holes not normal to the Z axis is done through this property together with a Job of type Multiaxis; the former Rotation properties (Enable Rotation, Attempt Inverse Angle, Inverse Angle, B_Axis Error Override, Reverse Direction) no longer exist.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<div class="title">Rotation</div>
-<p>QQNOBLANK (<em>when available</em>)</p>
+<div class="title">Sorting</div>
+<p><span class="since">introduced in 26.3</span></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Attempt Inverse Angle</strong>: Automatically attempt Inverse Angle if initial rotation is incorrect.</p>
+<p><strong>Sorting Mode</strong>: Manual or Automatic mode sorting of holes. <code>Automatic</code> (default) orders holes with the built-in 2-opt travelling-salesman solver; <code>Manual</code> keeps the order of the Base Geometry list.</p>
 </li>
 <li>
-<p><strong>B_Axis Error Override</strong>: Visually orient B(y) rotations to model (error in FreeCAD rendering).</p>
+<p><strong>Start Point</strong>: Start point for automatic sorting (x,y used, z ignored).</p>
 </li>
 <li>
-<p><strong>Enable Rotation</strong>: Enable rotation to gain access to holes not normal to Z axis.</p>
+<p><strong>Use End Point</strong>: Enable to use end point for automatic sorting.</p>
 </li>
 <li>
-<p><strong>Inverse Angle</strong>: Inverse the angle of the rotation. <em>*Example:* change a rotation from -22.5 to 22.5 degrees.</em></p>
+<p><strong>End Point</strong>: End point for automatic sorting (x,y used, z ignored).</p>
 </li>
 <li>
-<p><strong>Reverse Direction</strong>: Reverse orientation of Operation by 180 degrees.</p>
+<p>The three point properties are hidden when Sorting Mode is <code>Manual</code>.</p>
 </li>
 </ul>
 </div>
@@ -675,16 +813,22 @@
 </div>
 <div class="sect2">
 <h3 id="base-geometry"><a class="anchor" href="#base-geometry"></a>Base Geometry</h3>
+<div class="paragraph">
+<p>Table with the columns <mark>, Feature, Diameter, X, Y and Blind; a Sorting combo box (<code>Automatic</code> / <code>Manual</code>), a Select All checkbox and a Filter field ([.since]#introduced in 26.3</mark>).</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add</strong>: Adds selected element(s) which should be the base(s) for the path(s).</p>
+<p><strong>Add</strong>: Add selected features from the 3D view to the list.</p>
 </li>
 <li>
-<p><strong>Delete</strong>: Delete the selected item(s) in the Base Geometry list.</p>
+<p><strong>Remove</strong>: Remove the selected list items from the list.</p>
 </li>
 <li>
-<p><strong>Clear</strong>: Clear all items in the Base Geometry list.</p>
+<p><strong>Auto-select</strong>: Remove all list items and auto-fill list with all eligible features from the job&#8217;s base object.</p>
+</li>
+<li>
+<p><strong>Clear All</strong>: Clear all items in the list.</p>
 </li>
 </ul>
 </div>
@@ -706,27 +850,36 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="depths"><a class="anchor" href="#depths"></a>Depths</h3>
+<h3 id="heights"><a class="anchor" href="#heights"></a>Heights</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Start Depth</strong>:</p>
+<p><strong>Clearance</strong></p>
 </li>
 <li>
-<p><strong>Final Depth</strong>:</p>
+<p><strong>Retract</strong> (Safe Height)</p>
+</li>
+<li>
+<p><strong>Start</strong> (Start Depth)</p>
+</li>
+<li>
+<p><strong>Final</strong> (Final Depth)</p>
+</li>
+<li>
+<p><strong>Collision Avoidance Strategy</strong> and <strong>Collision Clearance</strong> (Linking group, <span class="since">introduced in 26.3</span>)</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="heights"><a class="anchor" href="#heights"></a>Heights</h3>
+<h3 id="tool-controller"><a class="anchor" href="#tool-controller"></a>Tool Controller</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Safe Height</strong>:</p>
+<p><strong>Tool controller</strong></p>
 </li>
 <li>
-<p><strong>Clearance Height</strong>:</p>
+<p><strong>Coolant</strong></p>
 </li>
 </ul>
 </div>
@@ -736,25 +889,25 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Tool Controller</strong>:</p>
+<p><strong>Strategy</strong></p>
 </li>
 <li>
-<p><strong>Retract Height</strong>:</p>
+<p><strong>Keep tool down</strong></p>
 </li>
 <li>
-<p><strong>Peck</strong>:</p>
+<p><strong>Peck</strong> and <strong>Depth</strong></p>
 </li>
 <li>
-<p><strong>Peck Depth</strong>:</p>
+<p><strong>Chip break</strong></p>
 </li>
 <li>
-<p><strong>Dwell</strong>:</p>
+<p><strong>Feed retract</strong></p>
 </li>
 <li>
-<p><strong>Dwell Time</strong>:</p>
+<p><strong>Dwell</strong> and <strong>Time</strong></p>
 </li>
 <li>
-<p><strong>Use Tip Length</strong>:</p>
+<p><strong>Extend depth</strong></p>
 </li>
 </ul>
 </div>
@@ -772,14 +925,22 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">#Place code example here.</code></pre>
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import FreeCAD
+import Path.Op.Drilling as PathDrilling
+
+job = FreeCAD.ActiveDocument.getObject('Job')
+op = PathDrilling.Create('Drilling', parentJob=job)
+op.Proxy.findAllHoles(op)
+op.Strategy = 'Drilling'
+op.PeckEnabled = True
+FreeCAD.ActiveDocument.recompute()</code></pre>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="slot.html">Slot</a></span>
-  <span class="next"><a href="engrave.html">Engrave</a></span>
+  <span class="next"><a href="thread-milling.html">Thread Milling</a></span>
 </nav>
 </article>
   </div>

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM Sanity :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/job/sanity-check.html">
-    <link rel="prev" href="../output/post-process.html">
-    <link rel="next" href="export-template.html">
+    <link rel="prev" href="../output/machine.html">
+    <link rel="next" href="quick-validate.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -68,8 +68,17 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -378,18 +408,6 @@
 <h1 class="page">CAM Sanity</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This page is incomplete; it was marked as unfinished on the wiki.
-</td>
-</tr>
-</table>
-</div>
 <div class="openblock fcinfobox">
 <div class="content">
 <div class="paragraph fcTitle">
@@ -399,7 +417,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <dl>
 <dt class="hdlist1">Menu location</dt>
 <dd>
-<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Sanity Check</b></span></p>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Sanity Check</b></span>; also in the Tree View context menu of a Job</p>
 </dd>
 <dt class="hdlist1">Workbenches</dt>
 <dd>
@@ -407,7 +425,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </dd>
 <dt class="hdlist1">Default shortcut</dt>
 <dd>
-<p><kbd>kbd:[P</kbd> <kbd>S</kbd>]</p>
+<p><kbd>P</kbd> <kbd>S</kbd></p>
 </dd>
 <dt class="hdlist1">Introduced in version</dt>
 <dd>
@@ -415,7 +433,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><em>None</em></p>
+<p><a href="quick-validate.html" class="xref page">CAM QuickValidate</a>, <a href="../output/post-process.html" class="xref page">CAM Post</a></p>
 </dd>
 </dl>
 </div>
@@ -439,7 +457,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>Even if the G-code itself is correct, differences between the programmed setup and the actual machine setup can still lead to mistakes. Commercial shops often solve this by preparing a setup report or setup book for the machine operator.</p>
 </div>
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_Sanity.svg" alt="CAM Sanity" width="24"></span> <a href="#">CAM Sanity</a> command is used to generate this kind of setup-oriented information. The output is a standalone HTML report with embedded images that can be opened in a web browser.</p>
+<p>The <span class="image"><img src="../_images/CAM_Sanity.svg" alt="CAM Sanity" width="24"></span> <a href="#">CAM Sanity</a> command (tooltip: <em>Checks the CAM job for common errors</em>; toolbar: <strong>Project Setup → Sanity Check</strong>) is used to generate this kind of setup-oriented information. The output is a standalone HTML report with embedded images that can be opened in a web browser.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -447,7 +465,7 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </div>
 </div>
 <div class="paragraph caption">
-<p>Above: Example of a CAM Sanity generated report</p>
+<p>Above: Example of a CAM Sanity generated report (from an older version; the current report is titled "Setup Report for CAM Job: &lt;label&gt;" and its fixtures section is titled "Fixtures")</p>
 </div>
 </div>
 </div>
@@ -455,54 +473,48 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <h2 id="about-the-report"><a class="anchor" href="#about-the-report"></a>About the Report</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As much as possible, the content is FreeCAD-agnostic. The machine operator may never use FreeCAD, so FreeCAD- and CAM-specific terminology should be kept to a minimum. The report has distinct sections so that setup information is easier to review.</p>
+<p>As much as possible, the content is FreeCAD-agnostic. The machine operator may never use FreeCAD, so FreeCAD- and CAM-specific terminology should be kept to a minimum. The report contains a table of contents and the sections <strong>Part Information</strong>, <strong>Run Summary</strong>, <strong>Rough Stock</strong>, <strong>Tool Data</strong>, <strong>Output (G-code)</strong>, <strong>Fixtures</strong> and <strong>Squawks</strong>.</p>
 </div>
 <div class="sect2">
 <h3 id="part-information"><a class="anchor" href="#part-information"></a>Part Information</h3>
 <div class="paragraph">
-<p>This section gives an overview of what is being made. Ideally the image should show the base object or objects used by the Job. If there are multiple base objects, the image should show how they relate to each other in the Job setup.</p>
+<p>Shows the CAD file name and last save date, the Customer (document Company field), the Job type, the Job&#8217;s sequence among the Jobs of the document, the Job description, an image of the Model(s) and the list of Models with their counts.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="run-summary"><a class="anchor" href="#run-summary"></a>Run Summary</h3>
 <div class="paragraph">
-<p>This section gives a quick overview of the Job, including important height information and estimated run-time values.</p>
+<p>Lists the estimated total cycle time, the lowest and highest Z of the Job, and a table of every Operation with its Z range, cycle time and coolant mode. Inactive Operations are flagged with "(INACTIVE)"; Dressups are listed with their base Operation.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="rough-stock"><a class="anchor" href="#rough-stock"></a>Rough Stock</h3>
 <div class="paragraph">
-<p>This section shows the Stock object from the Job, including its size and placement relative to the model.</p>
+<p>Shows the Stock dimensions, the assigned stock material with its carbide and HSS surface speeds (if defined; see <b class="button">Assign Material</b> on the Job&#8217;s Setup tab), and an image of the Stock.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="tool-data"><a class="anchor" href="#tool-data"></a>Tool Data</h3>
 <div class="paragraph">
-<p>This section contains a subsection for each tool number used in the Job. It summarizes the tool and tool-controller information used by the selected operations. Depending on the available tool information, this can include the tool description, diameter, feed information, spindle speed, and the operations that use the tool.</p>
+<p>One subsection per tool number with the Tool Bit description, shape, diameter, an image of the Tool Bit, horizontal feed, spindle speed and the Operations that use the Tool Controller. Manufacturer, URL, part number and inspection notes are reserved and currently empty.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="output"><a class="anchor" href="#output"></a>Output</h3>
+<h3 id="output-g-code"><a class="anchor" href="#output-g-code"></a>Output (G-code)</h3>
 <div class="paragraph">
-<p>This section gives details about the configured output file and post-processing context. It can also show whether the Job contains optional or mandatory stops, so the operator knows whether the machine run requires attention during execution.</p>
+<p>Shows when the Job was last post-processed, the G-code file name, size and line count, whether the Job contains Stop operations (so the operator knows whether the machine run requires attention during execution), the Post-Processor and its arguments.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="coolant"><a class="anchor" href="#coolant"></a>Coolant</h3>
+<h3 id="fixtures"><a class="anchor" href="#fixtures"></a>Fixtures</h3>
 <div class="paragraph">
-<p>This section indicates the coolant requirements defined by the operations in the Job.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="fixtures-and-work-holding"><a class="anchor" href="#fixtures-and-work-holding"></a>Fixtures and Work-holding</h3>
-<div class="paragraph">
-<p>This section shows the part in the context of the stock envelope and helps communicate the expected setup orientation and reference position.</p>
+<p>Lists the Work Offsets (Fixtures) and the output order, with an image showing the part datum relative to Stock and Model.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="squawks"><a class="anchor" href="#squawks"></a>Squawks</h3>
 <div class="paragraph">
-<p>This section lists warnings and errors detected by <a href="#">CAM Sanity</a>. These items may or may not be actual problems, but they should be reviewed before post-processing or running the Job. Examples can include duplicate tool numbers, inconsistent tool information, missing feed or spindle settings, and unused tool controllers.</p>
+<p>This section lists warnings and errors detected by <a href="#">CAM Sanity</a>. Each squawk has a type (Note, Tip, Caution, Warning) shown by an icon, a date, an operator and a note. Current checks: Job not yet post-processed; last G-code file missing; no stock material assigned; legacy tool; tool number used by several Tool Bits; Tool Controller without feed rate or spindle speed; unused Tool Controller; Job without Operations or Model. When a Machine is assigned, the machine-based Post-Processor can add its own checks. These items may or may not be actual problems, but they should be reviewed before post-processing or running the Job.</p>
 </div>
 </div>
 </div>
@@ -526,24 +538,43 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Sanity Check</b></span> option from the menu.</p>
 </li>
 <li>
+<p>Select <strong>Sanity Check</strong> from the context menu of the Job.</p>
+</li>
+<li>
 <p>Use the keyboard shortcut: <kbd>P</kbd> then <kbd>S</kbd>.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>If necessary, set the <strong>OutputFile</strong> property of the Job before running the command.</p>
+<p>In the <strong>Save Sanity Check Report</strong> dialog choose where to save the HTML file (defaults to the folder of the FreeCAD document).</p>
 </li>
 <li>
-<p>FreeCAD generates a standalone HTML report for the selected Job.</p>
-</li>
-<li>
-<p>The report is written to the same location as the configured Job output file.</p>
-</li>
-<li>
-<p>The generated report is opened in the system&#8217;s default web browser.</p>
+<p>The report is written and opened in the system&#8217;s default web browser; the path is also printed in the Report view.</p>
 </li>
 </ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quick-validate"><a class="anchor" href="#quick-validate"></a>Quick Validate</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="since">introduced in 26.3</span></p>
+</div>
+<div class="paragraph">
+<p>The related command <a href="quick-validate.html" class="xref page">CAM QuickValidate</a> (shortcut <kbd>P</kbd> <kbd>V</kbd>, not in the menus; run it with <code>Gui.runCommand('CAM_QuickValidate')</code>) runs the same checks without images or HTML and prints the squawks to the Report view.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="post-process-dialog-integration"><a class="anchor" href="#post-process-dialog-integration"></a>Post Process dialog integration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="since">introduced in 26.3</span></p>
+</div>
+<div class="paragraph">
+<p>When post-processing with a Machine, the <a href="../output/post-process.html" class="xref page">Post Process</a> dialog runs the same checks and shows them on its <strong>Warnings</strong> tab (the tab label shows the count and a "(!)" marker when warnings or cautions exist). The Overview tab has a <strong>Generate HTML sanity report</strong> checkbox (in the current development version this option is collected but does not yet write a report).</p>
 </div>
 </div>
 </div>
@@ -559,7 +590,10 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>The generated HTML file is intended to be easy to review, archive, or share together with the Job output.</p>
 </li>
 <li>
-<p>Report images can be embedded directly in the generated HTML file.</p>
+<p>Report images are captured from the 3D view and embedded directly in the generated HTML file, so a report generated in FreeCADCmd (without the GUI) has no images.</p>
+</li>
+<li>
+<p>The target folder must exist.</p>
 </li>
 <li>
 <p>Where applicable, report values are formatted for display using the current unit formatting.</p>
@@ -568,15 +602,28 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <p>Tool diameter and feed values are formatted for display, and spindle speed is shown with an <code>rpm</code> suffix.</p>
 </li>
 <li>
-<p>The report is a review aid. It does not replace visual toolpath inspection, simulation, or machine-specific setup documentation.</p>
+<p>The report is a review aid. It does not replace visual Toolpath inspection, simulation, or machine-specific setup documentation.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from Path.Main.Sanity import Sanity
+checker = Sanity.CAMSanity(job, '/tmp/report.html')
+open('/tmp/report.html', 'w').write(checker.get_output_report())
+squawks, critical = Sanity.CAMSanity.validate_job(job)</code></pre>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="../output/post-process.html">Post Process</a></span>
-  <span class="next"><a href="export-template.html">Export Template</a></span>
+  <span class="prev"><a href="../output/machine.html">Machine</a></span>
+  <span class="next"><a href="quick-validate.html">Quick Validate</a></span>
 </nav>
 </article>
   </div>

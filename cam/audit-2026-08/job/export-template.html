@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>CAM ExportTemplate :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/job/export-template.html">
-    <link rel="prev" href="sanity-check.html">
+    <link rel="prev" href="quick-validate.html">
     <link rel="next" href="../inspect/inspect.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -387,7 +417,7 @@
 <dl>
 <dt class="hdlist1">Menu location</dt>
 <dd>
-<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Export Template</b></span></p>
+<p><span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Export Template</b></span>; also in the Tree View context menu of a Job</p>
 </dd>
 <dt class="hdlist1">Workbenches</dt>
 <dd>
@@ -403,7 +433,7 @@
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><a href="setup-sheet.html" class="xref page">CAM SetupSheet</a></p>
+<p><a href="setup-sheet.html" class="xref page">CAM SetupSheet</a>, <a href="job.html" class="xref page">CAM Job</a></p>
 </dd>
 </dl>
 </div>
@@ -415,10 +445,10 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_ExportTemplate.svg" alt="CAM ExportTemplate" width="24"></span> <a href="#">CAM ExportTemplate</a> tool provides a convenient mechanism to save commonly used Job definitions from within an existing Job. This facilitates the setup of future Jobs, that are largely similar, by allowing Job template import during the Job creation process.</p>
+<p>The <span class="image"><img src="../_images/CAM_ExportTemplate.svg" alt="CAM ExportTemplate" width="24"></span> <a href="#">CAM ExportTemplate</a> tool provides a convenient mechanism to save commonly used Job definitions from within an existing Job (tooltip: <em>Exports the CAM job as a template to be used for other jobs</em>). This facilitates the setup of future Jobs, that are largely similar, by allowing Job Template import during the Job creation process. There is no toolbar button and no keyboard shortcut; the command is also available in the Tree View context menu of a Job.</p>
 </div>
 <div class="paragraph">
-<p>The <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Job Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Defaults</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Template</b></span> sets the default template.</p>
+<p><span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Job preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">General</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Defaults</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Template</b></span> sets the template preselected in the New Job dialog.</p>
 </div>
 </div>
 </div>
@@ -428,19 +458,19 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Export Template</b></span> option from the menu.</p>
+<p>Select the Job in the Tree View (not needed if the document contains only one Job).</p>
 </li>
 <li>
-<p>Select elements for inclusion from the <b class="menuref">Export Template</b> configuration dialog.</p>
+<p>Select the <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Export Template</b></span> option from the menu, or <strong>Export Template</strong> in the Job&#8217;s context menu.</p>
 </li>
 <li>
-<p>The template must be saved in the Macro directory or the CAM directory, as configured in the <a href="../reference/preferences.html" class="xref page">CAM Preferences</a>.</p>
+<p>Select elements for inclusion in the <strong>Job Template Export</strong> configuration dialog (see the options below).</p>
 </li>
 <li>
-<p>The template name must follow the pattern of <code>job_&lt;template name&gt;.json</code>. When shown in the selection combobox, the <code>job_</code> prefix and the extension are left out.</p>
+<p>Press <b class="button">OK</b>; a file dialog opens in the CAM asset Templates directory (<code>&lt;asset path&gt;/Templates</code>). Templates stored there, in the CAM file path set in the <a href="../reference/preferences.html" class="xref page">CAM Preferences</a>, or in the macro directory are found automatically when creating a Job.</p>
 </li>
 <li>
-<p>Press the <b class="button">OK</b> button and save the template.</p>
+<p>Enter a name; the <code>job_</code> prefix and <code>.json</code> extension are added if missing. When shown in the selection combobox of the New Job dialog, the <code>job_</code> prefix and the extension are left out.</p>
 </li>
 </ol>
 </div>
@@ -449,74 +479,82 @@
 <div class="sect1">
 <h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
 <div class="sectionbody">
-
+<div class="sect2">
+<h3 id="description-2"><a class="anchor" href="#description-2"></a>Description</h3>
+<div class="paragraph">
+<p><span class="since">introduced in 26.3</span></p>
+</div>
+<div class="paragraph">
+<p>Optional text, pre-filled from the Job&#8217;s Description, stored in the template and shown as a tooltip when choosing the template in the New Job dialog (e.g. "Metric defaults for 3-axis router with 600x900 work area").</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="post-processing"><a class="anchor" href="#post-processing"></a>Post Processing</h3>
+<div class="paragraph">
+<p>If enabled, the legacy Post-Processor name, its arguments and the output file template are stored. The group is disabled when the Job has no legacy Post-Processor. The Fixtures list, Order-by and Split Output settings, the Machine name (<span class="since">introduced in 26.3</span>) and any Post-Processor property overrides are stored with the template independently of this checkbox. The geometry tolerance of the Job is always included.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="stock"><a class="anchor" href="#stock"></a>Stock</h3>
+<div class="paragraph">
+<p>If enabled, the stock creation method (box, cylinder or extend bounding box) is stored:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Extent</strong>: adds the dimensions/allowances.</p>
+</li>
+<li>
+<p><strong>Placement</strong>: adds position and rotation (unchecked by default for bounding-box stock).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Without a stock definition the default (bounding box of the Model) is used. A Stock made from an existing solid cannot be exported.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setup-sheet"><a class="anchor" href="#setup-sheet"></a>Setup Sheet</h3>
+<div class="paragraph">
+<p>Check <strong>Operation heights</strong>, <strong>Operation depths</strong>, <strong>Tool rapid speeds</strong> and <strong>Coolant Mode</strong> to include those defaults; the list below offers every Operation type that has per-operation defaults set. Modified values are preselected. See <a href="setup-sheet.html" class="xref page">CAM SetupSheet</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tool-controllers"><a class="anchor" href="#tool-controllers"></a>Tool Controllers</h3>
+<div class="paragraph">
+<p>Check the Tool Controllers to include; the group checkbox toggles all. Each stores its label, tool number, feeds (horizontal, vertical, lead-in, lead-out, ramp) and rapids, spindle speed and direction, any expressions, and the complete Tool Bit definition.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="post-processing"><a class="anchor" href="#post-processing"></a>Post Processing</h2>
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Postprocessor selection</p>
-</li>
-<li>
-<p>Postprocessor arguments</p>
-</li>
-<li>
-<p>Output file name</p>
+<p>If the template&#8217;s Post-Processor is not available when a Job is created from it, a warning is written to the Report view and the default Post-Processor is used (<span class="since">introduced in 26.3</span>).</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="stock"><a class="anchor" href="#stock"></a>Stock</h2>
+<h2 id="scripting"><a class="anchor" href="#scripting"></a>Scripting</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Extent: Stock Size</p>
-</li>
-<li>
-<p>Placement: Stock Location</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import Path.Main.Gui.JobCmd as JobCmd
+JobCmd.CommandJobTemplateExport.Execute(job, '/path/job_mytemplate.json')</code></pre>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="setup-sheet"><a class="anchor" href="#setup-sheet"></a>Setup Sheet</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Operation Heights</p>
-</li>
-<li>
-<p>Operation Depths</p>
-</li>
-<li>
-<p>Tool Rapid Speeds</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="tool-controllers"><a class="anchor" href="#tool-controllers"></a>Tool controllers</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Selected Tool controllers.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>exports everything; pass a <code>Path.Main.Gui.JobDlg.JobTemplateExport</code> dialog as third argument to filter.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="sanity-check.html">Sanity Check</a></span>
+  <span class="prev"><a href="quick-validate.html">Quick Validate</a></span>
   <span class="next"><a href="../inspect/inspect.html">Inspect Toolpath</a></span>
 </nav>
 </article>

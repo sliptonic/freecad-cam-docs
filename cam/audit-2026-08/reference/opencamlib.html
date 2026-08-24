@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>OpenCamLib :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/reference/opencamlib.html">
-    <link rel="prev" href="fourth-axis.html">
-    <link rel="next" href="../about/import-report.html">
+    <link rel="prev" href="../operations/mill-face.html">
+    <link rel="next" href="../operations/tapping.html">
     <meta name="generator" content="Antora 3.1.15">
 <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/freecad.css">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="../operations/pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/mill-face.html">Face</a>
+    <a class="nav-link" href="../operations/mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../operations/waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="../operations/probe.html">Probe</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="../operations/path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../operations/thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -305,8 +329,14 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="fourth-axis.html">CAM fourth axis</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/mill-face.html">Face (obsolete)</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../operations/tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -380,7 +410,7 @@
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>OpenCamLib (OCL) is an open source library aiming to provide computer aided manufacturing (CAM) algorithms. FreeCAD uses OCL in the experimental <span class="image"><img src="../_images/Path_Surface.svg" alt="Path Surface" width="24"></span> <a href="../operations/surface.html" class="xref page">3D Surface</a> path operations and other experimental features.</p>
+<p>OpenCamLib (OCL) is an open source library aiming to provide computer aided manufacturing (CAM) algorithms. FreeCAD uses OCL for the <span class="image"><img src="../_images/CAM_3DSurface.svg" alt="CAM 3DSurface" width="24"></span> <a href="../operations/surface.html" class="xref page">3D Surface</a> and <span class="image"><img src="../_images/CAM_Waterline.svg" alt="CAM Waterline" width="24"></span> <a href="../operations/waterline.html" class="xref page">Waterline</a> Operations, the experimental <span class="image"><img src="../_images/CAM_RotarySurface.svg" alt="CAM RotarySurface" width="24"></span> <a href="../operations/rotary-surface.html" class="xref page">Rotary Surface</a> Operation, and as the gate for the <span class="image"><img src="../_images/CAM_Camotics.svg" alt="CAM Camotics" width="24"></span> <a href="../inspect/camotics.html" class="xref page">CAMotics</a> simulator integration. These commands are hidden until <b class="menuref">Enable OCL dependent features</b> is checked on the <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Advanced</b></span> page and FreeCAD is restarted.</p>
 </div>
 <div class="paragraph">
 <p>Github: <a href="https://github.com/aewallin/opencamlib" class="bare">github.com/aewallin/opencamlib</a></p>
@@ -396,10 +426,10 @@
 <div class="sect2">
 <h3 id="windows"><a class="anchor" href="#windows"></a>Windows</h3>
 <div class="paragraph">
-<p><strong>Note:</strong> Beginning with FreeCAD version 0.19, OCL should be included with all Windows distribution packages.</p>
+<p><strong>Note:</strong> Recent Windows and macOS builds of FreeCAD ship OpenCamLib. If it is missing, install the <code>opencamlib</code> package into FreeCAD&#8217;s bundled Python (for example with the Addon Manager&#8217;s Python dependency installer or <code>pip install opencamlib</code>) so that <code>import opencamlib</code> succeeds. The historical <code>ocl.pyd</code> instructions below apply only to legacy builds.</p>
 </div>
 <div class="paragraph">
-<p>To install OCL on Windows, follow these instructions.</p>
+<p>To install OCL on Windows manually, follow these instructions.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -523,66 +553,33 @@ sudo apt-get install texlive-full</code></pre>
 <p>Install OpenCamLib from the <a href="https://aur.archlinux.org/packages/opencamlib-git">AUR package</a>.</p>
 </li>
 <li>
-<p>Then run the following code snippet inside FreeCAD&#8217;s <a href="https://wiki.freecad.org/Python_console">Python console</a></p>
+<p>If the package installs outside Python&#8217;s site-packages, run the following code snippet inside FreeCAD&#8217;s <a href="https://wiki.freecad.org/Python_console">Python console</a> before enabling the preference:</p>
 </li>
 </ol>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">import sys
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import sys
 sys.path.append('/usr/opencamlib/')
 import ocl</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>If the package installs into site-packages this is unnecessary; FreeCAD accepts either <code>import ocl</code> or <code>import opencamlib</code>.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="python-3"><a class="anchor" href="#python-3"></a>Python 3</h4>
+<h4 id="building-from-source"><a class="anchor" href="#building-from-source"></a>Building from source</h4>
 <div class="paragraph">
-<p>Identify the version of cmake you have installed with <code>cmake --version</code></p>
-</div>
-<div class="paragraph">
-<p>For cmake &gt;= 3.12, add these flags:</p>
+<p>Build with the upstream instructions (Python 3):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cmake -DBUILD_PY_LIB=ON -DUSE_PY_3=ON -DCMAKE_BUILD_TYPE=Release ../src -Wno-dev</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cmake -DBUILD_PY_LIB=ON -DCMAKE_BUILD_TYPE=Release ../src -Wno-dev</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For cmake &lt; 3.12 (like in Ubuntu 18.04, which has 3.10), first you&#8217;ll need to edit <code>src/pythonlib/pythonlib.cmake</code>, and apply this patch:</p>
-</div>
-<div class="paragraph">
-<p><code>Index: opencamlib-2019.07/src/pythonlib/pythonlib.cmake</code><br>
-<code>===================================================================</code><br>
-<code>--- opencamlib-2019.07.orig/src/pythonlib/pythonlib.cmake</code><br>
-<code>&#43;&#43;&#43; opencamlib-2019.07/src/pythonlib/pythonlib.cmake</code><br>
-<code>@@ -48,13 &#43;48,13 @@ if(${CMAKE_VERSION} VERSION_LESS "3.12.0</code><br>
-`     message("Python not found")`<br>
-`   endif()`<br>
-`   execute_process(`<br>
-<code>-    COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(0,0,\"/usr/local\")"</code><br>
-<code>&#43;    COMMAND ${PYTHON_EXECUTABLE} -c "import site; print(site.getsitepackages()[-1])"</code><br>
-`     OUTPUT_VARIABLE PYTHON_SITE_PACKAGES`<br>
-`     OUTPUT_STRIP_TRAILING_WHITESPACE`<br>
-`   ) # on Ubuntu 11.10 this outputs: /usr/local/lib/python2.7/dist-packages`<br>
-` `<br>
-`   execute_process(`<br>
-<code>-    COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(plat_specific=1,standard_lib=0,prefix=\"/usr/local\")"</code><br>
-<code>&#43;    COMMAND ${PYTHON_EXECUTABLE} -c "import site; print(site.getsitepackages()[-1])"</code><br>
-`     OUTPUT_VARIABLE PYTHON_ARCH_PACKAGES`<br>
-`     OUTPUT_STRIP_TRAILING_WHITESPACE`<br>
-`   )`</p>
-</div>
-<div class="paragraph">
-<p>Then, in order for Python 3 to be detected correctly you&#8217;ll need to add 2 more flags to the cmake line:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cmake -DBUILD_PY_LIB=ON -DUSE_PY_3=ON -DPYTHON_EXECUTABLE="$(which python3)" -DPYTHON_VERSION_SUFFIX=3 -DCMAKE_BUILD_TYPE=Release ../src -Wno-dev</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>See the FreeCAD forum at <a href="https://forum.freecad.org/viewtopic.php?p=316970#p316988">Re: How to activate openCamLib after compiling it</a>, and a few posts following.</p>
+<p>or simply install the <code>opencamlib</code> wheel with pip. The cmake 3.10 patch that older revisions of this page described is no longer needed.</p>
 </div>
 </div>
 </div>
@@ -600,17 +597,16 @@ make install</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To test the build enter the following in the <a href="https://wiki.freecad.org/Python_console">Python console</a>:</p>
+<p>To test the build enter the following in the <a href="https://wiki.freecad.org/Python_console">Python console</a> (either module name works):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import area
-import ocl
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import ocl  # or: import opencamlib as ocl
 dir(ocl)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The return value should be:</p>
+<p>The returned list should contain <code>Waterline</code>, <code>AdaptiveWaterline</code> and <code>PathDropCutter</code>, similar to:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -628,6 +624,14 @@ dir(ocl)</code></pre>
 <div class="paragraph">
 <p>For cmake the Release option is very important, when using Debug area and ocl will collide and either library will not load (depending on what what was loaded first).</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enabling-in-freecad"><a class="anchor" href="#enabling-in-freecad"></a>Enabling in FreeCAD</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After installation, open <span class="menuseq"><b class="menu">Edit</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Preferences</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Advanced</b></span>, check <b class="menuref">Enable OCL dependent features</b> and restart FreeCAD. FreeCAD imports the module as <code>ocl</code> or, failing that, <code>opencamlib</code>. If neither import works the report view prints "OpenCamLib is not working!" unless <b class="menuref">Suppress openCAMlib warning</b> is checked.</p>
 </div>
 </div>
 </div>
@@ -657,9 +661,24 @@ dir(ocl)</code></pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="experimental.html" class="xref page">CAM experimental</a></p>
+</li>
+<li>
+<p><a href="https://wiki.freecad.org/Installing_additional_components">Installing additional components</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="fourth-axis.html">CAM fourth axis</a></span>
-  <span class="next"><a href="../about/import-report.html">Import report</a></span>
+  <span class="prev"><a href="../operations/mill-face.html">Face (obsolete)</a></span>
+  <span class="next"><a href="../operations/tapping.html">Tapping (obsolete)</a></span>
 </nav>
 </article>
   </div>

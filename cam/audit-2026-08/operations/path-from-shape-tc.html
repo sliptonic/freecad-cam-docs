@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>CAM Shape :: FreeCAD CAM documentation (experiment)</title>
+    <title>Path from Shape :: FreeCAD CAM documentation (experiment)</title>
     <link rel="canonical" href="https://sliptonic.github.io/freecad-cam-docs/cam/wiki-2026-08/operations/path-from-shape-tc.html">
     <link rel="prev" href="probe.html">
     <link rel="next" href="../modify/copy.html">
@@ -69,7 +69,16 @@
     <a class="nav-link" href="../output/post-process.html">Post Process</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/post-process-selected.html">Post Process Selected</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../output/machine.html">Machine</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/sanity-check.html">Sanity Check</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../job/quick-validate.html">Quick Validate</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../job/export-template.html">Export Template</a>
@@ -90,16 +99,22 @@
     <a class="nav-link" href="../inspect/simulator.html">CAM Simulator</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../inspect/camotics.html">CAMotics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/select-loop.html">Finish Selecting Loop</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../inspect/op-active-toggle.html">Toggle Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/library-manager.html">ToolBit Library Manager</a>
+    <a class="nav-link" href="../inspect/set-start-point.html">Start Point Selection</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/add-toolbit.html">Add toolbit…</a>
+    <a class="nav-link" href="../tools/library-manager.html">Toolbit Library Manager</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/add-toolbit.html">Add Toolbit…</a>
   </li>
 </ul>
   </li>
@@ -114,7 +129,7 @@
     <a class="nav-link" href="pocket.html">Pocket Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="mill-face.html">Face</a>
+    <a class="nav-link" href="mill-facing.html">Mill Facing</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="helix.html">Helix</a>
@@ -127,6 +142,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="drilling.html">Drilling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="engrave.html">Engrave</a>
@@ -152,12 +170,18 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="waterline.html">Waterline</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="rotary-surface.html">Rotary Surface</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Dressup</span>
+    <span class="nav-text">Path Dressup</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/array.html">Array</a>
+  </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/axis-map.html">Axis Map</a>
   </li>
@@ -172,6 +196,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/lead-in-out.html">Lead In/Out</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dressups/mirror.html">Mirror</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../dressups/ramp-entry.html">Ramp Entry</a>
@@ -201,31 +228,22 @@
     <a class="nav-link" href="probe.html">Probe</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="path-from-shape-tc.html">Path From Shape TC</a>
+    <a class="nav-link" href="path-from-shape-tc.html">Path from Shape</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">CAM Modification</span>
+    <span class="nav-text">Path Modification</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../modify/copy.html">Copy oOperation</a>
+    <a class="nav-link" href="../modify/copy.html">Copy Operation</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/array.html">Array</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../modify/simple-copy.html">Simple Copy</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Specialty Operations</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="thread-milling.html">Thread Milling</a>
   </li>
 </ul>
   </li>
@@ -239,6 +257,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../misc/area-workplane.html">Area Workplane</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../misc/property-bag.html">Property Bag</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -249,16 +270,19 @@
     <a class="nav-link" href="../tools/index.html">Tools</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-shape.html">ToolShape</a>
+    <a class="nav-link" href="../tools/tool-shape.html">Tool Shape</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit.html">ToolBit</a>
+    <a class="nav-link" href="../tools/toolbit.html">Tool Bit</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/toolbit-library.html">ToolBit Library</a>
+    <a class="nav-link" href="../tools/toolbit-library.html">Tool Library</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../tools/tool-controller.html">ToolController</a>
+    <a class="nav-link" href="../tools/tool-controller.html">Tool Controller</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../tools/feeds-speeds.html">Feeds and Speeds</a>
   </li>
 </ul>
   </li>
@@ -306,7 +330,13 @@
     <a class="nav-link" href="../reference/fourth-axis.html">CAM fourth axis</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="mill-face.html">Face (obsolete)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../reference/opencamlib.html">OpenCamLib</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="tapping.html">Tapping (obsolete)</a>
   </li>
 </ul>
   </li>
@@ -357,7 +387,7 @@
   <ul>
     <li><a href="../index.html">FreeCAD CAM</a></li>
     <li>Supplemental Commands</li>
-    <li><a href="path-from-shape-tc.html">Path From Shape TC</a></li>
+    <li><a href="path-from-shape-tc.html">Path from Shape</a></li>
   </ul>
 </nav>
 <div class="page-versions">
@@ -375,7 +405,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">CAM Shape</h1>
+<h1 class="page">Path from Shape</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="admonitionblock warning">
@@ -390,22 +420,10 @@ This is an experimental feature. See <a href="../reference/experimental.html" cl
 </tr>
 </table>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-This page is incomplete; it was marked as unfinished on the wiki.
-</td>
-</tr>
-</table>
-</div>
 <div class="openblock fcinfobox">
 <div class="content">
 <div class="paragraph fcTitle">
-<p><span class="image"><img src="../_images/CAM_Shape.svg" alt="CAM Shape" width="32"></span> <strong>CAM Shape</strong></p>
+<p><span class="image"><img src="../_images/CAM_Shape.svg" alt="CAM Path From Shape TC" width="32"></span> <strong>CAM Path From Shape TC</strong></p>
 </div>
 <div class="dlist">
 <dl>
@@ -423,11 +441,11 @@ This page is incomplete; it was marked as unfinished on the wiki.
 </dd>
 <dt class="hdlist1">Introduced in version</dt>
 <dd>
-<p>-</p>
+<p>1.1</p>
 </dd>
 <dt class="hdlist1">See also</dt>
 <dd>
-<p><em>None</em></p>
+<p><a href="../inspect/select-loop.html" class="xref page">CAM SelectLoop</a></p>
 </dd>
 </dl>
 </div>
@@ -439,39 +457,54 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <h2 id="description"><a class="anchor" href="#description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <span class="image"><img src="../_images/CAM_Shape.svg" alt="CAM Shape" width="24"></span> <a href="#">CAM Shape</a> command doesn&#8217;t match the current CAM workflow. For that reason it&#8217;s moved to the experimental features.</p>
+<p>The <a href="#">Path From Shape TC</a> command creates a toolpath that follows selected edges directly, without tool radius compensation and without depth stepping. The toolpath is linked to a Tool Controller of the Job for feed rates and tool change. It is an <a href="../reference/experimental.html" class="xref page">experimental</a> command.</p>
 </div>
 <div class="paragraph">
-<p>This tool generates tool-paths from CAM Object edges.</p>
+<p>This command replaced the earlier experimental <em>From Shape</em> (<code>CAM_Shape</code>) command in <span class="since">version 1.1</span>; that command is no longer available from the menus.</p>
 </div>
 <div class="paragraph">
-<p>Tool-paths are uncompensated for tool radius. There is no Tool controller associated with the generated tool-paths.</p>
+<p>The new PathShape object is added to the Job&#8217;s Operations and is post-processed like any other Operation.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../_images/FromShape_image_0.png" alt="FromShape image 0" width="500">
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This image predates the 1.1 Path From Shape TC command and may not match the current object.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="usage"><a class="anchor" href="#usage"></a>Usage</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>All edges associated with the 3D Model selection will be included.</p>
-</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Select edges by selecting the entire object from the <a href="https://wiki.freecad.org/3D_View">3D View</a> or <a href="https://wiki.freecad.org/Tree_View">Tree View</a>, or by selecting individual edges, or by Faces from the <a href="https://wiki.freecad.org/3D_View">3D View</a>.</p>
+<p>Select one or more edges of a model in the <a href="https://wiki.freecad.org/3D_View">3D View</a>, or select an object whose shape is a single wire or edge (for example a Draft wire). Faces and whole solids are not accepted; only the first selected object is used. <a href="../inspect/select-loop.html" class="xref page">Finish Selecting Loop</a> can help to select a closed loop of edges.</p>
 </li>
 <li>
-<p>Press the <span class="image"><img src="../_images/CAM_Shape.svg" alt="CAM Shape" width="16"></span> <a href="#">Path From Shape TC</a> button.</p>
+<p>Select <span class="menuseq"><b class="menu">CAM</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Supplemental Commands</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Path From Shape TC</b></span>. The command is only enabled when a Job exists.</p>
+</li>
+<li>
+<p>Adjust the Tool Controller, retraction and feed properties in the property editor (there is no task panel).</p>
 </li>
 </ol>
 </div>
+<div class="sect2">
+<h3 id="objects-created"><a class="anchor" href="#objects-created"></a>Objects created</h3>
 <div class="paragraph">
-<p>The output tool-path is added outside the CAM Job.</p>
+<p>The command creates a hidden helper object <code>PartShape</code> holding a wire built from the selected edges (its <strong>Base</strong> property links the edges; for a wire object a Draft clone is used instead), and a <code>PathShape</code> object of type <code>Path::FeatureShape</code> whose <strong>Sources</strong> property links the helper. <strong>Retraction</strong>, <strong>ResumeHeight</strong> and <strong>RetractThreshold</strong> are initialised to the Stock top plus 10 mm.</p>
+</div>
 </div>
 </div>
 </div>
@@ -479,43 +512,77 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <h2 id="options"><a class="anchor" href="#options"></a>Options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>All Options provided are available only from the FromShape.Property.Data view, and include:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Retraction Axis</strong></p>
-</li>
-<li>
-<p><strong>Retraction Height</strong></p>
-</li>
-<li>
-<p><strong>Resume Height</strong></p>
-</li>
-<li>
-<p><strong>Feed Rate</strong></p>
-</li>
-<li>
-<p><strong>Feed Rate Vertical</strong></p>
-</li>
-</ul>
+<p>All settings are edited in the property editor: <strong>RetractAxis</strong>, <strong>Retraction</strong>, <strong>ResumeHeight</strong>, <strong>RetractThreshold</strong>, <strong>FeedRate</strong>, <strong>FeedRateVertical</strong> (see Properties).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="properties"><a class="anchor" href="#properties"></a>Properties</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="data"><a class="anchor" href="#data"></a>Data</h3>
-<div class="paragraph">
-<p>Empty</p>
+<div class="ulist">
+<div class="title">Path</div>
+<ul>
+<li>
+<p><strong>Sources</strong> (<code>LinkList</code>): shapes to convert.</p>
+</li>
+<li>
+<p><strong>StartPoint</strong> (<code>Vector</code>): Feed start position.</p>
+</li>
+<li>
+<p><strong>UseStartPoint</strong> (<code>Bool</code>): Enable feed start position.</p>
+</li>
+<li>
+<p><strong>ArcPlane</strong> (<code>Enumeration</code>): <code>None</code>, <code>Auto</code>, <code>XY</code>, <code>ZX</code>, <code>YZ</code>, <code>Variable</code> — arc drawing plane (G17/G18/G19).</p>
+</li>
+<li>
+<p><strong>SortMode</strong> (<code>Enumeration</code>): <code>None</code>, <code>2D5</code>, <code>3D</code>, <code>Greedy</code> — wire sorting mode to optimize travel.</p>
+</li>
+<li>
+<p><strong>MinDistance</strong> (<code>Length</code>), <strong>SortAbscissa</strong> (<code>Length</code>), <strong>NearestK</strong> (<code>Integer</code>): sorting parameters.</p>
+</li>
+<li>
+<p><strong>Orientation</strong> (<code>Enumeration</code>): <code>Normal</code>, <code>Reversed</code> — loop orientation.</p>
+</li>
+<li>
+<p><strong>Direction</strong> (<code>Enumeration</code>): <code>None</code>, <code>XPositive</code>, <code>XNegative</code>, <code>YPositive</code>, <code>YNegative</code>, <code>ZPositive</code>, <code>ZNegative</code> — open path direction.</p>
+</li>
+<li>
+<p><strong>RetractThreshold</strong> (<code>Length</code>): end points closer than this are treated as connected (tool stays down).</p>
+</li>
+<li>
+<p><strong>RetractAxis</strong> (<code>Enumeration</code>): <code>X</code>, <code>Y</code>, <code>Z</code>.</p>
+</li>
+<li>
+<p><strong>Retraction</strong> (<code>Length</code>): absolute retract coordinate along the retract axis.</p>
+</li>
+<li>
+<p><strong>ResumeHeight</strong> (<code>Length</code>): pause height relative to the next move after a retract.</p>
+</li>
+<li>
+<p><strong>Segmentation</strong> (<code>Length</code>): break long curves into segments of this length (0 = off).</p>
+</li>
+<li>
+<p><strong>FeedRate</strong> (<code>Float</code>) and <strong>FeedRateVertical</strong> (<code>Float</code>): feed rates, initialised from the Tool Controller.</p>
+</li>
+<li>
+<p><strong>Verbose</strong> (<code>Bool</code>), <strong>AbsoluteArcCenter</strong> (<code>Bool</code>), <strong>EmitPreamble</strong> (<code>Bool</code>), <strong>Deflection</strong> (<code>Precision</code>).</p>
+</li>
+<li>
+<p><strong>Active</strong> (<code>Bool</code>), <strong>Comment</strong> (<code>String</code>), <strong>UserLabel</strong> (<code>String</code>), <strong>CycleTime</strong> (<code>String</code>, read-only), <strong>ToolController</strong> (<code>Link</code>), <strong>OpToolDiameter</strong> (<code>Distance</code>, read-only, group Op Values): added by the command.</p>
+</li>
+</ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="view"><a class="anchor" href="#view"></a>View</h3>
-<div class="paragraph">
-<p>Empty</p>
 </div>
+<div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>The C++ commands <em>From Shape</em> (<code>CAM_Shape</code>, creates a <code>Path::FeatureShape</code> from selected faces/edges/objects without Tool Controller) and <em>Compound</em> (<code>CAM_Compound</code>) are still compiled into the workbench but are not on any toolbar or menu; they can only be reached via <span class="menuseq"><b class="menu">Tools</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Customize</b></span> or Python.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -525,8 +592,11 @@ This page is incomplete; it was marked as unfinished on the wiki.
 <div class="paragraph">
 <p>See also: <a href="https://wiki.freecad.org/FreeCAD_Scripting_Basics">FreeCAD Scripting Basics</a>.</p>
 </div>
+<div class="paragraph">
+<p>The command has no Python API; the equivalent is to create a <code>Path::FeatureShape</code> object and set its <strong>Sources</strong> property. The low-level conversion is available as <code>Path.fromShapes()</code>:</p>
+</div>
 <div class="sect2">
-<h3 id="docstring-info"><a class="anchor" href="#docstring-info"></a>DocString Info</h3>
+<h3 id="path-fromshapes"><a class="anchor" href="#path-fromshapes"></a>Path.fromShapes()</h3>
 <div class="paragraph">
 <p>Returns a Path object from a list of shapes.</p>
 </div>
@@ -647,7 +717,7 @@ Path.fromShapes(shapes, start=Vector(), return_end=False, arc_plane=1, sort_mode
 </div>
 <nav class="pagination">
   <span class="prev"><a href="probe.html">Probe</a></span>
-  <span class="next"><a href="../modify/copy.html">Copy oOperation</a></span>
+  <span class="next"><a href="../modify/copy.html">Copy Operation</a></span>
 </nav>
 </article>
   </div>
