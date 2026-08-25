@@ -1,14 +1,14 @@
-# Component descriptor for the audit branch: the imported wiki pages with every finding of the
-# 2026-08-22 CAM documentation audit applied (adds, revisions, deletions, missing pages).
+# Component descriptor for the Diataxis branch: the audit-branch content reorganized
+# along the Diátaxis framework (tutorials / how-to guides / reference / explanation).
 name: cam
 title: FreeCAD CAM
-version: audit-2026-08
-display_version: Audit (26.3dev)
+version: diataxis
+display_version: Diátaxis (experiment)
 prerelease: true
 start_page: index.adoc
 nav:
   - modules/ROOT/nav.adoc
 asciidoc:
   attributes:
-    freecad-version: wiki snapshot 2026-08-22
+    freecad-version: 26.3dev
     page-status: ''
