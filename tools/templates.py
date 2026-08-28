@@ -14,6 +14,8 @@ import re
 
 ARROW_RE = re.compile(r"\s*(?:→|->|→|»|>)\s*")
 TOKEN_RE = re.compile(r"QQ(?:ADOC|TITLE)\d{5}QQ")
+# Every workbench ships a Template:<WB>_Tools_navi; they are all navigation plumbing.
+NAVI_RE = re.compile(r".*_navi$")
 
 
 def _strip_tokens(s):
@@ -24,6 +26,7 @@ def _strip_tokens(s):
 DROP = {
     "docnav", "userdocnavi", "powerdocnavi", "cam_tools_navi", "cam tools navi", "top",
     "tocright", "tocleft", "clear", "#translation:", "translation", "languages",
+    "prettytable",   # a table CSS class; the table markup around it survives on its own
     "unfinisheddocu_navi", "tutorials navi", "tutorials_navi",
 }
 
@@ -171,8 +174,13 @@ def gui_command(pos, named, ctx):
     ]
     rows.append(("Workbenches", g.get("workbenches", "")))
     if g.get("shortcut"):
-        keys = " ".join(f"kbd:[{k.strip()}]" for k in re.split(r"\s*(?:\+|then|,)\s*", g["shortcut"]) if k.strip())
-        rows.append(("Default shortcut", keys or g["shortcut"]))
+        raw = g["shortcut"].strip()
+        if TOKEN_RE.search(raw):
+            # The page wrote the shortcut as {{KEY|K}} {{KEY|D}}; those are already rendered.
+            rows.append(("Default shortcut", raw))
+        else:
+            keys = " ".join(f"kbd:[{k.strip()}]" for k in re.split(r"\s*(?:\+|then|,)\s*", raw) if k.strip())
+            rows.append(("Default shortcut", keys or raw))
     else:
         rows.append(("Default shortcut", "_None_"))
     rows.append(("Introduced in version", g.get("version") or "-"))
@@ -221,6 +229,7 @@ HANDLERS = {
     "guicommand": gui_command,
     "tutorialinfo": tutorial_info,
     "coloredtext": colored_text,
+    "=": lambda p, n, c: "=",
     "true": lambda p, n, c: true_false(p, n, c, "true"),
     "false": lambda p, n, c: true_false(p, n, c, "false"),
 }
@@ -235,7 +244,7 @@ def normalize_name(name):
 def handle(name, pos, named, ctx):
     """Return AsciiDoc for a template, '' to drop it, or None if unsupported."""
     key_ = normalize_name(name)
-    if key_ in DROP or key_.replace("_", " ") in DROP:
+    if key_ in DROP or key_.replace("_", " ") in DROP or NAVI_RE.match(key_):
         return ""
     fn = HANDLERS.get(key_)
     if fn is None:

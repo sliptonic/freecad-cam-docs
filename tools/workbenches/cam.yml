@@ -1,0 +1,66 @@
+component: cam
+title: FreeCAD CAM
+short_name: CAM
+prefix: CAM_
+index_page: CAM_Workbench
+index_label: CAM Workbench
+navi_template: Template;CAM_Tools_navi.wikitext
+legacy_prefixes:
+- Path_
+slug_strip_infix:
+- Dressup
+group_dirs:
+  Project Commands: job
+  Tool Commands: inspect
+  Basic Operations: operations
+  3D Operations: operations
+  CAM Dressup: dressups
+  Supplemental Commands: operations
+  CAM Modification: modify
+  Specialty Operations: operations
+  Miscellaneous: misc
+  ToolBit architecture: tools
+  Additional: reference
+path_overrides:
+  CAM_Workbench: index.adoc
+  CAM_ToolBitLibraryOpen: tools/library-manager.adoc
+  CAM_ToolBitDock: tools/add-toolbit.adoc
+  CAM_ToolBit_Library: tools/toolbit-library.adoc
+  CAM_ToolBit: tools/toolbit.adoc
+  CAM_ToolShape: tools/tool-shape.adoc
+  CAM_ToolController: tools/tool-controller.adoc
+  CAM_Tools: tools/index.adoc
+  CAM_Pocket_Shape: operations/pocket.adoc
+  CAM_Pocket3D: operations/pocket-3d.adoc
+  CAM_MillFace: operations/mill-face.adoc
+  CAM_Post: output/post-process.adoc
+  CAM_Postprocessor_Customization: output/postprocessor-customization.adoc
+  CAM_ExportTemplate: job/export-template.adoc
+  CAM_SetupSheet: job/setup-sheet.adoc
+  CAM_Fixture: job/fixture.adoc
+  CAM_Sanity: job/sanity-check.adoc
+  CAM_Job: job/job.adoc
+  CAM_Preferences: reference/preferences.adoc
+  CAM_scripting: reference/scripting.adoc
+  CAM_FAQ: reference/faq.adoc
+  CAM_experimental: reference/experimental.adoc
+  CAM_fourth_axis: reference/fourth-axis.adoc
+  CAM_Development_Roadmap: contributing/development-roadmap.adoc
+  CAM_Walkthrough_for_the_Impatient: tutorials/walkthrough-for-the-impatient.adoc
+  CAM_Shape: operations/path-from-shape-tc.adoc
+  CAM_Simulator: inspect/simulator-legacy.adoc
+  CAM_SimulatorGL: inspect/simulator.adoc
+  CAM_Copy: modify/copy.adoc
+  CAM_Array: modify/array.adoc
+  CAM_SimpleCopy: modify/simple-copy.adoc
+  CAM_Area: misc/area.adoc
+  CAM_Area_Workplane: misc/area-workplane.adoc
+  OpenCamLib: reference/opencamlib.adoc
+  Artwork_CAM: reference/artwork.adoc
+extra_pages:
+- OpenCamLib
+- Artwork_CAM
+link_aliases:
+  CAM_ToolLibraryEdit: CAM_ToolBitLibraryOpen
+  CAM_OperationCopy: CAM_Copy
+  CAM_Pocket_3D: CAM_Pocket3D

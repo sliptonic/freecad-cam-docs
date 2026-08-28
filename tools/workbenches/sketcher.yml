@@ -1,0 +1,30 @@
+component: sketcher
+title: FreeCAD Sketcher
+short_name: Sketcher
+prefix: Sketcher_
+index_page: Sketcher_Workbench
+index_label: Sketcher Workbench
+navi_template: Template;Sketcher_Tools_navi.wikitext
+legacy_prefixes: []
+slug_strip_infix:
+- Create
+- Constrain
+- BSpline
+group_dirs:
+  General: general
+  Geometries: geometry
+  Constraints: constraints
+  Dimensional Constraints: constraints
+  Geometric Constraints: constraints
+  Constraint Tools: constraints
+  Sketcher Tools: tools
+  B-Spline Tools: bspline
+  Visual Helpers: visual
+  Additional: reference
+path_overrides:
+  Sketcher_Workbench: index.adoc
+  Sketcher_Preferences: reference/preferences.adoc
+  Sketcher_scripting: reference/scripting.adoc
+  Sketcher_Dialog: reference/dialog.adoc
+extra_pages: []
+link_aliases: {}

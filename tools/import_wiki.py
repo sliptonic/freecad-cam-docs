@@ -28,6 +28,7 @@ import re
 import shutil
 import subprocess
 import sys
+import unicodedata
 
 import yaml
 
@@ -45,76 +46,60 @@ EXT_LINK_RE = re.compile(r"\[(https?://[^\s\]]+)\s+([^\]]+)\]")
 LANG_SUFFIX_RE = re.compile(r"/(?:[a-z]{2}(?:-[a-z]{2,4})?)$")
 HEADING_RE = re.compile(r"^(={1,6})\s*(.*?)\s*=+\s*(?:<!--.*?-->)?\s*$", re.M)
 
-NAV_GROUP_DIRS = {
-    "Project Commands": "job",
-    "Tool Commands": "inspect",
-    "Basic Operations": "operations",
-    "3D Operations": "operations",
-    "CAM Dressup": "dressups",
-    "Supplemental Commands": "operations",
-    "CAM Modification": "modify",
-    "Specialty Operations": "operations",
-    "Miscellaneous": "misc",
-    "ToolBit architecture": "tools",
-    "Additional": "reference",
-}
-# Hand-tuned placements that the group rule gets wrong.
-PATH_OVERRIDES = {
-    "CAM_Workbench": "index.adoc",
-    "CAM_ToolBitLibraryOpen": "tools/library-manager.adoc",
-    "CAM_ToolBitDock": "tools/add-toolbit.adoc",
-    "CAM_ToolBit_Library": "tools/toolbit-library.adoc",
-    "CAM_ToolBit": "tools/toolbit.adoc",
-    "CAM_ToolShape": "tools/tool-shape.adoc",
-    "CAM_ToolController": "tools/tool-controller.adoc",
-    "CAM_Tools": "tools/index.adoc",
-    "CAM_Pocket_Shape": "operations/pocket.adoc",
-    "CAM_Pocket3D": "operations/pocket-3d.adoc",
-    "CAM_MillFace": "operations/mill-face.adoc",
-    "CAM_Post": "output/post-process.adoc",
-    "CAM_Postprocessor_Customization": "output/postprocessor-customization.adoc",
-    "CAM_ExportTemplate": "job/export-template.adoc",
-    "CAM_SetupSheet": "job/setup-sheet.adoc",
-    "CAM_Fixture": "job/fixture.adoc",
-    "CAM_Sanity": "job/sanity-check.adoc",
-    "CAM_Job": "job/job.adoc",
-    "CAM_Preferences": "reference/preferences.adoc",
-    "CAM_scripting": "reference/scripting.adoc",
-    "CAM_FAQ": "reference/faq.adoc",
-    "CAM_experimental": "reference/experimental.adoc",
-    "CAM_fourth_axis": "reference/fourth-axis.adoc",
-    "CAM_Development_Roadmap": "contributing/development-roadmap.adoc",
-    "CAM_Walkthrough_for_the_Impatient": "tutorials/walkthrough-for-the-impatient.adoc",
-    "CAM_Shape": "operations/path-from-shape-tc.adoc",
-    "CAM_Simulator": "inspect/simulator-legacy.adoc",
-    "CAM_SimulatorGL": "inspect/simulator.adoc",
-    "CAM_Copy": "modify/copy.adoc",
-    "CAM_Array": "modify/array.adoc",
-    "CAM_SimpleCopy": "modify/simple-copy.adoc",
-    "CAM_Area": "misc/area.adoc",
-    "CAM_Area_Workplane": "misc/area-workplane.adoc",
-    "OpenCamLib": "reference/opencamlib.adoc",
-    "Artwork_CAM": "reference/artwork.adoc",
-}
-EXTRA_PAGES = ["OpenCamLib", "Artwork_CAM"]
-# Link targets that exist on the wiki only as redirects to CAM pages, or not at all but have an
-# obvious current page. Resolved before the page map is consulted.
-LINK_ALIASES = {
-    "CAM_ToolLibraryEdit": "CAM_ToolBitLibraryOpen",
-    "CAM_OperationCopy": "CAM_Copy",
-    "CAM_Pocket_3D": "CAM_Pocket3D",
-}
+# Populated from tools/workbenches/<name>.yml by load_workbench().
+WB = {}
+NAV_GROUP_DIRS = {}          # navi group heading -> output directory
+PATH_OVERRIDES = {}          # wiki page name -> explicit output path
+EXTRA_PAGES = []             # pages outside the prefix that belong to this component
+LINK_ALIASES = {}            # link target -> canonical page name
+
+
+def load_workbench(name):
+    """Load a workbench profile and install it into the module-level tables."""
+    global WB, NAV_GROUP_DIRS, PATH_OVERRIDES, EXTRA_PAGES, LINK_ALIASES
+    path = name if os.path.sep in name else os.path.join(HERE, "workbenches", name + ".yml")
+    with open(path, encoding="utf-8") as fh:
+        WB = yaml.safe_load(fh) or {}
+    WB.setdefault("legacy_prefixes", [])
+    WB.setdefault("slug_strip_infix", [])
+    NAV_GROUP_DIRS = WB.get("group_dirs") or {}
+    PATH_OVERRIDES = WB.get("path_overrides") or {}
+    EXTRA_PAGES = WB.get("extra_pages") or []
+    LINK_ALIASES = WB.get("link_aliases") or {}
+    return WB
+
+
+def owned_prefixes():
+    """Page-name prefixes this component claims, for unresolved-link reporting."""
+    return tuple([WB["prefix"]] + list(WB.get("legacy_prefixes") or []))
+
+
+def parse_redirect(text):
+    """Return (target_page, fragment) for a #REDIRECT page, or (None, "").
+
+    Redirect targets are not always whole pages: workbenches that document toolbar groups
+    inline redirect the group's old page name to an anchor on the workbench page.
+    """
+    m = re.match(r"\s*#REDIRECT\s*\[\[([^\]|]+)", text, re.I)
+    if not m:
+        return None, ""
+    page, _, frag = m.group(1).strip().partition("#")
+    page = LANG_SUFFIX_RE.sub("", page.strip()).replace(" ", "_")
+    return (page or None), frag.strip()
 
 
 def load_path_redirects(src):
-    """Path_* pages are all redirects to CAM_* pages; use them to resolve old links."""
+    """Legacy-prefix pages are redirects to current ones; use them to resolve old links."""
     out = {}
+    prefixes = tuple(WB.get("legacy_prefixes") or [])
+    if not prefixes:
+        return out
     for f in os.listdir(src):
-        if f.startswith("Path_") and f.endswith(".wikitext"):
+        if f.startswith(prefixes) and f.endswith(".wikitext"):
             with open(os.path.join(src, f), encoding="utf-8") as fh:
-                m = re.match(r"\s*#REDIRECT\s*\[\[([^\]|]+)", fh.read(300), re.I)
-            if m:
-                out[f[:-9]] = LANG_SUFFIX_RE.sub("", m.group(1).strip()).replace(" ", "_")
+                target, _ = parse_redirect(fh.read(300))
+            if target:
+                out[f[:-9]] = target
     return out
 
 
@@ -146,25 +131,35 @@ class PageCtx:
 # ---------------------------------------------------------------- selection & mapping
 
 def default_path(name):
-    slug = re.sub(r"^CAM_", "", name)
-    slug = re.sub(r"^Dressup", "", slug) if name.startswith("CAM_Dressup") else slug
+    slug = re.sub(r"^" + re.escape(WB["prefix"]), "", name)
+    for infix in WB.get("slug_strip_infix") or []:
+        if slug.startswith(infix) and len(slug) > len(infix):
+            slug = slug[len(infix):]
+            break
     slug = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "-", slug).replace("_", "-").lower()
     slug = re.sub(r"-+", "-", slug).strip("-")
     return slug + ".adoc"
 
 
 def parse_navi(text):
-    """Template:CAM_Tools_navi → ordered list of (group, [(page, label), …])."""
+    """Template:<WB>_Tools_navi -> ordered list of (group, [(page, label), ...]).
+
+    Handles the flat form (a single '*' line whose heading is followed by the links) and
+    the nested form some workbenches use, where a bare heading line is followed by '**'
+    sub-headings that carry the links. Sub-headings become groups of their own.
+    """
     groups = []
-    for m in re.finditer(r"^\*\s*'''(.+?):'''\s*(.*)$", text, re.M):
-        group, rest = m.group(1).strip(), m.group(2)
+    for m in re.finditer(r"^(\*+)[ \t]*'''(.+?):'''[ \t]*(.*)$", text, re.M):
+        group, rest = m.group(2).strip(), m.group(3)
         items = []
-        for lm in re.finditer(r"\[\[([^|\]]+?)(?:\{\{#translation:\}\})?\|([^\]]+)\]\]", rest):
-            items.append((lm.group(1).strip().replace(" ", "_"), lm.group(2).strip()))
-        groups.append((group, items))
+        for lm in re.finditer(r"\[\[([^|\]]+?)\|([^\]]+)\]\]", rest):
+            page = lm.group(1).replace("{{#translation:}}", "").split("#")[0]
+            page = page.strip().replace(" ", "_")
+            if page:
+                items.append((page, lm.group(2).strip()))
+        if items:
+            groups.append((group, items))
     return groups
-
-
 def build_page_map(pages, navi_groups, existing):
     pmap = dict(existing or {})
     group_of = {}
@@ -224,7 +219,7 @@ def convert_link(target, label, ctx, page_map, images):
         anchor = f"#{anchor_id(frag)}" if frag else ""
         return f"xref:{page_map[page]}{anchor}[{text}]"
     ctx.links["wiki"] += 1
-    if page.startswith(("CAM_", "Path_")):
+    if page.startswith(owned_prefixes()):
         ctx.links["unresolved"].append(page)
     url = WIKI_BASE + page + (f"#{frag.replace(' ', '_')}" if frag else "")
     return f"{url}[{text}]"
@@ -232,7 +227,10 @@ def convert_link(target, label, ctx, page_map, images):
 
 def convert_image(target, label, ctx, images):
     name = target.split(":", 1)[1].strip()
-    name = name.replace(" ", "_")
+    # Some pages carry invisible bidi/format marks inside file names (U+200E and friends);
+    # they are not part of the wiki title and break the file lookup.
+    name = "".join(ch for ch in name if unicodedata.category(ch) != "Cf")
+    name = name.replace(" ", "_").strip()
     name = name[:1].upper() + name[1:]        # MediaWiki file titles are first-letter capitalized
     parts = [p.strip() for p in (label or "").split("|")] if label else []
     # In wikitext the label we receive is everything after the first '|', re-split here.
@@ -481,8 +479,9 @@ def write_nav(out_dir, navi_groups, page_map, pages, redirects, titles=None, lan
             return t
         return default
 
-    lines = [f"* xref:index.adoc[{label_for('CAM_Workbench', 'CAM Workbench')}]"]
-    placed = {"CAM_Workbench"}
+    root = WB["index_page"]
+    lines = [f"* xref:index.adoc[{label_for(root, WB.get('index_label', root.replace('_', ' ')))}]"]
+    placed = {root}
     for group, items in navi_groups:
         entries = [(p, l) for p, l in items if p in page_map and p in pages and p not in placed]
         if not entries:
@@ -534,7 +533,7 @@ def write_report(report, out_dir, build_dir):
         f"| Redirects turned into aliases | {s['aliases']}",
         f"| Internal links resolved to xref | {s['links_xref']}",
         f"| Links left pointing at the wiki | {s['links_wiki']}",
-        f"| Links to missing CAM pages | {s['links_unresolved']}",
+        f"| Links to missing {WB.get('short_name', 'component')} pages | {s['links_unresolved']}",
         f"| Images referenced | {s['images_referenced']}",
         f"| Templates expanded | {s['templates_expanded']}",
         f"| Templates unsupported | {s['templates_unsupported']}",
@@ -565,9 +564,45 @@ def write_report(report, out_dir, build_dir):
 
 # ---------------------------------------------------------------- main
 
+def build_revision_map(toplevel, build_dir):
+    """Map every wiki file to the commit that last touched it, in one pass over history.
+
+    A "git log -1 -- <path>" per page costs seconds each on a repo this size; at a few
+    thousand pages that dominates the run. One "--name-only" walk is a flat ~2 minutes,
+    and the result is cached against HEAD so reruns are free.
+    """
+    if not toplevel:
+        return {}
+    head = subprocess.run(["git", "-C", toplevel, "rev-parse", "HEAD"],
+                          capture_output=True, text=True).stdout.strip()
+    cache = os.path.join(build_dir, "revisions.json")
+    if head and os.path.exists(cache):
+        try:
+            blob = json.load(open(cache, encoding="utf-8"))
+            if blob.get("head") == head:
+                return blob["revisions"]
+        except Exception:
+            pass
+    proc = subprocess.run(["git", "-C", toplevel, "log", "--format=C%h %ad", "--date=short",
+                           "--name-only"], capture_output=True, text=True)
+    revs, cur = {}, ""
+    for line in proc.stdout.split("\n"):
+        if line.startswith("C") and re.match(r"C[0-9a-f]{7,} \d{4}-\d\d-\d\d$", line):
+            cur = line[1:]
+        elif line.strip() and cur:
+            revs.setdefault(line.strip(), cur)      # log is newest-first
+    if head:
+        os.makedirs(build_dir, exist_ok=True)
+        with open(cache, "w", encoding="utf-8") as fh:
+            json.dump({"head": head, "revisions": revs}, fh)
+    return revs
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--source", required=True, help="wiki directory of the bridge repo")
+    ap.add_argument("--workbench", default="cam",
+                    help="workbench profile in tools/workbenches/, or a path to a .yml")
     ap.add_argument("--out", default=os.path.join(ROOT, "modules", "ROOT"))
     ap.add_argument("--page-map", default=os.path.join(HERE, "page_map.yml"))
     ap.add_argument("--build-dir", default=os.path.join(ROOT, "build"))
@@ -575,44 +610,52 @@ def main():
     ap.add_argument("--only", help="comma-separated page names to process")
     ap.add_argument("--lang", help="import a translation: read <source>/<lang>, write l10n/<lang>/modules/ROOT")
     args = ap.parse_args()
+    load_workbench(args.workbench)
+    prefix = WB["prefix"]
 
     root_src = args.source
     src = os.path.join(root_src, args.lang) if args.lang else root_src
-    en_names = sorted(f[:-9] for f in os.listdir(root_src) if f.startswith("CAM_") and f.endswith(".wikitext"))
-    names = sorted(f[:-9] for f in os.listdir(src) if f.startswith("CAM_") and f.endswith(".wikitext"))
+    en_names = sorted(f[:-9] for f in os.listdir(root_src) if f.startswith(prefix) and f.endswith(".wikitext"))
+    names = sorted(f[:-9] for f in os.listdir(src) if f.startswith(prefix) and f.endswith(".wikitext"))
     names += [n for n in EXTRA_PAGES if os.path.exists(os.path.join(src, n + ".wikitext"))]
 
     # redirects → aliases
-    redirects = {}
+    redirects, redirect_frags = {}, {}
     for n in list(names):
         with open(os.path.join(src, n + ".wikitext"), encoding="utf-8") as fh:
-            head = fh.read(200)
-        m = re.match(r"\s*#REDIRECT\s*\[\[([^\]|]+)", head, re.I)
-        if m:
-            redirects[n] = LANG_SUFFIX_RE.sub("", m.group(1).strip()).replace(" ", "_")
+            target, frag = parse_redirect(fh.read(300))
+        if target:
+            redirects[n] = target
+            if frag:
+                redirect_frags[n] = frag
     pages = [n for n in names if n not in redirects]
 
-    navi_path = os.path.join(root_src, "Template;CAM_Tools_navi.wikitext")
+    navi_path = os.path.join(root_src, WB["navi_template"])
     navi_groups = parse_navi(open(navi_path, encoding="utf-8").read()) if os.path.exists(navi_path) else []
 
     existing = {}
     if os.path.exists(args.page_map):
         with open(args.page_map, encoding="utf-8") as fh:
             existing = yaml.safe_load(fh) or {}
-    en_redirects = {}
+    en_redirects, en_redirect_frags = {}, {}
     for n in en_names:
         with open(os.path.join(root_src, n + ".wikitext"), encoding="utf-8") as fh:
-            m = re.match(r"\s*#REDIRECT\s*\[\[([^\]|]+)", fh.read(200), re.I)
-        if m:
-            en_redirects[n] = LANG_SUFFIX_RE.sub("", m.group(1).strip()).replace(" ", "_")
+            target, frag = parse_redirect(fh.read(300))
+        if target:
+            en_redirects[n] = target
+            if frag:
+                en_redirect_frags[n] = frag
     en_pages = [n for n in en_names if n not in en_redirects] + EXTRA_PAGES
     page_map = build_page_map(en_pages, navi_groups, existing.get("pages"))
+    def with_frag(path, frag):
+        return path + (f"#{anchor_id(frag)}" if frag else "")
+
     for r, target in redirects.items():
         if target in page_map:
-            page_map[r] = page_map[target]
+            page_map[r] = with_frag(page_map[target], redirect_frags.get(r))
     for r, target in en_redirects.items():
         if target in page_map:
-            page_map.setdefault(r, page_map[target])
+            page_map.setdefault(r, with_frag(page_map[target], en_redirect_frags.get(r)))
     for r, target in load_path_redirects(root_src).items():
         target = LINK_ALIASES.get(target, target)
         if target in page_map and r not in page_map:
@@ -638,6 +681,7 @@ def main():
 
     if args.lang:
         args.out = os.path.join(ROOT, "l10n", args.lang, "modules", "ROOT")
+    revmap = build_revision_map(toplevel, args.build_dir)
     only = set(args.only.split(",")) if args.only else None
     images = set()
     report = {"generated": dt.date.today().isoformat(), "source_sync": sync, "pages": {}, "templates": {}}
@@ -651,12 +695,8 @@ def main():
             wikitext = fh.read()
         rev = ""
         if toplevel:
-            try:
-                relpath = os.path.relpath(os.path.join(src, name + ".wikitext"), toplevel)
-                rev = subprocess.run(["git", "-C", toplevel, "log", "-1", "--format=%h %ad", "--date=short",
-                                      "--", relpath], capture_output=True, text=True, timeout=30).stdout.strip()
-            except Exception:
-                rev = ""
+            relpath = os.path.relpath(os.path.join(src, name + ".wikitext"), toplevel)
+            rev = revmap.get(relpath, "")
         ctx = PageCtx(name, lang=args.lang)
         pre = pre_pass(wikitext, ctx, page_map, images)
         if ctx.infobox_icon:
@@ -720,12 +760,12 @@ def main():
 :page-status: untranslated
 
 This page has not been translated. The English page is at
-link:{{site-en-url}}/cam/{{page-component-version}}/{html_path}[{n.replace('_', ' ')}].
+link:{{site-en-url}}/{WB['component']}/{{page-component-version}}/{html_path}[{n.replace('_', ' ')}].
 """)
         write_nav(args.out, navi_groups, page_map, en_pages, redirects, titles=titles, lang=args.lang)
         with open(os.path.join(ROOT, "l10n", args.lang, "antora.yml"), "w", encoding="utf-8") as fh:
-            fh.write(f"""name: cam
-title: FreeCAD CAM
+            fh.write(f"""name: {WB['component']}
+title: {WB['title']}
 version: wiki-2026-08
 display_version: Wiki (Aug 2026)
 start_page: index.adoc
