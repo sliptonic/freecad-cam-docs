@@ -1,3 +1,8 @@
+> **Superseded 2026-10-01.** This experiment continues at
+> [sliptonic/CAM_DOC](https://github.com/sliptonic/CAM_DOC), seeded from this repository's
+> `audit` branch, with the site at https://sliptonic.github.io/CAM_DOC/. This repository is kept
+> for its history and the open pull-request-preview demonstration (PR #1).
+
 # FreeCAD CAM documentation — experiment
 
 This repository is a personal experiment by one FreeCAD contributor. It is **not** an official
